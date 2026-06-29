@@ -4,7 +4,8 @@ import { prisma } from '@/lib/prisma'
 import { getStripe } from '@/lib/stripe'
 import { checkRateLimit, rateLimitResponse } from '@/lib/ratelimit'
 import { sendPackageOffered } from '@/lib/email'
-import { PRACTICE_PORTAL_ENABLED, practiceDisplayName, commissionPence, clientEmail } from '@/lib/practice'
+import { PRACTICE_PORTAL_ENABLED, practiceDisplayName, clientEmail } from '@/lib/practice'
+import { commissionForSource } from '@/lib/billing'
 import { z } from 'zod'
 
 const schema = z.object({
@@ -59,7 +60,7 @@ export async function POST(req: Request) {
   try {
     if (connectEnabled && teacher.stripeAccountId) {
       const subscription = await prisma.subscription.findUnique({ where: { teacherId: teacher.id } })
-      const { bps, feePence } = commissionPence(pricePence, subscription)
+      const { bps, feePence } = commissionForSource(pricePence, match.source)
       const checkout = await getStripe().checkout.sessions.create({
         mode: 'payment',
         payment_method_types: ['card'],

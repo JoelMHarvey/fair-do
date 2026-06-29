@@ -58,6 +58,16 @@ export function commissionBpsForTier(id: string | null | undefined): number {
   return tierById(id)?.commissionBps ?? 0
 }
 
+// Commission by booking source (P2 pricing). Tutors keep 100% of their own students
+// (invited/added by hand); the platform takes 10% only on directory-sourced
+// (marketplace) bookings — half of Tutorful/MyTutor. Independent of subscription tier.
+export const MARKETPLACE_COMMISSION_BPS = 1000 // 10%
+
+export function commissionForSource(amountPence: number, source: string | null | undefined): { bps: number; feePence: number } {
+  const bps = source === 'marketplace' ? MARKETPLACE_COMMISSION_BPS : 0
+  return { bps, feePence: Math.round((amountPence * bps) / 10000) }
+}
+
 // Reverse lookup: which tier owns a given Stripe Price ID (for plan changes made
 // in the Stripe billing portal). Returns undefined for free/unknown prices.
 export function tierByPriceId(priceId: string | null | undefined): Tier | undefined {

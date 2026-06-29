@@ -1,6 +1,6 @@
 import { prisma } from '@/lib/prisma'
 import { getStripe } from '@/lib/stripe'
-import { commissionPence } from '@/lib/practice'
+import { commissionForSource } from '@/lib/billing'
 import { activeSlotKey, isUniqueViolation } from '@/lib/slots'
 import { createRoom } from '@/lib/daily'
 import { sendBookingConfirmed } from '@/lib/email'
@@ -78,7 +78,7 @@ export async function GET(req: Request) {
     }
     created++
 
-    const { feePence: platformFee } = commissionPence(rb.ratePence, teacher.subscription)
+    const { feePence: platformFee } = commissionForSource(rb.ratePence, rb.match.source)
     const currency = teacher.country === 'US' ? 'usd' : 'gbp'
 
     try {
