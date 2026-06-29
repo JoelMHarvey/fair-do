@@ -1,5 +1,5 @@
 import { clerkMiddleware, createRouteMatcher } from '@clerk/nextjs/server'
-import { NextResponse } from 'next/server'
+import { NextResponse, type NextRequest, type NextFetchEvent } from 'next/server'
 import { NON_EN_LOCALES, LOCALES, I18N_ENABLED, type Locale, type NonEnLocale } from '@/lib/locale-config'
 
 // ── Locale helpers ───────────────────────────────────────────────────────────
@@ -76,7 +76,7 @@ const isPublicRoute = createRouteMatcher([
 
 // ── Middleware ───────────────────────────────────────────────────────────────
 
-export default clerkMiddleware(async (auth, request) => {
+const clerkAuth = clerkMiddleware(async (auth, request) => {
   // i18n OFF → behave exactly like the single-locale middleware: just gate auth.
   if (!I18N_ENABLED) {
     if (!isPublicRoute(request)) {
@@ -127,6 +127,30 @@ export default clerkMiddleware(async (auth, request) => {
 
   return response
 })
+
+// Fail fast with a clear, actionable message when Clerk isn't configured. Without
+// this, clerkMiddleware throws a cryptic "Missing publishableKey" on every request
+// and the deploy shows a generic 500 — common on Vercel Preview deploys that have
+// no env vars set. See docs/LAUNCH.md for the full env list.
+export default function middleware(request: NextRequest, event: NextFetchEvent) {
+  if (!process.env.NEXT_PUBLIC_CLERK_PUBLISHABLE_KEY || !process.env.CLERK_SECRET_KEY) {
+    console.error(
+      '[fair-do] Authentication is not configured: set NEXT_PUBLIC_CLERK_PUBLISHABLE_KEY ' +
+      'and CLERK_SECRET_KEY (use Clerk development keys for Preview deploys) in the Vercel ' +
+      'project environment variables, then redeploy.',
+    )
+    return new NextResponse(
+      'fair-do is not configured.\n\n' +
+      'Missing authentication keys (Clerk). Set NEXT_PUBLIC_CLERK_PUBLISHABLE_KEY and ' +
+      'CLERK_SECRET_KEY — plus the rest of the runtime env (see docs/LAUNCH.md) — in the ' +
+      'Vercel project for this environment, then redeploy.\n\n' +
+      'Preview deploys must use Clerk *development* keys (pk_test_/sk_test_); live keys are ' +
+      'locked to the production domain.',
+      { status: 503, headers: { 'content-type': 'text/plain; charset=utf-8' } },
+    )
+  }
+  return clerkAuth(request, event)
+}
 
 export const config = {
   matcher: [
