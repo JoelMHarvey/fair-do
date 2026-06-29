@@ -5,7 +5,8 @@ import { getStripe } from '@/lib/stripe'
 import { createRoom } from '@/lib/daily'
 import { checkRateLimit, rateLimitResponse } from '@/lib/ratelimit'
 import { sendSessionScheduledByTherapist, sendSessionSeriesScheduled } from '@/lib/email'
-import { PRACTICE_PORTAL_ENABLED, effectiveRatePence, practiceDisplayName, commissionPence, clientEmail } from '@/lib/practice'
+import { PRACTICE_PORTAL_ENABLED, effectiveRatePence, practiceDisplayName, clientEmail } from '@/lib/practice'
+import { commissionForSource } from '@/lib/billing'
 import { activeSlotKey, isUniqueViolation } from '@/lib/slots'
 import { z } from 'zod'
 
@@ -254,7 +255,7 @@ export async function POST(req: Request) {
       // stripe webhook (keyed on metadata) creates the Payment + Daily room on completion.
       // Commission comes from the teacher's subscription (Starter rate if none).
       const subscription = await prisma.subscription.findUnique({ where: { teacherId: teacher.id } })
-      const { bps, feePence } = commissionPence(ratePence, subscription)
+      const { bps, feePence } = commissionForSource(ratePence, match.source)
       const stripe = getStripe()
       const checkout = await stripe.checkout.sessions.create({
         mode: 'payment',

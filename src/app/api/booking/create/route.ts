@@ -2,7 +2,7 @@ import { auth } from '@clerk/nextjs/server'
 import { headers } from 'next/headers'
 import { prisma } from '@/lib/prisma'
 import { getStripe } from '@/lib/stripe'
-import { commissionPence } from '@/lib/practice'
+import { commissionForSource } from '@/lib/billing'
 import { activeSlotKey, isUniqueViolation } from '@/lib/slots'
 import { checkRateLimit, rateLimitResponse } from '@/lib/ratelimit'
 import { createRoom } from '@/lib/daily'
@@ -140,7 +140,8 @@ export async function POST(req: Request) {
     throw e
   }
 
-  const { bps, feePence: platformFee } = commissionPence(ratePence, teacher.subscription)
+  // Commission by source: marketplace (directory) bookings pay 10%; own students 0%.
+  const { bps, feePence: platformFee } = commissionForSource(ratePence, match.source)
   const teacherPayout = ratePence - platformFee
   const roomMax = isGroup ? seats + 1 : 2
   const appUrl = process.env.NEXT_PUBLIC_APP_URL ?? 'http://localhost:3001'

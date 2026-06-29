@@ -3,6 +3,7 @@ import {
   PRACTICE_TIERS,
   tierById,
   commissionBpsForTier,
+  commissionForSource,
   tierByPriceId,
   subscriptionPeriodEnd,
 } from './billing'
@@ -121,5 +122,19 @@ describe('subscriptionPeriodEnd', () => {
   it('returns null when neither field present', () => {
     expect(subscriptionPeriodEnd({})).toBeNull()
     expect(subscriptionPeriodEnd({ items: { data: [] } })).toBeNull()
+  })
+})
+
+describe('commissionForSource (P2 pricing)', () => {
+  it('takes 10% on marketplace bookings', () => {
+    expect(commissionForSource(5000, 'marketplace')).toEqual({ bps: 1000, feePence: 500 })
+  })
+  it('takes nothing on own students (invite/manual/null)', () => {
+    expect(commissionForSource(5000, 'invite')).toEqual({ bps: 0, feePence: 0 })
+    expect(commissionForSource(5000, 'manual')).toEqual({ bps: 0, feePence: 0 })
+    expect(commissionForSource(5000, null)).toEqual({ bps: 0, feePence: 0 })
+  })
+  it('rounds the fee', () => {
+    expect(commissionForSource(3333, 'marketplace').feePence).toBe(333)
   })
 })
