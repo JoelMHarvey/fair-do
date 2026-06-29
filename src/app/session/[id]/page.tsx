@@ -8,6 +8,8 @@ import { Logo } from '@/components/Logo'
 import CancelButton from './CancelButton'
 import RoomPoll from './RoomPoll'
 import ReviewForm from './ReviewForm'
+import WhiteboardButton from './WhiteboardButton'
+import { WHITEBOARD_ENABLED, whiteboardUrl, whiteboardEmbeddable } from '@/lib/whiteboard'
 
 export default async function SessionPage({
   params,
@@ -77,6 +79,7 @@ export default async function SessionPage({
   const refundable = hoursUntil >= 24
 
   const backHref = isStudent ? '/dashboard' : '/teacher/dashboard'
+  const wbUrl = WHITEBOARD_ENABLED ? whiteboardUrl(session.id) : null
 
   // Teacher-only: quick access to this student's notes + external document links during the session.
   const studentDocs = isTeacher
@@ -129,6 +132,7 @@ export default async function SessionPage({
               </div>
             </details>
           )}
+          {wbUrl && <WhiteboardButton url={wbUrl} embeddable={whiteboardEmbeddable()} />}
           <Link href={backHref} className="text-sm text-brand-100/80 hover:text-white transition">
             ← Dashboard
           </Link>
