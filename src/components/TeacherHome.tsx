@@ -1,7 +1,7 @@
 import Link from 'next/link'
 import { SiteNav } from '@/components/SiteNav'
 import { SiteFooter } from '@/components/SiteFooter'
-import { BreathingLotus } from '@/components/BreathingLotus'
+import { HeroMark } from '@/components/HeroMark'
 import { DIRECTORY_ENABLED } from '@/lib/practice'
 import type en from '@/messages/en.json'
 
@@ -21,7 +21,7 @@ export function TeacherHome({ t }: { t: HomeT }) {
         <div className="absolute top-40 -left-24 -z-10 h-80 w-80 rounded-full bg-coral-100/40 blur-3xl" />
 
         <div className="max-w-3xl mx-auto px-5 sm:px-8 pt-16 sm:pt-20 pb-16 text-center">
-          <BreathingLotus className="mb-6" />
+          <HeroMark className="mb-6" />
           <span className="inline-flex items-center gap-2 rounded-full border border-brand-200 bg-white/60 px-4 py-1.5 text-sm font-medium text-brand-700">
             <span className="h-1.5 w-1.5 rounded-full bg-brand-500" />
             {t.hero_badge}

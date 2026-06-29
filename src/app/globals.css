@@ -104,91 +104,53 @@ textarea:focus-visible,
   border-radius: 4px;
 }
 
-/* Faresay breathing lotus (scoped to .fl-) — calm hero centerpiece.
-   4-7-8 cycle: in 4s · hold 7s · out 8s · settle 1s = 20s. */
-.fl-lotus-wrap {
+/* fair-do hero growth mark (scoped to .hm-) — ascending bars + amber spark.
+   Bars rise in a slow staggered wave; calm, not busy. */
+.hm-wrap {
   width: min(260px, 60vw);
   aspect-ratio: 1 / 1;
   margin: 0 auto;
   filter: drop-shadow(0 14px 30px rgba(79, 70, 229, 0.20));
 }
-.fl-lotus { width: 100%; height: 100%; display: block; overflow: visible; }
-.fl-petal {
+.hm-svg { width: 100%; height: 100%; display: block; overflow: visible; }
+.hm-bar {
   transform-box: fill-box;
   transform-origin: 50% 100%;
   will-change: transform;
-  animation-duration: 20s;
-  animation-timing-function: ease-in-out;
-  animation-iteration-count: infinite;
+  animation: hm-rise 3.6s ease-in-out infinite;
 }
-/* Per-petal keyframes (literal angles — no var() in @keyframes for iOS Safari). */
-.fl-o-n58 { animation-name: fl-o-n58; }
-.fl-o-p58 { animation-name: fl-o-p58; }
-.fl-o-n34 { animation-name: fl-o-n34; }
-.fl-o-p34 { animation-name: fl-o-p34; }
-.fl-m-n20 { animation-name: fl-m-n20; }
-.fl-m-p20 { animation-name: fl-m-p20; }
-.fl-i-n8 { animation-name: fl-i-n8; }
-.fl-i-p8 { animation-name: fl-i-p8; }
-.fl-i-z { animation-name: fl-i-z; }
-.fl-halo {
+.hm-b0 { animation-delay: 0s; }
+.hm-b1 { animation-delay: .14s; }
+.hm-b2 { animation-delay: .28s; }
+.hm-b3 { animation-delay: .42s; }
+.hm-b4 { animation-delay: .56s; }
+.hm-halo {
   transform-box: fill-box;
   transform-origin: center;
   will-change: transform, opacity;
-  animation: fl-halo 20s ease-in-out infinite;
+  animation: hm-halo 6s ease-in-out infinite;
 }
-@keyframes fl-o-n58 {
-  0% { transform: rotate(-58deg) scaleY(1) scaleX(1); }
-  20%, 55% { transform: rotate(0deg) scaleY(.66) scaleX(.9); }
-  95%, 100% { transform: rotate(-58deg) scaleY(1) scaleX(1); }
+.hm-spark {
+  transform-box: fill-box;
+  transform-origin: center;
+  will-change: transform, opacity;
+  animation: hm-spark 3.6s ease-in-out infinite;
 }
-@keyframes fl-o-p58 {
-  0% { transform: rotate(58deg) scaleY(1) scaleX(1); }
-  20%, 55% { transform: rotate(0deg) scaleY(.66) scaleX(.9); }
-  95%, 100% { transform: rotate(58deg) scaleY(1) scaleX(1); }
+@keyframes hm-rise {
+  0%, 100% { transform: scaleY(.74); }
+  50% { transform: scaleY(1); }
 }
-@keyframes fl-o-n34 {
-  0% { transform: rotate(-34deg) scaleY(1) scaleX(1); }
-  20%, 55% { transform: rotate(0deg) scaleY(.66) scaleX(.9); }
-  95%, 100% { transform: rotate(-34deg) scaleY(1) scaleX(1); }
+@keyframes hm-halo {
+  0%, 100% { transform: scale(1); opacity: .5; }
+  50% { transform: scale(.86); opacity: .3; }
 }
-@keyframes fl-o-p34 {
-  0% { transform: rotate(34deg) scaleY(1) scaleX(1); }
-  20%, 55% { transform: rotate(0deg) scaleY(.66) scaleX(.9); }
-  95%, 100% { transform: rotate(34deg) scaleY(1) scaleX(1); }
-}
-@keyframes fl-m-n20 {
-  0% { transform: rotate(-20deg) scaleY(1) scaleX(1); }
-  20%, 55% { transform: rotate(0deg) scaleY(.72) scaleX(.9); }
-  95%, 100% { transform: rotate(-20deg) scaleY(1) scaleX(1); }
-}
-@keyframes fl-m-p20 {
-  0% { transform: rotate(20deg) scaleY(1) scaleX(1); }
-  20%, 55% { transform: rotate(0deg) scaleY(.72) scaleX(.9); }
-  95%, 100% { transform: rotate(20deg) scaleY(1) scaleX(1); }
-}
-@keyframes fl-i-n8 {
-  0% { transform: rotate(-8deg) scaleY(1) scaleX(1); }
-  20%, 55% { transform: rotate(0deg) scaleY(.82) scaleX(.94); }
-  95%, 100% { transform: rotate(-8deg) scaleY(1) scaleX(1); }
-}
-@keyframes fl-i-p8 {
-  0% { transform: rotate(8deg) scaleY(1) scaleX(1); }
-  20%, 55% { transform: rotate(0deg) scaleY(.82) scaleX(.94); }
-  95%, 100% { transform: rotate(8deg) scaleY(1) scaleX(1); }
-}
-@keyframes fl-i-z {
-  0% { transform: scaleY(1) scaleX(1); }
-  20%, 55% { transform: scaleY(.82) scaleX(.94); }
-  95%, 100% { transform: scaleY(1) scaleX(1); }
-}
-@keyframes fl-halo {
-  0% { transform: scale(1); opacity: .55; }
-  20%, 55% { transform: scale(.8); opacity: .3; }
-  95%, 100% { transform: scale(1); opacity: .55; }
+@keyframes hm-spark {
+  0%, 100% { transform: scale(.85) rotate(0deg); opacity: .8; }
+  50% { transform: scale(1.2) rotate(45deg); opacity: 1; }
 }
 @media (prefers-reduced-motion: reduce) {
-  .fl-petal, .fl-halo { animation: none !important; }
+  .hm-bar, .hm-halo, .hm-spark { animation: none !important; }
+  .hm-bar { transform: scaleY(1) !important; }
 }
 
 /* Founder business-docs renderer (markdown → branded prose) */
