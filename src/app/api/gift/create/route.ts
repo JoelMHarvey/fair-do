@@ -35,8 +35,8 @@ export async function POST(req: Request) {
           price_data: {
             currency: 'gbp',
             product_data: {
-              name: 'fair-do therapy gift voucher',
-              description: `£${(amountPence / 100).toFixed(2)} of therapy credit`,
+              name: 'fair-do gift voucher',
+              description: `£${(amountPence / 100).toFixed(2)} of lesson credit`,
             },
             unit_amount: amountPence,
           },

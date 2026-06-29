@@ -10,73 +10,72 @@ export type Post = {
 
 export const POSTS: Post[] = [
   {
-    slug: 'do-i-need-therapy',
-    title: 'How to know if you might need therapy',
-    description: 'You don\'t have to be in crisis to benefit from therapy. Here are the signs it might help, and how to take a first step.',
+    slug: 'do-i-need-a-tutor',
+    title: 'How to know if a tutor could help',
+    description: 'You don\'t need to be falling behind to benefit from a tutor. Here are the signs it might help, and how to take a first step.',
     date: '2026-06-01',
     readMins: 5,
     sections: [
       { p: [
-        'One of the most common things people say before starting therapy is some version of: "I\'m not sure my problem is big enough." You don\'t need to be in crisis, and you don\'t need a diagnosis. Therapy is for anyone who wants to feel better, understand themselves, or change something that isn\'t working.',
+        'One of the most common things people say before getting a tutor is some version of: "Are things bad enough to need one?" You don\'t need to be failing, and you don\'t need a crisis at school. Tutoring is for anyone who wants to understand a subject better, build confidence, or get ready for something that matters.',
       ] },
       { h: 'Signs it might help', p: [
-        'You\'ve felt low, anxious, or "not yourself" for more than a couple of weeks. The same patterns keep repeating in your relationships or work. You\'re carrying something — a loss, a memory, a worry — that you can\'t seem to put down. You\'re coping, but it\'s taking everything you have. Or simply: something feels off, and you\'d like a thinking partner who isn\'t a friend or family member.',
+        'Homework has become a nightly battle, or it\'s taking far longer than it should. A subject that used to click has stopped making sense. Grades have slipped, or they\'re fine but an exam is coming up. Confidence has dropped — "I\'m just rubbish at maths." Or simply: a learner who\'s ready to stretch further than the classroom has time for, and would benefit from one-to-one attention.',
       ] },
-      { h: 'It doesn\'t have to be a crisis', p: [
-        'Plenty of people come to therapy not because everything has fallen apart, but to stop it from getting there — or to grow. Prevention and self-understanding are completely valid reasons.',
-        'That said, if you are in crisis or thinking about harming yourself, please reach out to urgent support now rather than waiting for a session.',
+      { h: 'It doesn\'t have to be a problem', p: [
+        'Plenty of people get a tutor not because things have gone wrong, but to stay ahead, build a strong foundation, or prepare for an entrance exam or university application. Stretch and confidence are completely valid reasons.',
       ] },
       { h: 'Taking a first step', p: [
-        'You don\'t have to commit to anything big. A single session can help you decide if it\'s for you. On fair-do, you answer one short question, get matched with verified therapists who fit, and book when you\'re ready — no subscription, cancel free up to 24 hours before.',
+        'You don\'t have to commit to anything big. A single lesson can help you decide if a tutor is right. On fair-do, you tell us the subject and level, get matched with verified tutors who fit, and book when you\'re ready — no subscription, cancel free up to 24 hours before.',
       ] },
     ],
   },
   {
-    slug: 'understanding-anxiety',
-    title: 'Understanding anxiety: signs, causes, and what helps',
-    description: 'A plain-English guide to anxiety — what it is, why it happens, and the approaches that genuinely help.',
+    slug: 'understanding-exam-stress',
+    title: 'Understanding exam stress: signs, causes, and what helps',
+    description: 'A plain-English guide to exam stress — what it is, why it happens, and the approaches that genuinely help.',
     date: '2026-06-08',
     readMins: 6,
     sections: [
       { p: [
-        'Anxiety is one of the most common reasons people seek therapy — and one of the most treatable. It\'s your body\'s threat system doing its job, just a little too often or too loudly. Understanding it is the first step to loosening its grip.',
+        'Exam stress is one of the most common reasons families look for a tutor — and one of the most manageable. It\'s your body\'s threat system doing its job, just a little too often or too loudly. Understanding it is the first step to loosening its grip.',
       ] },
-      { h: 'What anxiety can feel like', p: [
-        'Racing or circular thoughts, a sense of dread, trouble sleeping, a tight chest or churning stomach, irritability, avoiding things you used to do, or feeling "on edge" without knowing why. It shows up in the body as much as the mind.',
+      { h: 'What exam stress can feel like', p: [
+        'Racing or circular thoughts, a sense of dread, trouble sleeping, a tight chest or churning stomach, irritability, going blank in tests, or avoiding revision altogether. It shows up in the body as much as the mind.',
       ] },
       { h: 'Why it happens', p: [
-        'Anxiety can be driven by life stress, past experiences, temperament, health, or a mix. Often it\'s maintained by a loop: we feel anxious, we avoid the thing, the relief teaches our brain the thing really was dangerous — so the anxiety grows. Naming that loop is powerful.',
+        'Exam stress can be driven by pressure, gaps in understanding, past experiences of "freezing", perfectionism, or a mix. Often it\'s maintained by a loop: revision feels overwhelming, so we avoid it, which leaves us less prepared — so the dread grows. Naming that loop is powerful.',
       ] },
       { h: 'What genuinely helps', p: [
-        'CBT is well-evidenced for anxiety — it helps you test anxious thoughts and gently face what you\'ve been avoiding. Mindfulness-based approaches help you relate to anxious thoughts as passing events rather than facts. For anxiety rooted in past experiences, psychodynamic or EMDR work can help. There\'s no single right path — a good therapist tailors it to you.',
-        'You can read more about each in our guide to therapy styles.',
+        'Breaking work into small, specific steps beats vague "do more revision". Past papers under realistic conditions turn the unknown into the familiar. Spaced practice — little and often — sticks far better than cramming. And one-to-one time lets a tutor find the exact gap that\'s causing the panic and close it. There\'s no single right path — a good tutor tailors it to the learner.',
+        'You can read more about subjects and levels in our subjects guide.',
       ] },
-      { h: 'When to get support sooner', p: [
-        'If anxiety is stopping you living your life, or comes with thoughts of harming yourself, don\'t wait — reach out to urgent support, and consider talking to a therapist.',
+      { h: 'When to get more support', p: [
+        'If stress is affecting sleep, mood, or daily life beyond exams, don\'t wait — talk to your GP or school, and for someone in distress, Samaritans (116 123) and the NSPCC (0808 800 5000) can help.',
       ] },
     ],
   },
   {
-    slug: 'first-therapy-session',
-    title: 'What to expect in your first therapy session',
-    description: 'Nervous about your first session? Here\'s exactly what tends to happen, and how to get the most from it.',
+    slug: 'first-tutoring-lesson',
+    title: 'What to expect in your first tutoring lesson',
+    description: 'Nervous about the first lesson? Here\'s exactly what tends to happen, and how to get the most from it.',
     date: '2026-06-15',
     readMins: 5,
     sections: [
       { p: [
-        'Almost everyone feels a flutter of nerves before their first session. That\'s normal — you\'re about to talk to a stranger about personal things. Knowing what to expect takes a lot of the edge off.',
+        'Almost everyone feels a flutter of nerves before a first lesson — learner and parent alike. That\'s normal. Knowing what to expect takes a lot of the edge off.',
       ] },
-      { h: 'The first session is mostly orientation', p: [
-        'You won\'t be expected to pour out your whole life story. A first session is usually about getting to know each other: what brings you here, what you\'d like to be different, a little background, and how you both like to work. It\'s as much you interviewing them as the other way round.',
+      { h: 'The first lesson is mostly orientation', p: [
+        'No one expects you to know everything on day one. A first lesson is usually about getting to know each other: where you are with the subject, what you\'d like to improve, what\'s coming up (a test, an exam, an application), and how you both like to work. It\'s as much you sizing up the tutor as the other way round.',
       ] },
-      { h: 'You\'re allowed to not know', p: [
-        '"I\'m not even sure why I\'m here" is a perfectly good place to start. A skilled therapist will help you find the thread. You also don\'t have to share anything you\'re not ready to.',
+      { h: 'You\'re allowed to find it hard', p: [
+        '"I don\'t really get any of this" is a perfectly good place to start. A skilled tutor will find the thread and build from what you do know. There\'s no judgement — that\'s the whole point of one-to-one.',
       ] },
       { h: 'Fit matters more than anything', p: [
-        'The single biggest predictor of whether therapy helps is the relationship. If after a session or two it doesn\'t feel right, it\'s completely okay to try someone else — it\'s not a failure, it\'s finding your fit.',
+        'The single biggest predictor of whether tutoring works is the relationship. If after a lesson or two it doesn\'t feel right, it\'s completely okay to try someone else — it\'s not a failure, it\'s finding your fit.',
       ] },
       { h: 'Getting the most from it', p: [
-        'Be as honest as you can, including about the therapy itself ("that landed wrong", "I\'d like more structure"). Notice what comes up between sessions. And give it a little time — the first session is the start of a process, not a one-off fix.',
+        'Come with specific questions or a topic you\'re stuck on. Be honest about what isn\'t landing ("can we go slower here", "I\'d like more practice questions"). Do the small bits of practice between lessons. And give it a little time — tutoring is a process, not a one-off fix.',
       ] },
     ],
   },

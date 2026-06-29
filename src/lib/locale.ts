@@ -1,6 +1,6 @@
 export type Region = 'UK' | 'US' | 'PT' | 'FR' | 'IT' | 'ES' | 'DE'
 
-// Languages a therapist can offer sessions in (UK/US-relevant set).
+// Languages a tutor can teach in (UK/US-relevant set).
 export const LANGUAGES = [
   'English', 'Spanish', 'French', 'German', 'Italian', 'Portuguese', 'Polish',
   'Romanian', 'Urdu', 'Punjabi', 'Hindi', 'Bengali', 'Gujarati', 'Tamil',
@@ -10,24 +10,15 @@ export const LANGUAGES = [
 
 export type CrisisLine = { name: string; contact: string; detail: string; href: string }
 
+// Per-region presentation + safeguarding signposting. Teaching-credential
+// verification lives in src/lib/credential-registers.ts (the live source of
+// truth), not here — this config is only currency, region label, and the
+// emergency/welfare lines shown on /help.
 export type RegionConfig = {
   region: Region
   label: string
   currencySymbol: string
   currencyCode: string
-  credentialBodies: string[]
-  credentialLabel: string
-  // How therapist credentials are verified in this country.
-  // 'directory' = public lookup URL exists; 'manual-review' = human check required;
-  // 'fragmented' = regional sub-registers, manual-review fallback needed.
-  verificationApproach: 'directory' | 'manual-review' | 'fragmented'
-  // Whether professional indemnity insurance is legally required. [LEGAL] confirm per country.
-  requiresInsurance: boolean
-  // Professional titles accepted on fair-do in this market. [LEGAL] confirm before launch.
-  acceptedTitles: string[]
-  scopesByState: boolean
-  // True for countries with regional registration bodies (ES, IT).
-  scopesByRegion: boolean
   emergencyNumber: string
   crisisLines: CrisisLine[]
 }
@@ -37,13 +28,6 @@ const UK: RegionConfig = {
   label: 'United Kingdom',
   currencySymbol: '£',
   currencyCode: 'GBP',
-  credentialBodies: ['BACP', 'UKCP', 'BPS', 'NCS'],
-  credentialLabel: 'registration',
-  verificationApproach: 'manual-review',
-  requiresInsurance: true,
-  acceptedTitles: ['Counsellor', 'Psychotherapist', 'Psychologist', 'CBT Therapist', 'EMDR Therapist'],
-  scopesByState: false,
-  scopesByRegion: false,
   emergencyNumber: '999',
   crisisLines: [
     { name: 'Emergency services', contact: '999', detail: 'Immediate danger or risk to life.', href: 'tel:999' },
@@ -58,13 +42,6 @@ const US: RegionConfig = {
   label: 'United States',
   currencySymbol: '$',
   currencyCode: 'USD',
-  credentialBodies: ['LPC', 'LCSW', 'LMFT', 'LMHC', 'PsyD', 'PhD (Clinical)'],
-  credentialLabel: 'license',
-  verificationApproach: 'manual-review',
-  requiresInsurance: true,
-  acceptedTitles: ['LPC', 'LCSW', 'LMFT', 'LMHC', 'Psychologist (PsyD/PhD)'],
-  scopesByState: true,
-  scopesByRegion: false,
   emergencyNumber: '911',
   crisisLines: [
     { name: 'Emergency services', contact: '911', detail: 'Immediate danger or risk to life.', href: 'tel:911' },
@@ -75,22 +52,12 @@ const US: RegionConfig = {
 }
 
 // ── EU markets ────────────────────────────────────────────────────────────────
-// [LEGAL] All acceptedTitles and requiresInsurance values must be confirmed with
-// local legal counsel before launch in each country.
 
 const PT: RegionConfig = {
   region: 'PT',
   label: 'Portugal',
   currencySymbol: '€',
   currencyCode: 'EUR',
-  // Single national register (OPP) with a searchable directory — easiest to verify.
-  credentialBodies: ['OPP'],
-  credentialLabel: 'Cédula Profissional',
-  verificationApproach: 'directory',
-  requiresInsurance: true, // [LEGAL] confirm
-  acceptedTitles: ['Psicólogo', 'Psicólogo Especialista'], // [LEGAL] confirm
-  scopesByState: false,
-  scopesByRegion: false,
   emergencyNumber: '112',
   crisisLines: [
     { name: 'Emergência', contact: '112', detail: 'Perigo imediato ou risco de vida.', href: 'tel:112' },
@@ -104,16 +71,6 @@ const FR: RegionConfig = {
   label: 'France',
   currencySymbol: '€',
   currencyCode: 'EUR',
-  // RPPS (Répertoire Partagé des Professionnels de Santé) — national, searchable.
-  // Note: "psychothérapeute" (registered since 2010) and "psychologue" use different
-  // registers — confirm accepted titles with legal counsel before launch. [LEGAL]
-  credentialBodies: ['RPPS', 'ARS'],
-  credentialLabel: 'numéro RPPS',
-  verificationApproach: 'directory',
-  requiresInsurance: true, // [LEGAL] confirm
-  acceptedTitles: ['Psychologue', 'Psychothérapeute'], // [LEGAL] confirm which registers apply
-  scopesByState: false,
-  scopesByRegion: false,
   emergencyNumber: '15',
   crisisLines: [
     { name: 'SAMU', contact: '15', detail: 'Urgence médicale immédiate.', href: 'tel:15' },
@@ -127,14 +84,6 @@ const IT: RegionConfig = {
   label: 'Italy',
   currencySymbol: '€',
   currencyCode: 'EUR',
-  // Ordine degli Psicologi with regional Albi — nationally coordinated but regionally administered.
-  credentialBodies: ['OPL', 'OPR'],
-  credentialLabel: 'numero di iscrizione Albo',
-  verificationApproach: 'fragmented',
-  requiresInsurance: true, // [LEGAL] confirm
-  acceptedTitles: ['Psicologo', 'Psicoterapeuta'], // [LEGAL] confirm
-  scopesByState: false,
-  scopesByRegion: true,
   emergencyNumber: '112',
   crisisLines: [
     { name: 'Emergenza', contact: '112', detail: 'Pericolo immediato o rischio per la vita.', href: 'tel:112' },
@@ -148,16 +97,6 @@ const ES: RegionConfig = {
   label: 'Spain',
   currencySymbol: '€',
   currencyCode: 'EUR',
-  // Regional Colegios Oficiales de Psicólogos (COP) — no single national lookup.
-  // Verification requires checking the correct regional college per therapist.
-  // Manual-review fallback is required. [LEGAL] confirm which regional colleges to accept.
-  credentialBodies: ['COP'],
-  credentialLabel: 'número de colegiación',
-  verificationApproach: 'fragmented',
-  requiresInsurance: true, // [LEGAL] confirm
-  acceptedTitles: ['Psicólogo', 'Psicólogo Sanitario', 'Psicoterapeuta'], // [LEGAL] confirm
-  scopesByState: false,
-  scopesByRegion: true,
   emergencyNumber: '112',
   crisisLines: [
     { name: 'Emergencias', contact: '112', detail: 'Peligro inmediato o riesgo vital.', href: 'tel:112' },
@@ -166,24 +105,11 @@ const ES: RegionConfig = {
   ],
 }
 
-// Germany is the most nuanced market: the Heilpraktiker für Psychotherapie policy
-// decision (do you accept them alongside Approbierte Psychotherapeuten?) must be
-// made by Joel before dev starts. [LEGAL] + brand decision. Launch last.
 const DE: RegionConfig = {
   region: 'DE',
   label: 'Germany',
   currencySymbol: '€',
   currencyCode: 'EUR',
-  // State Psychotherapeutenkammern + KVs for Approbierte Psychotherapeuten.
-  // Heilpraktiker für Psychotherapie use a separate, non-licensed pathway.
-  // [LEGAL] confirm eligibility policy before accepting any registrations.
-  credentialBodies: ['PTK', 'KV'],
-  credentialLabel: 'Approbationsurkunde',
-  verificationApproach: 'manual-review',
-  requiresInsurance: true, // [LEGAL] confirm
-  acceptedTitles: ['Psychologischer Psychotherapeut', 'Kinder- und Jugendlichenpsychotherapeut'], // [LEGAL] — Heilpraktiker decision pending
-  scopesByState: false,
-  scopesByRegion: true, // Approbation is issued per state (Bundesland)
   emergencyNumber: '112',
   crisisLines: [
     { name: 'Notruf', contact: '112', detail: 'Unmittelbare Lebensgefahr oder medizinischer Notfall.', href: 'tel:112' },
