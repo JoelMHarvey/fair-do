@@ -25,8 +25,7 @@ export async function TeacherNav() {
     { href: '/teacher/dashboard', label: 'Dashboard' },
     ...(PRACTICE_PORTAL_ENABLED ? [
       { href: '/teacher/calendar', label: 'Calendar' },
-      { href: '/teacher/students', label: 'Clients' },
-      { href: '/teacher/supervision', label: 'Supervision' },
+      { href: '/teacher/students', label: 'Students' },
       { href: '/teacher/billing', label: 'Billing' },
     ] : []),
     { href: '/teacher/earnings', label: 'Earnings' },
