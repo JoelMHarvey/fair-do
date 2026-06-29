@@ -1,0 +1,41 @@
+<!-- @dsCard group="Components" viewport="700x180" name="Badges & Tags" subtitle="Soft pill labels (status, ratings, founding) and quiet specialism chips." -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<link rel="stylesheet" href="../../styles.css">
+<style>
+  body { margin: 0; padding: 26px; background: var(--surface-card); }
+  .row { display: flex; align-items: center; gap: 10px; flex-wrap: wrap; margin-bottom: 16px; }
+  .lbl { font-family: var(--font-mono); font-size: 10px; color: var(--text-subtle); width: 100%; margin-bottom: 4px; }
+</style>
+</head>
+<body>
+  <div id="root"></div>
+  <script crossorigin src="https://unpkg.com/react@18.3.1/umd/react.development.js"></script>
+  <script crossorigin src="https://unpkg.com/react-dom@18.3.1/umd/react-dom.development.js"></script>
+  <script src="https://unpkg.com/@babel/standalone@7.29.0/babel.min.js"></script>
+  <script src="../../_ds_bundle.js"></script>
+  <script type="text/babel">
+    const { Badge, Tag } = window.FaresayDesignSystem_e2ff75
+    function Demo() {
+      return (
+        <>
+          <div className="row"><span className="lbl">Badge — tones</span>
+            <Badge tone="brand" icon="✓">BACP verified</Badge>
+            <Badge tone="amber" icon="★">4.9 (28)</Badge>
+            <Badge tone="coral" icon="★">Founding</Badge>
+            <Badge tone="solid">Best match</Badge>
+            <Badge tone="neutral">Live now</Badge>
+            <Badge tone="outline">Draft</Badge>
+          </div>
+          <div className="row"><span className="lbl">Tag — specialisms</span>
+            <Tag>Anxiety</Tag><Tag>CBT</Tag><Tag>EMDR</Tag><Tag>Burnout</Tag><Tag>Relationships</Tag><Tag>Trauma</Tag>
+          </div>
+        </>
+      )
+    }
+    ReactDOM.createRoot(document.getElementById('root')).render(<Demo />)
+  </script>
+</body>
+</html>

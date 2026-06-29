@@ -1,0 +1,86 @@
+name: CI
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+    branches: [main]
+
+concurrency:
+  group: ci-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  test:
+    name: Unit + Integration + Native
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v5
+
+      - uses: actions/setup-node@v5
+        with:
+          node-version: 22
+          cache: npm
+
+      # Root dependencies (Next.js app + test tooling)
+      - name: Install root dependencies
+        run: npm ci
+
+      # Native dependencies (separate package.json / node_modules)
+      - name: Install native dependencies
+        run: npm ci --prefix native
+
+      # Generate Prisma client so route handlers can import @prisma/client types.
+      # Integration tests mock @/lib/prisma at the boundary, so no real DB is needed.
+      - name: Generate Prisma client
+        run: npx prisma generate
+
+      # P0 unit tests + P1 integration tests (all Prisma/Stripe/Clerk mocked at boundary).
+      # The test suite does NOT need DATABASE_URL — all DB calls are mocked via vi.mock.
+      - name: Run tests
+        run: npm test
+
+      # P3 native DTO + api.ts tests
+      - name: Run native tests
+        run: npm run test:native
+
+      # Coverage — runs after tests so a test failure still surfaces in the PR check.
+      # Generates lcov report + text summary; fails the job if thresholds are ever added
+      # to vitest.config.ts coverage.thresholds.
+      - name: Generate coverage report
+        run: npm run test:coverage
+        if: always()
+
+      - name: Upload coverage artifact
+        uses: actions/upload-artifact@v5
+        if: always()
+        with:
+          name: coverage
+          path: coverage/
+          retention-days: 7
+
+  typecheck:
+    name: TypeScript
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v5
+
+      - uses: actions/setup-node@v5
+        with:
+          node-version: 22
+          cache: npm
+
+      - run: npm ci
+
+      # Prisma types must be generated before tsc can resolve @prisma/client.
+      - name: Generate Prisma client
+        run: npx prisma generate
+
+      - name: Typecheck Next.js app
+        run: npx tsc --noEmit
+
+      - name: Install native dependencies
+        run: npm ci --prefix native
+
+      - name: Typecheck native app
+        run: npm run typecheck --prefix native

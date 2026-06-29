@@ -1,0 +1,42 @@
+<!-- @dsCard group="Marketing site" viewport="1180x760" name="Homepage" subtitle="faresay.com — the practice tool for therapists: calm hero, benefits, privacy." -->
+<!-- @startingPoint section="Marketing site" subtitle="Faresay practice-portal homepage" viewport="1180x900" -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Faresay — therapy that's fair</title>
+<link rel="stylesheet" href="../../styles.css">
+<style>
+  body { margin: 0; background: var(--surface-page); }
+  @media (max-width: 720px) { .nav-center { display: none !important; } }
+</style>
+</head>
+<body>
+  <div id="root"></div>
+  <script crossorigin src="https://unpkg.com/react@18.3.1/umd/react.development.js"></script>
+  <script crossorigin src="https://unpkg.com/react-dom@18.3.1/umd/react-dom.development.js"></script>
+  <script src="https://unpkg.com/@babel/standalone@7.29.0/babel.min.js"></script>
+  <script src="../../_ds_bundle.js"></script>
+  <script type="text/babel" src="Chrome.jsx"></script>
+  <script type="text/babel" src="Sections.jsx"></script>
+  <script type="text/babel">
+    const { Nav, Footer, Hero, EthosBand, Benefits, HowItWorks, PrivacyBand, FinalCTA } = window
+    function App() {
+      return (
+        <>
+          <Nav />
+          <Hero />
+          <EthosBand />
+          <Benefits />
+          <HowItWorks />
+          <PrivacyBand />
+          <FinalCTA />
+          <Footer />
+        </>
+      )
+    }
+    ReactDOM.createRoot(document.getElementById('root')).render(<App />)
+  </script>
+</body>
+</html>

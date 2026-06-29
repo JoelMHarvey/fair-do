@@ -1,0 +1,41 @@
+<!-- @dsCard group="Components" viewport="700x340" name="Therapist card" subtitle="The core marketplace object — Avatar + Badges + Tags + Buttons composed." -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<link rel="stylesheet" href="../../styles.css">
+<style>
+  body { margin: 0; padding: 24px; background: var(--surface-page); }
+</style>
+</head>
+<body>
+  <div id="root"></div>
+  <script crossorigin src="https://unpkg.com/react@18.3.1/umd/react.development.js"></script>
+  <script crossorigin src="https://unpkg.com/react-dom@18.3.1/umd/react-dom.development.js"></script>
+  <script src="https://unpkg.com/@babel/standalone@7.29.0/babel.min.js"></script>
+  <script src="../../_ds_bundle.js"></script>
+  <script type="text/babel">
+    const { TherapistCard } = window.FaresayDesignSystem_e2ff75
+    function Demo() {
+      return (
+        <TherapistCard
+          name="Priya Patel"
+          credential="✓ BACP verified"
+          tagline="Anxiety &amp; burnout"
+          bio="I help people untangle anxiety and rebuild a steadier, kinder pace of life. Warm, practical, and led by what matters to you."
+          price="£55"
+          rating={4.9}
+          ratingCount={28}
+          founding
+          bestMatch
+          specialisms={['Anxiety', 'CBT', 'Burnout', 'EMDR']}
+          nextAvailable="Tomorrow 14:00"
+          onBook={() => {}}
+          onView={() => {}}
+        />
+      )
+    }
+    ReactDOM.createRoot(document.getElementById('root')).render(<Demo />)
+  </script>
+</body>
+</html>

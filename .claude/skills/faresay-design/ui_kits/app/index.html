@@ -1,0 +1,44 @@
+<!-- @dsCard group="App" viewport="980x720" name="Client app — dashboard → book" subtitle="Interactive: find a therapist, pick a slot, confirm, see it on your dashboard." -->
+<!-- @startingPoint section="App" subtitle="Faresay client app — directory, booking, dashboard" viewport="980x760" -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Faresay — your therapy</title>
+<link rel="stylesheet" href="../../styles.css">
+<style>
+  body { margin: 0; background: var(--surface-page); min-height: 100vh; }
+</style>
+</head>
+<body>
+  <div id="root"></div>
+  <script crossorigin src="https://unpkg.com/react@18.3.1/umd/react.development.js"></script>
+  <script crossorigin src="https://unpkg.com/react-dom@18.3.1/umd/react-dom.development.js"></script>
+  <script src="https://unpkg.com/@babel/standalone@7.29.0/babel.min.js"></script>
+  <script src="../../_ds_bundle.js"></script>
+  <script type="text/babel" src="AppData.jsx"></script>
+  <script type="text/babel" src="Screens.jsx"></script>
+  <script type="text/babel">
+    const { AppNav, Dashboard, Directory, Booking, Confirmation } = window
+    function App() {
+      const [view, setView] = React.useState('dashboard')
+      const [active, setActive] = React.useState(null)
+      const [sessions, setSessions] = React.useState([])
+      const go = (v) => { setView(v); window.scrollTo(0, 0) }
+      const onBook = (t) => { setActive(t); go('booking') }
+      const confirm = (s) => { setSessions(prev => [...prev, s]); go('confirm') }
+      return (
+        <>
+          <AppNav view={view} go={go} />
+          {view === 'dashboard' && <Dashboard go={go} sessions={sessions} />}
+          {view === 'directory' && <Directory onBook={onBook} />}
+          {view === 'booking' && active && <Booking therapist={active} go={go} confirm={confirm} />}
+          {view === 'confirm' && <Confirmation session={sessions[sessions.length - 1]} go={go} />}
+        </>
+      )
+    }
+    ReactDOM.createRoot(document.getElementById('root')).render(<App />)
+  </script>
+</body>
+</html>

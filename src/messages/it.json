@@ -1,0 +1,71 @@
+{
+  "home": {
+    "hero_badge": "Lo strumento tranquillo per i terapisti",
+    "hero_h1_line1": "Tutta la tua pratica,",
+    "hero_h1_line2": "in un unico posto tranquillo.",
+    "hero_body": "Faresay riunisce i tuoi clienti, il calendario, il video sicuro e i pagamenti — abbastanza semplice da gestire dal telefono, abbastanza privato per il tuo lavoro.",
+    "hero_cta_primary": "Inizia gratis",
+    "hero_cta_secondary": "Come funziona",
+    "hero_footnote": "Gratis per iniziare · pronto in ~15 minuti · i tuoi clienti restano tuoi",
+    "ethos_eyebrow": "Fatto da persone con il cuore",
+    "ethos_body": "Pensiamo che i terapisti meritino strumenti migliori — e condizioni più eque. Faresay cresce quando cresci tu. Nessun vincolo, nessun gioco, e nessuna azienda che trae profitto dalla sofferenza umana.",
+    "benefits_heading": "Tutto ciò di cui la tua pratica ha bisogno",
+    "benefits_sub": "Basta destreggiarsi tra un calendario, un'app di pagamento, uno strumento video e un foglio di calcolo. È tutto qui — e progettato per non intralciarti.",
+    "benefits": [
+      { "title": "I tuoi clienti restano tuoi", "body": "Sei tu a possedere la relazione e il fascicolo. Faresay è il tuo strumento — mai un intermediario tra te e le persone che aiuti." },
+      { "title": "Davvero semplice", "body": "Pronto in circa 15 minuti — nessuna competenza tecnica richiesta. Importa la tua lista di clienti, prenota una sessione, fatto." },
+      { "title": "Privacy per progettazione", "body": "Crittografato, con archiviazione dei dati nel Regno Unito/UE e adeguate salvaguardie. Rimani tu il titolare del trattamento dei dati dei tuoi clienti." },
+      { "title": "Stabilisci i tuoi prezzi", "body": "La tua tariffa, i tuoi orari, anche un prezzo diverso per cliente. Tieni ciò che fatturi — Faresay è un semplice abbonamento mensile, non una commissione su ogni sessione." },
+      { "title": "Vieni pagato automaticamente", "body": "I clienti pagano con carta; il denaro arriva sul tuo conto circa due giorni lavorativi dopo ogni sessione. Niente solleciti, niente fogli di calcolo." },
+      { "title": "Funziona dal tuo telefono", "body": "Aggiungi Faresay alla tua schermata principale e gestisci tutta la tua pratica dal telefono — nessun computer necessario." }
+    ],
+    "how_heading": "Operativo questa settimana",
+    "steps": [
+      { "title": "Aggiungi i tuoi clienti", "body": "Invitali via email o importa l'intera lista — pronto in pochi minuti." },
+      { "title": "Prenota sessioni", "body": "Scegli un orario — creiamo una stanza video privata e inviamo automaticamente un'email al tuo cliente." },
+      { "title": "Vieni pagato", "body": "Collega i pagamenti una volta; il denaro arriva sul tuo conto dopo ogni sessione." }
+    ],
+    "privacy_heading": "Privacy su cui puoi fare affidamento",
+    "privacy_body": "I tuoi clienti ti affidano le cose più sensibili. Trattiamo le loro informazioni allo stesso modo — crittografate, con archiviazione nel Regno Unito/UE, mai vendute né condivise. Rimani il titolare del trattamento, sempre in controllo dei tuoi dati.",
+    "cta_heading": "Inizia la tua pratica su Faresay",
+    "cta_sub": "Gratis per iniziare, equo man mano che cresci. Ti configuriamo personalmente.",
+    "cta_button": "Inizia gratis →",
+    "cta_footer_pre": "Stai cercando un terapista?",
+    "cta_footer_link": "Trovane uno qui"
+  },
+  "nav": {
+    "features": "Funzionalità",
+    "pricing": "Prezzi",
+    "find_therapist": "Trova un terapista",
+    "therapy_styles": "Stili di terapia",
+    "how_it_works": "Come funziona",
+    "faq": "FAQ",
+    "sign_in": "Accedi",
+    "cta_practice": "Inizia gratis",
+    "cta_marketplace": "Inizia",
+    "dashboard": "Dashboard"
+  },
+  "footer": {
+    "tagline": "Il modo semplice e privato per i terapisti di gestire il proprio studio — i tuoi clienti, il calendario, il video sicuro e i pagamenti in un unico posto.",
+    "col_clients": "Clienti",
+    "col_therapists": "Terapisti",
+    "col_company": "Azienda",
+    "link_find_therapist": "Trova un terapista",
+    "link_therapy_styles": "Stili di terapia",
+    "link_ai_therapy": "Terapia con IA?",
+    "link_blog": "Blog",
+    "link_how_it_works": "Come funziona",
+    "link_gift": "Regala una sessione",
+    "link_faq": "FAQ",
+    "link_join": "Unisciti a Faresay",
+    "link_why": "Perché Faresay",
+    "link_compare": "Confronta",
+    "link_business": "Per le aziende",
+    "link_about": "Chi siamo",
+    "link_urgent_help": "Aiuto urgente",
+    "link_privacy": "Privacy",
+    "link_terms": "Termini",
+    "link_complaints": "Reclami",
+    "emergency": "Emergenza: chiama il 118 · Telefono Amico: 02 2327 2327 →"
+  }
+}

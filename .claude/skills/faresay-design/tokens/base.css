@@ -1,0 +1,72 @@
+/* Faresay — Base element styles, motion helpers, focus, prose.
+   Lifted from the product globals.css (Tailwind @theme → plain CSS). */
+
+* { box-sizing: border-box; }
+
+body {
+  margin: 0;
+  background: var(--background);
+  color: var(--foreground);
+  font-family: var(--font-sans);
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
+  line-height: var(--leading-normal);
+}
+
+h1, h2, h3, h4 {
+  font-family: var(--font-display);
+  color: var(--text-heading);
+  font-weight: var(--weight-semibold);
+  letter-spacing: var(--tracking-tight);
+  margin: 0;
+}
+
+a { color: inherit; }
+
+/* ---- Motion: gentle fades. Calm first — content always survives. ---- */
+@keyframes fade-up {
+  from { opacity: 0; transform: translateY(16px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+@keyframes fade-in {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+/* Entrance helpers are intentionally visible no-ops.
+   The brand's calm motion is carried by the breathing lotus and gentle hover
+   transitions; a hero opacity fade is not worth the failure mode where a frozen
+   capture clock backfills a keyframe's opacity:0 `from` and hides all content in
+   static screenshots / PDF / paused previews. These classes remain as semantic
+   hooks so existing markup keeps working — they simply never hide anything. */
+.animate-fade-up,
+.animate-fade-in,
+.stagger > * { opacity: 1; transform: none; }
+
+/* Respect reduced-motion — anxious / vestibular-sensitive users see no movement. */
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation-duration: 0.001ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.001ms !important;
+    scroll-behavior: auto !important;
+  }
+  .stagger > *,
+  [class*="animate-fade"] {
+    animation: none !important;
+    opacity: 1 !important;
+    transform: none !important;
+  }
+}
+
+/* Visible keyboard focus everywhere — calm but accessible. */
+a:focus-visible,
+button:focus-visible,
+input:focus-visible,
+select:focus-visible,
+textarea:focus-visible,
+[tabindex]:focus-visible {
+  outline: 2px solid var(--focus-ring);
+  outline-offset: 2px;
+  border-radius: 4px;
+}

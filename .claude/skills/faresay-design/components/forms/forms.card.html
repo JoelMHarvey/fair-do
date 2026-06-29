@@ -1,0 +1,35 @@
+<!-- @dsCard group="Components" viewport="700x230" name="Form fields" subtitle="Labelled input & textarea with the calm brand focus ring." -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<link rel="stylesheet" href="../../styles.css">
+<style>
+  body { margin: 0; padding: 26px; background: var(--surface-card); }
+  .grid { display: grid; grid-template-columns: 1fr 1fr; gap: 18px; align-items: start; }
+</style>
+</head>
+<body>
+  <div id="root"></div>
+  <script crossorigin src="https://unpkg.com/react@18.3.1/umd/react.development.js"></script>
+  <script crossorigin src="https://unpkg.com/react-dom@18.3.1/umd/react-dom.development.js"></script>
+  <script src="https://unpkg.com/@babel/standalone@7.29.0/babel.min.js"></script>
+  <script src="../../_ds_bundle.js"></script>
+  <script type="text/babel">
+    const { Input } = window.FaresayDesignSystem_e2ff75
+    function Demo() {
+      return (
+        <div className="grid">
+          <Input label="Your name" defaultValue="Priya Patel" />
+          <Input label="Session rate" defaultValue="£55" hint="You keep up to 90%." />
+          <div style={{ gridColumn: '1 / -1' }}>
+            <Input label="About your practice" multiline rows={3}
+              defaultValue="I help people untangle anxiety and rebuild a steadier pace of life." />
+          </div>
+        </div>
+      )
+    }
+    ReactDOM.createRoot(document.getElementById('root')).render(<Demo />)
+  </script>
+</body>
+</html>

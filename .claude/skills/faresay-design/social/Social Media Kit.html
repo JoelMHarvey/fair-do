@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="design_doc_mode" content="canvas">
+<title>Faresay — Social Media Kit</title>
+<link rel="stylesheet" href="../styles.css">
+<style>
+  body { margin: 0; font-family: var(--font-sans); }
+  .label { font-size: 15px; font-weight: 600; color: var(--color-sand-700); margin-bottom: 8px; }
+  .label .dim { font-weight: 400; color: var(--color-sand-400); font-family: var(--font-mono); font-size: 12px; margin-left: 6px; }
+  .frame-card { border-radius: 12px; overflow: hidden; box-shadow: 0 8px 24px rgba(46,41,32,0.14); border: 1px solid var(--color-sand-200); background: #fff; }
+  .frame-card iframe { border: 0; display: block; }
+  .platform { font-family: var(--font-display); font-size: 26px; font-weight: 600; color: var(--color-brand-900); letter-spacing: -0.02em; }
+  .ttl { font-family: var(--font-display); font-size: 40px; font-weight: 600; color: var(--color-brand-900); letter-spacing: -0.02em; }
+  .ttl-sub { font-size: 16px; color: var(--color-sand-600); margin-top: 6px; max-width: 520px; line-height: 1.5; }
+</style>
+</head>
+<body>
+  <!-- frames are generated below; absolutely positioned for the canvas host -->
+  <script>
+    const S = 0.26; // preview scale
+    const ROWS = [
+      { platform: 'LinkedIn', items: [
+        { src: 'linkedin-post.html', w: 1200, h: 627, name: 'Feed post' },
+        { src: 'linkedin-banner.html', w: 1584, h: 396, name: 'Banner' },
+      ]},
+      { platform: 'Instagram', items: [
+        { src: 'instagram-post.html', w: 1080, h: 1080, name: 'Square post' },
+        { src: 'instagram-story.html', w: 1080, h: 1920, name: 'Story / Reel' },
+      ]},
+      { platform: 'Facebook', items: [
+        { src: 'facebook-post.html', w: 1200, h: 630, name: 'Feed post' },
+        { src: 'facebook-cover.html', w: 1640, h: 624, name: 'Cover' },
+      ]},
+      { platform: 'X (Twitter)', items: [
+        { src: 'x-post.html', w: 1600, h: 900, name: 'Post image' },
+        { src: 'x-header.html', w: 1500, h: 500, name: 'Header' },
+      ]},
+      { platform: 'YouTube', items: [
+        { src: 'youtube-thumbnail.html', w: 1280, h: 720, name: 'Thumbnail' },
+        { src: 'youtube-banner.html', w: 2560, h: 1440, name: 'Channel banner' },
+      ]},
+    ];
+
+    function el(html) { const d = document.createElement('div'); d.innerHTML = html; return d.firstElementChild; }
+
+    // Title block
+    const title = el(`<div data-drags-parent="1" style="position:absolute;left:80px;top:48px;width:560px">
+      <div class="ttl">Social Media Kit</div>
+      <div class="ttl-sub">Branded, export-ready templates at every platform's native size. Open any frame and use Save as PDF / screenshot to export the full-resolution graphic.</div>
+    </div>`);
+    document.body.appendChild(title);
+
+    const COL_X = [80, 700];
+    let y = 170;
+    for (const row of ROWS) {
+      // platform heading
+      const head = el(`<div data-drags-parent="1" style="position:absolute;left:80px;top:${y}px"><div class="platform">${row.platform}</div></div>`);
+      document.body.appendChild(head);
+      const top = y + 46;
+      let rowH = 0;
+      row.items.forEach((it, i) => {
+        const pw = Math.round(it.w * S), ph = Math.round(it.h * S);
+        rowH = Math.max(rowH, ph);
+        const wrap = el(`<div data-drags-parent="1" style="position:absolute;left:${COL_X[i]}px;top:${top}px">
+          <div class="label">${it.name}<span class="dim">${it.w}×${it.h}</span></div>
+          <div class="frame-card" style="width:${pw}px;height:${ph}px">
+            <iframe src="${it.src}" width="${it.w}" height="${it.h}"
+              style="transform:scale(${S});transform-origin:top left"></iframe>
+          </div>
+        </div>`);
+        document.body.appendChild(wrap);
+      });
+      y = top + rowH + 64;
+    }
+  </script>
+</body>
+</html>

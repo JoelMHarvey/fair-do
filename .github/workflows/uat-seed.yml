@@ -1,0 +1,57 @@
+name: UAT seed
+
+# Seed (or reset) the UAT demo data on demand. Runs against the Neon `uat` branch only.
+# Requires repo secret UAT_DATABASE_URL (the Neon uat-branch connection string).
+on:
+  workflow_dispatch:
+    inputs:
+      action:
+        description: What to do to the UAT database
+        type: choice
+        required: true
+        default: seed
+        options:
+          - seed          # migrate + seed demo therapists/clients/reviews
+          - remove-demo   # delete all demo_* rows
+
+concurrency:
+  group: uat-seed
+  cancel-in-progress: false
+
+jobs:
+  seed:
+    runs-on: ubuntu-latest
+    environment: uat
+    env:
+      DATABASE_URL: ${{ secrets.UAT_DATABASE_URL }}
+    steps:
+      - name: Guard — secret present
+        run: |
+          if [ -z "${DATABASE_URL}" ]; then
+            echo "::error::UAT_DATABASE_URL secret is not set. Add it (Settings → Secrets → Actions, or the 'uat' environment)."
+            exit 1
+          fi
+
+      - uses: actions/checkout@v5
+
+      - uses: actions/setup-node@v5
+        with:
+          node-version: 22
+          cache: npm
+
+      - run: npm ci
+
+      - name: Generate Prisma client
+        run: npx prisma generate
+
+      - name: Apply migrations (uat branch)
+        if: ${{ inputs.action == 'seed' }}
+        run: npx prisma migrate deploy
+
+      - name: Seed demo data
+        if: ${{ inputs.action == 'seed' }}
+        run: npm run seed:uat
+
+      - name: Remove demo data
+        if: ${{ inputs.action == 'remove-demo' }}
+        run: npm run seed:remove-demo

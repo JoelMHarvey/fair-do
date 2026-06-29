@@ -1,0 +1,77 @@
+/* Faresay social kit — shared layout system for branded social graphics.
+   Each template links styles.css (tokens) then this. The dsCard viewport sets
+   the true pixel size; .s-frame fills it. Export each via Save as PDF / PNG. */
+
+* { box-sizing: border-box; }
+html, body { margin: 0; padding: 0; }
+body { background: var(--surface-page); }
+
+.s-frame {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  font-family: var(--font-sans);
+}
+
+/* Themes */
+.s-dark  { background: var(--color-brand-900); color: #fff; }
+.s-sand  { background: linear-gradient(160deg, var(--color-brand-50), var(--color-sand-50) 60%); color: var(--color-sand-900); }
+.s-brand { background: var(--color-brand-600); color: #fff; }
+
+/* Soft decorative blobs (the brand's calm background motif) */
+.s-blob { position: absolute; border-radius: 50%; filter: blur(80px); pointer-events: none; }
+.s-blob-brand { background: rgba(79,173,153,0.30); }
+.s-blob-coral { background: rgba(238,117,81,0.22); }
+
+/* Logo lockup (injected by social.js) */
+.s-logo { display: inline-flex; align-items: center; gap: .5em; }
+.s-logo .s-word { font-family: var(--font-display); font-weight: 600; letter-spacing: -0.02em; }
+
+/* Eyebrow */
+.s-eyebrow {
+  font-size: 0.95em; font-weight: 600; text-transform: uppercase;
+  letter-spacing: 0.10em; color: var(--color-coral-400);
+  display: inline-flex; align-items: center; gap: .6em;
+}
+.s-dark .s-eyebrow { color: var(--color-coral-300); }
+.s-sand .s-eyebrow { color: var(--color-coral-500); }
+.s-eyebrow::before { content: ""; width: .5em; height: .5em; border-radius: 50%; background: currentColor; }
+
+/* Headline + sub */
+.s-headline { font-family: var(--font-display); font-weight: 600; letter-spacing: -0.02em; line-height: 1.02; margin: 0; }
+.s-dark .s-headline, .s-brand .s-headline { color: #fff; }
+.s-headline .accent { color: var(--color-brand-300); }
+.s-sand .s-headline { color: var(--color-brand-900); }
+.s-sand .s-headline .accent { color: var(--color-brand-600); }
+.s-sub { color: rgba(255,255,255,0.82); line-height: 1.5; margin: 0; }
+.s-sand .s-sub { color: var(--color-sand-700); }
+
+/* Pill CTA */
+.s-cta {
+  display: inline-flex; align-items: center; gap: .5em;
+  background: #fff; color: var(--color-brand-900);
+  font-weight: 600; border-radius: 999px; white-space: nowrap;
+}
+.s-sand .s-cta, .s-brand .s-cta { background: var(--color-brand-600); color: #fff; }
+
+/* Stat chip */
+.s-chip {
+  display: inline-flex; align-items: baseline; gap: .4em;
+  background: rgba(255,255,255,0.10); border: 1px solid rgba(255,255,255,0.18);
+  border-radius: 999px; backdrop-filter: blur(4px); white-space: nowrap;
+}
+.s-sand .s-chip { background: #fff; border-color: var(--color-sand-200); }
+.s-chip b { font-family: var(--font-display); font-weight: 600; color: #fff; }
+.s-sand .s-chip b { color: var(--color-brand-700); }
+.s-chip span { color: rgba(255,255,255,0.7); }
+.s-sand .s-chip span { color: var(--color-sand-500); }
+
+/* URL / handle footer */
+.s-url { color: rgba(255,255,255,0.65); font-weight: 500; }
+.s-sand .s-url { color: var(--color-sand-500); }
+
+/* Lotus watermark sizing handled inline per template */
+.s-lotus { display: block; }

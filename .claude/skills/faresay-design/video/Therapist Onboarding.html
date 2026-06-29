@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Faresay — therapist onboarding film</title>
+<link rel="stylesheet" href="../styles.css">
+<style>
+  html, body { margin: 0; height: 100%; background: #1b1714; }
+  #root { width: 100%; height: 100%; }
+</style>
+</head>
+<body>
+  <div id="root"></div>
+  <script crossorigin src="https://unpkg.com/react@18.3.1/umd/react.development.js"></script>
+  <script crossorigin src="https://unpkg.com/react-dom@18.3.1/umd/react-dom.development.js"></script>
+  <script src="https://unpkg.com/@babel/standalone@7.29.0/babel.min.js"></script>
+  <script type="text/babel" src="animations.jsx"></script>
+  <script type="text/babel" src="tweaks-panel.jsx"></script>
+  <script type="text/babel" src="parts.jsx"></script>
+  <script type="text/babel" src="movie.jsx"></script>
+  <script type="text/babel">
+    const TWEAK_DEFAULTS = /*EDITMODE-BEGIN*/{
+      "captions": true,
+      "pointer": true,
+      "pointerSize": 26,
+      "ripple": true
+    }/*EDITMODE-END*/;
+    function App() {
+      const [t, setTweak] = window.useTweaks(TWEAK_DEFAULTS);
+      return (
+        <>
+          <window.Movie opts={t} />
+          <window.TweaksPanel title="Tweaks">
+            <window.TweakSection label="Pointer" />
+            <window.TweakToggle label="Show pointer" value={t.pointer} onChange={(v) => setTweak('pointer', v)} />
+            <window.TweakSlider label="Pointer size" value={t.pointerSize} min={18} max={42} step={1} unit="px" onChange={(v) => setTweak('pointerSize', v)} />
+            <window.TweakToggle label="Click ripple" value={t.ripple} onChange={(v) => setTweak('ripple', v)} />
+            <window.TweakSection label="Captions" />
+            <window.TweakToggle label="Show captions" value={t.captions} onChange={(v) => setTweak('captions', v)} />
+          </window.TweaksPanel>
+        </>
+      );
+    }
+    ReactDOM.createRoot(document.getElementById('root')).render(<App />)
+  </script>
+</body>
+</html>

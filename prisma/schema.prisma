@@ -1,0 +1,635 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+// Display-only FX rates (GBP base), refreshed daily by /api/cron/fx. Single row.
+model FxRate {
+  base      String   @id @default("GBP")
+  rates     Json // { "USD": 1.27, "EUR": 1.17, ... }
+  fetchedAt DateTime @default(now())
+}
+
+// Unconfirmed public self-bookings — held until the booker clicks the email
+// confirm link (double opt-in), so an unverified email can't create a real
+// session / video room / teacher notification. Expire + are swept on confirm.
+model PendingSelfBooking {
+  id          String   @id @default(cuid())
+  teacherId   String
+  scheduledAt DateTime
+  firstName   String
+  lastName    String
+  email       String
+  phone       String?
+  note        String?
+  token       String   @unique
+  expiresAt   DateTime
+  createdAt   DateTime @default(now())
+
+  @@index([teacherId])
+}
+
+// Observability: each cron upserts its run so the dashboard can show freshness
+// and the alert cron can flag a stalled job.
+model CronRun {
+  name       String   @id // e.g. "reminders", "no-shows", "credentials", "alerts"
+  lastRunAt  DateTime
+  ok         Boolean  @default(true)
+  durationMs Int?
+  detail     String? // small JSON/string summary of the last run
+}
+
+// Observability: dedupe alerts so a sustained breach emails once on transition,
+// not every cron tick. key e.g. "db_down", "unread_mail", "cron_stale:reminders".
+model AlertState {
+  key         String    @id
+  firing      Boolean   @default(false)
+  lastFiredAt DateTime?
+  lastValue   String?
+  updatedAt   DateTime  @updatedAt
+}
+
+enum UserRole {
+  STUDENT
+  TEACHER
+  ADMIN
+}
+
+enum Region {
+  UK
+  US
+  PT
+  FR
+  IT
+  ES
+  DE
+}
+
+enum TeacherStatus {
+  PENDING
+  ACTIVE
+  SUSPENDED
+}
+
+enum SessionStatus {
+  SCHEDULED
+  IN_PROGRESS
+  COMPLETED
+  CANCELLED
+  NO_SHOW
+}
+
+model User {
+  id        String   @id @default(cuid())
+  clerkId   String   @unique
+  email     String   @unique
+  role      UserRole
+  country   Region   @default(UK)
+  locale    String?
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  teacher Teacher?
+  student Student?
+}
+
+model Teacher {
+  id                  String        @id @default(cuid())
+  userId              String        @unique
+  user                User          @relation(fields: [userId], references: [id])
+  firstName           String
+  lastName            String
+  phone               String? // teacher contact mobile (E.164) — account recovery, ops, SMS
+  professionalTitle   String? // e.g. "Music Teacher", "GCSE Maths Tutor"
+  bio                 String        @db.Text
+  tagline             String? // short one-liner for cards
+  practiceName        String? // studio-portal: how the studio is branded to students (defaults to teacher name)
+  practiceSlug        String?       @unique // studio-portal: URL-friendly handle
+  calendarToken       String?       @unique // secret token for the ICS calendar subscribe feed
+  country             Region        @default(UK)
+  licenseState        String? // US only — state (e.g. "CA")
+  profileImageUrl     String?
+  photoBaseUrl        String? // original Cloudinary upload (for re-styling)
+  photoStyle          String? // original | blurred | illustrated
+  credentialVerified  Boolean       @default(false)
+  credentialDocUrl    String?
+  // Agreement + DPA acceptance evidence
+  agreementAcceptedAt DateTime?
+  agreementVersion    String?
+  dpaAcceptedAt       DateTime?
+  // Credential expiry monitoring (cron). credentialSuspended distinguishes an
+  // automatic expiry suspension from a manual admin one; qualReminderStage dedupes
+  // nudges (stores the most-urgent days-bucket already emailed, e.g. 30; null = none/renewed).
+  credentialSuspended Boolean       @default(false)
+  qualReminderStage   Int? // qualification expiry reminder stage
+  stripeAccountId     String?       @unique
+  stripeOnboarded     Boolean       @default(false)
+  status              TeacherStatus @default(PENDING)
+  isFoundingMember    Boolean       @default(false)
+  sessionRatePence    Int // e.g. 5000 = £50.00 per lesson
+  introRatePence      Int? // discounted first-lesson rate
+  groupRatePence      Int? // per-person rate for group lessons
+  groupMaxSize        Int           @default(1) // >1 enables group bookings
+  availableForNew     Boolean       @default(true)
+  // Teaching profile — replaces therapy specialisms/approaches
+  subjects            String[] // e.g. ["Maths", "Physics", "Further Maths"]
+  levels              String[] // e.g. ["GCSE", "A-Level", "KS3"]
+  teachingStyles      String[] // e.g. ["structured", "Socratic", "exam-focused"]
+  ageGroups           String[] // e.g. ["11-16", "16-18", "Adult"]
+  // Qualification / credential fields (replaces BACP/UKCP registration)
+  qualificationBody   String? // e.g. "QTS", "ABRSM", "CELTA", "ICF"
+  qualificationRef    String? // qualification or DBS reference number
+  qualificationExpiry DateTime?
+  dbsNumber           String? // DBS certificate number
+  dbsDate             DateTime? // issue date (DBS certs don't expire but go stale)
+  languages           String[]      @default(["English"])
+  websiteUrl          String?
+  linkedinUrl         String?
+  introVideoUrl       String?
+  referralCode        String?       @unique // peer-referral code
+  referredByCode      String? // code they joined with
+  // ── Branded letterhead (Practice / Studio tier) ─────────────────────────────
+  // Applied only when brandEnabled=true AND the teacher is on a paid, active plan.
+  // Validated on write: brandLogoUrl must be res.cloudinary.com, brandColor must be #rrggbb.
+  brandEnabled        Boolean       @default(false)
+  brandLogoUrl        String? // Cloudinary URL for the studio logo
+  brandColor          String? // #rrggbb accent colour for header + CTA button
+  brandFooterLine     String? // address / reg line shown above "Powered by fair-do"
+  replyToEmail        String? // replies go to the studio, not a fair-do inbox
+  freeMonthsOwed      Int           @default(0) // referral rewards: free months banked
+  createdAt           DateTime      @default(now())
+  updatedAt           DateTime      @updatedAt
+
+  availability       Availability[]
+  matches            Match[]
+  sessions           Session[]
+  messageThreads     MessageThread[]
+  complaints         Complaint[]
+  credentialChecks   CredentialCheck[]
+  reviews            Review[]
+  referralsMade      TeacherReferral[]  @relation("tReferrer")
+  referralReceived   TeacherReferral?   @relation("tReferee")
+  studentInvites     StudentInvite[]
+  packages           Package[]
+  subscription       Subscription?
+  broadcasts         Broadcast[]
+  broadcastTemplates BroadcastTemplate[]
+}
+
+model TeacherReferral {
+  id                String    @id @default(cuid())
+  code              String
+  referrerTeacherId String
+  referrer          Teacher   @relation("tReferrer", fields: [referrerTeacherId], references: [id])
+  refereeTeacherId  String    @unique
+  referee           Teacher   @relation("tReferee", fields: [refereeTeacherId], references: [id])
+  status            String    @default("pending") // pending | rewarded | paid
+  bonusPence        Int       @default(2500) // referrer bonus once referee runs their first paid lesson
+  createdAt         DateTime  @default(now())
+  rewardedAt        DateTime?
+  paidAt            DateTime?
+
+  @@index([referrerTeacherId])
+}
+
+model Student {
+  id                 String        @id @default(cuid())
+  // userId is null for "managed" (accountless) students a teacher runs without a login.
+  userId             String?       @unique
+  user               User?         @relation(fields: [userId], references: [id])
+  contactEmail       String? // contact email for managed students (no User); used for booking/receipt emails
+  phone              String? // E.164 mobile for SMS reminders (optional; teacher- or self-supplied)
+  firstName          String
+  lastName           String
+  dateOfBirth        DateTime?
+  country            Region        @default(UK)
+  usState            String? // US only
+  questionnaire      Json? // teaching intake: subjects, level, goals, frequency
+  consentGiven       Boolean       @default(false)
+  consentDate        DateTime?
+  creditBalancePence Int           @default(0) // pre-paid credits + redeemed vouchers + referral rewards
+  organisationId     String?
+  organisation       Organisation? @relation(fields: [organisationId], references: [id])
+  referralCode       String?       @unique // this student's own shareable code
+  referredByCode     String? // code they signed up with
+  createdAt          DateTime      @default(now())
+  updatedAt          DateTime      @updatedAt
+
+  matches          Match[]
+  sessions         Session[]
+  messageThreads   MessageThread[]
+  payments         Payment[]
+  participations   SessionParticipant[]
+  referralsMade    Referral[]           @relation("referrer")
+  referralReceived Referral?            @relation("referee")
+  reviews          Review[]
+  packages         Package[]
+}
+
+model Referral {
+  id                   String    @id @default(cuid())
+  code                 String // referrer's code used
+  referrerStudentId    String
+  referrer             Student   @relation("referrer", fields: [referrerStudentId], references: [id])
+  refereeStudentId     String    @unique
+  referee              Student   @relation("referee", fields: [refereeStudentId], references: [id])
+  status               String    @default("pending") // pending | rewarded
+  rewardPence          Int       @default(1000) // credited to referrer when referee books
+  refereeDiscountPence Int       @default(1000) // credited to referee at signup
+  createdAt            DateTime  @default(now())
+  rewardedAt           DateTime?
+
+  @@index([referrerStudentId])
+}
+
+model CredentialCheck {
+  id                String   @id @default(cuid())
+  teacherId         String
+  teacher           Teacher  @relation(fields: [teacherId], references: [id])
+  checkedByClerkId  String // admin who performed the check
+  qualificationBody String // QTS | ABRSM | CELTA | DBS | other
+  qualificationRef  String // qualification or DBS reference number
+  method            String // manual | onfido
+  result            String // verified | rejected
+  notes             String?
+  createdAt         DateTime @default(now())
+
+  @@index([teacherId])
+}
+
+model Organisation {
+  id              String    @id @default(cuid())
+  name            String
+  contactEmail    String
+  contactName     String?
+  seatsTotal      Int       @default(0)
+  creditPoolPence Int       @default(0) // shared pool members draw from
+  domain          String? // auto-enrol matching email domains
+  active          Boolean   @default(true)
+  discountPercent Int       @default(0) // applied to member bookings while active
+  discountExpiry  DateTime? // e.g. 10% off first month
+  createdAt       DateTime  @default(now())
+  updatedAt       DateTime  @updatedAt
+
+  members Student[]
+}
+
+model GiftVoucher {
+  id                    String    @id @default(cuid())
+  code                  String    @unique
+  amountPence           Int
+  purchaserEmail        String
+  recipientEmail        String?
+  message               String?
+  stripePaymentIntentId String?   @unique
+  redeemed              Boolean   @default(false)
+  redeemedByStudentId   String?
+  redeemedAt            DateTime?
+  createdAt             DateTime  @default(now())
+}
+
+model Complaint {
+  id              String    @id @default(cuid())
+  reporterClerkId String
+  teacherId       String?
+  teacher         Teacher?  @relation(fields: [teacherId], references: [id])
+  sessionId       String?
+  category        String // safeguarding | conduct | billing | technical | other
+  body            String    @db.Text
+  status          String    @default("open") // open | reviewing | resolved
+  adminNotes      String?   @db.Text
+  createdAt       DateTime  @default(now())
+  updatedAt       DateTime  @updatedAt
+
+  @@index([status])
+}
+
+model Review {
+  id        String   @id @default(cuid())
+  sessionId String   @unique
+  session   Session  @relation(fields: [sessionId], references: [id])
+  studentId String
+  student   Student  @relation(fields: [studentId], references: [id])
+  teacherId String
+  teacher   Teacher  @relation(fields: [teacherId], references: [id])
+  rating    Int // 1–5
+  comment   String?  @db.Text
+  createdAt DateTime @default(now())
+
+  @@index([teacherId])
+}
+
+model ProcessedStripeEvent {
+  id          String   @id // Stripe event id — presence means already handled
+  type        String
+  processedAt DateTime @default(now())
+}
+
+// ── Studio portal ──────────────────────────────────────────────────────────────
+// Teachers run their own studio and invite their own students.
+// These models are additive and gated behind STUDIO_PORTAL_ENABLED.
+
+// A teacher-initiated invite for a student to join their studio.
+// Accepting it creates/links a Student and an (active, source=invite) Match.
+model StudentInvite {
+  id                String   @id @default(cuid())
+  teacherId         String
+  teacher           Teacher  @relation(fields: [teacherId], references: [id])
+  email             String
+  firstName         String?
+  token             String   @unique
+  customRatePence   Int? // per-student rate this invite sets on the relationship
+  note              String?  @db.Text // optional personal note shown in the invite
+  status            String   @default("pending") // pending | accepted | revoked | expired
+  acceptedStudentId String?
+  expiresAt         DateTime
+  createdAt         DateTime @default(now())
+  acceptedAt        DateTime?
+
+  @@index([teacherId])
+  @@index([email])
+}
+
+// The teacher's fair-do subscription (Stripe Billing). Drives feature
+// gating and the commission rate applied to payments they process.
+model Subscription {
+  id                   String    @id @default(cuid())
+  teacherId            String    @unique
+  teacher              Teacher   @relation(fields: [teacherId], references: [id])
+  stripeCustomerId     String?
+  stripeSubscriptionId String?   @unique
+  tier                 String    @default("starter") // starter | practice | clinic
+  status               String    @default("inactive") // inactive | trialing | active | past_due | canceled
+  commissionBps        Int       @default(0) // basis points on marketplace bookings (0 = own students)
+  addOns               String[]  @default([]) // ai_notes | resource_sharing | parent_portal
+  currentPeriodEnd     DateTime?
+  createdAt            DateTime  @default(now())
+  updatedAt            DateTime  @updatedAt
+}
+
+// A one-to-many update a teacher sends to their whole student list (logged for history).
+model Broadcast {
+  id             String   @id @default(cuid())
+  teacherId      String
+  teacher        Teacher  @relation(fields: [teacherId], references: [id])
+  subject        String
+  body           String   @db.Text
+  channel        String   @default("email") // "email" | "event" (calendar invite)
+  recipientCount Int      @default(0)
+  createdAt      DateTime @default(now())
+
+  @@index([teacherId])
+}
+
+// Reusable message/invite templates (paid tier).
+model BroadcastTemplate {
+  id        String   @id @default(cuid())
+  teacherId String
+  teacher   Teacher  @relation(fields: [teacherId], references: [id])
+  name      String
+  subject   String
+  body      String   @db.Text
+  channel   String   @default("email") // "email" | "event"
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  @@index([teacherId])
+}
+
+// A pre-paid bundle of lessons a student buys from a teacher (e.g. "6 for £270").
+model Package {
+  id            String   @id @default(cuid())
+  teacherId     String
+  teacher       Teacher  @relation(fields: [teacherId], references: [id])
+  studentId     String?
+  student       Student? @relation(fields: [studentId], references: [id])
+  name          String
+  sessionsTotal Int
+  sessionsUsed  Int      @default(0)
+  pricePence    Int
+  status        String   @default("active") // active | completed | cancelled
+  createdAt     DateTime @default(now())
+  updatedAt     DateTime @updatedAt
+
+  @@index([teacherId])
+  @@index([studentId])
+}
+
+model SessionParticipant {
+  id        String   @id @default(cuid())
+  sessionId String
+  session   Session  @relation(fields: [sessionId], references: [id])
+  studentId String
+  student   Student  @relation(fields: [studentId], references: [id])
+  paidPence Int
+  createdAt DateTime @default(now())
+
+  @@unique([sessionId, studentId])
+  @@index([sessionId])
+}
+
+model Match {
+  id              String   @id @default(cuid())
+  teacherId       String
+  studentId       String
+  teacher         Teacher  @relation(fields: [teacherId], references: [id])
+  student         Student  @relation(fields: [studentId], references: [id])
+  active          Boolean  @default(true)
+  // marketplace = fair-do matched them; invite = teacher invited their own student; manual = added by hand.
+  source          String   @default("marketplace")
+  customRatePence Int? // per-student rate override; falls back to teacher.sessionRatePence
+  invitedAt       DateTime? // when the teacher sent the invite (source=invite)
+  notes           String?  @db.Text // teacher's private working notes about this student
+  startedAt       DateTime @default(now())
+  endedAt         DateTime?
+
+  sessions      Session[]
+  messageThread MessageThread?
+  documents     StudentDocument[]
+  forms         StudentForm[]
+
+  @@unique([teacherId, studentId])
+}
+
+// Intake / consent / questionnaire a teacher sends to a student to complete online.
+model StudentForm {
+  id          String   @id @default(cuid())
+  matchId     String
+  match       Match    @relation(fields: [matchId], references: [id])
+  title       String
+  type        String // intake | consent | questionnaire
+  fields      Json // [{ id, label, type: text|textarea|checkbox|choice, options?, required }]
+  token       String   @unique
+  status      String   @default("pending") // pending | completed
+  responses   Json?
+  sentAt      DateTime @default(now())
+  completedAt DateTime?
+
+  @@index([matchId])
+}
+
+// A link to a student document the teacher keeps in THEIR OWN storage (Drive, OneDrive, etc.).
+// fair-do stores only the pointer — never the document itself.
+model StudentDocument {
+  id        String   @id @default(cuid())
+  matchId   String
+  match     Match    @relation(fields: [matchId], references: [id])
+  label     String
+  url       String   @db.Text
+  category  String // lesson-notes | homework | resource | progress | other
+  createdAt DateTime @default(now())
+
+  @@index([matchId])
+}
+
+model Availability {
+  id        String   @id @default(cuid())
+  teacherId String
+  teacher   Teacher  @relation(fields: [teacherId], references: [id])
+  dayOfWeek Int // 0=Sun … 6=Sat
+  startTime String // "09:00"
+  endTime   String // "17:00"
+  timezone  String   @default("Europe/London")
+
+  @@index([teacherId])
+}
+
+model Session {
+  id              String        @id @default(cuid())
+  matchId         String
+  match           Match         @relation(fields: [matchId], references: [id])
+  teacherId       String
+  teacher         Teacher       @relation(fields: [teacherId], references: [id])
+  studentId       String
+  student         Student       @relation(fields: [studentId], references: [id])
+  scheduledAt     DateTime
+  durationMins    Int           @default(50)
+  status          SessionStatus @default(SCHEDULED)
+  isGroup         Boolean       @default(false)
+  isIntroRate     Boolean       @default(false) // booked at discounted first-lesson rate
+  reminderSentAt  DateTime? // 24h reminder email guard
+  callStartedAt   DateTime? // first participant joined (from Daily webhook)
+  callEndedAt     DateTime? // last participant left
+  joinCount       Int           @default(0) // distinct joins — >=2 in a 1:1 means both showed
+  studentJoinedAt DateTime? // set when the student joins (via identified meeting token)
+  teacherJoinedAt DateTime? // set when the teacher joins
+  noShowResolved  Boolean       @default(false) // no-show cron has processed this session
+  dailyRoomName   String?       @unique
+  dailyRoomUrl    String?
+  guestToken      String?       @unique // lets an account-less self-booked student reach their room via a signed email link
+  slotKey         String?       @unique // active-slot uniqueness (teacherId:ISO); null when cancelled so the slot frees up — DB-level double-book guard
+  startedAt       DateTime?
+  endedAt         DateTime?
+  createdAt       DateTime      @default(now())
+  updatedAt       DateTime      @updatedAt
+
+  payment      Payment?
+  participants SessionParticipant[]
+  review       Review?
+}
+
+model MessageThread {
+  id        String   @id @default(cuid())
+  matchId   String   @unique
+  match     Match    @relation(fields: [matchId], references: [id])
+  teacherId String
+  teacher   Teacher  @relation(fields: [teacherId], references: [id])
+  studentId String
+  student   Student  @relation(fields: [studentId], references: [id])
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  messages Message[]
+}
+
+model Message {
+  id            String        @id @default(cuid())
+  threadId      String
+  thread        MessageThread @relation(fields: [threadId], references: [id])
+  senderClerkId String
+  body          String        @db.Text
+  fileUrl       String?
+  readAt        DateTime?
+  createdAt     DateTime      @default(now())
+
+  @@index([threadId, createdAt])
+}
+
+model Payment {
+  id                    String   @id @default(cuid())
+  studentId             String
+  student               Student  @relation(fields: [studentId], references: [id])
+  sessionId             String?  @unique
+  session               Session? @relation(fields: [sessionId], references: [id])
+  stripePaymentIntentId String   @unique
+  stripeChargeId        String?
+  amountTotalPence      Int // what student paid
+  platformFeePence      Int // platform fee
+  teacherPayoutPence    Int // teacher's share
+  transferred           Boolean  @default(false) // true if the charge transferred to the teacher's Connect account
+  currency              String   @default("gbp")
+  status                String
+  createdAt             DateTime @default(now())
+  updatedAt             DateTime @updatedAt
+}
+
+model PushSubscription {
+  id        String   @id @default(cuid())
+  clerkId   String
+  endpoint  String   @unique
+  p256dh    String
+  auth      String
+  createdAt DateTime @default(now())
+
+  @@index([clerkId])
+}
+
+// Native mobile push tokens (iOS APNs / Android FCM) delivered via Expo Push Service.
+// Separate from web-push PushSubscription — different protocol, different send path.
+model NativeDevice {
+  id        String   @id @default(cuid())
+  clerkId   String
+  token     String   @unique // ExponentPushToken[...] or raw APNs/FCM token
+  platform  String // "ios" | "android"
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  @@index([clerkId])
+}
+
+// Runtime key/value settings that admins can flip at run time (env flags are baked
+// at build). Used by the inbox agent toggle. Absent row => the code's safe default.
+model Setting {
+  key       String   @id
+  value     String
+  updatedAt DateTime @updatedAt
+  updatedBy String? // admin clerkId who last changed it
+}
+
+// Audit + work-queue row for the support inbox agent. Stores a SANITISED preview;
+// decisions/drafts/sends are recorded here.
+model InboxMessage {
+  id          String    @id @default(cuid())
+  mailbox     String // support | hello | enquiries
+  messageId   String?   @unique // email Message-ID, dedupes reprocessing
+  fromEmail   String
+  fromRole    String? // teacher | student | unknown
+  subject     String?
+  bodyPreview String    @db.Text
+  category    String? // acknowledge | suggest_fix | escalate
+  severity    String? // low | normal | high | critical
+  confidence  Float?
+  draftReply  String?   @db.Text
+  status      String    @default("new") // new | drafted | replied | escalated | ignored
+  sentAt      DateTime?
+  escalatedAt DateTime?
+  handledBy   String? // "agent" | admin clerkId
+  createdAt   DateTime  @default(now())
+
+  @@index([status])
+  @@index([mailbox])
+}

@@ -1,0 +1,6 @@
+/* Faresay — Webfonts
+   Inter (UI sans) + Fraunces (display serif). Both are Google Fonts — the
+   product loads them via next/font/google, so these are the authentic faces,
+   not substitutes. Fraunces is loaded with its optical-size range for warmth. */
+
+@import url("https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,500;9..144,600;9..144,700&family=Inter:wght@400;500;600;700&display=swap");

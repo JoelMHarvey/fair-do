@@ -1,0 +1,76 @@
+{
+  "__inputs": [
+    {
+      "name": "DS_FARESAY_METRICS",
+      "label": "Faresay metrics (Infinity)",
+      "description": "Infinity datasource with Bearer = METRICS_TOKEN and base URL https://faresay.com",
+      "type": "datasource",
+      "pluginId": "yesoreyeram-infinity-datasource",
+      "pluginName": "Infinity"
+    }
+  ],
+  "__requires": [
+    { "type": "datasource", "id": "yesoreyeram-infinity-datasource", "name": "Infinity", "version": "1.0.0" }
+  ],
+  "title": "Faresay — System Health",
+  "uid": "faresay-health",
+  "schemaVersion": 39,
+  "version": 1,
+  "editable": true,
+  "refresh": "5m",
+  "time": { "from": "now-6h", "to": "now" },
+  "templating": { "list": [] },
+  "annotations": { "list": [] },
+  "panels": [
+    {
+      "id": 1, "title": "DB latency (ms)", "type": "stat",
+      "gridPos": { "h": 4, "w": 4, "x": 0, "y": 0 },
+      "datasource": { "type": "yesoreyeram-infinity-datasource", "uid": "${DS_FARESAY_METRICS}" },
+      "fieldConfig": { "defaults": { "thresholds": { "steps": [ { "color": "green", "value": null }, { "color": "orange", "value": 800 }, { "color": "red", "value": 1500 } ] } }, "overrides": [] },
+      "targets": [ { "refId": "A", "type": "json", "source": "url", "format": "table", "url": "/api/metrics", "url_options": { "method": "GET" }, "parser": "backend", "root_selector": "db", "columns": [ { "selector": "latencyMs", "text": "latencyMs", "type": "number" } ] } ]
+    },
+    {
+      "id": 2, "title": "Active therapists", "type": "stat",
+      "gridPos": { "h": 4, "w": 4, "x": 4, "y": 0 },
+      "datasource": { "type": "yesoreyeram-infinity-datasource", "uid": "${DS_FARESAY_METRICS}" },
+      "targets": [ { "refId": "A", "type": "json", "source": "url", "format": "table", "url": "/api/metrics", "url_options": { "method": "GET" }, "parser": "backend", "root_selector": "counts", "columns": [ { "selector": "therapistsActive", "text": "active", "type": "number" } ] } ]
+    },
+    {
+      "id": 3, "title": "Sessions today", "type": "stat",
+      "gridPos": { "h": 4, "w": 4, "x": 8, "y": 0 },
+      "datasource": { "type": "yesoreyeram-infinity-datasource", "uid": "${DS_FARESAY_METRICS}" },
+      "targets": [ { "refId": "A", "type": "json", "source": "url", "format": "table", "url": "/api/metrics", "url_options": { "method": "GET" }, "parser": "backend", "root_selector": "counts", "columns": [ { "selector": "sessionsToday", "text": "today", "type": "number" } ] } ]
+    },
+    {
+      "id": 4, "title": "Revenue today (pence)", "type": "stat",
+      "gridPos": { "h": 4, "w": 4, "x": 12, "y": 0 },
+      "datasource": { "type": "yesoreyeram-infinity-datasource", "uid": "${DS_FARESAY_METRICS}" },
+      "targets": [ { "refId": "A", "type": "json", "source": "url", "format": "table", "url": "/api/metrics", "url_options": { "method": "GET" }, "parser": "backend", "root_selector": "", "columns": [ { "selector": "revenueTodayPence", "text": "pence", "type": "number" } ] } ]
+    },
+    {
+      "id": 5, "title": "Unread support mail", "type": "stat",
+      "gridPos": { "h": 4, "w": 4, "x": 16, "y": 0 },
+      "datasource": { "type": "yesoreyeram-infinity-datasource", "uid": "${DS_FARESAY_METRICS}" },
+      "fieldConfig": { "defaults": { "thresholds": { "steps": [ { "color": "green", "value": null }, { "color": "orange", "value": 1 }, { "color": "red", "value": 15 } ] } }, "overrides": [] },
+      "targets": [ { "refId": "A", "type": "json", "source": "url", "format": "table", "url": "/api/metrics", "url_options": { "method": "GET" }, "parser": "backend", "root_selector": "mailbox", "columns": [ { "selector": "unread", "text": "unread", "type": "number" } ] } ]
+    },
+    {
+      "id": 6, "title": "Visitors 30d", "type": "stat",
+      "gridPos": { "h": 4, "w": 4, "x": 20, "y": 0 },
+      "datasource": { "type": "yesoreyeram-infinity-datasource", "uid": "${DS_FARESAY_METRICS}" },
+      "targets": [ { "refId": "A", "type": "json", "source": "url", "format": "table", "url": "/api/metrics", "url_options": { "method": "GET" }, "parser": "backend", "root_selector": "plausible", "columns": [ { "selector": "visitors30d", "text": "visitors", "type": "number" } ] } ]
+    },
+    {
+      "id": 7, "title": "Endpoints", "type": "table",
+      "gridPos": { "h": 8, "w": 12, "x": 0, "y": 4 },
+      "datasource": { "type": "yesoreyeram-infinity-datasource", "uid": "${DS_FARESAY_METRICS}" },
+      "targets": [ { "refId": "A", "type": "json", "source": "url", "format": "table", "url": "/api/metrics", "url_options": { "method": "GET" }, "parser": "backend", "root_selector": "endpoints", "columns": [ { "selector": "name", "text": "endpoint", "type": "string" }, { "selector": "ok", "text": "ok", "type": "boolean" }, { "selector": "status", "text": "status", "type": "number" }, { "selector": "latencyMs", "text": "ms", "type": "number" } ] } ]
+    },
+    {
+      "id": 8, "title": "Scheduled jobs", "type": "table",
+      "gridPos": { "h": 8, "w": 12, "x": 12, "y": 4 },
+      "datasource": { "type": "yesoreyeram-infinity-datasource", "uid": "${DS_FARESAY_METRICS}" },
+      "targets": [ { "refId": "A", "type": "json", "source": "url", "format": "table", "url": "/api/metrics", "url_options": { "method": "GET" }, "parser": "backend", "root_selector": "crons", "columns": [ { "selector": "name", "text": "job", "type": "string" }, { "selector": "ageMins", "text": "age (min)", "type": "number" }, { "selector": "stale", "text": "stale", "type": "boolean" }, { "selector": "ok", "text": "ok", "type": "boolean" } ] } ]
+    }
+  ]
+}

@@ -1,0 +1,71 @@
+{
+  "home": {
+    "hero_badge": "A ferramenta tranquila para terapeutas",
+    "hero_h1_line1": "Toda a sua prática,",
+    "hero_h1_line2": "num só lugar tranquilo.",
+    "hero_body": "Faresay reúne os seus clientes, agenda, videoconferência segura e pagamentos — simples o suficiente para gerir pelo telemóvel, privado o suficiente para o trabalho que faz.",
+    "hero_cta_primary": "Comece grátis",
+    "hero_cta_secondary": "Ver como funciona",
+    "hero_footnote": "Grátis para começar · configuração em ~15 minutos · mantenha os seus próprios clientes",
+    "ethos_eyebrow": "Feito por pessoas com coração",
+    "ethos_body": "Acreditamos que os terapeutas merecem melhores ferramentas — e condições mais justas. Faresay cresce quando você cresce. Sem amarras, sem truques, e sem empresas a lucrar com o sofrimento humano.",
+    "benefits_heading": "Tudo o que a sua prática precisa",
+    "benefits_sub": "Chega de gerir um calendário, uma app de pagamentos, uma ferramenta de vídeo e uma folha de cálculo. Está tudo aqui — e concebido para não atrapalhar.",
+    "benefits": [
+      { "title": "Os seus clientes continuam seus", "body": "Você controla a relação e o registo. Faresay é a sua ferramenta — nunca um intermediário entre si e as pessoas que ajuda." },
+      { "title": "Genuinamente simples", "body": "Configuração em cerca de 15 minutos — sem conhecimentos técnicos. Importe a sua lista de clientes, marque uma sessão, pronto." },
+      { "title": "Privado por design", "body": "Encriptado, com residência de dados no Reino Unido/UE e salvaguardas adequadas. Você continua a ser o responsável pelo tratamento dos dados dos seus clientes." },
+      { "title": "Defina os seus próprios preços", "body": "A sua tarifa, os seus horários, até um preço diferente por cliente. Fica com o que cobra — Faresay é uma simples subscrição mensal, não uma comissão por cada sessão." },
+      { "title": "Receba automaticamente", "body": "Os clientes pagam por cartão; o dinheiro chega à sua conta cerca de dois dias úteis após cada sessão. Sem perseguir pagamentos, sem folhas de cálculo." },
+      { "title": "Funciona no seu telemóvel", "body": "Adicione Faresay ao seu ecrã inicial e gira toda a sua prática pelo telemóvel — sem necessidade de computador." }
+    ],
+    "how_heading": "A funcionar esta semana",
+    "steps": [
+      { "title": "Adicione os seus clientes", "body": "Convide-os por email ou importe toda a sua lista — configurado em minutos." },
+      { "title": "Marque sessões", "body": "Escolha uma hora — criamos uma sala de vídeo privada e enviamos um email ao seu cliente automaticamente." },
+      { "title": "Receba", "body": "Ligue os pagamentos uma vez; o dinheiro chega à sua conta após cada sessão." }
+    ],
+    "privacy_heading": "Privacidade em que pode confiar",
+    "privacy_body": "Os seus clientes confiam-lhe as coisas mais sensíveis. Nós tratamos as informações deles da mesma forma — encriptadas, com residência de dados no Reino Unido/UE, e nunca vendidas ou partilhadas. Você continua a ser o responsável pelo tratamento, sempre no controlo dos seus registos.",
+    "cta_heading": "Comece a sua prática no Faresay",
+    "cta_sub": "Grátis para começar, justo à medida que cresce. Vamos configurá-lo pessoalmente.",
+    "cta_button": "Comece grátis →",
+    "cta_footer_pre": "Procura um terapeuta?",
+    "cta_footer_link": "Encontre um aqui"
+  },
+  "nav": {
+    "features": "Funcionalidades",
+    "pricing": "Preços",
+    "find_therapist": "Encontre um terapeuta",
+    "therapy_styles": "Estilos de terapia",
+    "how_it_works": "Como funciona",
+    "faq": "FAQ",
+    "sign_in": "Iniciar sessão",
+    "cta_practice": "Comece grátis",
+    "cta_marketplace": "Começar",
+    "dashboard": "Painel"
+  },
+  "footer": {
+    "tagline": "A forma simples e privada para os terapeutas gerirem a sua prática — os seus clientes, agenda, videoconferência segura e pagamentos num só lugar.",
+    "col_clients": "Clientes",
+    "col_therapists": "Terapeutas",
+    "col_company": "Empresa",
+    "link_find_therapist": "Encontre um terapeuta",
+    "link_therapy_styles": "Estilos de terapia",
+    "link_ai_therapy": "Terapia com IA?",
+    "link_blog": "Blog",
+    "link_how_it_works": "Como funciona",
+    "link_gift": "Ofereça uma sessão",
+    "link_faq": "FAQ",
+    "link_join": "Junte-se ao Faresay",
+    "link_why": "Porquê Faresay",
+    "link_compare": "Comparar",
+    "link_business": "Para empresas",
+    "link_about": "Sobre nós",
+    "link_urgent_help": "Ajuda urgente",
+    "link_privacy": "Privacidade",
+    "link_terms": "Termos",
+    "link_complaints": "Reclamações",
+    "emergency": "Emergência: ligue 112 · SOS Voz Amiga: 213 544 545 →"
+  }
+}

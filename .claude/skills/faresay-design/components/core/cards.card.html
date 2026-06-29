@@ -1,0 +1,85 @@
+<!-- @dsCard group="Components" viewport="700x240" name="Cards, Avatars & Stats" subtitle="The white rounded-3xl surface, avatar tiles, and headline stat tiles." -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<link rel="stylesheet" href="../../styles.css">
+<style>
+  html, body { margin: 0; }
+  .stage { padding: 24px; background: var(--surface-page); transition: background 0.35s ease; }
+  .grid { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 14px; align-items: start; }
+  .avatars { display: flex; gap: 10px; align-items: center; }
+</style>
+</head>
+<body>
+  <div id="root"></div>
+  <script crossorigin src="https://unpkg.com/react@18.3.1/umd/react.development.js"></script>
+  <script crossorigin src="https://unpkg.com/react-dom@18.3.1/umd/react-dom.development.js"></script>
+  <script src="https://unpkg.com/@babel/standalone@7.29.0/babel.min.js"></script>
+  <script src="../../_ds_bundle.js"></script>
+  <script type="text/babel" src="tweaks-panel.jsx"></script>
+  <script type="text/babel">
+    const { Card, Avatar, Stat } = window.FaresayDesignSystem_e2ff75
+    const { useTweaks, TweaksPanel, TweakSection, TweakRadio } = window
+
+    // Each tweak re-tunes the design TOKENS, so the whole specimen — Card, Avatar,
+    // Stat — re-composes together. These reshape the feel, not one property.
+
+    // Mood: how much the surface lifts off the page.
+    const MOOD = {
+      Flat:     { '--surface-card': 'var(--color-sand-50)', '--shadow-sm': 'none', '--border-default': 'var(--color-sand-300)' },
+      Soft:     {}, // the resting Faresay look
+      Floating: { '--surface-card': '#ffffff', '--shadow-sm': '0 20px 44px rgba(46,41,32,0.16)', '--border-default': 'transparent' },
+    }
+
+    // Theme: the warmth of the whole surface.
+    const THEME = {
+      Light:    {},
+      Tinted:   { '--surface-page': 'var(--color-brand-50)', '--surface-card': '#ffffff', '--border-default': 'var(--color-brand-100)' },
+      Evergreen:{ '--surface-page': '#193e39', '--surface-card': '#1b4a44', '--border-default': '#1d5d53',
+                  '--text-heading': '#ffffff', '--text-body': '#d7f0e8', '--text-muted': '#b0e1d3', '--text-subtle': '#7fcab8',
+                  '--color-brand-600': '#7fcab8', '--color-coral-500': '#f5a183',
+                  '--color-brand-100': '#2f9180', '--color-brand-700': '#ffffff' },
+    }
+
+    // Corners: friendly-pillowy → precise-clinical.
+    const CORNERS = {
+      Crisp:   { '--radius-xl': '9px', '--radius-lg': '7px' },
+      Calm:    {},
+      Pillowy: { '--radius-xl': '30px', '--radius-lg': '22px' },
+    }
+
+    function App() {
+      const [t, setTweak] = useTweaks({ mood: 'Soft', theme: 'Light', corners: 'Calm' });
+      const vars = { ...MOOD[t.mood], ...CORNERS[t.corners], ...THEME[t.theme] };
+      return (
+        <div className="stage" style={vars}>
+          <div className="grid">
+            <Card>
+              <div className="avatars">
+                <Avatar name="Priya Patel" />
+                <Avatar name="Tom Reed" size={44} />
+                <Avatar name="Jo Kim" size={36} />
+              </div>
+              <p style={{ margin: '12px 0 0', fontFamily: 'var(--font-display)', fontWeight: 600, color: 'var(--text-heading)' }}>Card surface</p>
+              <p style={{ margin: '2px 0 0', fontSize: 13, color: 'var(--text-muted)' }}>White · rounded-3xl · sand border</p>
+            </Card>
+            <Stat label="You pay" value="£29" sub="per month" />
+            <Stat label="Our transaction fee for members" value="0%" sub="fixed, transparent" accent="coral" />
+          </div>
+
+          <TweaksPanel title="Tweaks">
+            <TweakSection label="Elevation" />
+            <TweakRadio label="Mood" value={t.mood} options={['Flat', 'Soft', 'Floating']} onChange={(v) => setTweak('mood', v)} />
+            <TweakSection label="Surface" />
+            <TweakRadio label="Theme" value={t.theme} options={['Light', 'Tinted', 'Evergreen']} onChange={(v) => setTweak('theme', v)} />
+            <TweakSection label="Shape" />
+            <TweakRadio label="Corners" value={t.corners} options={['Crisp', 'Calm', 'Pillowy']} onChange={(v) => setTweak('corners', v)} />
+          </TweaksPanel>
+        </div>
+      )
+    }
+    ReactDOM.createRoot(document.getElementById('root')).render(<App />)
+  </script>
+</body>
+</html>

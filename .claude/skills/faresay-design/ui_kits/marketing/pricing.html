@@ -1,0 +1,37 @@
+<!-- @dsCard group="Marketing site" viewport="1180x820" name="Pricing" subtitle="Starter free · Practice £29/mo · Clinic — founding pricing, FAQ accordion." -->
+<!-- @startingPoint section="Marketing site" subtitle="Faresay pricing page — subscription tiers" viewport="1180x900" -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Pricing — Faresay</title>
+<link rel="stylesheet" href="../../styles.css">
+<style>
+  body { margin: 0; background: var(--surface-page); }
+  @media (max-width: 720px) { .nav-center { display: none !important; } }
+</style>
+</head>
+<body>
+  <div id="root"></div>
+  <script crossorigin src="https://unpkg.com/react@18.3.1/umd/react.development.js"></script>
+  <script crossorigin src="https://unpkg.com/react-dom@18.3.1/umd/react-dom.development.js"></script>
+  <script src="https://unpkg.com/@babel/standalone@7.29.0/babel.min.js"></script>
+  <script src="../../_ds_bundle.js"></script>
+  <script type="text/babel" src="Chrome.jsx"></script>
+  <script type="text/babel" src="Pricing.jsx"></script>
+  <script type="text/babel">
+    const { Nav, Footer, Pricing } = window
+    function App() {
+      return (
+        <>
+          <Nav />
+          <Pricing />
+          <Footer />
+        </>
+      )
+    }
+    ReactDOM.createRoot(document.getElementById('root')).render(<App />)
+  </script>
+</body>
+</html>

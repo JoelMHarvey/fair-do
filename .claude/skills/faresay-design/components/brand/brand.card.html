@@ -1,0 +1,39 @@
+<!-- @dsCard group="Components" viewport="700x230" name="Brand — Logo & Lotus" subtitle="The logo on light & dark, plus the breathing-lotus hero motif." -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<link rel="stylesheet" href="../../styles.css">
+<style>
+  body { margin: 0; padding: 0; display: flex; }
+  .col { flex: 1; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 16px; padding: 24px; }
+  .light { background: var(--surface-card); }
+  .dark { background: var(--surface-inverse); }
+</style>
+</head>
+<body>
+  <div id="root" style="display:contents"></div>
+  <script crossorigin src="https://unpkg.com/react@18.3.1/umd/react.development.js"></script>
+  <script crossorigin src="https://unpkg.com/react-dom@18.3.1/umd/react-dom.development.js"></script>
+  <script src="https://unpkg.com/@babel/standalone@7.29.0/babel.min.js"></script>
+  <script src="../../_ds_bundle.js"></script>
+  <script type="text/babel">
+    const { Logo, BreathingLotus } = window.FaresayDesignSystem_e2ff75
+    function Demo() {
+      return (
+        <>
+          <div className="col light">
+            <Logo size={34} />
+            <Logo showWord={false} size={44} />
+          </div>
+          <div className="col dark">
+            <BreathingLotus size={130} />
+            <Logo tone="light" size={26} />
+          </div>
+        </>
+      )
+    }
+    ReactDOM.createRoot(document.getElementById('root')).render(<Demo />)
+  </script>
+</body>
+</html>

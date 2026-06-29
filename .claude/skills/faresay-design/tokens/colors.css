@@ -1,0 +1,70 @@
+/* Faresay — Colour tokens
+   Calming evergreen teal (brand) · warm sand neutrals · coral accent.
+   Cool greys are deliberately avoided — sand keeps the whole surface warm. */
+
+:root {
+  /* ---- Brand — calming evergreen teal ---- */
+  --color-brand-50:  #f0faf7;
+  --color-brand-100: #d7f0e8;
+  --color-brand-200: #b0e1d3;
+  --color-brand-300: #7fcab8;
+  --color-brand-400: #4fad99;
+  --color-brand-500: #2f9180;
+  --color-brand-600: #217567;  /* primary */
+  --color-brand-700: #1d5d53;
+  --color-brand-800: #1b4a44;
+  --color-brand-900: #193e39;  /* darkest — deep evergreen */
+
+  /* ---- Sand — warm neutral (replaces cold greys) ---- */
+  --color-sand-50:  #faf8f5;   /* page background */
+  --color-sand-100: #f3efe8;
+  --color-sand-200: #e8e1d5;   /* default border */
+  --color-sand-300: #d6cab7;
+  --color-sand-400: #b8a78e;
+  --color-sand-500: #9c8870;
+  --color-sand-600: #80705c;
+  --color-sand-700: #665a4b;
+  --color-sand-800: #4a4137;
+  --color-sand-900: #2e2920;   /* body text */
+
+  /* ---- Coral — warm accent for highlights & emphasis ---- */
+  --color-coral-50:  #fef4f0;
+  --color-coral-100: #fde4d9;
+  --color-coral-200: #fac7b3;
+  --color-coral-300: #f5a183;
+  --color-coral-400: #ee7551;
+  --color-coral-500: #e1542f;
+  --color-coral-600: #c93f1f;
+  --color-coral-700: #a93418;
+
+  /* ---- Amber — ratings / stars only (from product) ---- */
+  --color-amber-50:  #fffbeb;
+  --color-amber-200: #fde68a;
+  --color-amber-700: #b45309;
+
+  /* ---- Semantic aliases ---- */
+  --background:      var(--color-sand-50);
+  --foreground:     var(--color-sand-900);
+
+  --text-strong:    var(--color-brand-900);
+  --text-heading:   var(--color-brand-900);
+  --text-body:      var(--color-sand-800);
+  --text-muted:     var(--color-sand-600);
+  --text-subtle:    var(--color-sand-500);
+  --text-on-brand:  #ffffff;
+
+  --surface-page:   var(--color-sand-50);
+  --surface-card:   #ffffff;
+  --surface-muted:  var(--color-sand-100);
+  --surface-inverse:var(--color-brand-900);
+
+  --border-default: var(--color-sand-200);
+  --border-strong:  var(--color-sand-300);
+  --border-brand:   var(--color-brand-200);
+
+  --accent:         var(--color-brand-600);
+  --accent-hover:   var(--color-brand-700);
+  --accent-soft:    var(--color-brand-50);
+  --highlight:      var(--color-coral-500);
+  --focus-ring:     var(--color-brand-400);
+}

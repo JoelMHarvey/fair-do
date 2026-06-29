@@ -1,0 +1,32 @@
+<!-- @dsCard group="Brand" viewport="700x180" name="Logo" subtitle="Teal disc + calm smile mark, with the lowercase Fraunces wordmark." -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<link rel="stylesheet" href="../styles.css">
+<style>
+  body { margin: 0; padding: 0; font-family: var(--font-sans); display: flex; }
+  .panel { flex: 1; display: flex; align-items: center; justify-content: center; gap: 10px; padding: 28px; }
+  .light { background: var(--surface-card); }
+  .dark { background: var(--surface-inverse); }
+  .word { font-family: var(--font-display); font-size: 30px; font-weight: 600; letter-spacing: -0.02em; }
+  .mark { width: 40px; height: 40px; }
+</style>
+</head>
+<body>
+  <div class="panel light">
+    <svg class="mark" viewBox="0 0 28 28">
+      <circle cx="14" cy="14" r="14" fill="#217567"></circle>
+      <path d="M9 18c0-3 2-5 5-5s5 2 5 5M9.5 11.5c.8-1.2 2.3-2 4.5-2s3.7.8 4.5 2" fill="none" stroke="#fff" stroke-width="1.8" stroke-linecap="round"></path>
+    </svg>
+    <span class="word" style="color:var(--color-brand-900)">faresay</span>
+  </div>
+  <div class="panel dark">
+    <svg class="mark" viewBox="0 0 28 28">
+      <circle cx="14" cy="14" r="14" fill="#fff"></circle>
+      <path d="M9 18c0-3 2-5 5-5s5 2 5 5M9.5 11.5c.8-1.2 2.3-2 4.5-2s3.7.8 4.5 2" fill="none" stroke="#217567" stroke-width="1.8" stroke-linecap="round"></path>
+    </svg>
+    <span class="word" style="color:#fff">faresay</span>
+  </div>
+</body>
+</html>
