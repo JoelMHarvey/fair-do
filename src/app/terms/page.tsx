@@ -4,7 +4,7 @@ import { SiteFooter } from '@/components/SiteFooter'
 export const metadata = {
   title: 'Terms of Service — fair-do',
   description:
-    'The subscription terms governing a tutor’s use of the fair-do studio portal — the service, subscription and commission, your responsibilities, data protection, liability and governing law.',
+    'The subscription terms governing a tutor\'s use of the fair-do studio portal — the service, subscription and commission, your responsibilities, data protection, liability and governing law.',
 }
 
 export default function TermsPage() {
@@ -57,19 +57,7 @@ export default function TermsPage() {
             </section>
 
             <section>
-              <h2 className="font-display text-lg font-semibold text-brand-900 mb-3">3. Not a crisis service</h2>
-              <p>
-                The service is studio-management software for scheduled, non-urgent lessons delivered by you. It is{' '}
-                <strong>not</strong> an emergency or crisis service, and fair-do does not monitor student communications or
-                bookings for emergencies. If you or your student is in immediate danger, call <strong>999</strong>. For
-                urgent wellbeing support, contact Samaritans on <strong>116 123</strong> (free, 24/7), text SHOUT to{' '}
-                <strong>85258</strong>, or call NHS 111 and select option 2. Safeguarding and duty of care rest with you
-                as the tutor.
-              </p>
-            </section>
-
-            <section>
-              <h2 className="font-display text-lg font-semibold text-brand-900 mb-3">4. Eligibility</h2>
+              <h2 className="font-display text-lg font-semibold text-brand-900 mb-3">3. Eligibility</h2>
               <p>
                 To subscribe and use the service to deliver lessons, you must be a tutor appropriately
                 qualified and entitled to teach in the UK — holding a recognised teaching qualification (for example QTS,
@@ -79,7 +67,7 @@ export default function TermsPage() {
             </section>
 
             <section>
-              <h2 className="font-display text-lg font-semibold text-brand-900 mb-3">5. Subscription and fees</h2>
+              <h2 className="font-display text-lg font-semibold text-brand-900 mb-3">4. Subscription and fees</h2>
               <p>
                 The service is offered on <strong>monthly subscription plans</strong>, billed monthly in advance via our
                 payment provider, Stripe. Where you use the service to take card payments from your students, fair-do
@@ -96,7 +84,7 @@ export default function TermsPage() {
             </section>
 
             <section>
-              <h2 className="font-display text-lg font-semibold text-brand-900 mb-3">6. Your responsibilities</h2>
+              <h2 className="font-display text-lg font-semibold text-brand-900 mb-3">5. Your responsibilities</h2>
               <p>As the professional running your own studio, you (and not fair-do) are responsible for:</p>
               <ul className="list-disc list-inside space-y-1 ml-2 mt-2">
                 <li>The student relationship and the teaching record, which you own, maintain, retain and secure</li>
@@ -111,7 +99,7 @@ export default function TermsPage() {
             </section>
 
             <section>
-              <h2 className="font-display text-lg font-semibold text-brand-900 mb-3">7. Data protection</h2>
+              <h2 className="font-display text-lg font-semibold text-brand-900 mb-3">6. Data protection</h2>
               <p>
                 In respect of your students&apos; personal data, <strong>you are
                 the controller and fair-do is the processor</strong>, acting only on your documented instructions under
@@ -122,7 +110,7 @@ export default function TermsPage() {
             </section>
 
             <section>
-              <h2 className="font-display text-lg font-semibold text-brand-900 mb-3">8. Term, cancellation and your data</h2>
+              <h2 className="font-display text-lg font-semibold text-brand-900 mb-3">7. Term, cancellation and your data</h2>
               <p>
                 Paid plans renew automatically each month until cancelled. You may cancel at any time through your account;
                 cancellation takes effect at the end of the then-current paid month. On termination you may export and keep
@@ -132,7 +120,7 @@ export default function TermsPage() {
             </section>
 
             <section>
-              <h2 className="font-display text-lg font-semibold text-brand-900 mb-3">9. Warranties and disclaimers</h2>
+              <h2 className="font-display text-lg font-semibold text-brand-900 mb-3">8. Warranties and disclaimers</h2>
               <p>
                 To the fullest extent permitted by law, the service is provided &quot;as is&quot; and &quot;as
                 available&quot;. Because fair-do does not provide tuition, we make no warranty as to the suitability, safety,
@@ -142,7 +130,7 @@ export default function TermsPage() {
             </section>
 
             <section>
-              <h2 className="font-display text-lg font-semibold text-brand-900 mb-3">10. Limitation of liability</h2>
+              <h2 className="font-display text-lg font-semibold text-brand-900 mb-3">9. Limitation of liability</h2>
               <p>
                 Nothing limits liability that cannot lawfully be limited (including for death or personal injury caused by
                 negligence, or for fraud). Subject to that, fair-do&apos;s total aggregate liability in any 12-month period
@@ -154,7 +142,7 @@ export default function TermsPage() {
             </section>
 
             <section>
-              <h2 className="font-display text-lg font-semibold text-brand-900 mb-3">11. Governing law</h2>
+              <h2 className="font-display text-lg font-semibold text-brand-900 mb-3">10. Governing law</h2>
               <p>
                 These terms are governed by the laws of England &amp; Wales, and the courts of England &amp; Wales have
                 exclusive jurisdiction.
@@ -162,10 +150,10 @@ export default function TermsPage() {
             </section>
 
             <section>
-              <h2 className="font-display text-lg font-semibold text-brand-900 mb-3">12. Contact</h2>
+              <h2 className="font-display text-lg font-semibold text-brand-900 mb-3">11. Contact</h2>
               <p>
-                <a href="mailto:legal@faresay.com" className="text-brand-700 hover:underline">
-                  legal@faresay.com
+                <a href="mailto:legal@fair-do.com" className="text-brand-700 hover:underline">
+                  legal@fair-do.com
                 </a>
               </p>
             </section>

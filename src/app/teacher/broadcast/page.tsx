@@ -73,7 +73,7 @@ export default async function BroadcastPage() {
         <PageHeader
           title="Message your clients"
           subtitle="Write one update and reach the students who need it — by email or a calendar invite, on your own letterhead."
-          help={{ href: '/therapist/help', label: 'How messaging works' }}
+          help={{ href: '/teacher/help', label: 'How messaging works' }}
         />
 
         <div className="mb-6">

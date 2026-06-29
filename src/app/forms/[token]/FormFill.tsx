@@ -34,7 +34,7 @@ export default function FormFill({ token, title, fields }: { token: string; titl
       <div className="bg-white rounded-3xl border border-sand-200 p-8 text-center shadow-sm">
         <div className="text-4xl mb-3">✓</div>
         <h2 className="font-display text-xl font-semibold text-brand-900 mb-1">Thank you</h2>
-        <p className="text-sand-600">Your answers have been sent to your therapist. You can close this page.</p>
+        <p className="text-sand-600">Your answers have been sent to your tutor. You can close this page.</p>
       </div>
     )
   }
@@ -65,7 +65,7 @@ export default function FormFill({ token, title, fields }: { token: string; titl
       <button onClick={submit} disabled={busy} className="w-full bg-brand-600 text-white py-3 rounded-full font-medium hover:bg-brand-700 transition disabled:opacity-50 shadow-sm">
         {busy ? 'Sending…' : 'Submit'}
       </button>
-      <p className="text-xs text-sand-400 text-center">Your answers go only to your therapist. Faresay is not a crisis service — in an emergency call 999 or Samaritans 116 123.</p>
+      <p className="text-xs text-sand-400 text-center">Your answers go only to your tutor.</p>
     </div>
   )
 }

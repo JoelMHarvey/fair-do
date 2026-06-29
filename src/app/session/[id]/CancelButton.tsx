@@ -28,19 +28,19 @@ export default function CancelButton({ sessionId, refundable }: { sessionId: str
         onClick={() => setConfirming(true)}
         className="text-sm text-brand-100/70 hover:text-white underline underline-offset-2"
       >
-        Cancel this session
+        Cancel this lesson
       </button>
     )
   }
 
   return (
     <div className="bg-brand-800 border border-brand-700 rounded-2xl p-5 max-w-sm mx-auto text-center">
-      <p className="text-white font-medium mb-1">Cancel this session?</p>
+      <p className="text-white font-medium mb-1">Cancel this lesson?</p>
       {refundable ? (
         <p className="text-sm text-brand-200 mb-4">You&apos;re more than 24 hours ahead — you&apos;ll get a full refund.</p>
       ) : (
         <p className="text-sm text-amber-300 mb-4">
-          This is within 24 hours of the session, so it&apos;s <strong>non-refundable</strong>. You won&apos;t be charged again, but no refund is issued.
+          This is within 24 hours of the lesson, so it&apos;s <strong>non-refundable</strong>. You won&apos;t be charged again, but no refund is issued.
         </p>
       )}
       {error && <p className="text-red-400 text-sm mb-3">{error}</p>}
@@ -50,7 +50,7 @@ export default function CancelButton({ sessionId, refundable }: { sessionId: str
           disabled={busy}
           className="flex-1 py-2.5 rounded-xl border border-brand-600 text-brand-100 text-sm hover:bg-brand-700 transition disabled:opacity-50"
         >
-          Keep session
+          Keep lesson
         </button>
         <button
           onClick={cancel}

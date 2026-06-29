@@ -76,10 +76,10 @@ export default function AvailabilityGrid({
               <div key={t.id} className="flex items-center justify-between bg-white rounded-2xl border border-sand-200 px-5 py-3.5 shadow-sm">
                 <div>
                   <p className="font-medium text-brand-900 text-sm">{t.name}</p>
-                  <p className="text-xs text-sand-500">{sym(t.country)}{(t.ratePence / 100).toFixed(0)} per session</p>
+                  <p className="text-xs text-sand-500">{sym(t.country)}{(t.ratePence / 100).toFixed(0)} per lesson</p>
                 </div>
                 <div className="flex items-center gap-2">
-                  <Link href={`/therapists/${t.id}`} className="text-sm text-sand-600 hover:text-brand-700 px-3 py-1.5">Profile</Link>
+                  <Link href={`/tutors/${t.id}`} className="text-sm text-sand-600 hover:text-brand-700 px-3 py-1.5">Profile</Link>
                   <Link href={`/book/${t.id}`} className="text-sm bg-brand-600 text-white px-4 py-1.5 rounded-full hover:bg-brand-700 transition">Book</Link>
                 </div>
               </div>

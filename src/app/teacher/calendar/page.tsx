@@ -38,8 +38,8 @@ export default async function TherapistCalendar({ searchParams }: { searchParams
 
   const Toggle = (
     <div className="flex gap-1 p-1 bg-sand-100 rounded-full w-fit mb-6 text-sm">
-      <Link href="/therapist/calendar" className={`px-4 py-1.5 rounded-full font-medium ${!isMonth ? 'bg-white text-brand-800 shadow-sm' : 'text-sand-500'}`}>Agenda</Link>
-      <Link href="/therapist/calendar?view=month" className={`px-4 py-1.5 rounded-full font-medium ${isMonth ? 'bg-white text-brand-800 shadow-sm' : 'text-sand-500'}`}>Month</Link>
+      <Link href="/teacher/calendar" className={`px-4 py-1.5 rounded-full font-medium ${!isMonth ? 'bg-white text-brand-800 shadow-sm' : 'text-sand-500'}`}>Agenda</Link>
+      <Link href="/teacher/calendar?view=month" className={`px-4 py-1.5 rounded-full font-medium ${isMonth ? 'bg-white text-brand-800 shadow-sm' : 'text-sand-500'}`}>Month</Link>
     </div>
   )
 
@@ -71,9 +71,9 @@ export default async function TherapistCalendar({ searchParams }: { searchParams
           <PageHeader title="Calendar" subtitle="Your appointments, month by month." />
           {Toggle}
           <div className="flex items-center justify-between mb-3">
-            <Link href={`/therapist/calendar?view=month&m=${prev}`} className="text-sm text-sand-500 hover:text-brand-700">← {new Date(base.getFullYear(), base.getMonth() - 1, 1).toLocaleDateString('en-GB', { month: 'short' })}</Link>
+            <Link href={`/teacher/calendar?view=month&m=${prev}`} className="text-sm text-sand-500 hover:text-brand-700">← {new Date(base.getFullYear(), base.getMonth() - 1, 1).toLocaleDateString('en-GB', { month: 'short' })}</Link>
             <h2 className="font-display text-lg font-semibold text-brand-900">{base.toLocaleDateString('en-GB', { month: 'long', year: 'numeric' })}</h2>
-            <Link href={`/therapist/calendar?view=month&m=${next}`} className="text-sm text-sand-500 hover:text-brand-700">{new Date(base.getFullYear(), base.getMonth() + 1, 1).toLocaleDateString('en-GB', { month: 'short' })} →</Link>
+            <Link href={`/teacher/calendar?view=month&m=${next}`} className="text-sm text-sand-500 hover:text-brand-700">{new Date(base.getFullYear(), base.getMonth() + 1, 1).toLocaleDateString('en-GB', { month: 'short' })} →</Link>
           </div>
           <div className="grid grid-cols-7 gap-px bg-sand-200 rounded-2xl overflow-hidden border border-sand-200 text-center">
             {['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun'].map(d => (
@@ -126,7 +126,7 @@ export default async function TherapistCalendar({ searchParams }: { searchParams
         <PageHeader title="Calendar" subtitle="Your upcoming appointments. Sync them to your phone’s calendar from the dashboard." />
         {Toggle}
         {sessions.length === 0 ? (
-          <EmptyState icon="📅" title="No upcoming appointments" body="When you book lessons they will appear here, day by day. Add a student and schedule one to get started." cta={{ href: '/therapist/clients', label: 'Go to students' }} />
+          <EmptyState icon="📅" title="No upcoming appointments" body="When you book lessons they will appear here, day by day. Add a student and schedule one to get started." cta={{ href: '/teacher/clients', label: 'Go to students' }} />
         ) : (
           <div className="space-y-7">
             {groups.map(g => (
@@ -142,7 +142,7 @@ export default async function TherapistCalendar({ searchParams }: { searchParams
                           <p className="text-[11px] text-sand-400 mt-1">{s.durationMins} min</p>
                         </div>
                         <div className="min-w-0 flex-1">
-                          <Link href={`/therapist/clients/${s.matchId}`} className="text-sm font-medium text-sand-900 hover:text-brand-700 truncate block">{s.student.firstName} {s.student.lastName}</Link>
+                          <Link href={`/teacher/clients/${s.matchId}`} className="text-sm font-medium text-sand-900 hover:text-brand-700 truncate block">{s.student.firstName} {s.student.lastName}</Link>
                           <span className={`inline-block mt-1 text-xs font-medium px-2 py-0.5 rounded-full ${STATUS_CLASS[s.status] ?? 'bg-sand-100 text-sand-600'}`}>{s.status.replace('_', ' ').toLowerCase()}</span>
                         </div>
                         <Link href={`/session/${s.id}`} className={`text-sm font-medium shrink-0 ${live ? 'text-white bg-brand-600 px-4 py-2 rounded-full hover:bg-brand-700' : 'text-brand-600 hover:text-brand-700'}`}>{live ? 'Join' : 'Open →'}</Link>

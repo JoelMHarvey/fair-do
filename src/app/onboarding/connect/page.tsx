@@ -57,7 +57,7 @@ export default function ConnectPage() {
         </p>
         <p className="mt-3 text-center text-xs text-sand-400">
           Are you a tutor?{' '}
-          <Link href="/for-therapists" className="text-brand-600 hover:text-brand-700 underline">See how fair-do works</Link>
+          <Link href="/for-tutors" className="text-brand-600 hover:text-brand-700 underline">See how fair-do works</Link>
         </p>
       </div>
     </main>

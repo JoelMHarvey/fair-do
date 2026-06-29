@@ -25,7 +25,7 @@ export default async function ImportClientsPage() {
         <PageHeader
           title="Add your students in one go"
           subtitle="Bring your whole caseload across at once. We’ll create each student for you and send them a private invite to join your practice — students you already have, or have already invited, are skipped automatically."
-          help={{ href: '/therapist/help', label: 'How importing works' }}
+          help={{ href: '/teacher/help', label: 'How importing works' }}
         />
 
         <div className="mb-6">

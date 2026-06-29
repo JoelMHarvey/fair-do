@@ -5,21 +5,10 @@ import { useSearchParams } from 'next/navigation'
 import Link from 'next/link'
 import { Logo } from '@/components/Logo'
 import { activeUsStates } from '@/lib/locale'
-import PhotoUpload from '@/app/therapist/profile/PhotoUpload'
+import PhotoUpload from '@/app/teacher/profile/PhotoUpload'
+import { SUBJECTS, LEVELS, AGE_GROUPS, TEACHING_STYLES } from '@/lib/taxonomy'
 
-const SUBJECTS = [
-  'Maths', 'English', 'Science', 'Physics', 'Chemistry', 'Biology',
-  'History', 'Geography', 'Languages', 'Music', 'Art', 'Computing',
-  'Economics', 'Psychology', 'Business', 'Primary (KS1/KS2)', 'GCSE preparation', 'A-Level preparation',
-]
-
-const TEACHING_STYLES = [
-  'Exam preparation', 'Conceptual learning', 'Problem solving',
-  'Project-based', 'Socratic method', 'Structured practice',
-  'Visual / diagrammatic', 'Discussion-led', 'Mentoring', 'Adaptive pacing',
-]
-
-const QUAL_BODIES_UK = ['QTS', 'QTLS', 'PGCE', 'CertEd', 'Other qualified']
+const QUAL_BODIES_UK = ['QTS', 'QTLS', 'PGCE', 'CertEd', 'ABRSM', 'CELTA / TEFL', 'Other qualified']
 const QUAL_BODIES_US = ['State teaching licence', 'TESOL / TEFL', 'Subject specialist', 'Other qualified']
 
 // Mon–Sun, dayOfWeek: Mon=1 … Sat=6, Sun=0
@@ -53,7 +42,11 @@ type Form = {
   qualificationBody: string
   qualificationRef: string
   qualificationExpiry: string
+  dbsNumber: string
+  dbsDate: string
   subjects: string[]
+  levels: string[]
+  ageGroups: string[]
   teachingStyles: string[]
   availability: AvailMap
   photoBaseUrl: string
@@ -88,7 +81,11 @@ function TherapistOnboardingInner() {
     qualificationBody: '',
     qualificationRef: '',
     qualificationExpiry: '',
+    dbsNumber: '',
+    dbsDate: '',
     subjects: [],
+    levels: [],
+    ageGroups: [],
     teachingStyles: [],
     availability: initAvail(),
     photoBaseUrl: '',
@@ -100,7 +97,7 @@ function TherapistOnboardingInner() {
     setForm(prev => ({ ...prev, [field]: value }))
   }
 
-  function toggleTag(field: 'subjects' | 'teachingStyles', val: string) {
+  function toggleTag(field: 'subjects' | 'levels' | 'ageGroups' | 'teachingStyles', val: string) {
     setForm(prev => ({
       ...prev,
       [field]: prev[field].includes(val)
@@ -142,8 +139,12 @@ function TherapistOnboardingInner() {
         qualificationBody: form.qualificationBody,
         qualificationRef: form.qualificationRef,
         qualificationExpiry: form.qualificationExpiry,
+        dbsNumber: form.dbsNumber || undefined,
+        dbsDate: form.dbsDate || undefined,
         licenseState: isUS ? licenseState : undefined,
         subjects: form.subjects,
+        levels: form.levels,
+        ageGroups: form.ageGroups,
         teachingStyles: form.teachingStyles,
         availability: availArray,
         photoBaseUrl: form.photoBaseUrl || undefined,
@@ -305,11 +306,39 @@ function TherapistOnboardingInner() {
                   <input type="date" className={input} value={form.qualificationExpiry} onChange={e => update('qualificationExpiry', e.target.value)} />
                 </div>
               </div>
+              {!isUS && (
+                <div className="grid grid-cols-2 gap-3">
+                  <div>
+                    <label className="block text-sm font-medium text-sand-700 mb-1">DBS number <span className="text-sand-400 font-normal">(if you teach under-18s)</span></label>
+                    <input className={input} value={form.dbsNumber} onChange={e => update('dbsNumber', e.target.value)} placeholder="e.g. 001234567890" />
+                  </div>
+                  <div>
+                    <label className="block text-sm font-medium text-sand-700 mb-1">DBS issue date</label>
+                    <input type="date" className={input} value={form.dbsDate} onChange={e => update('dbsDate', e.target.value)} />
+                  </div>
+                </div>
+              )}
               <div>
                 <label className="block text-sm font-medium text-sand-700 mb-2">Subjects</label>
                 <div className="flex flex-wrap gap-2">
                   {SUBJECTS.map(s => (
                     <button key={s} onClick={() => toggleTag('subjects', s)} className={pill(form.subjects.includes(s))}>{s}</button>
+                  ))}
+                </div>
+              </div>
+              <div>
+                <label className="block text-sm font-medium text-sand-700 mb-2">Levels you teach</label>
+                <div className="flex flex-wrap gap-2">
+                  {LEVELS.map(l => (
+                    <button key={l} onClick={() => toggleTag('levels', l)} className={pill(form.levels.includes(l))}>{l}</button>
+                  ))}
+                </div>
+              </div>
+              <div>
+                <label className="block text-sm font-medium text-sand-700 mb-2">Age groups <span className="text-sand-400 font-normal">(optional)</span></label>
+                <div className="flex flex-wrap gap-2">
+                  {AGE_GROUPS.map(a => (
+                    <button key={a} onClick={() => toggleTag('ageGroups', a)} className={pill(form.ageGroups.includes(a))}>{a}</button>
                   ))}
                 </div>
               </div>
@@ -326,7 +355,7 @@ function TherapistOnboardingInner() {
               <button onClick={() => setStep(1)} className={back}>Back</button>
               <button
                 className={next}
-                disabled={!form.qualificationBody || !form.qualificationRef || !form.qualificationExpiry || form.subjects.length === 0 || (isUS && !licenseState)}
+                disabled={!form.qualificationBody || !form.qualificationRef || !form.qualificationExpiry || form.subjects.length === 0 || form.levels.length === 0 || (isUS && !licenseState)}
                 onClick={() => setStep(3)}
               >
                 Continue

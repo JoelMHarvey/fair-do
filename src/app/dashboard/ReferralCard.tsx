@@ -18,7 +18,7 @@ export default function ReferralCard({ code, link, rewardPounds }: { code: strin
         <div>
           <h2 className="font-display text-xl font-semibold mb-1">Give £{rewardPounds}, get £{rewardPounds}</h2>
           <p className="text-brand-100 text-sm max-w-md">
-            Share your link. Your friend gets £{rewardPounds} off their first session, and you get £{rewardPounds} credit when they book. Everyone wins.
+            Share your link. Your friend gets £{rewardPounds} off their first lesson, and you get £{rewardPounds} credit when they book. Everyone wins.
           </p>
         </div>
       </div>

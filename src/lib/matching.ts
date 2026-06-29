@@ -1,23 +1,10 @@
 import { prisma } from './prisma'
 
-// Maps student questionnaire reasons to teacher subject tags
-const REASON_TO_SUBJECT: Record<string, string[]> = {
-  'Anxiety or worry': ['Anxiety'],
-  'Depression or low mood': ['Depression'],
-  'Trauma or PTSD': ['Trauma / PTSD'],
-  'Relationship difficulties': ['Relationships'],
-  'Grief or loss': ['Grief & loss', 'Bereavement'],
-  'Work stress': ['Work stress'],
-  'Identity or self-esteem': ['Identity / LGBTQ+'],
-  'Life transitions': ['Life transitions'],
-  'Other': [],
-}
-
 const DAY_NAME_TO_DOW: Record<string, number> = {
   Mon: 1, Tue: 2, Wed: 3, Thu: 4, Fri: 5, Sat: 6, Sun: 0,
 }
 
-export type MatchedTherapist = {
+export type MatchedTeacher = {
   id: string
   firstName: string
   lastName: string
@@ -35,9 +22,13 @@ export type MatchedTherapist = {
   ratingAverage: number
   ratingCount: number
   subjects: string[]
+  levels: string[]
   teachingStyles: string[]
   score: number
 }
+
+/** @deprecated use MatchedTeacher */
+export type MatchedTherapist = MatchedTeacher
 
 // Next open slot from weekly availability, searching the next 14 days.
 function computeNextAvailable(avail: { dayOfWeek: number; startTime: string }[]): number | null {
@@ -58,7 +49,7 @@ function computeNextAvailable(avail: { dayOfWeek: number; startTime: string }[])
   return null
 }
 
-export async function getMatchesForClient(studentId: string): Promise<MatchedTherapist[]> {
+export async function getMatchesForStudent(studentId: string): Promise<MatchedTeacher[]> {
   const student = await prisma.student.findUnique({
     where: { id: studentId },
   })
@@ -66,23 +57,18 @@ export async function getMatchesForClient(studentId: string): Promise<MatchedThe
   if (!student) return []
 
   const questionnaire = student.questionnaire as {
-    reason?: string
-    reasons?: string[]
-    preferredApproach?: string
-    preferredApproaches?: string[]
+    subjects?: string[]
+    levels?: string[]
+    goals?: string[]
+    frequency?: string
     availability?: string[]
   } | null
 
-  // Support both new multi-select and legacy single-value questionnaires.
-  const reasons = questionnaire?.reasons?.length
-    ? questionnaire.reasons
-    : (questionnaire?.reason ? [questionnaire.reason] : [])
-  const approaches = questionnaire?.preferredApproaches?.length
-    ? questionnaire.preferredApproaches
-    : (questionnaire?.preferredApproach ? [questionnaire.preferredApproach] : [])
+  const wantedSubjects = new Set(questionnaire?.subjects ?? [])
+  const wantedLevels = new Set(questionnaire?.levels ?? [])
 
   // Region scoping: only same-country teachers; for the US, only those licensed
-  // in the student's state (a teacher can only legally see students physically in-state).
+  // in the student's state.
   const regionWhere: { country: typeof student.country; licenseState?: string } = { country: student.country }
   if (student.country === 'US' && student.usState) {
     regionWhere.licenseState = student.usState
@@ -107,19 +93,15 @@ export async function getMatchesForClient(studentId: string): Promise<MatchedThe
   })
   const ratingMap = new Map(ratingRows.map(r => [r.teacherId, { avg: Math.round((r._avg.rating ?? 0) * 10) / 10, count: r._count.rating }]))
 
-  // Every subject implied by any selected reason
-  const targetSubjects = new Set(reasons.flatMap(r => REASON_TO_SUBJECT[r] ?? []))
-  const wantedStyles = approaches.filter(a => a !== 'No preference')
-
   const scored = teachers.map(t => {
     let score = 0
 
     // Subject match — +50 per overlapping subject (capped), so more matches rank higher
-    const subjectHits = t.subjects.filter(s => targetSubjects.has(s)).length
+    const subjectHits = t.subjects.filter(s => wantedSubjects.has(s)).length
     if (subjectHits > 0) score += Math.min(50 + (subjectHits - 1) * 15, 95)
 
-    // Teaching style match — +30 if the teacher offers any preferred style
-    if (wantedStyles.some(a => t.teachingStyles.includes(a))) score += 30
+    // Level match — +30 if the teacher covers any level the student needs
+    if (t.levels.some(l => wantedLevels.has(l))) score += 30
 
     // Availability overlap (+20)
     if (questionnaire?.availability?.length) {
@@ -146,6 +128,7 @@ export async function getMatchesForClient(studentId: string): Promise<MatchedThe
       ratingAverage: ratingMap.get(t.id)?.avg ?? 0,
       ratingCount: ratingMap.get(t.id)?.count ?? 0,
       subjects: t.subjects,
+      levels: t.levels,
       teachingStyles: t.teachingStyles,
       score,
     }
@@ -156,3 +139,6 @@ export async function getMatchesForClient(studentId: string): Promise<MatchedThe
     b.score !== a.score ? b.score - a.score : a.lastName.localeCompare(b.lastName)
   )
 }
+
+/** @deprecated use getMatchesForStudent */
+export const getMatchesForClient = getMatchesForStudent

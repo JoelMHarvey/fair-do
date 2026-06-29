@@ -10,7 +10,7 @@ import { isAdminUser } from '@/lib/admin'
 import { isFounder } from '@/lib/founder'
 
 export const dynamic = 'force-dynamic'
-export const metadata = { title: 'System health — Faresay' }
+export const metadata = { title: 'System health — fair-do' }
 
 export default async function AdminHealthPage() {
   const { userId } = await auth()

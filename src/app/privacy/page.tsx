@@ -38,8 +38,8 @@ export default function PrivacyPage() {
               </p>
               <p className="mt-2">
                 Contact:{' '}
-                <a href="mailto:privacy@faresay.com" className="text-brand-700 hover:underline">
-                  privacy@faresay.com
+                <a href="mailto:privacy@fair-do.com" className="text-brand-700 hover:underline">
+                  privacy@fair-do.com
                 </a>
               </p>
             </section>
@@ -154,8 +154,8 @@ export default function PrivacyPage() {
               <p>
                 Where fair-do is the controller of your data, under UK GDPR you have the right to access, rectify, erase,
                 restrict and port your data, and to object to processing or withdraw consent. Contact{' '}
-                <a href="mailto:privacy@faresay.com" className="text-brand-700 hover:underline">
-                  privacy@faresay.com
+                <a href="mailto:privacy@fair-do.com" className="text-brand-700 hover:underline">
+                  privacy@fair-do.com
                 </a>{' '}
                 to exercise any right. You also have the right to lodge a complaint with the ICO at ico.org.uk.
               </p>
@@ -171,16 +171,6 @@ export default function PrivacyPage() {
                 We use strictly necessary session cookies only (e.g. authentication and security) — no advertising
                 trackers. For website analytics we use Plausible, which is cookieless and does not collect personal data
                 or track you across sites.
-              </p>
-            </section>
-
-            <section>
-              <h2 className="font-display text-lg font-semibold text-brand-900 mb-3">10. Not a crisis service</h2>
-              <p>
-                This policy is about data protection, not crisis support. fair-do is not a crisis or emergency service. If
-                you or someone else is in immediate danger, call <strong>999</strong>. For urgent wellbeing support,
-                call Samaritans on <strong>116 123</strong> (free, 24/7), text SHOUT to <strong>85258</strong>, or call
-                NHS 111 and select option 2.
               </p>
             </section>
           </div>

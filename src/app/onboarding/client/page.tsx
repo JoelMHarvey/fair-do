@@ -5,34 +5,28 @@ import { useRouter, useSearchParams } from 'next/navigation'
 import Link from 'next/link'
 import { Logo } from '@/components/Logo'
 import { activeUsStates } from '@/lib/locale'
+import { SUBJECTS, LEVELS, GOALS, FREQUENCY } from '@/lib/taxonomy'
 
 // Read the public flag directly — practice.ts is server-tainted (Clerk auth) and
 // can't be imported into a client component.
 const DIRECTORY_ENABLED = process.env.NEXT_PUBLIC_DIRECTORY_ENABLED === 'true'
 
-const REASONS = [
-  'Anxiety or worry', 'Depression or low mood', 'Trauma or PTSD',
-  'Relationship difficulties', 'Grief or loss', 'Work stress',
-  'Identity or self-esteem', 'Life transitions', 'Not sure yet',
-]
-
-const APPROACHES = ['CBT', 'Psychodynamic', 'Person-centred', 'EMDR', 'Mindfulness', 'No preference']
-
 type Form = {
   firstName: string
   lastName: string
-  reasons: string[]
-  preferredApproaches: string[]
+  subjects: string[]
+  levels: string[]
+  goals: string[]
+  frequency: string
   referralCode: string
-  acknowledged: boolean
   consentGiven: boolean
 }
 
-export default function ClientOnboarding() {
-  return <Suspense><ClientOnboardingInner /></Suspense>
+export default function StudentOnboarding() {
+  return <Suspense><StudentOnboardingInner /></Suspense>
 }
 
-function ClientOnboardingInner() {
+function StudentOnboardingInner() {
   const router = useRouter()
   const isUS = useSearchParams().get('region') === 'US'
   const [usState, setUsState] = useState('')
@@ -42,15 +36,15 @@ function ClientOnboardingInner() {
   const [form, setForm] = useState<Form>({
     firstName: '',
     lastName: '',
-    reasons: [],
-    preferredApproaches: [],
+    subjects: [],
+    levels: [],
+    goals: [],
+    frequency: '',
     referralCode: '',
-    acknowledged: false,
     consentGiven: false,
   })
 
-  // Directory matching is off pre-pivot — clients join via their therapist's invite.
-  // Send any direct hit to the connect explainer instead of the (hidden) directory.
+  // Directory matching is off pre-launch — students join via their tutor's invite.
   useEffect(() => {
     if (!DIRECTORY_ENABLED) router.replace('/onboarding/connect')
   }, [router])
@@ -60,7 +54,7 @@ function ClientOnboardingInner() {
     setForm(prev => ({ ...prev, [field]: value }))
   }
 
-  function toggle(field: 'reasons' | 'preferredApproaches', value: string) {
+  function toggle(field: 'subjects' | 'levels' | 'goals', value: string) {
     setForm(prev => ({
       ...prev,
       [field]: prev[field].includes(value) ? prev[field].filter(v => v !== value) : [...prev[field], value],
@@ -77,14 +71,11 @@ function ClientOnboardingInner() {
         firstName: form.firstName.trim(),
         lastName: form.lastName.trim(),
         questionnaire: {
-          reason: form.reasons[0] ?? '',
-          reasons: form.reasons,
-          previousTherapy: null,
-          preferredApproach: form.preferredApproaches[0] || undefined,
-          preferredApproaches: form.preferredApproaches,
+          subjects: form.subjects,
+          levels: form.levels,
+          goals: form.goals,
+          frequency: form.frequency || undefined,
           availability: [],
-          crisisAcknowledged: form.acknowledged,
-          crisisAcknowledgedAt: new Date().toISOString(),
         },
         referralCode: form.referralCode.trim() || undefined,
         usState: isUS ? usState : undefined,
@@ -92,7 +83,7 @@ function ClientOnboardingInner() {
       }),
     })
     if (res.ok) {
-      router.push('/therapists')
+      router.push('/tutors')
     } else {
       setError('Something went wrong. Please try again.')
       setSubmitting(false)
@@ -126,9 +117,9 @@ function ClientOnboardingInner() {
         {step === 1 && (
           <div className="animate-fade-up">
             <h1 className="font-display text-3xl font-semibold text-brand-900 mb-2">
-              Let&apos;s find your therapist
+              Let&apos;s find your tutor
             </h1>
-            <p className="text-sand-600 mb-2">Two quick steps. Take your time — there&apos;s no rush.</p>
+            <p className="text-sand-600 mb-2">Two quick steps. Take your time.</p>
             <p className="text-sm text-sand-500 mb-7">
               Want to know who we are first?{' '}
               <Link href="/about" target="_blank" className="text-brand-600 hover:text-brand-700 underline">Read our story</Link>.
@@ -152,33 +143,53 @@ function ClientOnboardingInner() {
                   <option value="">Select your state…</option>
                   {activeUsStates().map(s => <option key={s.code} value={s.code}>{s.name}</option>)}
                 </select>
-                <p className="text-xs text-sand-400 mt-1">We can only match you with therapists licensed in your state. We&apos;re live in New York first — more states soon.</p>
               </div>
             )}
 
             <label className="block text-sm font-medium text-sand-700 mb-2">
-              What brings you here today? <span className="text-sand-400 font-normal">— choose any that fit</span>
+              What subject(s) do you need help with? <span className="text-sand-400 font-normal">— choose any</span>
             </label>
             <div className="grid grid-cols-2 gap-2 mb-6">
-              {REASONS.map(r => (
-                <button key={r} onClick={() => toggle('reasons', r)} className={chip(form.reasons.includes(r))}>
-                  {r}
+              {SUBJECTS.map(s => (
+                <button key={s} onClick={() => toggle('subjects', s)} className={chip(form.subjects.includes(s))}>
+                  {s}
                 </button>
               ))}
             </div>
 
-            <div className="flex items-center justify-between mb-2">
-              <label className="block text-sm font-medium text-sand-700">
-                Any approaches you prefer? <span className="text-sand-400 font-normal">— optional, pick any</span>
-              </label>
-              <Link href="/styles" target="_blank" className="text-xs text-brand-600 hover:text-brand-700 underline shrink-0">
-                What do these mean?
-              </Link>
+            <label className="block text-sm font-medium text-sand-700 mb-2">
+              What level are you studying at? <span className="text-sand-400 font-normal">— pick any</span>
+            </label>
+            <div className="flex flex-wrap gap-2 mb-6">
+              {LEVELS.map(l => (
+                <button key={l} onClick={() => toggle('levels', l)} className={smallChip(form.levels.includes(l))}>
+                  {l}
+                </button>
+              ))}
             </div>
+
+            <label className="block text-sm font-medium text-sand-700 mb-2">
+              What are your main goals? <span className="text-sand-400 font-normal">— optional</span>
+            </label>
+            <div className="flex flex-wrap gap-2 mb-6">
+              {GOALS.map(g => (
+                <button key={g} onClick={() => toggle('goals', g)} className={smallChip(form.goals.includes(g))}>
+                  {g}
+                </button>
+              ))}
+            </div>
+
+            <label className="block text-sm font-medium text-sand-700 mb-2">
+              How often would you like lessons? <span className="text-sand-400 font-normal">— optional</span>
+            </label>
             <div className="flex flex-wrap gap-2 mb-7">
-              {APPROACHES.map(a => (
-                <button key={a} onClick={() => toggle('preferredApproaches', a)} className={smallChip(form.preferredApproaches.includes(a))}>
-                  {a}
+              {FREQUENCY.map(f => (
+                <button
+                  key={f}
+                  onClick={() => update('frequency', form.frequency === f ? '' : f)}
+                  className={smallChip(form.frequency === f)}
+                >
+                  {f}
                 </button>
               ))}
             </div>
@@ -195,7 +206,7 @@ function ClientOnboardingInner() {
 
             <button
               className="w-full bg-brand-600 text-white py-3.5 rounded-full font-medium hover:bg-brand-700 transition disabled:opacity-40 shadow-lg shadow-brand-600/20"
-              disabled={!form.firstName.trim() || !form.lastName.trim() || form.reasons.length === 0 || (isUS && !usState)}
+              disabled={!form.firstName.trim() || !form.lastName.trim() || form.subjects.length === 0 || (isUS && !usState)}
               onClick={() => setStep(2)}
             >
               Continue
@@ -208,31 +219,16 @@ function ClientOnboardingInner() {
             <h1 className="font-display text-3xl font-semibold text-brand-900 mb-2">
               Before we begin
             </h1>
-            <p className="text-sand-600 mb-6">Two things we need you to know.</p>
+            <p className="text-sand-600 mb-6">One thing we need you to know.</p>
 
-            {/* Crisis */}
-            <div className="bg-coral-50 border border-coral-200 rounded-2xl p-5 mb-4">
-              <p className="text-coral-600 font-semibold text-sm mb-2">Faresay isn&apos;t a crisis service</p>
-              <p className="text-sand-700 text-sm mb-3">If you need urgent help right now:</p>
-              <ul className="text-sand-700 text-sm space-y-1">
-                <li><strong>Emergency:</strong> 999</li>
-                <li><strong>Samaritans:</strong> 116 123 — free, 24/7</li>
-                <li><strong>Crisis text:</strong> text SHOUT to 85258</li>
-              </ul>
-            </div>
-            <label className="flex items-start gap-3 cursor-pointer mb-5">
-              <input type="checkbox" checked={form.acknowledged} onChange={e => update('acknowledged', e.target.checked)} className="mt-1 w-4 h-4 accent-brand-600" />
-              <span className="text-sm text-sand-700">I understand, and I know how to get urgent help if I need it.</span>
-            </label>
-
-            {/* GDPR */}
+            {/* Data consent (Art.6 — ordinary personal data) */}
             <div className="bg-white border border-sand-200 rounded-2xl p-5 mb-4 text-sm text-sand-600 space-y-2">
               <p className="font-medium text-sand-800">Your data, protected</p>
-              <p>Your answers are special category data under UK GDPR. We use them only to match you with a therapist and provide your care. Seen by your therapist and essential staff only. Kept 7 years, then deleted. Full details in our <a href="/privacy" target="_blank" className="text-brand-600 underline">Privacy Policy</a>.</p>
+              <p>We use your details (name, email, lesson history and progress notes) only to match you with a tutor and run your lessons. Seen by your tutor and essential staff only. Full details in our <a href="/privacy" target="_blank" className="text-brand-600 underline">Privacy Policy</a>.</p>
             </div>
             <label className="flex items-start gap-3 cursor-pointer">
               <input type="checkbox" checked={form.consentGiven} onChange={e => update('consentGiven', e.target.checked)} className="mt-1 w-4 h-4 accent-brand-600" />
-              <span className="text-sm text-sand-700">I consent to Faresay processing my health information to match me with a therapist.</span>
+              <span className="text-sm text-sand-700">I consent to fair-do processing my personal data to match me with a tutor and provide tuition.</span>
             </label>
 
             {error && <p className="text-coral-600 text-sm mt-4">{error}</p>}
@@ -241,7 +237,7 @@ function ClientOnboardingInner() {
               <button onClick={() => setStep(1)} className="px-6 border border-sand-300 text-sand-700 py-3.5 rounded-full font-medium hover:bg-white transition">Back</button>
               <button
                 className="flex-1 bg-brand-600 text-white py-3.5 rounded-full font-medium hover:bg-brand-700 transition disabled:opacity-40 shadow-lg shadow-brand-600/20"
-                disabled={!form.acknowledged || !form.consentGiven || submitting}
+                disabled={!form.consentGiven || submitting}
                 onClick={submit}
               >
                 {submitting ? 'Finding your matches…' : 'See my matches'}

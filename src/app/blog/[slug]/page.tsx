@@ -14,7 +14,7 @@ export async function generateMetadata({ params }: { params: Promise<{ slug: str
   const { slug } = await params
   const post = getPost(slug)
   if (!post) return { title: 'Not found' }
-  return { title: `${post.title} — Faresay`, description: post.description }
+  return { title: `${post.title} — fair-do`, description: post.description }
 }
 
 export default async function BlogPost({ params }: { params: Promise<{ slug: string }> }) {
@@ -33,8 +33,8 @@ export default async function BlogPost({ params }: { params: Promise<{ slug: str
             headline: post.title,
             description: post.description,
             datePublished: post.date,
-            author: { '@type': 'Organization', name: 'Faresay' },
-            url: `https://faresay.com/blog/${post.slug}`,
+            author: { '@type': 'Organization', name: 'fair-do' },
+            url: `https://fair-do.com/blog/${post.slug}`,
           }),
         }}
       />
@@ -53,13 +53,9 @@ export default async function BlogPost({ params }: { params: Promise<{ slug: str
           ))}
         </div>
 
-        <div className="bg-coral-50 border border-coral-200 rounded-2xl p-5 mt-10 text-sm text-sand-700">
-          If you need help right now, please see <Link href="/help" className="text-brand-700 underline">urgent support</Link>. Faresay is not a crisis service.
-        </div>
-
-        <div className="bg-brand-50 border border-brand-200 rounded-2xl p-6 mt-6 text-center">
-          <p className="text-sand-700 mb-4">Ready to talk to someone? Get matched with a verified therapist in minutes.</p>
-          <Link href="/sign-up" className="inline-block bg-brand-600 text-white px-8 py-3 rounded-full font-medium hover:bg-brand-700 transition">Find your therapist</Link>
+        <div className="bg-brand-50 border border-brand-200 rounded-2xl p-6 mt-10 text-center">
+          <p className="text-sand-700 mb-4">Ready to get started? Get matched with a verified tutor in minutes.</p>
+          <Link href="/sign-up" className="inline-block bg-brand-600 text-white px-8 py-3 rounded-full font-medium hover:bg-brand-700 transition">Find your tutor</Link>
         </div>
       </article>
       <SiteFooter />

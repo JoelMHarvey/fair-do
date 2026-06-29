@@ -5,7 +5,7 @@ import { useEffect, useRef, useState } from 'react'
 type Turn = { role: 'user' | 'assistant'; content: string }
 
 const GREETING =
-  "Hi — I’m the Faresay Assistant. Ask me anything about using Faresay: booking, clients, payments, messaging, your plan. I’ll point you to the right place, and pass you to support if it’s beyond me."
+  "Hi — I'm the fair-do Assistant. Ask me anything about using fair-do: booking, students, payments, messaging, your plan. I'll point you to the right place, and pass you to support if it's beyond me."
 
 export function AssistantWidget() {
   const [open, setOpen] = useState(false)
@@ -59,7 +59,7 @@ export function AssistantWidget() {
       if (!acc.trim()) {
         setTurns(t => {
           const copy = t.slice()
-          copy[copy.length - 1] = { role: 'assistant', content: 'Sorry — I didn’t catch that. Try again, or email support@faresay.com.' }
+          copy[copy.length - 1] = { role: 'assistant', content: 'Sorry — I didn\'t catch that. Try again, or email support@fair-do.com.' }
           return copy
         })
       }
@@ -67,7 +67,7 @@ export function AssistantWidget() {
       const msg = e instanceof Error ? e.message : 'Something went wrong.'
       setTurns(t => {
         const copy = t.slice()
-        copy[copy.length - 1] = { role: 'assistant', content: `${msg} You can email support@faresay.com.` }
+        copy[copy.length - 1] = { role: 'assistant', content: `${msg} You can email support@fair-do.com.` }
         return copy
       })
     } finally {
@@ -88,7 +88,7 @@ export function AssistantWidget() {
       {!open && (
         <button
           onClick={() => setOpen(true)}
-          aria-label="Open the Faresay Assistant"
+          aria-label="Open the fair-do Assistant"
           className="fixed bottom-5 right-5 z-50 flex items-center gap-2 rounded-full bg-brand-600 text-white shadow-lg shadow-brand-600/25 hover:bg-brand-700 transition px-4 py-3 text-sm font-medium"
         >
           <span aria-hidden>💬</span>
@@ -101,8 +101,8 @@ export function AssistantWidget() {
         <div className="fixed bottom-5 right-5 z-50 flex flex-col w-[min(92vw,380px)] h-[min(80vh,560px)] rounded-2xl border border-sand-200 bg-white shadow-2xl overflow-hidden">
           <header className="flex items-center justify-between gap-2 px-4 py-3 border-b border-sand-100 bg-sand-50/60">
             <div className="min-w-0">
-              <p className="text-sm font-semibold text-sand-900">Faresay Assistant</p>
-              <p className="text-xs text-sand-400">Help with using Faresay</p>
+              <p className="text-sm font-semibold text-sand-900">fair-do Assistant</p>
+              <p className="text-xs text-sand-400">Help with using fair-do</p>
             </div>
             <button onClick={() => setOpen(false)} aria-label="Close assistant" className="text-sand-400 hover:text-brand-700 text-lg leading-none px-1">×</button>
           </header>
@@ -131,7 +131,7 @@ export function AssistantWidget() {
                 onKeyDown={onKeyDown}
                 rows={1}
                 maxLength={4000}
-                placeholder="Ask about using Faresay…"
+                placeholder="Ask about using fair-do…"
                 className="flex-1 resize-none rounded-xl border border-sand-300 px-3 py-2 text-sm focus:border-brand-400 focus:outline-none max-h-32"
               />
               <button
@@ -142,7 +142,7 @@ export function AssistantWidget() {
                 {streaming ? '…' : 'Send'}
               </button>
             </div>
-            <p className="mt-1.5 text-[11px] text-sand-400">Guidance only — it can’t change your account. Don’t share client details or passwords.</p>
+            <p className="mt-1.5 text-[11px] text-sand-400">Guidance only — it can&apos;t change your account. Don&apos;t share student details or passwords.</p>
           </div>
         </div>
       )}

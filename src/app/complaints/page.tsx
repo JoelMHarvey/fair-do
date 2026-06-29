@@ -6,7 +6,7 @@ import { Logo } from '@/components/Logo'
 
 const CATEGORIES = [
   { value: 'safeguarding', label: 'Safeguarding concern', hint: 'Risk of harm to someone' },
-  { value: 'conduct', label: 'Therapist conduct', hint: 'Professional or ethical issue' },
+  { value: 'conduct', label: 'Tutor conduct', hint: 'Professional or ethical issue' },
   { value: 'billing', label: 'Billing or payment', hint: 'Charges, refunds, credit' },
   { value: 'technical', label: 'Technical problem', hint: 'Video, booking, the app' },
   { value: 'other', label: 'Something else', hint: '' },
@@ -30,7 +30,7 @@ export default function ComplaintsPage() {
     if (res.ok) setDone(true)
     else {
       const d = await res.json().catch(() => ({}))
-      setError(d.error === 'Unauthorized' ? 'Please sign in to submit via this form — or email us at legal@faresay.com.' : (d.error ?? 'Something went wrong'))
+      setError(d.error === 'Unauthorized' ? 'Please sign in to submit via this form — or email us at legal@fair-do.com.' : (d.error ?? 'Something went wrong'))
     }
     setSubmitting(false)
   }
@@ -47,10 +47,6 @@ export default function ComplaintsPage() {
         <p className="text-sand-600 mb-6">
           We take every complaint seriously. You&apos;ll get an acknowledgement within 2 business days and a full response within 10.
         </p>
-
-        <div className="bg-coral-50 border border-coral-200 rounded-2xl p-4 mb-6 text-sm text-sand-700">
-          <strong className="text-coral-600">In immediate danger?</strong> This form isn&apos;t monitored 24/7. Call 999, or Samaritans on 116 123.
-        </div>
 
         {done ? (
           <div className="bg-white rounded-3xl border border-sand-200 p-8 text-center shadow-sm">
@@ -100,8 +96,8 @@ export default function ComplaintsPage() {
             </button>
 
             <p className="text-xs text-sand-500 text-center">
-              Not a member, can&apos;t sign in, or reporting a safeguarding concern about someone on Faresay?
-              Email us directly at <a href="mailto:legal@faresay.com" className="text-brand-700 hover:underline">legal@faresay.com</a>.
+              Not a member, can&apos;t sign in, or reporting a safeguarding concern about someone on fair-do?
+              Email us directly at <a href="mailto:legal@fair-do.com" className="text-brand-700 hover:underline">legal@fair-do.com</a>.
             </p>
           </div>
         )}

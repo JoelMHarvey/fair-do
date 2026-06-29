@@ -32,7 +32,7 @@ export function TherapistMobileMenu({ links }: { links: NavLink[] }) {
                   {l.label}
                 </Link>
               ))}
-              <Link href="/therapist/help" onClick={close} className="py-3 px-2 rounded-lg font-medium text-brand-700 hover:bg-brand-50 transition">
+              <Link href="/teacher/help" onClick={close} className="py-3 px-2 rounded-lg font-medium text-brand-700 hover:bg-brand-50 transition">
                 Help
               </Link>
               <Link href="/sign-out" onClick={close} className="py-3 px-2 rounded-lg text-sand-500 hover:bg-sand-50 transition border-t border-sand-100 mt-1">

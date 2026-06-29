@@ -152,7 +152,7 @@ export default function TherapistResults({ therapists, currency = 'GBP', rates =
                 <Link href={`/book/${t.id}`} className="flex-1 bg-brand-600 text-white px-4 py-2.5 rounded-full text-sm font-medium hover:bg-brand-700 transition text-center">
                   Book lesson
                 </Link>
-                <Link href={`/therapists/${t.id}`} className="px-5 py-2.5 rounded-full text-sm text-sand-600 border border-sand-200 hover:border-brand-300 hover:text-brand-700 transition">
+                <Link href={`/tutors/${t.id}`} className="px-5 py-2.5 rounded-full text-sm text-sand-600 border border-sand-200 hover:border-brand-300 hover:text-brand-700 transition">
                   View profile
                 </Link>
               </div>

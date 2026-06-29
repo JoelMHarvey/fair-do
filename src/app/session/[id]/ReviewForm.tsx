@@ -25,12 +25,12 @@ export default function ReviewForm({ sessionId, therapistName }: { sessionId: st
   }
 
   if (done) {
-    return <p className="text-sm text-brand-200 text-center">Thank you — your feedback helps other clients.</p>
+    return <p className="text-sm text-brand-200 text-center">Thank you — your feedback helps other students.</p>
   }
 
   return (
     <div className="bg-brand-800 border border-brand-700 rounded-2xl p-5 max-w-sm mx-auto text-center">
-      <p className="text-white font-medium mb-3">How was your session with {therapistName}?</p>
+      <p className="text-white font-medium mb-3">How was your lesson with {therapistName}?</p>
       <div className="flex justify-center gap-1 mb-4">
         {[1, 2, 3, 4, 5].map(n => (
           <button

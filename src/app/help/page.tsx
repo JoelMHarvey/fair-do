@@ -1,33 +1,29 @@
 import Link from 'next/link'
-import { auth } from '@clerk/nextjs/server'
-import { prisma } from '@/lib/prisma'
-import { regionConfig } from '@/lib/locale'
 import { Logo } from '@/components/Logo'
 
 export const metadata = {
-  title: 'Urgent help & crisis support — Faresay',
-  description: 'If you need help right now — crisis and mental health helplines for the UK and US.',
+  title: 'Help & FAQs — fair-do',
+  description: 'Find your way around fair-do — how tutoring works, pricing, finding a tutor, and how to get in touch.',
 }
 
-const SPECIALISED = [
-  { name: 'Papyrus HOPELINE247', contact: '0800 068 4141', detail: 'Under-35s with thoughts of suicide, and anyone worried about a young person.', href: 'tel:08000684141' },
-  { name: 'CALM (Campaign Against Living Miserably)', contact: '0800 58 58 58', detail: '5pm–midnight, for anyone struggling — strong focus on men.', href: 'tel:0800585858' },
-  { name: 'Mind infoline', contact: '0300 123 3393', detail: 'Mon–Fri 9am–6pm. Information on mental health support and services.', href: 'tel:03001233393' },
-  { name: 'National Domestic Abuse Helpline', contact: '0808 2000 247', detail: 'Free, 24/7, run by Refuge.', href: 'tel:08082000247' },
-  { name: 'Shout for veterans / NHS', contact: 'Text SHOUT', detail: 'Specialist routes via SHOUT and NHS for veterans and frontline workers.', href: 'sms:85258?&body=SHOUT' },
+const LINKS = [
+  { name: 'How tutoring works', detail: 'Subjects, levels and what a lesson looks like.', href: '/styles' },
+  { name: 'Find a tutor', detail: 'Answer one short question and get matched.', href: '/sign-up' },
+  { name: 'Pricing', detail: 'Simple, fair pricing — and exactly what you keep.', href: '/pricing' },
+  { name: 'Thinking about an AI tutor?', detail: 'An honest look at what AI can and can\'t do.', href: '/ai-therapy' },
+  { name: 'Raise a concern', detail: 'Tell us if something has gone wrong.', href: '/complaints' },
+  { name: 'Terms & privacy', detail: 'How fair-do works and how we handle your data.', href: '/terms' },
 ]
 
-export default async function HelpPage() {
-  // Region: use the signed-in client's country if known, else default UK.
-  let region: string = 'UK'
-  const { userId } = await auth()
-  if (userId) {
-    const u = await prisma.user.findUnique({ where: { clerkId: userId }, select: { country: true } })
-    if (u) region = u.country
-  }
-  const config = regionConfig(region)
-  const isUK = config.region === 'UK'
+const FAQ = [
+  { q: 'How do I find the right tutor?', a: 'Tell us the subject and level you need and we\'ll match you with tutors who fit. You can read each tutor\'s profile, see their qualifications, and switch at any time if it isn\'t the right fit.' },
+  { q: 'How do lessons happen?', a: 'Lessons are booked and held through fair-do, including secure video for online tuition. Your tutor sets their own availability, and you\'ll get reminders before each lesson.' },
+  { q: 'Are tutors qualified and checked?', a: 'Tutors hold recognised teaching qualifications (such as QTS, PGCE or a relevant subject degree) and, where they work with children, an appropriate DBS check. Details are shown on each tutor\'s profile.' },
+  { q: 'How much does it cost?', a: 'Tutors set their own fees, which you\'ll see before you book. See our pricing page for how the platform itself works.' },
+  { q: 'How do I get in touch?', a: 'Email us at support@fair-do.com and we\'ll be glad to help.' },
+]
 
+export default function HelpPage() {
   return (
     <main className="min-h-screen bg-sand-50">
       <nav className="border-b border-sand-200 bg-white/90 backdrop-blur px-5 sm:px-8 h-16 flex items-center justify-between sticky top-0 z-40">
@@ -35,52 +31,37 @@ export default async function HelpPage() {
         <Link href="/" className="text-sm text-sand-500 hover:text-brand-700">← Home</Link>
       </nav>
 
-      {/* Urgent banner */}
-      <div className="bg-coral-500 text-white">
-        <div className="max-w-2xl mx-auto px-5 sm:px-6 py-6 text-center">
-          <p className="font-display text-2xl font-semibold mb-1">In immediate danger? Call {config.emergencyNumber}.</p>
-          <p className="text-coral-50 text-sm">Faresay is not a crisis service. The lines below are free and here for you right now.</p>
-        </div>
-      </div>
+      <div className="max-w-2xl mx-auto px-5 sm:px-6 py-12">
+        <h1 className="font-display text-3xl font-semibold text-brand-900 mb-1">Help &amp; FAQs</h1>
+        <p className="text-sand-600 mb-8">Everything you need to get started with fair-do. Can&apos;t find an answer? Email us any time.</p>
 
-      <div className="max-w-2xl mx-auto px-5 sm:px-6 py-10">
-        <h1 className="font-display text-3xl font-semibold text-brand-900 mb-1">Urgent help</h1>
-        <p className="text-sand-600 mb-8">You don&apos;t have to be in crisis to call. If things feel too much, reach out.</p>
-
-        <h2 className="text-sm font-semibold text-sand-500 uppercase tracking-wide mb-3">Right now, 24/7</h2>
+        <h2 className="text-sm font-semibold text-sand-500 uppercase tracking-wide mb-3">Quick links</h2>
         <div className="space-y-3 mb-10">
-          {config.crisisLines.map(r => (
-            <a key={r.name} href={r.href} className="block bg-white rounded-2xl border border-sand-200 p-5 hover:border-brand-300 transition">
-              <div className="flex items-baseline justify-between gap-3 flex-wrap">
-                <p className="font-medium text-brand-900">{r.name}</p>
-                <p className="font-display text-lg font-semibold text-brand-700">{r.contact}</p>
-              </div>
+          {LINKS.map(r => (
+            <Link key={r.name} href={r.href} className="block bg-white rounded-2xl border border-sand-200 p-5 hover:border-brand-300 transition">
+              <p className="font-medium text-brand-900">{r.name}</p>
               <p className="text-sm text-sand-600 mt-1">{r.detail}</p>
-            </a>
+            </Link>
           ))}
         </div>
 
-        {isUK && (
-        <>
-        <h2 className="text-sm font-semibold text-sand-500 uppercase tracking-wide mb-3">Specialised support</h2>
+        <h2 className="text-sm font-semibold text-sand-500 uppercase tracking-wide mb-3">Common questions</h2>
         <div className="space-y-3 mb-10">
-          {SPECIALISED.map(r => (
-            <a key={r.name} href={r.href} className="block bg-white rounded-2xl border border-sand-200 p-5 hover:border-brand-300 transition">
-              <div className="flex items-baseline justify-between gap-3 flex-wrap">
-                <p className="font-medium text-brand-900">{r.name}</p>
-                <p className="font-display text-base font-semibold text-brand-700">{r.contact}</p>
-              </div>
-              <p className="text-sm text-sand-600 mt-1">{r.detail}</p>
-            </a>
+          {FAQ.map(f => (
+            <details key={f.q} className="group bg-white rounded-2xl border border-sand-200">
+              <summary className="cursor-pointer list-none px-5 py-4 flex items-center justify-between gap-3 font-medium text-sand-800 hover:bg-sand-50">
+                {f.q}
+                <span className="shrink-0 text-brand-600 transition group-open:rotate-45" aria-hidden>+</span>
+              </summary>
+              <div className="px-5 pb-5 text-sm text-sand-700 leading-relaxed">{f.a}</div>
+            </details>
           ))}
         </div>
-        </>
-        )}
 
         <div className="bg-brand-50 border border-brand-200 rounded-2xl p-5 text-sm text-sand-700">
-          <p className="font-medium text-brand-800 mb-1">How Faresay fits</p>
+          <p className="font-medium text-brand-800 mb-1">Still need a hand?</p>
           <p>
-            Faresay is for ongoing therapy with a regular therapist — not emergencies or acute crisis. If you&apos;re safe and looking for longer-term support, <Link href="/therapists" className="text-brand-700 underline">find a therapist</Link>. If you&apos;re in crisis, please use the lines above first.
+            Email us at <a href="mailto:support@fair-do.com" className="text-brand-700 underline">support@fair-do.com</a> and we&apos;ll get back to you. Looking for a tutor? <Link href="/sign-up" className="text-brand-700 underline">Get matched</Link>.
           </p>
         </div>
       </div>

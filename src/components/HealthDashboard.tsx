@@ -81,7 +81,7 @@ export function HealthDashboard({ m, backHref, backLabel }: { m: Metrics; backHr
       {/* Business state */}
       <h2 className="font-medium text-sand-900 mb-3">Application</h2>
       <div className="grid grid-cols-2 sm:grid-cols-4 gap-3 mb-8">
-        <Stat label="Active therapists" value={c.therapistsActive ?? 0} />
+        <Stat label="Active tutors" value={c.therapistsActive ?? 0} />
         <Stat label="Pending review" value={c.therapistsPending ?? 0} tone={(c.therapistsPending ?? 0) > 0 ? 'warn' : undefined} />
         <Stat label="Suspended" value={c.therapistsSuspended ?? 0} tone={(c.therapistsSuspended ?? 0) > 0 ? 'warn' : undefined} />
         <Stat label="Credential-suspended" value={c.credentialSuspended ?? 0} tone={(c.credentialSuspended ?? 0) > 0 ? 'warn' : undefined} />

@@ -3,21 +3,21 @@ import { SiteNav } from '@/components/SiteNav'
 import { SiteFooter } from '@/components/SiteFooter'
 
 export const metadata = {
-  title: 'How Faresay works — the calm practice tool for therapists',
+  title: 'How fair-do works — the calm tool for independent tutors',
   description:
-    'See how Faresay helps you run your whole practice — your own clients, scheduling, secure video, payments and reminders, on web and phone. Private, simple, and fair. Start free.',
+    'See how fair-do helps you run your whole tutoring business — your own students, scheduling, secure video, payments and reminders, on web and phone. Private, simple, and fair. Start free.',
 }
 
 const FEATURES = [
   {
     icon: '🤝',
-    title: 'Your clients stay yours',
-    body: 'You own the relationship and the record — full stop. Faresay is the software you run your practice with, never a middleman who owns your clients or rents them back to you. If you ever leave, your client list and your notes go with you.',
+    title: 'Your students stay yours',
+    body: 'You own the relationship and the record — full stop. fair-do is the software you run your tutoring with, never a middleman who owns your students or rents them back to you. If you ever leave, your student list and your notes go with you.',
   },
   {
     icon: '🧰',
     title: 'Everything in one place',
-    body: 'Your clients, your schedule, secure video, payments and automatic reminders — all in a single calm place. No more stitching together a calendar, a video app, a card reader and a spreadsheet, and hoping they keep in step.',
+    body: 'Your students, your schedule, secure video, payments and automatic reminders — all in a single calm place. No more stitching together a calendar, a video app, a card reader and a spreadsheet, and hoping they keep in step.',
   },
   {
     icon: '🪶',
@@ -27,35 +27,35 @@ const FEATURES = [
   {
     icon: '🔒',
     title: 'Private and secure',
-    body: 'Everything is encrypted, with UK/EU data residency and appropriate safeguards for any services outside the UK. You stay in control: you are the data controller for your clients’ information, and Faresay is simply your processor. We never sell or share what your clients trust you with.',
+    body: 'Everything is encrypted, with UK/EU data residency and appropriate safeguards for any services outside the UK. You stay in control: you are the data controller for your students\' information, and fair-do is simply your processor. We never sell or share what your students trust you with.',
   },
   {
     icon: '💷',
     title: 'Set your own prices',
-    body: 'Your practice, your rates. Charge what you’re worth, set a different price for a particular client if you like, or offer a package of sessions. You decide — we just make it easy to take the payment.',
+    body: 'Your tutoring, your rates. Charge what you\'re worth, set a different price for a particular student if you like, or offer a package of lessons. You decide — we just make it easy to take the payment.',
   },
   {
     icon: '⚡',
     title: 'Get paid automatically',
-    body: 'Clients pay by card and the money lands in your bank through Stripe, about two business days after each session. No invoices to chase, no end-of-month reconciling. You keep what you charge — Faresay is a flat monthly subscription, not a cut of your sessions.',
+    body: 'Students pay by card and the money lands in your bank through Stripe, about two business days after each lesson. No invoices to chase, no end-of-month reconciling. You keep what you charge — fair-do is a flat monthly subscription, not a cut of your lessons.',
   },
 ]
 
 const STEPS = [
   {
     n: 1,
-    title: 'Add your clients',
-    body: 'Invite them by email or bring your whole list across. You own the relationship and the records — your practice runs on your terms.',
+    title: 'Add your students',
+    body: 'Invite them by email or bring your whole list across. You own the relationship and the records — your tutoring runs on your terms.',
   },
   {
     n: 2,
-    title: 'Book sessions',
-    body: 'Pick a time and Faresay creates a private, secure video room and emails your client the details. Reminders go out on their own.',
+    title: 'Book lessons',
+    body: 'Pick a time and fair-do creates a private, secure video room and emails your student the details. Reminders go out on their own.',
   },
   {
     n: 3,
     title: 'Get paid',
-    body: 'Connect payments once. After each session the fee is taken and paid out to your bank — no chasing, no spreadsheets.',
+    body: 'Connect payments once. After each lesson the fee is taken and paid out to your bank — no chasing, no spreadsheets.',
   },
 ]
 
@@ -73,16 +73,16 @@ export default function ForTherapistsPage() {
         <div className="max-w-3xl mx-auto px-5 sm:px-8 pt-20 sm:pt-28 pb-16 text-center">
           <span className="inline-flex items-center gap-2 rounded-full border border-brand-200 bg-white/60 px-4 py-1.5 text-sm font-medium text-brand-700">
             <span className="h-1.5 w-1.5 rounded-full bg-brand-500" />
-            How Faresay works
+            How fair-do works
           </span>
           <h1 className="font-display text-4xl sm:text-5xl font-semibold leading-[1.08] text-brand-900 mt-6">
-            Run your whole practice,
+            Run your whole tutoring business,
             <br />
             <span className="text-brand-600">the gentle way.</span>
           </h1>
           <p className="text-lg sm:text-xl text-sand-700 mt-6 max-w-xl mx-auto leading-relaxed">
-            Faresay is the calm, private software you use to run your own
-            therapy practice — your clients, scheduling, secure video, payments
+            fair-do is the calm, private software you use to run your own
+            tutoring — your students, scheduling, secure video, payments
             and reminders, together in one place. On your computer and on your
             phone. Built for you, not for shareholders.
           </p>
@@ -101,7 +101,7 @@ export default function ForTherapistsPage() {
             </Link>
           </div>
           <p className="text-sm text-sand-500 mt-4">
-            Free to start · set up in ~15 minutes · keep your own clients
+            Free to start · set up in ~15 minutes · keep your own students
           </p>
         </div>
       </section>
@@ -109,10 +109,10 @@ export default function ForTherapistsPage() {
       {/* Feature deep-dive */}
       <section className="max-w-5xl mx-auto px-5 sm:px-8 py-20">
         <h2 className="font-display text-3xl font-semibold text-brand-900 text-center mb-3">
-          Everything your practice needs
+          Everything your tutoring needs
         </h2>
         <p className="text-sand-600 text-center max-w-xl mx-auto mb-12">
-          A closer look at how Faresay takes the admin off your plate, so you
+          A closer look at how fair-do takes the admin off your plate, so you
           can give your attention to the work that matters.
         </p>
         <div className="grid grid-cols-1 sm:grid-cols-2 gap-5">
@@ -140,10 +140,10 @@ export default function ForTherapistsPage() {
             Made by people with heart
           </p>
           <p className="font-display text-2xl sm:text-3xl font-medium leading-snug">
-            We believe therapists deserve better tools and fairer terms.
-            Faresay only grows when you grow — so there’s no lock-in, no hidden
-            games, and no company getting rich off human suffering. Keep your
-            clients, keep your records, and leave whenever you like.
+            We believe tutors deserve better tools and fairer terms.
+            fair-do only grows when you grow — so there&rsquo;s no lock-in, no hidden
+            games, and no company getting rich off your hard work. Keep your
+            students, keep your records, and leave whenever you like.
           </p>
         </div>
       </section>
@@ -155,7 +155,7 @@ export default function ForTherapistsPage() {
             Up and running this week
           </h2>
           <p className="text-sand-600 text-center max-w-xl mx-auto mb-12">
-            Three small steps — that’s the whole thing.
+            Three small steps — that&rsquo;s the whole thing.
           </p>
           <div className="grid grid-cols-1 sm:grid-cols-3 gap-6">
             {STEPS.map((s) => (
@@ -185,10 +185,10 @@ export default function ForTherapistsPage() {
             Privacy you can stand behind
           </h2>
           <p className="text-sand-600 max-w-2xl mx-auto leading-relaxed">
-            Your clients trust you with the most sensitive parts of their lives.
-            We treat their information the same way — encrypted, with UK/EU data
+            Your students trust you with their learning and their details.
+            We treat their information with care — encrypted, with UK/EU data
             residency, and never sold or shared. You are the data controller;
-            Faresay is your processor and nothing more. You stay in control of
+            fair-do is your processor and nothing more. You stay in control of
             your records, always.
           </p>
         </div>
@@ -198,11 +198,11 @@ export default function ForTherapistsPage() {
       <section className="bg-gradient-to-b from-sand-50 to-brand-50">
         <div className="max-w-2xl mx-auto px-5 sm:px-8 py-20 text-center">
           <h2 className="font-display text-3xl sm:text-4xl font-semibold text-brand-900 mb-3">
-            Start your practice on Faresay
+            Start tutoring on fair-do
           </h2>
           <p className="text-sand-700 mb-8">
             Free to begin and fair as you grow. Set up in about 15 minutes, on
-            web or phone — and we’ll be here if you need a hand.
+            web or phone — and we&rsquo;ll be here if you need a hand.
           </p>
           <Link
             href="/sign-up?role=therapist"

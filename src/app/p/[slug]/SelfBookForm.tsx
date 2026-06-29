@@ -93,7 +93,7 @@ export default function SelfBookForm({ slug, availability, booked }: { slug: str
       <div className="bg-white rounded-3xl border border-sand-200 p-8 text-center shadow-sm">
         <div className="text-4xl mb-3">✉️</div>
         <h2 className="font-display text-xl font-semibold text-brand-900 mb-1">Check your email</h2>
-        <p className="text-sand-600">We’ve sent a confirmation link to <strong>{email.trim()}</strong>. Tap it to confirm your session — it isn’t held until you do.</p>
+        <p className="text-sand-600">We&apos;ve sent a confirmation link to <strong>{email.trim()}</strong>. Tap it to confirm your lesson — it isn&apos;t held until you do.</p>
       </div>
     )
   }
@@ -102,8 +102,8 @@ export default function SelfBookForm({ slug, availability, booked }: { slug: str
     return (
       <div className="bg-white rounded-3xl border border-sand-200 p-8 text-center shadow-sm">
         <div className="text-4xl mb-3">✓</div>
-        <h2 className="font-display text-xl font-semibold text-brand-900 mb-1">You’re booked</h2>
-        <p className="text-sand-600">We’ve emailed you the details, and the video link opens just before your session.</p>
+        <h2 className="font-display text-xl font-semibold text-brand-900 mb-1">You&apos;re booked</h2>
+        <p className="text-sand-600">We&apos;ve emailed you the details, and the video link opens just before your lesson.</p>
       </div>
     )
   }
@@ -149,14 +149,13 @@ export default function SelfBookForm({ slug, availability, booked }: { slug: str
           </div>
           <input aria-label="Email" type="email" value={email} onChange={e => setEmail(e.target.value)} placeholder="Email" className="w-full border border-sand-300 rounded-xl px-3 py-2.5 text-sm" />
           <input aria-label="Mobile for text reminders (optional)" type="tel" value={phone} onChange={e => setPhone(e.target.value)} placeholder="Mobile (optional — for text reminders)" className="w-full border border-sand-300 rounded-xl px-3 py-2.5 text-sm" />
-          <textarea value={note} onChange={e => setNote(e.target.value)} rows={2} placeholder="Anything you'd like your therapist to know (optional)" className="w-full border border-sand-300 rounded-xl px-3 py-2.5 text-sm" />
+          <textarea value={note} onChange={e => setNote(e.target.value)} rows={2} placeholder="Anything you'd like your tutor to know (optional)" className="w-full border border-sand-300 rounded-xl px-3 py-2.5 text-sm" />
           {TURNSTILE_SITE_KEY && <div ref={tsRef} className="flex justify-center min-h-[65px]" />}
           {error && <p className="text-coral-600 text-sm">{error}</p>}
           <button onClick={book} disabled={busy} aria-busy={busy} className="w-full bg-brand-600 text-white py-3 rounded-full font-medium hover:bg-brand-700 transition disabled:opacity-60 shadow-sm inline-flex items-center justify-center gap-2">
             {busy && <span className="w-4 h-4 border-2 border-white/40 border-t-white rounded-full animate-spin" aria-hidden />}
-            {busy ? 'Booking your session…' : `Book ${fmtDate(date)} at ${time}`}
+            {busy ? 'Booking your lesson…' : `Book ${fmtDate(date)} at ${time}`}
           </button>
-          <p className="text-xs text-sand-400 text-center">Not a crisis service — in an emergency call 999 or Samaritans 116 123.</p>
         </div>
       )}
     </div>

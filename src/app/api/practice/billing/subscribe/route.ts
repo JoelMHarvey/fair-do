@@ -76,8 +76,8 @@ export async function POST(req: Request) {
       customer: customerId,
       line_items: [{ price: priceId, quantity: 1 }],
       ...(couponId ? { discounts: [{ coupon: couponId }] } : {}),
-      success_url: `${appUrl}/therapist/billing?subscribed=1`,
-      cancel_url: `${appUrl}/therapist/billing`,
+      success_url: `${appUrl}/teacher/billing?subscribed=1`,
+      cancel_url: `${appUrl}/teacher/billing`,
       metadata: { type: 'practice_subscription', teacherId: teacher.id, tier, ...(couponId ? { freeMonthsRedeemed: String(freeMonths) } : {}) },
       subscription_data: { metadata: { teacherId: teacher.id, tier } },
     })

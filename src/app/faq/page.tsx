@@ -3,42 +3,38 @@ import { SiteNav } from '@/components/SiteNav'
 import { SiteFooter } from '@/components/SiteFooter'
 
 export const metadata = {
-  title: 'FAQ — Faresay',
-  description: 'Common questions about Faresay: what it is, pricing, client ownership, data security, and getting set up as a therapist.',
+  title: 'FAQ — fair-do',
+  description: 'Common questions about fair-do: what it is, pricing, student ownership, data security, and getting set up as a tutor.',
 }
 
 const FAQS = [
   {
-    q: 'What is Faresay?',
-    a: 'Faresay is practice software for therapists. You bring your own clients and run your practice your way — Faresay gives you scheduling, secure video sessions, and card payments in one place. It\'s a tool you subscribe to, not a marketplace that finds clients for you.',
+    q: 'What is fair-do?',
+    a: 'fair-do is software for independent tutors. You bring your own students and run your tutoring your way — fair-do gives you scheduling, secure video lessons, and card payments in one place. It\'s a tool you subscribe to, not a marketplace that finds students for you.',
   },
   {
     q: 'How much does it cost?',
-    a: 'Faresay is a monthly subscription. Starter is free, Practice is around £29/month, and Clinic is coming soon. On top of the plan, there\'s a small commission on card payments to cover processing. Full, current details are on our pricing page.',
+    a: 'fair-do is a monthly subscription. Starter is free, Tutor is around £29/month, and Academy is coming soon. On top of the plan, there\'s a small commission on card payments to cover processing. Full, current details are on our pricing page.',
   },
   {
-    q: 'Are my clients mine?',
-    a: 'Yes. The therapeutic relationship and your client records belong to you. Faresay is the software and payment processor you use to run your practice — we don\'t own, route, or reassign your clients.',
+    q: 'Are my students mine?',
+    a: 'Yes. The tutoring relationship and your student records belong to you. fair-do is the software and payment processor you use to run your tutoring — we don\'t own, route, or reassign your students.',
   },
   {
     q: 'Is my data secure?',
-    a: 'Yes. Faresay is built around UK GDPR. For your client data, you are the data controller and Faresay acts as your processor. We use trusted infrastructure providers to run the service, and some sub-processors are based in the US under Standard Contractual Clauses (SCCs). Our privacy notice sets out exactly who we use and why.',
+    a: 'Yes. fair-do is built around UK GDPR. For your student data, you are the data controller and fair-do acts as your processor. We use trusted infrastructure providers to run the service, and some sub-processors are based in the US under Standard Contractual Clauses (SCCs). Our privacy notice sets out exactly who we use and why.',
   },
   {
-    q: 'Are therapists qualified?',
-    a: 'Faresay is for registered professionals. During onboarding we ask for current registration with a recognised body (such as BACP, UKCP, BPS, or NCPS in the UK) and verify the details before a practice goes live.',
-  },
-  {
-    q: 'Is Faresay a crisis service?',
-    a: 'No. Faresay supports planned, ongoing therapy and is not a crisis service. If someone is in immediate danger, call 999. For urgent mental health support, contact Samaritans (116 123, free, 24/7) or text SHOUT to 85258.',
+    q: 'Are tutors qualified?',
+    a: 'fair-do is for qualified tutors. During onboarding we ask for teaching qualifications (such as QTS or a PGCE) and a current DBS check, and verify the details before a profile goes live.',
   },
   {
     q: 'How do I get set up?',
-    a: 'Create an account, choose "I am a therapist", and complete onboarding — your profile, registration details, availability, and connecting your bank via Stripe so you can take card payments. Once your details are verified you\'re ready to schedule clients and run sessions.',
+    a: 'Create an account, choose "I am a tutor", and complete onboarding — your profile, qualification details, availability, and connecting your bank via Stripe so you can take card payments. Once your details are verified you\'re ready to schedule students and run lessons.',
   },
   {
     q: 'How do payments work?',
-    a: 'Clients pay by card through Stripe. Money goes to your connected account and typically reaches your bank around 2 business days after a session. Faresay\'s own charge is your monthly plan plus a small card commission — see pricing for the details.',
+    a: 'Students pay by card through Stripe. Money goes to your connected account and typically reaches your bank around 2 business days after a lesson. fair-do\'s own charge is your monthly plan plus a small card commission — see pricing for the details.',
   },
 ]
 
@@ -62,7 +58,7 @@ export default function FaqPage() {
           <div className="mt-10 text-center text-sm text-sand-500">
             See full plans on our{' '}
             <Link href="/pricing" className="text-brand-700 hover:underline">pricing page</Link>, or email{' '}
-            <a href="mailto:hello@faresay.com" className="text-brand-700 hover:underline">hello@faresay.com</a>
+            <a href="mailto:hello@fair-do.com" className="text-brand-700 hover:underline">hello@fair-do.com</a>
           </div>
         </div>
       </main>
