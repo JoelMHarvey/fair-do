@@ -12,7 +12,7 @@ export const metadata = {
 // invite link or QR code — not by browsing. If the directory is ever switched on,
 // this page is redundant, so send people to the normal student flow instead.
 export default function ConnectPage() {
-  if (DIRECTORY_ENABLED) redirect('/onboarding/client')
+  if (DIRECTORY_ENABLED) redirect('/onboarding/student')
 
   return (
     <main className="min-h-screen bg-gradient-to-b from-brand-50 to-sand-50 flex flex-col items-center justify-center px-6 py-10">

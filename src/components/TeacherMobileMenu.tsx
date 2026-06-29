@@ -5,7 +5,7 @@ import Link from 'next/link'
 
 type NavLink = { href: string; label: string }
 
-export function TherapistMobileMenu({ links }: { links: NavLink[] }) {
+export function TeacherMobileMenu({ links }: { links: NavLink[] }) {
   const [open, setOpen] = useState(false)
   const close = () => setOpen(false)
 

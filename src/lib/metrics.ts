@@ -1,11 +1,11 @@
 import { prisma } from '@/lib/prisma'
 
-export type TherapistRating = { average: number; count: number }
+export type TeacherRating = { average: number; count: number }
 
 /** Average star rating + count for a teacher. */
-export async function getTherapistRating(therapistId: string): Promise<TherapistRating> {
+export async function getTeacherRating(teacherId: string): Promise<TeacherRating> {
   const agg = await prisma.review.aggregate({
-    where: { teacherId: therapistId },
+    where: { teacherId: teacherId },
     _avg: { rating: true },
     _count: { rating: true },
   })
@@ -25,9 +25,9 @@ export type RetentionStats = {
  * repeatRate = students with >1 non-cancelled session ÷ students with any session.
  * High-continuity badge requires a meaningful base (>=3 students) so it can't be gamed by one loyal student.
  */
-export async function getRetentionStats(therapistId: string): Promise<RetentionStats> {
+export async function getRetentionStats(teacherId: string): Promise<RetentionStats> {
   const sessions = await prisma.session.findMany({
-    where: { teacherId: therapistId, status: { in: ['COMPLETED', 'SCHEDULED', 'IN_PROGRESS'] } },
+    where: { teacherId: teacherId, status: { in: ['COMPLETED', 'SCHEDULED', 'IN_PROGRESS'] } },
     select: { studentId: true },
   })
 

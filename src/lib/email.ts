@@ -225,7 +225,7 @@ export async function sendGiftVoucher(opts: { to: string; code: string; amountPe
 
 // Double opt-in confirmation for a public self-booking.
 export async function sendSelfBookingConfirm(opts: {
-  email: string; firstName: string; therapistName: string; scheduledAt: Date; confirmUrl: string
+  email: string; firstName: string; teacherName: string; scheduledAt: Date; confirmUrl: string
   brand?: EmailBrand | null
 }) {
   const when = opts.scheduledAt.toLocaleString('en-GB', { weekday: 'long', day: 'numeric', month: 'long', hour: '2-digit', minute: '2-digit' })
@@ -233,12 +233,12 @@ export async function sendSelfBookingConfirm(opts: {
     from: senderFrom(opts.brand),
     to: opts.email,
     replyTo: opts.brand?.replyTo,
-    subject: `Confirm your lesson with ${opts.brand?.practiceName ?? opts.therapistName}`,
+    subject: `Confirm your lesson with ${opts.brand?.practiceName ?? opts.teacherName}`,
     html: layout({
       heading: 'Confirm your booking',
       preheader: `Tap to confirm ${when}.`,
       body: `<p style="margin:0 0 12px">Hi ${opts.firstName},</p>
-        <p style="margin:0 0 12px">You requested a lesson with ${strong(opts.brand?.practiceName ?? opts.therapistName)} on ${strong(when)}. Tap below to confirm — your booking isn't held until you do.</p>
+        <p style="margin:0 0 12px">You requested a lesson with ${strong(opts.brand?.practiceName ?? opts.teacherName)} on ${strong(when)}. Tap below to confirm — your booking isn't held until you do.</p>
         <p style="margin:0;color:#80705c;font-size:14px">Didn't request this? You can ignore this email; nothing was booked.</p>`,
       cta: { label: 'Confirm my lesson', url: opts.confirmUrl },
     }, opts.brand),
@@ -246,8 +246,8 @@ export async function sendSelfBookingConfirm(opts: {
 }
 
 export async function sendBookingConfirmed(opts: {
-  clientEmail: string; clientFirstName: string; therapistEmail: string
-  therapistFirstName: string; therapistLastName: string; sessionId: string; scheduledAt: Date; ratePence: number
+  clientEmail: string; clientFirstName: string; teacherEmail: string
+  teacherFirstName: string; teacherLastName: string; sessionId: string; scheduledAt: Date; ratePence: number
   brand?: EmailBrand | null
   locale?: string
 }) {
@@ -260,12 +260,12 @@ export async function sendBookingConfirmed(opts: {
   const ics = buildSessionICS({
     sessionId: opts.sessionId,
     start: opts.scheduledAt,
-    therapistName: `${opts.therapistFirstName} ${opts.therapistLastName}`,
+    teacherName: `${opts.teacherFirstName} ${opts.teacherLastName}`,
     joinUrl: sessionUrl,
     practiceName: opts.brand?.practiceName,
   })
   const icsAttachment = { filename: 'fair-do-lesson.ics', content: Buffer.from(ics).toString('base64') }
-  const displayName = opts.brand?.practiceName ?? `${opts.therapistFirstName} ${opts.therapistLastName}`
+  const displayName = opts.brand?.practiceName ?? `${opts.teacherFirstName} ${opts.teacherLastName}`
 
   await Promise.allSettled([
     // Student copy — branded, localised
@@ -289,11 +289,11 @@ export async function sendBookingConfirmed(opts: {
     }),
     // Teacher copy — always platform-branded, always en-GB
     resend.emails.send({
-      from: FROM, to: opts.therapistEmail,
+      from: FROM, to: opts.teacherEmail,
       subject: `New lesson booked — ${dateStrTeacher}`,
       attachments: [icsAttachment],
       html: layout({
-        heading: `New lesson, ${opts.therapistFirstName}`,
+        heading: `New lesson, ${opts.teacherFirstName}`,
         preheader: `${opts.clientFirstName} booked you for ${dateStrTeacher}.`,
         body: `<p style="margin:0 0 4px">Student: ${strong(opts.clientFirstName)}</p>
           <p style="margin:0">When: ${strong(dateStrTeacher)}</p>`,
@@ -304,14 +304,14 @@ export async function sendBookingConfirmed(opts: {
 }
 
 export async function sendSessionReminder(opts: {
-  clientEmail: string; clientFirstName: string; therapistFirstName: string; therapistLastName: string; sessionId: string; scheduledAt: Date
+  clientEmail: string; clientFirstName: string; teacherFirstName: string; teacherLastName: string; sessionId: string; scheduledAt: Date
   brand?: EmailBrand | null
   locale?: string
 }) {
   const clientLocale = opts.locale ?? 'en-GB'
   const dateStr = opts.scheduledAt.toLocaleString(clientLocale, { dateStyle: 'full', timeStyle: 'short', timeZone: 'Europe/London' })
   const sessionUrl = `${APP()}/session/${opts.sessionId}`
-  const displayName = opts.brand?.practiceName ?? `${opts.therapistFirstName} ${opts.therapistLastName}`
+  const displayName = opts.brand?.practiceName ?? `${opts.teacherFirstName} ${opts.teacherLastName}`
   await sendEmail({
     from: senderFrom(opts.brand),
     to: opts.clientEmail,
@@ -329,12 +329,12 @@ export async function sendSessionReminder(opts: {
 }
 
 export async function sendNoShowNotice(opts: {
-  clientEmail: string; clientFirstName: string; therapistName: string; scheduledAt: Date
+  clientEmail: string; clientFirstName: string; teacherName: string; scheduledAt: Date
   reason: 'teacher-no-show' | 'no-one-joined' | 'student-no-show'; refunded: boolean
   brand?: EmailBrand | null
 }) {
   const dateStr = opts.scheduledAt.toLocaleString('en-GB', { dateStyle: 'full', timeStyle: 'short', timeZone: 'Europe/London' })
-  const displayName = opts.brand?.practiceName ?? opts.therapistName
+  const displayName = opts.brand?.practiceName ?? opts.teacherName
   const body =
     opts.reason === 'student-no-show'
       ? `Our records show the lesson with ${displayName} on ${strong(dateStr)} wasn't attended from your side. As the tutor was available, this lesson isn't refundable — but if something went wrong, ${link('tell us', 'mailto:support@fair-do.com')}.`
@@ -386,7 +386,7 @@ export async function sendClientInvite(opts: {
 }
 
 export async function sendSessionScheduledByTherapist(opts: {
-  clientEmail: string; clientFirstName: string; therapistFirstName: string; therapistLastName: string
+  clientEmail: string; clientFirstName: string; teacherFirstName: string; teacherLastName: string
   practiceName: string; scheduledAt: Date; ratePence: number; sessionUrl: string; payUrl?: string
   brand?: EmailBrand | null
 }) {
@@ -400,8 +400,8 @@ export async function sendSessionScheduledByTherapist(opts: {
     to: opts.clientEmail,
     replyTo: opts.brand?.replyTo,
     subject: needsPay
-      ? `Confirm your lesson with ${opts.brand?.practiceName ?? opts.therapistFirstName} — ${dateStr}`
-      : `Lesson booked with ${opts.brand?.practiceName ?? opts.therapistFirstName} — ${dateStr}`,
+      ? `Confirm your lesson with ${opts.brand?.practiceName ?? opts.teacherFirstName} — ${dateStr}`
+      : `Lesson booked with ${opts.brand?.practiceName ?? opts.teacherFirstName} — ${dateStr}`,
     html: layout({
       heading: `Hi ${hiName},`,
       preheader: needsPay
@@ -478,7 +478,7 @@ export async function sendClientEventInvite(opts: {
 }
 
 export async function sendSessionSeriesScheduled(opts: {
-  clientEmail: string; clientFirstName: string; therapistFirstName: string; therapistLastName: string
+  clientEmail: string; clientFirstName: string; teacherFirstName: string; teacherLastName: string
   practiceName: string; firstDate: Date; count: number; viaPackage: boolean; sessionUrl: string
   brand?: EmailBrand | null
 }) {
@@ -488,7 +488,7 @@ export async function sendSessionSeriesScheduled(opts: {
     from: senderFrom(opts.brand),
     to: opts.clientEmail,
     replyTo: opts.brand?.replyTo,
-    subject: `${opts.count} lessons booked with ${opts.brand?.practiceName ?? opts.therapistFirstName} — starting ${opts.firstDate.toLocaleDateString('en-GB', { day: 'numeric', month: 'long' })}`,
+    subject: `${opts.count} lessons booked with ${opts.brand?.practiceName ?? opts.teacherFirstName} — starting ${opts.firstDate.toLocaleDateString('en-GB', { day: 'numeric', month: 'long' })}`,
     html: layout({
       heading: `Hi ${escapeHtml(opts.clientFirstName)},`,
       preheader: `${practice} has booked you a weekly series of ${opts.count} lessons.`,
@@ -532,8 +532,8 @@ export async function sendPackageOffered(opts: {
 }
 
 export async function sendCancellationNotice(opts: {
-  clientEmail: string; clientFirstName: string; therapistEmail: string
-  therapistFirstName: string; therapistLastName: string; scheduledAt: Date; cancelledBy: 'student' | 'teacher'; refunded: boolean
+  clientEmail: string; clientFirstName: string; teacherEmail: string
+  teacherFirstName: string; teacherLastName: string; scheduledAt: Date; cancelledBy: 'student' | 'teacher'; refunded: boolean
   brand?: EmailBrand | null
   locale?: string
 }) {
@@ -541,7 +541,7 @@ export async function sendCancellationNotice(opts: {
   const clientLocale = opts.locale ?? 'en-GB'
   const dateStrClient = opts.scheduledAt.toLocaleString(clientLocale, { dateStyle: 'full', timeStyle: 'short', timeZone: 'Europe/London' })
   const dateStrTeacher = opts.scheduledAt.toLocaleString('en-GB', { dateStyle: 'full', timeStyle: 'short', timeZone: 'Europe/London' })
-  const displayName = opts.brand?.practiceName ?? `${opts.therapistFirstName} ${opts.therapistLastName}`
+  const displayName = opts.brand?.practiceName ?? `${opts.teacherFirstName} ${opts.teacherLastName}`
 
   await Promise.allSettled([
     // Student copy — branded, localised
@@ -562,7 +562,7 @@ export async function sendCancellationNotice(opts: {
     }),
     // Teacher copy — always platform-branded, always en-GB
     resend.emails.send({
-      from: FROM, to: opts.therapistEmail,
+      from: FROM, to: opts.teacherEmail,
       subject: `Lesson cancelled — ${dateStrTeacher}`,
       html: layout({
         heading: 'Lesson cancelled',

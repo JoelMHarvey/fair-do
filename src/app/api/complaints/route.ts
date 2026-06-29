@@ -8,7 +8,7 @@ import { z } from 'zod'
 const schema = z.object({
   category: z.enum(['safeguarding', 'conduct', 'billing', 'technical', 'other']),
   body: z.string().min(10).max(4000),
-  therapistId: z.string().optional(),
+  teacherId: z.string().optional(),
   sessionId: z.string().optional(),
 })
 
@@ -25,14 +25,14 @@ export async function POST(req: Request) {
   const parsed = schema.safeParse(json)
   if (!parsed.success) return Response.json({ error: 'Invalid data' }, { status: 400 })
 
-  const { category, body, therapistId, sessionId } = parsed.data
+  const { category, body, teacherId, sessionId } = parsed.data
 
   const complaint = await prisma.complaint.create({
     data: {
       reporterClerkId: userId,
       category,
       body,
-      teacherId: therapistId || null,
+      teacherId: teacherId || null,
       sessionId: sessionId || null,
     },
   })
@@ -45,7 +45,7 @@ export async function POST(req: Request) {
       from: process.env.RESEND_FROM ?? 'Faresay <onboarding@resend.dev>',
       to: adminEmail,
       subject: `[${category.toUpperCase()}] New complaint ${complaint.id}`,
-      html: `<p><strong>Category:</strong> ${category}</p><p><strong>Reporter:</strong> ${userId}</p>${therapistId ? `<p><strong>Therapist:</strong> ${therapistId}</p>` : ''}${sessionId ? `<p><strong>Session:</strong> ${sessionId}</p>` : ''}<p><strong>Detail:</strong></p><p>${body.replace(/</g, '&lt;')}</p>`,
+      html: `<p><strong>Category:</strong> ${category}</p><p><strong>Reporter:</strong> ${userId}</p>${teacherId ? `<p><strong>Therapist:</strong> ${teacherId}</p>` : ''}${sessionId ? `<p><strong>Session:</strong> ${sessionId}</p>` : ''}<p><strong>Detail:</strong></p><p>${body.replace(/</g, '&lt;')}</p>`,
     })
   } catch (e) {
     console.error('[complaints] admin notify failed:', e)

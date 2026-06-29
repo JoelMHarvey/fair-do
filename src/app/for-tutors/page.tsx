@@ -59,7 +59,7 @@ const STEPS = [
   },
 ]
 
-export default function ForTherapistsPage() {
+export default function ForTutorsPage() {
   return (
     <>
       <SiteNav />
@@ -88,7 +88,7 @@ export default function ForTherapistsPage() {
           </p>
           <div className="flex flex-col sm:flex-row gap-3 justify-center mt-9">
             <Link
-              href="/sign-up?role=therapist"
+              href="/sign-up?role=teacher"
               className="bg-brand-600 text-white px-7 py-3.5 rounded-full font-medium hover:bg-brand-700 transition shadow-lg shadow-brand-600/20"
             >
               Start free
@@ -205,7 +205,7 @@ export default function ForTherapistsPage() {
             web or phone — and we&rsquo;ll be here if you need a hand.
           </p>
           <Link
-            href="/sign-up?role=therapist"
+            href="/sign-up?role=teacher"
             className="inline-block bg-brand-600 text-white px-8 py-4 rounded-full font-medium hover:bg-brand-700 transition shadow-lg shadow-brand-600/20"
           >
             Start free →

@@ -205,7 +205,7 @@ export default async function SessionPage({
 
               {canReview && (
                 <div className="mt-8">
-                  <ReviewForm sessionId={id} therapistName={session.teacher.firstName} />
+                  <ReviewForm sessionId={id} teacherName={session.teacher.firstName} />
                 </div>
               )}
               {existingReview && (

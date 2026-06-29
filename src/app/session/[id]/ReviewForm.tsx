@@ -3,7 +3,7 @@
 import { useState } from 'react'
 import { useRouter } from 'next/navigation'
 
-export default function ReviewForm({ sessionId, therapistName }: { sessionId: string; therapistName: string }) {
+export default function ReviewForm({ sessionId, teacherName }: { sessionId: string; teacherName: string }) {
   const router = useRouter()
   const [rating, setRating] = useState(0)
   const [hover, setHover] = useState(0)
@@ -30,7 +30,7 @@ export default function ReviewForm({ sessionId, therapistName }: { sessionId: st
 
   return (
     <div className="bg-brand-800 border border-brand-700 rounded-2xl p-5 max-w-sm mx-auto text-center">
-      <p className="text-white font-medium mb-3">How was your lesson with {therapistName}?</p>
+      <p className="text-white font-medium mb-3">How was your lesson with {teacherName}?</p>
       <div className="flex justify-center gap-1 mb-4">
         {[1, 2, 3, 4, 5].map(n => (
           <button

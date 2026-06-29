@@ -10,7 +10,7 @@ import { LocalPrice } from '@/components/LocalPrice'
 import { getVisitorCurrency } from '@/lib/visitor-currency'
 import { DIRECTORY_ENABLED } from '@/lib/practice'
 import { getRates } from '@/lib/fx-rates'
-import TherapistResults from './TherapistResults'
+import TeacherResults from './TeacherResults'
 
 export const metadata = {
   title: 'Find a tutor — fair-do',
@@ -166,7 +166,7 @@ export default async function TutorsPage() {
             <p className="text-sm text-sand-400">We&apos;re growing our network — check back soon.</p>
           </div>
         ) : (
-          <TherapistResults therapists={matches} currency={ccy} rates={rates} />
+          <TeacherResults teachers={matches} currency={ccy} rates={rates} />
         )}
       </div>
     </main>

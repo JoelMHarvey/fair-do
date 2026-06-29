@@ -43,23 +43,23 @@ async function clerkUserIdByEmail(email, secretKey) {
 
 async function main() {
   const secretKey = process.env.CLERK_SECRET_KEY
-  const therapistEmail = process.env.E2E_THERAPIST_EMAIL
+  const teacherEmail = process.env.E2E_THERAPIST_EMAIL
   const clientEmail = process.env.E2E_CLIENT_EMAIL
 
-  if (!secretKey || !therapistEmail || !clientEmail) {
+  if (!secretKey || !teacherEmail || !clientEmail) {
     console.error('Missing required env vars: CLERK_SECRET_KEY, E2E_THERAPIST_EMAIL, E2E_CLIENT_EMAIL')
     process.exit(1)
   }
 
-  const therapistFirstName = process.env.E2E_THERAPIST_FIRST_NAME ?? 'E2E'
-  const therapistLastName = process.env.E2E_THERAPIST_LAST_NAME ?? 'Therapist'
+  const teacherFirstName = process.env.E2E_THERAPIST_FIRST_NAME ?? 'E2E'
+  const teacherLastName = process.env.E2E_THERAPIST_LAST_NAME ?? 'Therapist'
   const clientFirstName = process.env.E2E_CLIENT_FIRST_NAME ?? 'E2E'
   const clientLastName = process.env.E2E_CLIENT_LAST_NAME ?? 'Client'
 
   // ── Resolve Clerk user IDs ─────────────────────────────────────────────────
   console.log(`Looking up Clerk users…`)
   const [therapistClerkId, clientClerkId] = await Promise.all([
-    clerkUserIdByEmail(therapistEmail, secretKey),
+    clerkUserIdByEmail(teacherEmail, secretKey),
     clerkUserIdByEmail(clientEmail, secretKey),
   ])
   console.log(`  therapist Clerk ID: ${therapistClerkId}`)
@@ -68,14 +68,14 @@ async function main() {
   // ── Therapist: User + Therapist record ────────────────────────────────────
   const therapistUser = await prisma.user.upsert({
     where: { clerkId: therapistClerkId },
-    update: { email: therapistEmail },
-    create: { clerkId: therapistClerkId, email: therapistEmail, role: 'THERAPIST' },
+    update: { email: teacherEmail },
+    create: { clerkId: therapistClerkId, email: teacherEmail, role: 'THERAPIST' },
   })
 
   const therapistData = {
     userId: therapistUser.id,
-    firstName: therapistFirstName,
-    lastName: therapistLastName,
+    firstName: teacherFirstName,
+    lastName: teacherLastName,
     bio: 'E2E test account — do not contact.',
     registrationBody: 'BACP',
     registrationNumber: 'BACP-E2ETEST',
@@ -90,7 +90,7 @@ async function main() {
   }
   const therapist = await prisma.therapist.upsert({
     where: { userId: therapistUser.id },
-    update: { firstName: therapistFirstName, lastName: therapistLastName, status: 'ACTIVE' },
+    update: { firstName: teacherFirstName, lastName: teacherLastName, status: 'ACTIVE' },
     create: therapistData,
   })
   console.log(`  therapist DB ID: ${therapist.id}`)
@@ -117,10 +117,10 @@ async function main() {
 
   // ── Match ─────────────────────────────────────────────────────────────────
   const match = await prisma.match.upsert({
-    where: { therapistId_clientId: { therapistId: therapist.id, clientId: client.id } },
+    where: { teacherId_clientId: { teacherId: therapist.id, clientId: client.id } },
     update: { active: true },
     create: {
-      therapistId: therapist.id,
+      teacherId: therapist.id,
       clientId: client.id,
       source: 'marketplace',
       active: true,

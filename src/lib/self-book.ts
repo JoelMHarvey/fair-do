@@ -67,7 +67,7 @@ export async function finalizeSelfBooking(input: FinalizeInput): Promise<{ sessi
   const appUrl = process.env.NEXT_PUBLIC_APP_URL ?? 'https://faresay.com'
   sendSessionScheduledByTherapist({
     clientEmail: lcEmail, clientFirstName: firstName,
-    therapistFirstName: teacher.firstName, therapistLastName: teacher.lastName,
+    teacherFirstName: teacher.firstName, teacherLastName: teacher.lastName,
     practiceName: practiceDisplayName(teacher), scheduledAt,
     ratePence: teacher.sessionRatePence, sessionUrl: `${appUrl}/session/${session.id}?k=${guestToken}`,
   }).catch(e => console.error('[self-book] email failed:', e))

@@ -45,7 +45,7 @@ const isPublicRoute = createRouteMatcher([
   '/complaints',
   '/help',
   '/styles',
-  '/ai-therapy',
+  '/ai-tutoring',
   '/blog',
   '/blog/(.*)',
   '/for-schools',

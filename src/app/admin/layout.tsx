@@ -1,4 +1,4 @@
-import { TherapistNav } from '@/components/TherapistNav'
+import { TeacherNav } from '@/components/TeacherNav'
 import { AdminSubNav } from '@/components/AdminSubNav'
 
 // Admin area shares the same top nav as the rest of the app, with an extra admin
@@ -6,7 +6,7 @@ import { AdminSubNav } from '@/components/AdminSubNav'
 export default function AdminLayout({ children }: { children: React.ReactNode }) {
   return (
     <>
-      <TherapistNav />
+      <TeacherNav />
       <AdminSubNav />
       {children}
     </>

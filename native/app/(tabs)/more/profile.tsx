@@ -76,7 +76,7 @@ export default function ProfileScreen() {
         </TouchableOpacity>
         <Text style={styles.title}>Profile</Text>
         <TouchableOpacity
-          onPress={() => Linking.openURL(`${API_URL}/therapist/profile`)}
+          onPress={() => Linking.openURL(`${API_URL}/teacher/profile`)}
         >
           <Text style={styles.editLink}>Edit</Text>
         </TouchableOpacity>
@@ -186,7 +186,7 @@ export default function ProfileScreen() {
 
         <TouchableOpacity
           style={styles.editButton}
-          onPress={() => Linking.openURL(`${API_URL}/therapist/profile`)}
+          onPress={() => Linking.openURL(`${API_URL}/teacher/profile`)}
         >
           <Text style={styles.editButtonText}>Edit profile on Faresay →</Text>
         </TouchableOpacity>

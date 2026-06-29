@@ -2,7 +2,7 @@ import Link from 'next/link'
 import { redirect, notFound } from 'next/navigation'
 import { auth } from '@clerk/nextjs/server'
 import { prisma } from '@/lib/prisma'
-import { TherapistNav } from '@/components/TherapistNav'
+import { TeacherNav } from '@/components/TeacherNav'
 import { PageHeader, EmptyState } from '@/components/Guidance'
 import { PRACTICE_PORTAL_ENABLED } from '@/lib/practice'
 
@@ -66,7 +66,7 @@ export default async function TherapistCalendar({ searchParams }: { searchParams
 
     return (
       <main className="min-h-screen bg-sand-50">
-        <TherapistNav />
+        <TeacherNav />
         <div className="max-w-3xl mx-auto px-4 sm:px-6 py-8 sm:py-12">
           <PageHeader title="Calendar" subtitle="Your appointments, month by month." />
           {Toggle}
@@ -121,12 +121,12 @@ export default async function TherapistCalendar({ searchParams }: { searchParams
 
   return (
     <main className="min-h-screen bg-sand-50">
-      <TherapistNav />
+      <TeacherNav />
       <div className="max-w-2xl mx-auto px-4 sm:px-6 py-8 sm:py-12">
         <PageHeader title="Calendar" subtitle="Your upcoming appointments. Sync them to your phone’s calendar from the dashboard." />
         {Toggle}
         {sessions.length === 0 ? (
-          <EmptyState icon="📅" title="No upcoming appointments" body="When you book lessons they will appear here, day by day. Add a student and schedule one to get started." cta={{ href: '/teacher/clients', label: 'Go to students' }} />
+          <EmptyState icon="📅" title="No upcoming appointments" body="When you book lessons they will appear here, day by day. Add a student and schedule one to get started." cta={{ href: '/teacher/students', label: 'Go to students' }} />
         ) : (
           <div className="space-y-7">
             {groups.map(g => (
@@ -142,7 +142,7 @@ export default async function TherapistCalendar({ searchParams }: { searchParams
                           <p className="text-[11px] text-sand-400 mt-1">{s.durationMins} min</p>
                         </div>
                         <div className="min-w-0 flex-1">
-                          <Link href={`/teacher/clients/${s.matchId}`} className="text-sm font-medium text-sand-900 hover:text-brand-700 truncate block">{s.student.firstName} {s.student.lastName}</Link>
+                          <Link href={`/teacher/students/${s.matchId}`} className="text-sm font-medium text-sand-900 hover:text-brand-700 truncate block">{s.student.firstName} {s.student.lastName}</Link>
                           <span className={`inline-block mt-1 text-xs font-medium px-2 py-0.5 rounded-full ${STATUS_CLASS[s.status] ?? 'bg-sand-100 text-sand-600'}`}>{s.status.replace('_', ' ').toLowerCase()}</span>
                         </div>
                         <Link href={`/session/${s.id}`} className={`text-sm font-medium shrink-0 ${live ? 'text-white bg-brand-600 px-4 py-2 rounded-full hover:bg-brand-700' : 'text-brand-600 hover:text-brand-700'}`}>{live ? 'Join' : 'Open →'}</Link>

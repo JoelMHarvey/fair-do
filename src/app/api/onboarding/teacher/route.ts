@@ -2,7 +2,7 @@ import { auth } from '@clerk/nextjs/server'
 import { cookies } from 'next/headers'
 import { prisma } from '@/lib/prisma'
 import { getStripe } from '@/lib/stripe'
-import { ensureTherapistReferralCode, linkTherapistReferral } from '@/lib/therapist-referral'
+import { ensureTeacherReferralCode, linkTeacherReferral } from '@/lib/teacher-referral'
 import { isStateLive } from '@/lib/locale'
 import { toE164 } from '@/lib/sms'
 import { styledCloudinaryUrl } from '@/lib/cloudinary'
@@ -110,17 +110,17 @@ export async function POST(req: Request) {
     })
 
     // Peer referral — give them a code + link to whoever referred them.
-    await ensureTherapistReferralCode(existing.id, data.firstName).catch(() => {})
+    await ensureTeacherReferralCode(existing.id, data.firstName).catch(() => {})
     const jar = await cookies()
     const refCode = (data.referralCode || jar.get('faresay_ref')?.value)?.toUpperCase()
     if (refCode) {
-      await linkTherapistReferral(existing.id, refCode)
+      await linkTeacherReferral(existing.id, refCode)
       jar.delete('faresay_ref')
     }
   }
 
   const appUrl = process.env.NEXT_PUBLIC_APP_URL ?? 'http://localhost:3001'
-  const completeUrl = `${appUrl}/onboarding/therapist/complete`
+  const completeUrl = `${appUrl}/onboarding/teacher/complete`
 
   // Stripe Connect Express — skip only when Stripe genuinely isn't configured (local dev).
   if (!process.env.STRIPE_SECRET_KEY) {
@@ -170,7 +170,7 @@ export async function POST(req: Request) {
 
     const accountLink = await stripe.accountLinks.create({
       account: stripeAccountId,
-      refresh_url: `${appUrl}/onboarding/therapist`,
+      refresh_url: `${appUrl}/onboarding/teacher`,
       return_url: completeUrl,
       type: 'account_onboarding',
     })

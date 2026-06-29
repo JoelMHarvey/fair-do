@@ -1,7 +1,7 @@
 import { redirect } from 'next/navigation'
 import { auth } from '@clerk/nextjs/server'
 import { prisma } from '@/lib/prisma'
-import { TherapistNav } from '@/components/TherapistNav'
+import { TeacherNav } from '@/components/TeacherNav'
 import { PageHeader, HelpHint } from '@/components/Guidance'
 import ProfileForm from './ProfileForm'
 import BrandingCard from './BrandingCard'
@@ -25,7 +25,7 @@ export default async function TeacherProfilePage() {
 
   return (
     <main className="min-h-screen bg-gradient-to-b from-brand-50/50 to-sand-50">
-      <TherapistNav />
+      <TeacherNav />
 
       <div className="max-w-2xl mx-auto px-5 sm:px-6 py-10">
         <PageHeader

@@ -129,7 +129,7 @@ export async function POST(req: Request) {
       }
       await sendSessionSeriesScheduled({
         clientEmail: cEmail, clientFirstName: match.student.firstName,
-        therapistFirstName: teacher.firstName, therapistLastName: teacher.lastName,
+        teacherFirstName: teacher.firstName, teacherLastName: teacher.lastName,
         practiceName: practiceDisplayName(teacher), firstDate: created[0].scheduledAt,
         count: created.length, viaPackage: true, sessionUrl: `${appUrl}/session/${created[0].id}`,
       }).catch(e => console.error('[practice/booking] series email failed:', e))
@@ -156,7 +156,7 @@ export async function POST(req: Request) {
     }
     await sendSessionSeriesScheduled({
       clientEmail: cEmail, clientFirstName: match.student.firstName,
-      therapistFirstName: teacher.firstName, therapistLastName: teacher.lastName,
+      teacherFirstName: teacher.firstName, teacherLastName: teacher.lastName,
       practiceName: practiceDisplayName(teacher), firstDate: created[0].scheduledAt,
       count: created.length, viaPackage: false, sessionUrl: `${appUrl}/session/${created[0].id}`,
     }).catch(e => console.error('[practice/booking] series email failed:', e))
@@ -199,8 +199,8 @@ export async function POST(req: Request) {
       await sendSessionScheduledByTherapist({
         clientEmail: cEmail,
         clientFirstName: match.student.firstName,
-        therapistFirstName: teacher.firstName,
-        therapistLastName: teacher.lastName,
+        teacherFirstName: teacher.firstName,
+        teacherLastName: teacher.lastName,
         practiceName: practiceDisplayName(teacher),
         scheduledAt: scheduledDate,
         ratePence,
@@ -285,8 +285,8 @@ export async function POST(req: Request) {
       await sendSessionScheduledByTherapist({
         clientEmail: cEmail,
         clientFirstName: match.student.firstName,
-        therapistFirstName: teacher.firstName,
-        therapistLastName: teacher.lastName,
+        teacherFirstName: teacher.firstName,
+        teacherLastName: teacher.lastName,
         practiceName: practiceDisplayName(teacher),
         scheduledAt: scheduledDate,
         ratePence,
@@ -309,8 +309,8 @@ export async function POST(req: Request) {
     await sendSessionScheduledByTherapist({
       clientEmail: cEmail,
       clientFirstName: match.student.firstName,
-      therapistFirstName: teacher.firstName,
-      therapistLastName: teacher.lastName,
+      teacherFirstName: teacher.firstName,
+      teacherLastName: teacher.lastName,
       practiceName: practiceDisplayName(teacher),
       scheduledAt: scheduledDate,
       ratePence,

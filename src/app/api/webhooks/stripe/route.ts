@@ -5,7 +5,7 @@ import { createRoom } from '@/lib/daily'
 import { sendBookingConfirmed, sendGiftVoucher } from '@/lib/email'
 import { generateVoucherCode } from '@/lib/voucher'
 import { rewardReferralOnBooking } from '@/lib/referral'
-import { rewardTherapistReferralOnFirstSession } from '@/lib/therapist-referral'
+import { rewardTeacherReferralOnFirstSession } from '@/lib/teacher-referral'
 import { commissionBpsForTier, subscriptionPeriodEnd, tierByPriceId } from '@/lib/billing'
 import { clientEmail } from '@/lib/practice'
 import type Stripe from 'stripe'
@@ -261,7 +261,7 @@ export async function POST(req: Request) {
     // Reward referrer when this referee pays — idempotent (once per referral).
     await rewardReferralOnBooking(studentId).catch(e => console.error('[stripe webhook] referral reward failed:', e))
     // Reward referring teacher on this teacher's first paid lesson — idempotent.
-    await rewardTherapistReferralOnFirstSession(teacherId).catch(e => console.error('[stripe webhook] teacher referral reward failed:', e))
+    await rewardTeacherReferralOnFirstSession(teacherId).catch(e => console.error('[stripe webhook] teacher referral reward failed:', e))
 
     // Create Daily.co video room — non-blocking
     let dbSession = await prisma.session.findUnique({ where: { id: sessionId } })
@@ -283,9 +283,9 @@ export async function POST(req: Request) {
       sendBookingConfirmed({
         clientEmail: clientEmail(student)!,
         clientFirstName: student.firstName,
-        therapistEmail: teacher.user.email,
-        therapistFirstName: teacher.firstName,
-        therapistLastName: teacher.lastName,
+        teacherEmail: teacher.user.email,
+        teacherFirstName: teacher.firstName,
+        teacherLastName: teacher.lastName,
         sessionId,
         scheduledAt: dbSession.scheduledAt,
         ratePence: teacher.sessionRatePence,

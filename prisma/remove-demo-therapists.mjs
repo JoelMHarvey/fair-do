@@ -28,10 +28,10 @@ async function main() {
       continue
     }
     // Remove dependents first (availability, credential checks, matches with no sessions)
-    await prisma.availability.deleteMany({ where: { therapistId: t.id } })
-    await prisma.credentialCheck.deleteMany({ where: { therapistId: t.id } })
-    await prisma.complaint.deleteMany({ where: { therapistId: t.id } })
-    await prisma.match.deleteMany({ where: { therapistId: t.id } })
+    await prisma.availability.deleteMany({ where: { teacherId: t.id } })
+    await prisma.credentialCheck.deleteMany({ where: { teacherId: t.id } })
+    await prisma.complaint.deleteMany({ where: { teacherId: t.id } })
+    await prisma.match.deleteMany({ where: { teacherId: t.id } })
     await prisma.therapist.delete({ where: { id: t.id } })
     await prisma.user.delete({ where: { id: u.id } })
     console.log(`  removed ${t.firstName} ${t.lastName}`)

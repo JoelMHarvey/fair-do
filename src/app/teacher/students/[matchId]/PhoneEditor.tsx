@@ -13,7 +13,7 @@ export default function PhoneEditor({ matchId, initial }: { matchId: string; ini
   async function save() {
     setSaving(true); setError(null); setMsg(null)
     try {
-      const res = await fetch(`/api/practice/clients/${matchId}`, {
+      const res = await fetch(`/api/practice/students/${matchId}`, {
         method: 'PATCH',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ phone: value.trim() }),

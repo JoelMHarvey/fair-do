@@ -1,5 +1,5 @@
 import { prisma } from '@/lib/prisma'
-import { getMobileTherapist } from '@/lib/mobile-auth'
+import { getMobileTeacher } from '@/lib/mobile-auth'
 import { daysUntil, expiryState } from '@/lib/credentials-expiry'
 
 export const dynamic = 'force-dynamic'
@@ -50,7 +50,7 @@ function toSessionSummary(
 }
 
 export async function GET() {
-  const teacher = await getMobileTherapist()
+  const teacher = await getMobileTeacher()
   if (!teacher) return new Response('Unauthorized', { status: 401 })
 
   const now = new Date()

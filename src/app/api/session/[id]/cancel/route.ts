@@ -51,9 +51,9 @@ export async function POST(_req: Request, { params }: { params: Promise<{ id: st
   sendCancellationNotice({
     clientEmail: clientEmail(session.student) ?? '',
     clientFirstName: session.student.firstName,
-    therapistEmail: session.teacher.user.email,
-    therapistFirstName: session.teacher.firstName,
-    therapistLastName: session.teacher.lastName,
+    teacherEmail: session.teacher.user.email,
+    teacherFirstName: session.teacher.firstName,
+    teacherLastName: session.teacher.lastName,
     scheduledAt: session.scheduledAt,
     cancelledBy,
     refunded,

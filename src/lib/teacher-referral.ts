@@ -13,7 +13,7 @@ export function generateTherapistCode(firstName: string): string {
   return `T-${stem}-${suffix}`
 }
 
-export async function ensureTherapistReferralCode(teacherId: string, firstName: string): Promise<string> {
+export async function ensureTeacherReferralCode(teacherId: string, firstName: string): Promise<string> {
   const existing = await prisma.teacher.findUnique({ where: { id: teacherId }, select: { referralCode: true } })
   if (existing?.referralCode) return existing.referralCode
   for (let attempt = 0; attempt < 5; attempt++) {
@@ -27,7 +27,7 @@ export async function ensureTherapistReferralCode(teacherId: string, firstName: 
 }
 
 /** Link a new teacher to their referrer by code. Safe to call once at onboarding. */
-export async function linkTherapistReferral(refereeTeacherId: string, code: string): Promise<void> {
+export async function linkTeacherReferral(refereeTeacherId: string, code: string): Promise<void> {
   const referrer = await prisma.teacher.findUnique({ where: { referralCode: code.toUpperCase() } })
   if (!referrer || referrer.id === refereeTeacherId) return
   try {
@@ -45,7 +45,7 @@ export async function linkTherapistReferral(refereeTeacherId: string, code: stri
  * FREE MONTH (we take no commission, so cash bonuses don't fit). Applied to their live
  * subscription if they're already paid, otherwise banked for when they upgrade. Idempotent.
  */
-export async function rewardTherapistReferralOnFirstSession(refereeTeacherId: string): Promise<void> {
+export async function rewardTeacherReferralOnFirstSession(refereeTeacherId: string): Promise<void> {
   const referral = await prisma.teacherReferral.findUnique({ where: { refereeTeacherId } })
   if (!referral || referral.status !== 'pending') return
   await prisma.teacherReferral.update({

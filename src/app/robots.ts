@@ -7,7 +7,7 @@ export default function robots(): MetadataRoute.Robots {
       allow: '/',
       disallow: [
         '/api/', '/dashboard', '/messages', '/session', '/onboarding',
-        '/admin', '/therapist', '/availability', '/org', '/sign-in', '/sign-out',
+        '/admin', '/teacher', '/availability', '/org', '/sign-in', '/sign-out',
       ],
     },
     sitemap: 'https://faresay.com/sitemap.xml',

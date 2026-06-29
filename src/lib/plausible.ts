@@ -33,7 +33,7 @@ function sanitizePath(raw: string): string {
     .replace(/^\/messages\/[^/]+/, '/messages/[id]')
     .replace(/^\/p\/[^/]+/, '/p/[slug]')
     .replace(/^\/tutors\/[^/]+/, '/tutors/[id]')
-    .replace(/^\/teacher\/clients\/[^/]+/, '/teacher/clients/[id]')
+    .replace(/^\/teacher\/clients\/[^/]+/, '/teacher/students/[id]')
   // Generic backstop: collapse any remaining long opaque segment (cuid/hex/token).
   return path.split('/').map(seg => (/^[A-Za-z0-9_-]{16,}$/.test(seg) ? '[id]' : seg)).join('/')
 }

@@ -72,7 +72,7 @@ export async function GET(req: Request) {
           sendNoShowNotice({
             clientEmail: cEmail,
             clientFirstName: s.student.firstName,
-            therapistName: `${s.teacher.firstName} ${s.teacher.lastName}`,
+            teacherName: `${s.teacher.firstName} ${s.teacher.lastName}`,
             scheduledAt: s.scheduledAt,
             reason: resolution,
             refunded: didRefund,

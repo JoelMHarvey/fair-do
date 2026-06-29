@@ -58,7 +58,7 @@ export default function MoreScreen() {
           <Row
             label="Manage plan"
             sub="Subscription billing"
-            onPress={() => Linking.openURL(`${API_URL}/therapist/billing`)}
+            onPress={() => Linking.openURL(`${API_URL}/teacher/billing`)}
           />
           <View style={styles.divider} />
           <Row

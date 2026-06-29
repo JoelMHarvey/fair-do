@@ -91,7 +91,7 @@ export default function PricingPage() {
                 </ul>
                 <p className="text-xs text-sand-500 mb-5">{t.note}</p>
                 <Link
-                  href={t.name === 'Clinic' ? 'mailto:support@fair-do.com' : '/sign-up?role=therapist'}
+                  href={t.name === 'Clinic' ? 'mailto:support@fair-do.com' : '/sign-up?role=teacher'}
                   className={`text-center py-3 rounded-full font-medium transition ${t.highlight ? 'bg-brand-600 text-white hover:bg-brand-700 shadow-sm' : 'border border-brand-200 text-brand-700 hover:bg-brand-50'}`}
                 >
                   {t.cta}
@@ -127,7 +127,7 @@ export default function PricingPage() {
           </div>
 
           <div className="text-center mt-16">
-            <Link href="/sign-up?role=therapist" className="inline-block bg-brand-600 text-white px-8 py-4 rounded-full font-medium hover:bg-brand-700 transition shadow-lg shadow-brand-600/20">
+            <Link href="/sign-up?role=teacher" className="inline-block bg-brand-600 text-white px-8 py-4 rounded-full font-medium hover:bg-brand-700 transition shadow-lg shadow-brand-600/20">
               Start free →
             </Link>
           </div>
