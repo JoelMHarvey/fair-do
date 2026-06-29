@@ -30,7 +30,7 @@ export default async function StudioSetupPage() {
   const hasStudents = studentCount + inviteCount > 0
 
   const steps: Step[] = [
-    { title: 'Choose your plan', detail: 'Pick Starter (free), Practice or Clinic — this sets your commission.', href: '/teacher/billing', cta: 'Choose a plan', done: hasPlan, tip: 'Your plan decides the small fee we take on each lesson. Starter is free to begin with — you can change plan any time.' },
+    { title: 'Choose your plan', detail: 'Pick Starter (free), Practice or School — this sets your commission.', href: '/teacher/billing', cta: 'Choose a plan', done: hasPlan, tip: 'Your plan decides the small fee we take on each lesson. Starter is free to begin with — you can change plan any time.' },
     { title: 'Connect payments', detail: 'Set up Stripe so you can take card payments and get paid out.', href: '/onboarding/teacher', cta: 'Connect Stripe', done: teacher.stripeOnboarded, tip: 'Stripe is our secure payments partner. You\'ll enter your name, bank details and ID so you can take card payments and have the money paid out to your bank.' },
     { title: 'Set your rate', detail: 'Confirm your standard lesson rate (you can set per-student rates too).', href: '/teacher/profile', cta: 'Review rate', done: teacher.sessionRatePence > 0, tip: 'This is the standard price students pay for a lesson. You can still set a different price for individual students later.' },
     { title: 'Add your first student', detail: 'Invite one student, or import your whole list at once.', href: '/teacher/students', cta: 'Add students', done: hasStudents, tip: 'We\'ll send each student a private invite to join your studio. Nothing is shared publicly.' },
