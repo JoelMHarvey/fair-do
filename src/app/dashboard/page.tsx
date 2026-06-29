@@ -5,6 +5,8 @@ import Link from 'next/link'
 import { Logo } from '@/components/Logo'
 import { ensureReferralCode, REFERRAL_REWARD_PENCE } from '@/lib/referral'
 import { AI_NOTES_ENABLED } from '@/lib/lesson-notes'
+import { RESOURCES_ENABLED } from '@/lib/resources'
+import { ResourceLibrary } from '@/components/ResourceLibrary'
 import ReferralCard from './ReferralCard'
 
 export default async function Dashboard() {
@@ -73,6 +75,15 @@ export default async function Dashboard() {
         include: { session: { select: { scheduledAt: true } } },
         orderBy: { sharedAt: 'desc' },
         take: 8,
+      })
+    : []
+
+  // Resources for the student's primary tutor (P2-5): what the tutor shared + their own uploads.
+  const primaryMatch = matches[0]
+  const resources = RESOURCES_ENABLED && primaryMatch
+    ? await prisma.studentDocument.findMany({
+        where: { matchId: primaryMatch.id, OR: [{ studentVisible: true }, { uploadedBy: 'student' }], fileName: { not: null } },
+        orderBy: { createdAt: 'asc' },
       })
     : []
 
@@ -184,6 +195,18 @@ export default async function Dashboard() {
             </div>
           )}
         </section>
+
+        {/* Resources (P2-5) */}
+        {RESOURCES_ENABLED && primaryMatch && (
+          <section className="mb-8">
+            <h2 className="font-medium text-sand-900 mb-3">Resources</h2>
+            <ResourceLibrary
+              matchId={primaryMatch.id}
+              role="student"
+              initial={resources.map(d => ({ id: d.id, label: d.label, url: d.url, category: d.category, uploadedBy: d.uploadedBy, studentVisible: d.studentVisible, fileName: d.fileName, fileSizeBytes: d.fileSizeBytes }))}
+            />
+          </section>
+        )}
 
         {/* Lesson notes (P2-4) */}
         {AI_NOTES_ENABLED && lessonNotes.length > 0 && (

@@ -546,6 +546,11 @@ model StudentDocument {
   url       String   @db.Text
   category  String // lesson-notes | homework | resource | progress | other
   createdAt DateTime @default(now())
+  // Resource & homework sharing (P2-5).
+  uploadedBy     String  @default("teacher") // teacher | student
+  studentVisible Boolean @default(true) // false = teacher-only (the old link docs default visible)
+  fileName       String? // original filename for uploaded files (null for plain links)
+  fileSizeBytes  Int?
 
   @@index([matchId])
 }
