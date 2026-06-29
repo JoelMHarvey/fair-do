@@ -34,6 +34,8 @@ const {
   mockSendGiftVoucher,
   mockRewardReferral,
   mockRewardTherapistReferral,
+  mockParentLinkUpdate,
+  mockParentLinkUpdateMany,
 } = vi.hoisted(() => ({
   mockConstructEvent: vi.fn(),
   mockProcessedCreate: vi.fn(),
@@ -57,6 +59,8 @@ const {
   mockSendGiftVoucher: vi.fn(),
   mockRewardReferral: vi.fn(),
   mockRewardTherapistReferral: vi.fn(),
+  mockParentLinkUpdate: vi.fn(),
+  mockParentLinkUpdateMany: vi.fn(),
 }))
 
 vi.mock('@/lib/prisma', () => ({
@@ -70,6 +74,7 @@ vi.mock('@/lib/prisma', () => ({
     organisation: { update: mockOrgUpdate },
     subscription: { upsert: mockSubscriptionUpsert, updateMany: mockSubscriptionUpdateMany },
     package: { update: mockPackageUpdate },
+    parentLink: { update: mockParentLinkUpdate, updateMany: mockParentLinkUpdateMany },
   },
 }))
 
@@ -386,5 +391,32 @@ describe('Stripe webhook — practice_subscription branch', () => {
     const res = await POST(webhookReq(event))
     expect(res.status).toBe(500)
     expect(mockProcessedDelete).toHaveBeenCalled()
+  })
+})
+
+describe('parent portal subscription', () => {
+  it('parent_portal checkout → activates the parent link', async () => {
+    mockProcessedCreate.mockResolvedValue({})
+    mockParentLinkUpdate.mockResolvedValue({})
+    const event = makeCheckout({ type: 'parent_portal', parentLinkId: 'pl1' }, { subscription: 'sub_pp', customer: 'cus_pp' })
+    const res = await POST(webhookReq(event))
+    expect(res.status).toBe(200)
+    expect(mockParentLinkUpdate).toHaveBeenCalledWith(expect.objectContaining({
+      where: { id: 'pl1' },
+      data: expect.objectContaining({ portalActive: true, stripeSubscriptionId: 'sub_pp' }),
+    }))
+  })
+
+  it('customer.subscription.deleted → pauses the parent portal', async () => {
+    mockProcessedCreate.mockResolvedValue({})
+    mockSubscriptionUpdateMany.mockResolvedValue({})
+    mockParentLinkUpdateMany.mockResolvedValue({})
+    const event = makeEvent('customer.subscription.deleted', { id: 'sub_pp', status: 'canceled', items: { data: [] } })
+    const res = await POST(webhookReq(event))
+    expect(res.status).toBe(200)
+    expect(mockParentLinkUpdateMany).toHaveBeenCalledWith(expect.objectContaining({
+      where: { stripeSubscriptionId: 'sub_pp' },
+      data: { portalActive: false },
+    }))
   })
 })

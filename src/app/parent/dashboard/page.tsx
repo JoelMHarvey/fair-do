@@ -1,0 +1,160 @@
+import { redirect } from 'next/navigation'
+import Link from 'next/link'
+import { auth } from '@clerk/nextjs/server'
+import { prisma } from '@/lib/prisma'
+import { Logo } from '@/components/Logo'
+import { ParentMessages } from '@/components/ParentMessages'
+import { PARENT_PORTAL_ENABLED } from '@/lib/parent'
+
+function fmtDate(d: Date) {
+  return new Date(d).toLocaleString('en-GB', { dateStyle: 'medium', timeStyle: 'short' })
+}
+
+// Plain-English attendance from the Daily-webhook fields already on Session.
+function attendance(s: { scheduledAt: Date; callStartedAt: Date | null; callEndedAt: Date | null; status: string }) {
+  if (s.status === 'CANCELLED') return 'Cancelled'
+  if (s.status === 'NO_SHOW') return 'No-show'
+  if (!s.callStartedAt) return s.status === 'COMPLETED' ? 'Completed' : '—'
+  const lateMin = Math.round((new Date(s.callStartedAt).getTime() - new Date(s.scheduledAt).getTime()) / 60000)
+  const ranMin = s.callEndedAt ? Math.round((new Date(s.callEndedAt).getTime() - new Date(s.callStartedAt).getTime()) / 60000) : null
+  const start = lateMin > 2 ? `started ${lateMin} min late` : lateMin < -2 ? `started ${-lateMin} min early` : 'started on time'
+  return ranMin != null ? `${start}, ran ${ranMin} min` : start
+}
+
+export default async function ParentDashboard() {
+  if (!PARENT_PORTAL_ENABLED) redirect('/')
+  const { userId } = await auth()
+  if (!userId) redirect('/sign-in')
+
+  const user = await prisma.user.findUnique({ where: { clerkId: userId } })
+  if (!user || user.role !== 'PARENT') redirect('/')
+
+  const links = await prisma.parentLink.findMany({
+    where: { parentUserId: user.id, status: 'active' },
+    include: { student: true, parentThread: { include: { messages: { orderBy: { createdAt: 'asc' } } } } },
+    orderBy: { createdAt: 'asc' },
+  })
+  const active = links.filter(l => l.portalActive)
+  if (active.length === 0) redirect('/parent/subscribe')
+
+  // v1: show the first child's portal. Multi-child tabs are a follow-up.
+  const link = active[0]
+  const student = link.student
+  const now = new Date()
+
+  const [upcoming, past, payments] = await Promise.all([
+    prisma.session.findMany({
+      where: { studentId: student.id, status: 'SCHEDULED', scheduledAt: { gte: now } },
+      include: { teacher: true },
+      orderBy: { scheduledAt: 'asc' },
+      take: 10,
+    }),
+    prisma.session.findMany({
+      where: { studentId: student.id, OR: [{ scheduledAt: { lt: now } }, { status: { in: ['COMPLETED', 'CANCELLED', 'NO_SHOW'] } }] },
+      include: { teacher: true },
+      orderBy: { scheduledAt: 'desc' },
+      take: 20,
+    }),
+    prisma.payment.findMany({
+      where: { studentId: student.id, status: { in: ['paid', 'refunded', 'partially_refunded'] } },
+      include: { session: { include: { teacher: true } } },
+      orderBy: { createdAt: 'desc' },
+      take: 20,
+    }),
+  ])
+
+  const messages = (link.parentThread?.messages ?? []).map(m => ({
+    id: m.id, body: m.body, senderClerkId: m.senderClerkId, createdAt: m.createdAt.toISOString(),
+  }))
+
+  return (
+    <main className="min-h-screen bg-sand-50">
+      <nav className="border-b border-sand-200 bg-white/80 backdrop-blur px-5 sm:px-8 h-16 flex items-center justify-between sticky top-0 z-40">
+        <Logo />
+        <Link href="/sign-out" className="text-sm text-sand-500 hover:text-brand-700">Sign out</Link>
+      </nav>
+
+      <div className="max-w-3xl mx-auto px-4 sm:px-6 py-8 sm:py-12">
+        <h1 className="font-display text-3xl font-semibold text-brand-900 mb-1">{student.firstName}&rsquo;s lessons</h1>
+        <p className="text-sand-500 mb-8 text-sm">Parent portal</p>
+
+        {/* Upcoming */}
+        <section className="mb-8">
+          <h2 className="font-medium text-sand-900 mb-3">Upcoming lessons</h2>
+          {upcoming.length === 0 ? (
+            <div className="bg-white rounded-2xl border border-sand-200 p-6 text-center text-sand-400 text-sm">No lessons booked.</div>
+          ) : (
+            <div className="space-y-3">
+              {upcoming.map(s => (
+                <div key={s.id} className="bg-white rounded-2xl border border-sand-200 p-4 flex justify-between">
+                  <div>
+                    <p className="text-sm font-medium text-sand-900">{s.teacher.firstName} {s.teacher.lastName}</p>
+                    <p className="text-sm text-sand-500">{fmtDate(s.scheduledAt)}</p>
+                  </div>
+                  <span className="text-xs text-sand-400 self-center">{s.durationMins} min</span>
+                </div>
+              ))}
+            </div>
+          )}
+        </section>
+
+        {/* Past + attendance */}
+        <section className="mb-8">
+          <h2 className="font-medium text-sand-900 mb-3">Lesson history</h2>
+          {past.length === 0 ? (
+            <div className="bg-white rounded-2xl border border-sand-200 p-6 text-center text-sand-400 text-sm">No past lessons yet.</div>
+          ) : (
+            <div className="bg-white rounded-2xl border border-sand-200 overflow-hidden">
+              {past.map((s, i) => (
+                <div key={s.id} className={`px-4 py-3 ${i > 0 ? 'border-t border-sand-100' : ''}`}>
+                  <div className="flex justify-between">
+                    <p className="text-sm font-medium text-sand-900">{fmtDate(s.scheduledAt)}</p>
+                    <p className="text-sm text-sand-500">{s.teacher.firstName} {s.teacher.lastName}</p>
+                  </div>
+                  <p className="text-xs text-sand-400 mt-0.5">{attendance(s)}</p>
+                </div>
+              ))}
+            </div>
+          )}
+        </section>
+
+        {/* Invoices */}
+        <section className="mb-8">
+          <h2 className="font-medium text-sand-900 mb-3">Invoices</h2>
+          {payments.length === 0 ? (
+            <div className="bg-white rounded-2xl border border-sand-200 p-6 text-center text-sand-400 text-sm">No payments yet.</div>
+          ) : (
+            <div className="bg-white rounded-2xl border border-sand-200 overflow-hidden">
+              {payments.map((p, i) => {
+                const sym = p.currency === 'usd' ? '$' : '£'
+                const refunded = p.status === 'refunded' || p.status === 'partially_refunded'
+                return (
+                  <div key={p.id} className={`flex items-center justify-between px-4 py-3 ${i > 0 ? 'border-t border-sand-100' : ''}`}>
+                    <div>
+                      <p className="text-sm font-medium text-sand-900">
+                        {p.session ? `${p.session.teacher.firstName} ${p.session.teacher.lastName}` : 'Lesson package'}
+                      </p>
+                      <p className="text-xs text-sand-400 mt-0.5">
+                        {p.createdAt.toLocaleDateString('en-GB', { day: 'numeric', month: 'short', year: 'numeric' })} · {sym}{(p.amountTotalPence / 100).toFixed(2)}
+                        {refunded && <span className="text-red-500"> · refunded</span>}
+                      </p>
+                    </div>
+                    <span className="text-sm font-medium text-sand-700">{sym}{(p.amountTotalPence / 100).toFixed(2)}</span>
+                  </div>
+                )
+              })}
+            </div>
+          )}
+        </section>
+
+        {/* Messages */}
+        <section>
+          <h2 className="font-medium text-sand-900 mb-3">Message the tutor</h2>
+          <div className="bg-white rounded-2xl border border-sand-200 p-4">
+            <ParentMessages parentLinkId={link.id} viewerClerkId={userId} initial={messages} />
+          </div>
+        </section>
+      </div>
+    </main>
+  )
+}

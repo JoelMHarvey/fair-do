@@ -1,0 +1,211 @@
+/**
+ * Parent portal (P2-3) — route auth + flow tests.
+ *
+ * Locks the access-control and happy paths for:
+ *  - teacher invite (tier-gated, teacher-owned match, no duplicates)
+ *  - parent accept (role transition, role-clash rejection)
+ *  - parent subscribe (parent-only, price-configured)
+ *  - shared message thread (parent OR inviting teacher only)
+ */
+import { describe, it, expect, vi, beforeEach } from 'vitest'
+
+const m = vi.hoisted(() => ({
+  auth: vi.fn(),
+  currentUser: vi.fn(),
+  canOffer: vi.fn(),
+  userFind: vi.fn(),
+  userUpsert: vi.fn(),
+  userUpdate: vi.fn(),
+  matchFind: vi.fn(),
+  linkFindFirst: vi.fn(),
+  linkFindUnique: vi.fn(),
+  linkCreate: vi.fn(),
+  linkUpdate: vi.fn(),
+  threadUpsert: vi.fn(),
+  threadCreate: vi.fn(),
+  threadUpdate: vi.fn(),
+  msgCreate: vi.fn(),
+  transaction: vi.fn(),
+  sendInvite: vi.fn(),
+  customerCreate: vi.fn(),
+  checkoutCreate: vi.fn(),
+}))
+
+vi.mock('@clerk/nextjs/server', () => ({ auth: m.auth, currentUser: m.currentUser }))
+vi.mock('@/lib/parent', () => ({
+  PARENT_PORTAL_ENABLED: true,
+  PARENT_PORTAL_PRICE_PENCE: 499,
+  teacherCanOfferParentPortal: m.canOffer,
+  generateParentToken: () => 'tok_test',
+}))
+vi.mock('@/lib/prisma', () => ({
+  prisma: {
+    user: { findUnique: m.userFind, upsert: m.userUpsert, update: m.userUpdate },
+    match: { findFirst: m.matchFind },
+    parentLink: { findFirst: m.linkFindFirst, findUnique: m.linkFindUnique, create: m.linkCreate, update: m.linkUpdate },
+    parentMessageThread: { upsert: m.threadUpsert, create: m.threadCreate, update: m.threadUpdate },
+    parentMessage: { create: m.msgCreate },
+    $transaction: m.transaction,
+  },
+}))
+vi.mock('@/lib/email', () => ({ sendParentInvite: m.sendInvite }))
+vi.mock('@/lib/stripe', () => ({
+  getStripe: () => ({
+    customers: { create: m.customerCreate },
+    checkout: { sessions: { create: m.checkoutCreate } },
+  }),
+}))
+vi.mock('@/lib/ratelimit', () => ({
+  checkRateLimit: vi.fn(async () => ({ allowed: true })),
+  rateLimitResponse: vi.fn(() => new Response('rl', { status: 429 })),
+}))
+vi.mock('next/headers', () => ({ headers: vi.fn(async () => ({ get: () => null })) }))
+
+import { POST as invite } from '@/app/api/teacher/parent/invite/route'
+import { POST as accept } from '@/app/api/parent/accept/route'
+import { POST as subscribe } from '@/app/api/parent/subscribe/route'
+import { POST as sendMsg } from '@/app/api/parent/messages/send/route'
+
+function req(body: object) {
+  return new Request('http://localhost/x', { method: 'POST', body: JSON.stringify(body) })
+}
+
+beforeEach(() => {
+  Object.values(m).forEach(fn => fn.mockReset())
+  m.auth.mockResolvedValue({ userId: 'clerk_1' })
+  m.transaction.mockImplementation((ops: Promise<unknown>[]) => Promise.all(ops))
+})
+
+describe('teacher invite', () => {
+  it('403 when the caller is not a teacher', async () => {
+    m.userFind.mockResolvedValue({ id: 'u1', teacher: null })
+    const res = await invite(req({ matchId: 'mt1', parentEmail: 'p@x.com' }))
+    expect(res.status).toBe(403)
+  })
+
+  it('403 when the teacher’s plan can’t offer the portal', async () => {
+    m.userFind.mockResolvedValue({ id: 'u1', teacher: { id: 't1', firstName: 'A', lastName: 'B' } })
+    m.canOffer.mockResolvedValue(false)
+    const res = await invite(req({ matchId: 'mt1', parentEmail: 'p@x.com' }))
+    expect(res.status).toBe(403)
+  })
+
+  it('201 + creates link + sends email on success', async () => {
+    m.userFind.mockResolvedValue({ id: 'u1', teacher: { id: 't1', firstName: 'A', lastName: 'B' } })
+    m.canOffer.mockResolvedValue(true)
+    m.matchFind.mockResolvedValue({ id: 'mt1', studentId: 's1', student: { firstName: 'Kid' } })
+    m.linkFindFirst.mockResolvedValue(null)
+    m.linkCreate.mockResolvedValue({ id: 'pl1' })
+    m.sendInvite.mockResolvedValue(undefined)
+    const res = await invite(req({ matchId: 'mt1', parentEmail: 'P@X.com' }))
+    expect(res.status).toBe(201)
+    expect(m.linkCreate).toHaveBeenCalledWith(expect.objectContaining({
+      data: expect.objectContaining({ studentId: 's1', teacherId: 't1', inviteEmail: 'p@x.com', token: 'tok_test', status: 'pending' }),
+    }))
+    expect(m.sendInvite).toHaveBeenCalled()
+  })
+
+  it('409 on a duplicate active/pending invite', async () => {
+    m.userFind.mockResolvedValue({ id: 'u1', teacher: { id: 't1', firstName: 'A', lastName: 'B' } })
+    m.canOffer.mockResolvedValue(true)
+    m.matchFind.mockResolvedValue({ id: 'mt1', studentId: 's1', student: { firstName: 'Kid' } })
+    m.linkFindFirst.mockResolvedValue({ id: 'pl_existing' })
+    const res = await invite(req({ matchId: 'mt1', parentEmail: 'p@x.com' }))
+    expect(res.status).toBe(409)
+    expect(m.linkCreate).not.toHaveBeenCalled()
+  })
+})
+
+describe('parent accept', () => {
+  it('404 on an invalid/revoked token', async () => {
+    m.linkFindUnique.mockResolvedValue(null)
+    const res = await accept(req({ token: 'nope' }))
+    expect(res.status).toBe(404)
+  })
+
+  it('409 when the account is already a tutor or student', async () => {
+    m.linkFindUnique.mockResolvedValue({ id: 'pl1', studentId: 's1', teacherId: 't1', status: 'pending', parentUserId: null })
+    m.userFind.mockResolvedValue({ id: 'u1', teacher: { id: 't1' }, student: null })
+    const res = await accept(req({ token: 'tok_test' }))
+    expect(res.status).toBe(409)
+    expect(m.transaction).not.toHaveBeenCalled()
+  })
+
+  it('links account + sets PARENT role + creates thread', async () => {
+    m.linkFindUnique.mockResolvedValue({ id: 'pl1', studentId: 's1', teacherId: 't1', status: 'pending', parentUserId: null })
+    m.userFind.mockResolvedValue({ id: 'u1', teacher: null, student: null })
+    m.linkFindFirst.mockResolvedValue(null)
+    m.userUpdate.mockResolvedValue({})
+    m.linkUpdate.mockResolvedValue({})
+    m.threadUpsert.mockResolvedValue({})
+    const res = await accept(req({ token: 'tok_test' }))
+    expect(res.status).toBe(200)
+    expect(m.transaction).toHaveBeenCalled()
+    expect(m.userUpdate).toHaveBeenCalledWith(expect.objectContaining({ data: { role: 'PARENT' } }))
+  })
+})
+
+describe('parent subscribe', () => {
+  it('403 when the caller is not a parent', async () => {
+    m.userFind.mockResolvedValue({ id: 'u1', role: 'STUDENT', email: 'p@x.com' })
+    const res = await subscribe(req({ parentLinkId: 'pl1' }))
+    expect(res.status).toBe(403)
+  })
+
+  it('503 when the parent-portal price isn’t configured', async () => {
+    delete process.env.STRIPE_PRICE_PARENT_PORTAL
+    m.userFind.mockResolvedValue({ id: 'u1', role: 'PARENT', email: 'p@x.com' })
+    m.linkFindFirst.mockResolvedValue({ id: 'pl1', portalActive: false, stripeCustomerId: null, student: { firstName: 'Kid' } })
+    const res = await subscribe(req({ parentLinkId: 'pl1' }))
+    expect(res.status).toBe(503)
+  })
+
+  it('201 + returns a checkout URL on success', async () => {
+    process.env.STRIPE_PRICE_PARENT_PORTAL = 'price_pp'
+    m.userFind.mockResolvedValue({ id: 'u1', role: 'PARENT', email: 'p@x.com' })
+    m.linkFindFirst.mockResolvedValue({ id: 'pl1', portalActive: false, stripeCustomerId: null, student: { firstName: 'Kid' } })
+    m.customerCreate.mockResolvedValue({ id: 'cus_1' })
+    m.linkUpdate.mockResolvedValue({})
+    m.checkoutCreate.mockResolvedValue({ url: 'https://checkout.stripe/x' })
+    const res = await subscribe(req({ parentLinkId: 'pl1' }))
+    expect(res.status).toBe(201)
+    expect(await res.json()).toEqual({ checkoutUrl: 'https://checkout.stripe/x' })
+    expect(m.checkoutCreate).toHaveBeenCalledWith(expect.objectContaining({
+      mode: 'subscription',
+      metadata: expect.objectContaining({ type: 'parent_portal', parentLinkId: 'pl1' }),
+    }))
+    delete process.env.STRIPE_PRICE_PARENT_PORTAL
+  })
+})
+
+describe('shared message thread', () => {
+  const link = { id: 'pl1', parentUserId: 'u_parent', teacherId: 't1', status: 'active', parentThread: { id: 'th1' } }
+
+  it('403 for someone who is neither the parent nor the inviting teacher', async () => {
+    m.userFind.mockResolvedValue({ id: 'u_other', teacher: null })
+    m.linkFindFirst.mockResolvedValue(link)
+    const res = await sendMsg(req({ parentLinkId: 'pl1', body: 'hi' }))
+    expect(res.status).toBe(403)
+    expect(m.msgCreate).not.toHaveBeenCalled()
+  })
+
+  it('201 when the parent posts', async () => {
+    m.userFind.mockResolvedValue({ id: 'u_parent', teacher: null })
+    m.linkFindFirst.mockResolvedValue(link)
+    m.msgCreate.mockResolvedValue({ id: 'msg1', body: 'hi', createdAt: new Date() })
+    m.threadUpdate.mockResolvedValue({})
+    const res = await sendMsg(req({ parentLinkId: 'pl1', body: 'hi' }))
+    expect(res.status).toBe(201)
+    expect(m.msgCreate).toHaveBeenCalled()
+  })
+
+  it('201 when the inviting teacher posts', async () => {
+    m.userFind.mockResolvedValue({ id: 'u_t', teacher: { id: 't1' } })
+    m.linkFindFirst.mockResolvedValue(link)
+    m.msgCreate.mockResolvedValue({ id: 'msg2', body: 'yo', createdAt: new Date() })
+    m.threadUpdate.mockResolvedValue({})
+    const res = await sendMsg(req({ parentLinkId: 'pl1', body: 'yo' }))
+    expect(res.status).toBe(201)
+    expect(m.msgCreate).toHaveBeenCalled()
+  })
+})
