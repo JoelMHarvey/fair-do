@@ -157,6 +157,28 @@ export async function POST(req: Request) {
       return new Response('OK', { status: 200 })
     }
 
+    // Recurring-booking card saved (Checkout setup mode) — store the payment method
+    // on the student's recurring bookings so the cron can charge off-session.
+    if (meta.type === 'recurring_card') {
+      const studentId = meta.studentId
+      const siId = typeof checkout.setup_intent === 'string' ? checkout.setup_intent : checkout.setup_intent?.id ?? null
+      if (studentId && siId) {
+        try {
+          const si = await getStripe().setupIntents.retrieve(siId)
+          const pmId = typeof si.payment_method === 'string' ? si.payment_method : si.payment_method?.id ?? null
+          if (pmId) {
+            await prisma.recurringBooking.updateMany({
+              where: { studentId, active: true, stripePaymentMethodId: null },
+              data: { stripePaymentMethodId: pmId },
+            })
+          }
+        } catch (e) {
+          return rollbackAndRetry(event.id, 'recurring card setup', e)
+        }
+      }
+      return new Response('OK', { status: 200 })
+    }
+
     // Studio package purchased — activate it + record the payment.
     if (meta.type === 'practice_package') {
       const amountTotal = checkout.amount_total ?? 0

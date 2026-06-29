@@ -7,6 +7,8 @@ import { ensureReferralCode, REFERRAL_REWARD_PENCE } from '@/lib/referral'
 import { AI_NOTES_ENABLED } from '@/lib/lesson-notes'
 import { RESOURCES_ENABLED } from '@/lib/resources'
 import { ResourceLibrary } from '@/components/ResourceLibrary'
+import { RECURRING_ENABLED } from '@/lib/recurring'
+import { RecurringCardPrompt } from '@/components/RecurringCardPrompt'
 import ReferralCard from './ReferralCard'
 
 export default async function Dashboard() {
@@ -79,6 +81,10 @@ export default async function Dashboard() {
     : []
 
   // Resources for the student's primary tutor (P2-5): what the tutor shared + their own uploads.
+  const needsRecurringCard = RECURRING_ENABLED
+    ? await prisma.recurringBooking.count({ where: { studentId: student.id, active: true, stripePaymentMethodId: null } })
+    : 0
+
   const primaryMatch = matches[0]
   const resources = RESOURCES_ENABLED && primaryMatch
     ? await prisma.studentDocument.findMany({
@@ -103,6 +109,12 @@ export default async function Dashboard() {
           Welcome back, {student.firstName}
         </h1>
         <p className="text-sand-500 mb-8 text-sm">Your learning dashboard</p>
+
+        {RECURRING_ENABLED && needsRecurringCard > 0 && (
+          <div className="mb-8">
+            <RecurringCardPrompt />
+          </div>
+        )}
 
         {/* Quick stats */}
         <div className="grid grid-cols-2 sm:grid-cols-3 gap-3 mb-8">
