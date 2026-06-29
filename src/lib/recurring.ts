@@ -7,7 +7,7 @@ export const RECURRING_ENABLED = process.env.RECURRING_ENABLED === 'true'
 
 // Paid teacher tiers allowed to offer recurring bookings (Pro+). Forward-compatible
 // with the free/pro/studio rename.
-const RECURRING_TIERS = new Set(['practice', 'clinic', 'pro', 'studio'])
+const RECURRING_TIERS = new Set(['pro', 'school', 'practice', 'clinic'])
 
 export async function teacherCanRecur(teacherId: string): Promise<boolean> {
   const sub = await prisma.subscription.findUnique({

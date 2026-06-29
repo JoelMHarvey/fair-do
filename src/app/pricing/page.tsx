@@ -12,7 +12,7 @@ export const metadata = {
 
 const TIERS = [
   {
-    name: 'Starter',
+    name: 'Free',
     price: 'Free',
     cadence: '',
     tagline: 'Everything to run your practice.',
@@ -22,12 +22,12 @@ const TIERS = [
     highlight: false,
   },
   {
-    name: 'Practice',
+    name: 'Pro',
     price: '£29',
     pricePence: 2900,
     cadence: '/month',
     tagline: 'For an established solo practice.',
-    features: ['Everything in Starter', 'No commission, ever', 'Per-student pricing & packages', 'Branded email & invite letterhead', 'Targeted student messaging & invites', 'Earnings insights & analytics', 'In-app AI assistant', 'Priority support', 'Your booking page'],
+    features: ['Everything in Free', 'No commission, ever', 'Per-student pricing & packages', 'Branded email & invite letterhead', 'Targeted student messaging & invites', 'Earnings insights & analytics', 'In-app AI assistant', 'Priority support', 'Your booking page'],
     note: 'Founding tutors lock a lower rate — see below.',
     cta: 'Start free',
     highlight: true,
@@ -45,9 +45,9 @@ const TIERS = [
 ]
 
 const FAQ = [
-  { q: 'Do I have to pay to start?', a: 'No. Starter is free — run your whole practice on it. You only pay if you choose a plan with extra tools.' },
+  { q: 'Do I have to pay to start?', a: 'No. The Free plan runs your whole tutoring business. You only pay if you choose a plan with extra tools.' },
   { q: 'Do you take a commission?', a: 'No. We take no commission on your lessons — you keep what you charge. You pay a flat monthly plan for the software; the only per-lesson cost is Stripe\'s standard card-processing fee, which we keep none of.' },
-  { q: 'Can I cancel any time?', a: 'Yes. No lock-in. If you cancel a paid plan it simply runs to the end of the period, then drops to Starter — your students and records stay with you.' },
+  { q: 'Can I cancel any time?', a: 'Yes. No lock-in. If you cancel a paid plan it simply runs to the end of the period, then drops to Free — your students and records stay with you.' },
   { q: 'Are my students mine?', a: 'Always. You own the relationship and the records. fair-do is your tool, never a middleman.' },
 ]
 

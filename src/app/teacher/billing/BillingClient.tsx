@@ -105,7 +105,7 @@ export default function BillingClient({
                     : 'bg-brand-600 hover:bg-brand-700 text-white disabled:opacity-50'
                 }`}
               >
-                {isCurrent ? 'Current plan' : busy === t.id ? 'Starting…' : t.pricePence === 0 ? 'Choose Starter' : `Choose ${t.name} (${pct}%)`}
+                {isCurrent ? 'Current plan' : busy === t.id ? 'Starting…' : t.pricePence === 0 ? 'Choose Free' : `Choose ${t.name} (${pct}%)`}
               </button>
             </div>
           )

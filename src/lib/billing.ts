@@ -2,7 +2,14 @@
 // Stripe; their Price IDs are supplied via env so this stays config-driven. Commission is
 // the per-transaction fee (basis points) applied to payments the tutor processes —
 // lower on higher tiers (the "free + commission, paid buys it down" model).
-export type TierId = 'starter' | 'practice' | 'clinic'
+export type TierId = 'free' | 'pro' | 'school'
+
+// Legacy → current id map (the tiers were starter/practice/clinic). Keeps existing
+// Subscription.tier values and old Stripe metadata resolving after the rename.
+const LEGACY_TIER_IDS: Record<string, TierId> = { starter: 'free', practice: 'pro', clinic: 'school' }
+export function normalizeTierId(id: string | null | undefined): string | null | undefined {
+  return id ? (LEGACY_TIER_IDS[id] ?? id) : id
+}
 
 export type Tier = {
   id: TierId
@@ -16,36 +23,37 @@ export type Tier = {
 
 export const PRACTICE_TIERS: Tier[] = [
   {
-    id: 'starter',
-    name: 'Starter',
+    id: 'free',
+    name: 'Free',
     pricePence: 0,
     commissionBps: 0,
     priceEnv: null,
-    blurb: 'Free to start. No commission — you keep what you charge.',
-    features: ['Up to 10 active students', 'Calendar, invites & video', 'Card payments & payouts', 'No commission on lessons'],
+    blurb: 'Free to start. 0% commission on your own students.',
+    features: ['Up to 10 active students', 'Calendar, invites & video', 'Card payments & payouts', '0% commission on own students'],
   },
   {
-    id: 'practice',
-    name: 'Practice',
+    id: 'pro',
+    name: 'Pro',
     pricePence: 2900,
     commissionBps: 0,
-    priceEnv: 'STRIPE_PRICE_PRACTICE',
-    blurb: 'For a full-time solo practice.',
-    features: ['Unlimited students', 'Per-student rates & packages', 'Branded email & invite letterhead', 'Targeted student messaging & invites', 'Earnings insights & analytics', 'In-app AI assistant', 'Reminders & calendar sync', 'No commission on lessons'],
+    priceEnv: 'STRIPE_PRICE_PRO',
+    blurb: 'For a full-time solo tutor.',
+    features: ['Unlimited students', 'Per-student rates & packages', 'Branded email & invite letterhead', 'Targeted student messaging & invites', 'Earnings insights & analytics', 'In-app AI assistant', 'Reminders & calendar sync', '0% commission on own students'],
   },
   {
-    id: 'clinic',
+    id: 'school',
     name: 'School',
     pricePence: 7900,
     commissionBps: 0,
-    priceEnv: 'STRIPE_PRICE_CLINIC',
+    priceEnv: 'STRIPE_PRICE_SCHOOL',
     blurb: 'For tutoring teams with multiple tutors.',
-    features: ['Everything in Practice', 'Multiple tutors', 'Team-wide reporting', 'No commission'],
+    features: ['Everything in Pro', 'Multiple tutors', 'Team-wide reporting', '0% commission'],
   },
 ]
 
 export function tierById(id: string | null | undefined): Tier | undefined {
-  return PRACTICE_TIERS.find(t => t.id === id)
+  const norm = normalizeTierId(id)
+  return PRACTICE_TIERS.find(t => t.id === norm)
 }
 
 export function priceIdForTier(id: string): string | null {

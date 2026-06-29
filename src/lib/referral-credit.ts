@@ -23,7 +23,7 @@ export async function grantReferralFreeMonth(referrerTeacherId: string): Promise
   try {
     const sub = await prisma.subscription.findUnique({ where: { teacherId: referrerTeacherId } })
     const paidActive = sub && (sub.status === 'active' || sub.status === 'trialing')
-      && sub.tier !== 'starter' && !!sub.stripeSubscriptionId
+      && sub.tier !== 'free' && sub.tier !== 'starter' && !!sub.stripeSubscriptionId
     if (paidActive) {
       const coupon = await freeMonthCoupon(1)
       await getStripe().subscriptions.update(sub!.stripeSubscriptionId!, { discounts: [{ coupon }] })

@@ -253,7 +253,7 @@ export async function POST(req: Request) {
     if (connectEnabled && teacher.stripeAccountId) {
       // Online payment: email the student a Stripe Checkout link. The existing
       // stripe webhook (keyed on metadata) creates the Payment + Daily room on completion.
-      // Commission comes from the teacher's subscription (Starter rate if none).
+      // Commission by source: own students are 0%.
       const subscription = await prisma.subscription.findUnique({ where: { teacherId: teacher.id } })
       const { bps, feePence } = commissionForSource(ratePence, match.source)
       const stripe = getStripe()

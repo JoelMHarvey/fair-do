@@ -37,22 +37,27 @@ describe('commissionBpsForTier', () => {
 
 describe('priceIdForTier', () => {
   beforeEach(() => {
-    process.env.STRIPE_PRICE_PRACTICE = 'price_practice_x'
-    process.env.STRIPE_PRICE_CLINIC = 'price_clinic_x'
+    process.env.STRIPE_PRICE_PRO = 'price_pro_x'
+    process.env.STRIPE_PRICE_SCHOOL = 'price_school_x'
   })
   afterEach(() => {
-    delete process.env.STRIPE_PRICE_PRACTICE
-    delete process.env.STRIPE_PRICE_CLINIC
+    delete process.env.STRIPE_PRICE_PRO
+    delete process.env.STRIPE_PRICE_SCHOOL
   })
 
-  it('starter returns null (free tier, no price)', async () => {
+  it('free returns null (free tier, no price)', async () => {
     const { priceIdForTier } = await import('./billing')
-    expect(priceIdForTier('starter')).toBeNull()
+    expect(priceIdForTier('free')).toBeNull()
   })
 
-  it('practice returns env price id', async () => {
+  it('pro returns env price id', async () => {
     const { priceIdForTier } = await import('./billing')
-    expect(priceIdForTier('practice')).toBe('price_practice_x')
+    expect(priceIdForTier('pro')).toBe('price_pro_x')
+  })
+
+  it('legacy id (practice) still resolves to the pro price', async () => {
+    const { priceIdForTier } = await import('./billing')
+    expect(priceIdForTier('practice')).toBe('price_pro_x')
   })
 
   it('unknown id returns null', async () => {
@@ -63,20 +68,20 @@ describe('priceIdForTier', () => {
 
 describe('tierByPriceId', () => {
   beforeEach(() => {
-    process.env.STRIPE_PRICE_PRACTICE = 'price_practice_test'
-    process.env.STRIPE_PRICE_CLINIC = 'price_clinic_test'
+    process.env.STRIPE_PRICE_PRO = 'price_pro_test'
+    process.env.STRIPE_PRICE_SCHOOL = 'price_school_test'
   })
   afterEach(() => {
-    delete process.env.STRIPE_PRICE_PRACTICE
-    delete process.env.STRIPE_PRICE_CLINIC
+    delete process.env.STRIPE_PRICE_PRO
+    delete process.env.STRIPE_PRICE_SCHOOL
   })
 
-  it('returns practice tier for matching price id', () => {
-    expect(tierByPriceId('price_practice_test')?.id).toBe('practice')
+  it('returns pro tier for matching price id', () => {
+    expect(tierByPriceId('price_pro_test')?.id).toBe('pro')
   })
 
-  it('returns clinic tier for matching price id', () => {
-    expect(tierByPriceId('price_clinic_test')?.id).toBe('clinic')
+  it('returns school tier for matching price id', () => {
+    expect(tierByPriceId('price_school_test')?.id).toBe('school')
   })
 
   it('returns undefined for unknown price id', () => {
@@ -90,8 +95,8 @@ describe('tierByPriceId', () => {
 })
 
 describe('PRACTICE_TIERS', () => {
-  it('starter is free (pricePence 0)', () => {
-    expect(PRACTICE_TIERS.find(t => t.id === 'starter')?.pricePence).toBe(0)
+  it('free tier has pricePence 0', () => {
+    expect(PRACTICE_TIERS.find(t => t.id === 'free')?.pricePence).toBe(0)
   })
 
   it('commission is non-negative for all tiers', () => {

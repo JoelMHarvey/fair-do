@@ -1,7 +1,7 @@
 import 'server-only'
 import { isAdminEmail } from './admin'
 
-const PAID_TIERS = new Set(['practice', 'clinic'])
+const PAID_TIERS = new Set(['pro', 'school', 'practice', 'clinic'])
 const ACTIVE_STATUSES = new Set(['active', 'trialing'])
 
 export function isPaidSubscription(sub: { tier: string; status: string } | null | undefined): boolean {

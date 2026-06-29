@@ -8,7 +8,7 @@ import { priceIdForTier, commissionBpsForTier, tierById } from '@/lib/billing'
 import { redeemFreeMonthsCoupon } from '@/lib/referral-credit'
 import { z } from 'zod'
 
-const schema = z.object({ tier: z.enum(['starter', 'practice', 'clinic']) })
+const schema = z.object({ tier: z.enum(['free', 'pro', 'school']) })
 
 export async function POST(req: Request) {
   if (!PRACTICE_PORTAL_ENABLED) return new Response('Not found', { status: 404 })
@@ -29,12 +29,12 @@ export async function POST(req: Request) {
   if (!user?.teacher) return new Response('Not a teacher', { status: 403 })
   const teacher = user.teacher
 
-  // Starter is free — no Stripe subscription, just activate the local plan.
-  if (tier === 'starter') {
+  // Free tier — no Stripe subscription, just activate the local plan.
+  if (tier === 'free') {
     await prisma.subscription.upsert({
       where: { teacherId: teacher.id },
-      create: { teacherId: teacher.id, tier: 'starter', status: 'active', commissionBps: commissionBpsForTier('starter') },
-      update: { tier: 'starter', status: 'active', commissionBps: commissionBpsForTier('starter') },
+      create: { teacherId: teacher.id, tier: 'free', status: 'active', commissionBps: commissionBpsForTier('free') },
+      update: { tier: 'free', status: 'active', commissionBps: commissionBpsForTier('free') },
     })
     return Response.json({ ok: true, mode: 'free' }, { status: 200 })
   }

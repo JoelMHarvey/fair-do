@@ -103,7 +103,7 @@ export async function POST(req: Request) {
     // Studio subscription started — activate the teacher's plan.
     if (meta.type === 'practice_subscription') {
       const teacherId = meta.teacherId
-      const tier = meta.tier ?? 'practice'
+      const tier = meta.tier ?? 'pro'
       const subId = typeof checkout.subscription === 'string' ? checkout.subscription : checkout.subscription?.id ?? null
       const customerId = typeof checkout.customer === 'string' ? checkout.customer : checkout.customer?.id ?? null
       if (teacherId) {

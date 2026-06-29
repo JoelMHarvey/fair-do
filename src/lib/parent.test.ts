@@ -23,8 +23,8 @@ describe('teacherCanOfferParentPortal', () => {
     expect(await teacherCanOfferParentPortal('t1')).toBe(true)
   })
 
-  it('true on pro/studio (forward-compatible with the tier rename)', async () => {
-    mockSubFind.mockResolvedValue({ tier: 'studio', status: 'active', addOns: [] })
+  it('true on the school tier', async () => {
+    mockSubFind.mockResolvedValue({ tier: 'school', status: 'active', addOns: [] })
     expect(await teacherCanOfferParentPortal('t1')).toBe(true)
   })
 

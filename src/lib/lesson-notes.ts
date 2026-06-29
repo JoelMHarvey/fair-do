@@ -13,7 +13,7 @@ const MODEL = 'claude-haiku-4-5-20251001'
 
 // Paid teacher tiers that include AI notes (Pro+). Forward-compatible with the
 // upcoming free/pro/studio rename.
-const AI_NOTES_TIERS = new Set(['practice', 'clinic', 'pro', 'studio'])
+const AI_NOTES_TIERS = new Set(['pro', 'school', 'practice', 'clinic'])
 
 export async function teacherCanGetAiNotes(teacherId: string): Promise<boolean> {
   const sub = await prisma.subscription.findUnique({

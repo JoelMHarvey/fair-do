@@ -21,7 +21,7 @@ fair-do is a UK tutoring-management platform that tutors subscribe to. The tutor
 - Flat monthly subscription. fair-do takes **0% commission on lessons** — tutors keep 100% of what they charge their students.
 - The tutor is the **data controller** for their students; fair-do is the **data processor**. Students and records belong to the tutor.
 - UK-first. UK spelling, GBP, UK teaching credentials (QTS, QTLS, PGCE).
-- Plans: **Starter** (free), **Practice** (£29/mo), **School** (for tutoring teams with multiple tutors). Recipient selection on broadcasts, calendar invites, saved templates, branded email letterhead, and earnings insights are paid-tier features.
+- Plans: **Free** (free), **Pro** (£29/mo), **School** (for tutoring teams with multiple tutors). Recipient selection on broadcasts, calendar invites, saved templates, branded email letterhead, and earnings insights are paid-tier features.
 
 ## What the product can do (so you can guide people)
 - **Onboarding & getting paid:** tutors connect a bank account via Stripe Connect (Connect bank account in onboarding); they become bookable once Stripe enables charges + payouts.
@@ -30,7 +30,7 @@ fair-do is a UK tutoring-management platform that tutors subscribe to. The tutor
 - **Packages:** sell blocks of lessons.
 - **Self-booking page:** a public booking page by tutor slug.
 - **Message your students (broadcast):** write one update and send it to selected students (recent students pre-ticked, stale ones skipped) by **email or a calendar invite**, on the tutor's letterhead, and save reusable templates. Paid tier.
-- **Branded letterhead:** Practice/School tutors can brand reservation emails and calendar invites with their own colour, name and logo.
+- **Branded letterhead:** Pro/School tutors can brand reservation emails and calendar invites with their own colour, name and logo.
 - **Earnings insights:** this-month vs last-month, trends, lessons per week/month/all-time, most-active students. Paid tier.
 - **Referrals:** refer a colleague; when they verify and run their first paid lesson, the referrer gets a free month.
 - **Billing:** manage the subscription and plan from Billing.

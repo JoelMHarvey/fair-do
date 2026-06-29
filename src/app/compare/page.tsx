@@ -27,7 +27,7 @@ const ROWS: { label: string; cells: Cell[] }[] = [
 ]
 
 const EDGES = [
-  { icon: '🪶', title: 'Free to start', body: 'Run your whole tutoring business on the free Starter plan. Most UK alternatives are paid-only from day one.' },
+  { icon: '🪶', title: 'Free to start', body: 'Run your whole tutoring business on the free plan. Most UK alternatives are paid-only from day one.' },
   { icon: '🇬🇧', title: 'Built UK-first, for tutors', body: 'Tutoring-shaped, not a generic admin tool. UK/EU data residency, UK GDPR, you as the data controller.' },
   { icon: '📦', title: 'The essentials, all included', body: 'Secure video, GBP payments, email + SMS reminders, intake forms, self-booking — no per-feature add-ons or SMS credit packs.' },
   { icon: '🤝', title: 'You own everything', body: 'Your students, your records. Export and leave any time. fair-do is your tool, never a middleman.' },
