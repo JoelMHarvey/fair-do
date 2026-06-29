@@ -20,6 +20,8 @@ import { PARENT_PORTAL_ENABLED, teacherCanOfferParentPortal } from '@/lib/parent
 import { AI_NOTES_ENABLED } from '@/lib/lesson-notes'
 import { ResourceLibrary } from '@/components/ResourceLibrary'
 import { RESOURCES_ENABLED } from '@/lib/resources'
+import { RecurringBookingCard } from '@/components/RecurringBookingCard'
+import { RECURRING_ENABLED, teacherCanRecur } from '@/lib/recurring'
 import type { FormField } from '@/lib/forms'
 
 const STATUS_CLASS: Record<string, string> = {
@@ -73,6 +75,11 @@ export default async function StudentDetailPage({ params }: { params: Promise<{ 
         orderBy: { createdAt: 'desc' },
         take: 10,
       })
+    : []
+
+  const showRecurring = RECURRING_ENABLED && (await teacherCanRecur(teacher.id))
+  const recurringBookings = showRecurring
+    ? await prisma.recurringBooking.findMany({ where: { matchId: match.id }, orderBy: { createdAt: 'asc' } })
     : []
 
   const packages = await prisma.package.findMany({
@@ -260,6 +267,23 @@ export default async function StudentDetailPage({ params }: { params: Promise<{ 
               matchId={match.id}
               role="teacher"
               initial={match.documents.filter(d => d.fileName).map(d => ({ id: d.id, label: d.label, url: d.url, category: d.category, uploadedBy: d.uploadedBy, studentVisible: d.studentVisible, fileName: d.fileName, fileSizeBytes: d.fileSizeBytes }))}
+            />
+          </section>
+        )}
+
+        {/* Recurring lessons (P2-2) */}
+        {showRecurring && (
+          <section className="mb-8">
+            <h2 className="font-medium text-sand-900 mb-3 flex items-center">
+              Recurring lessons
+              <HelpTip label="About recurring lessons">
+                Set a standing weekly slot. The student authorises a card once, then each
+                lesson is booked and charged automatically — pause or cancel any time.
+              </HelpTip>
+            </h2>
+            <RecurringBookingCard
+              matchId={match.id}
+              initial={recurringBookings.map(r => ({ id: r.id, dayOfWeek: r.dayOfWeek, startTime: r.startTime, durationMins: r.durationMins, active: r.active, hasCard: !!r.stripePaymentMethodId }))}
             />
           </section>
         )}

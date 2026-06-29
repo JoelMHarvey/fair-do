@@ -515,8 +515,33 @@ model Match {
   messageThread MessageThread?
   documents     StudentDocument[]
   forms         StudentForm[]
+  recurringBookings RecurringBooking[]
 
   @@unique([teacherId, studentId])
+}
+
+// Standing/recurring lessons (P2-2). A daily cron creates the next session and
+// charges the student's saved card off-session. Gated to paid teacher tiers.
+model RecurringBooking {
+  id                    String    @id @default(cuid())
+  matchId               String
+  match                 Match     @relation(fields: [matchId], references: [id])
+  teacherId             String
+  studentId             String
+  dayOfWeek             Int // 0=Sun … 6=Sat
+  startTime             String // "17:00" (24h, teacher's intent)
+  durationMins          Int       @default(60)
+  ratePence             Int // rate locked at setup
+  active                Boolean   @default(true)
+  stripeCustomerId      String?
+  stripePaymentMethodId String? // saved card; null until the student authorises
+  nextScheduledAt       DateTime // next slot to materialise
+  pausedUntil           DateTime? // teacher can pause without cancelling
+  createdAt             DateTime  @default(now())
+  updatedAt             DateTime  @updatedAt
+
+  @@index([matchId])
+  @@index([active, nextScheduledAt])
 }
 
 // Intake / consent / questionnaire a teacher sends to a student to complete online.
