@@ -5,8 +5,8 @@ import Link from 'next/link'
 import { Logo } from '@/components/Logo'
 import BookingForm from './BookingForm'
 
-export default async function BookPage({ params }: { params: Promise<{ therapistId: string }> }) {
-  const { therapistId } = await params
+export default async function BookPage({ params }: { params: Promise<{ teacherId: string }> }) {
+  const { teacherId } = await params
   const { userId } = await auth()
   if (!userId) redirect('/sign-in')
 
@@ -16,7 +16,7 @@ export default async function BookPage({ params }: { params: Promise<{ therapist
       include: { student: true },
     }),
     prisma.teacher.findUnique({
-      where: { id: therapistId, status: 'ACTIVE' },
+      where: { id: teacherId, status: 'ACTIVE' },
       include: { availability: true },
     }),
   ])
@@ -44,7 +44,7 @@ export default async function BookPage({ params }: { params: Promise<{ therapist
     <main className="min-h-screen bg-gradient-to-b from-brand-50/60 to-sand-50">
       <nav className="border-b border-sand-200 bg-white/80 backdrop-blur px-5 sm:px-8 h-16 flex items-center justify-between">
         <Logo />
-        <Link href="/therapists" className="text-sm text-sand-500 hover:text-brand-700">← Back to tutors</Link>
+        <Link href="/tutors" className="text-sm text-sand-500 hover:text-brand-700">← Back to tutors</Link>
       </nav>
 
       <div className="max-w-2xl mx-auto px-5 sm:px-6 py-10">

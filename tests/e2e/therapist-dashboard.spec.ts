@@ -10,17 +10,17 @@ import { expect, test } from './fixtures'
 
 test.describe('therapist dashboard', () => {
   test('renders after sign-in', async ({ page }) => {
-    await page.goto('/therapist/dashboard')
+    await page.goto('/teacher/dashboard')
 
     // Must land on the dashboard, not sign-in or onboarding.
     // If this fails, check that the test therapist has a Therapist DB record
     // (run `node prisma/seed-e2e.mjs` against staging to create it).
     await expect(page).not.toHaveURL(/sign-in/, { timeout: 10_000 })
-    await expect(page).toHaveURL(/therapist\/dashboard/)
+    await expect(page).toHaveURL(/teacher\/dashboard/)
   })
 
   test('h1 shows therapist full name', async ({ page }) => {
-    await page.goto('/therapist/dashboard')
+    await page.goto('/teacher/dashboard')
     await expect(page).not.toHaveURL(/sign-in/)
 
     const h1 = page.locator('h1').first()
@@ -39,7 +39,7 @@ test.describe('therapist dashboard', () => {
   })
 
   test('stat cards visible: Upcoming, Active clients, This month', async ({ page }) => {
-    await page.goto('/therapist/dashboard')
+    await page.goto('/teacher/dashboard')
     await expect(page).not.toHaveURL(/sign-in/)
 
     // All three stat labels must be present.
@@ -50,7 +50,7 @@ test.describe('therapist dashboard', () => {
   })
 
   test('stat counts are non-negative integers', async ({ page }) => {
-    await page.goto('/therapist/dashboard')
+    await page.goto('/teacher/dashboard')
     await expect(page).not.toHaveURL(/sign-in/)
 
     // Stat values are rendered as large numbers — grab the three grid cells.
@@ -70,7 +70,7 @@ test.describe('therapist dashboard', () => {
   })
 
   test('nav contains "Dashboard" link back', async ({ page }) => {
-    await page.goto('/therapist/dashboard')
+    await page.goto('/teacher/dashboard')
     await expect(page).not.toHaveURL(/sign-in/)
     // TherapistNav renders navigation — verify the page has basic chrome.
     await expect(page.locator('nav')).toBeVisible({ timeout: 10_000 })

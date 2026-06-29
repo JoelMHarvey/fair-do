@@ -26,10 +26,10 @@ export async function SiteNav() {
     ? [
         { href: '/for-therapists', label: nav.features },
         { href: '/pricing', label: nav.pricing },
-        ...(DIRECTORY_ENABLED ? [{ href: '/therapists', label: nav.find_therapist }] : []),
+        ...(DIRECTORY_ENABLED ? [{ href: '/tutors', label: nav.find_therapist }] : []),
       ]
     : [
-        ...(DIRECTORY_ENABLED ? [{ href: '/therapists', label: nav.find_therapist }] : []),
+        ...(DIRECTORY_ENABLED ? [{ href: '/tutors', label: nav.find_therapist }] : []),
         { href: '/styles', label: nav.therapy_styles },
         { href: '/#how', label: nav.how_it_works },
         { href: '/faq', label: nav.faq },

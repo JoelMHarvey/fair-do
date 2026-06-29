@@ -5,7 +5,7 @@ import { useSearchParams } from 'next/navigation'
 import Link from 'next/link'
 import { Logo } from '@/components/Logo'
 import { activeUsStates } from '@/lib/locale'
-import PhotoUpload from '@/app/therapist/profile/PhotoUpload'
+import PhotoUpload from '@/app/teacher/profile/PhotoUpload'
 import { SUBJECTS, LEVELS, AGE_GROUPS, TEACHING_STYLES } from '@/lib/taxonomy'
 
 const QUAL_BODIES_UK = ['QTS', 'QTLS', 'PGCE', 'CertEd', 'ABRSM', 'CELTA / TEFL', 'Other qualified']

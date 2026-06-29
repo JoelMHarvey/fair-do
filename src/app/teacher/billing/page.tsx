@@ -32,7 +32,7 @@ export default async function BillingPage({ searchParams }: { searchParams: Prom
         <PageHeader
           title="Plan & billing"
           subtitle="You keep the great majority of every lesson. We only grow when you grow."
-          help={{ href: '/therapist/help', label: 'How plans work' }}
+          help={{ href: '/teacher/help', label: 'How plans work' }}
         />
 
         <div className="mb-8">

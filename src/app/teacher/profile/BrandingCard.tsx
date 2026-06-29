@@ -64,7 +64,7 @@ export default function BrandingCard({
   async function save() {
     setSaving(true)
     setMsg('')
-    const res = await fetch('/api/therapist/brand', {
+    const res = await fetch('/api/teacher/brand', {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({
@@ -96,7 +96,7 @@ export default function BrandingCard({
             Upgrade to Practice or Clinic to add your logo, accent colour, and reply-to address to every client email.
           </p>
           <a
-            href="/therapist/billing"
+            href="/teacher/billing"
             className="inline-block bg-brand-600 text-white px-5 py-2 rounded-full text-sm font-medium hover:bg-brand-700 transition"
           >
             Upgrade plan →

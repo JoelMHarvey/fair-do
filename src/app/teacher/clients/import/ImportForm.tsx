@@ -109,7 +109,7 @@ export default function ImportForm() {
           {loading ? 'Sending invites…' : parsedCount > 0 ? `Send ${parsedCount} invite${parsedCount !== 1 ? 's' : ''}` : 'Send invites'}
         </button>
         {summary && (
-          <Link href="/therapist/clients" className="text-sm text-brand-700 hover:underline">
+          <Link href="/teacher/clients" className="text-sm text-brand-700 hover:underline">
             Back to clients →
           </Link>
         )}

@@ -17,7 +17,7 @@ export default async function Dashboard() {
 
   if (!user) redirect('/onboarding')
   if (user.role === 'ADMIN') redirect('/admin')
-  if (user.role === 'TEACHER') redirect('/therapist/dashboard')
+  if (user.role === 'TEACHER') redirect('/teacher/dashboard')
   if (!user.student) redirect('/onboarding')
 
   const { student } = user
@@ -71,7 +71,7 @@ export default async function Dashboard() {
         <Logo />
         <div className="flex items-center gap-4">
           <Link href="/" className="text-sm text-sand-500 hover:text-brand-700">Home</Link>
-          <Link href="/therapists" className="text-sm text-sand-500 hover:text-brand-700">Find a tutor</Link>
+          <Link href="/tutors" className="text-sm text-sand-500 hover:text-brand-700">Find a tutor</Link>
           <Link href="/sign-out" className="text-sm text-sand-500 hover:text-brand-700">Sign out</Link>
         </div>
       </nav>
@@ -123,7 +123,7 @@ export default async function Dashboard() {
         <section className="mb-8">
           <div className="flex items-center justify-between mb-3">
             <h2 className="font-medium text-sand-900">Upcoming lessons</h2>
-            <Link href="/therapists" className="text-sm text-brand-600 hover:text-brand-700">
+            <Link href="/tutors" className="text-sm text-brand-600 hover:text-brand-700">
               + Book new
             </Link>
           </div>
@@ -131,7 +131,7 @@ export default async function Dashboard() {
             <div className="bg-white rounded-2xl border border-sand-200 p-8 text-center">
               <p className="text-sand-400 text-sm mb-3">No lessons booked yet</p>
               <Link
-                href="/therapists"
+                href="/tutors"
                 className="inline-block bg-brand-600 text-white text-sm font-medium px-5 py-2.5 rounded-lg hover:bg-brand-700 transition"
               >
                 Find a tutor

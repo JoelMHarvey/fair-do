@@ -28,7 +28,7 @@ export async function POST() {
   try {
     const portal = await getStripe().billingPortal.sessions.create({
       customer: sub.stripeCustomerId,
-      return_url: `${appUrl}/therapist/billing`,
+      return_url: `${appUrl}/teacher/billing`,
     })
     return Response.json({ url: portal.url }, { status: 200 })
   } catch (e) {

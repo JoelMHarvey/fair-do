@@ -7,7 +7,7 @@ import { Show } from '@clerk/nextjs'
 type NavLink = { href: string; label: string }
 
 const DEFAULT_LINKS: NavLink[] = [
-  { href: '/therapists', label: 'Find a therapist' },
+  { href: '/tutors', label: 'Find a therapist' },
   { href: '/styles', label: 'Therapy styles' },
   { href: '/#how', label: 'How it works' },
   { href: '/faq', label: 'FAQ' },

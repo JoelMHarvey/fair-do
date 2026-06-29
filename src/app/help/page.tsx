@@ -80,7 +80,7 @@ export default async function HelpPage() {
         <div className="bg-brand-50 border border-brand-200 rounded-2xl p-5 text-sm text-sand-700">
           <p className="font-medium text-brand-800 mb-1">How Faresay fits</p>
           <p>
-            Faresay is for ongoing therapy with a regular therapist — not emergencies or acute crisis. If you&apos;re safe and looking for longer-term support, <Link href="/therapists" className="text-brand-700 underline">find a therapist</Link>. If you&apos;re in crisis, please use the lines above first.
+            Faresay is for ongoing therapy with a regular therapist — not emergencies or acute crisis. If you&apos;re safe and looking for longer-term support, <Link href="/tutors" className="text-brand-700 underline">find a therapist</Link>. If you&apos;re in crisis, please use the lines above first.
           </p>
         </div>
       </div>

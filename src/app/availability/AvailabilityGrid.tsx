@@ -79,7 +79,7 @@ export default function AvailabilityGrid({
                   <p className="text-xs text-sand-500">{sym(t.country)}{(t.ratePence / 100).toFixed(0)} per session</p>
                 </div>
                 <div className="flex items-center gap-2">
-                  <Link href={`/therapists/${t.id}`} className="text-sm text-sand-600 hover:text-brand-700 px-3 py-1.5">Profile</Link>
+                  <Link href={`/tutors/${t.id}`} className="text-sm text-sand-600 hover:text-brand-700 px-3 py-1.5">Profile</Link>
                   <Link href={`/book/${t.id}`} className="text-sm bg-brand-600 text-white px-4 py-1.5 rounded-full hover:bg-brand-700 transition">Book</Link>
                 </div>
               </div>

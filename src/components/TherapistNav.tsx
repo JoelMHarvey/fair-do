@@ -22,15 +22,15 @@ export async function TherapistNav() {
   }
 
   const links = [
-    { href: '/therapist/dashboard', label: 'Dashboard' },
+    { href: '/teacher/dashboard', label: 'Dashboard' },
     ...(PRACTICE_PORTAL_ENABLED ? [
-      { href: '/therapist/calendar', label: 'Calendar' },
-      { href: '/therapist/clients', label: 'Clients' },
-      { href: '/therapist/supervision', label: 'Supervision' },
-      { href: '/therapist/billing', label: 'Billing' },
+      { href: '/teacher/calendar', label: 'Calendar' },
+      { href: '/teacher/clients', label: 'Clients' },
+      { href: '/teacher/supervision', label: 'Supervision' },
+      { href: '/teacher/billing', label: 'Billing' },
     ] : []),
-    { href: '/therapist/earnings', label: 'Earnings' },
-    { href: '/therapist/profile', label: 'Edit profile' },
+    { href: '/teacher/earnings', label: 'Earnings' },
+    { href: '/teacher/profile', label: 'Edit profile' },
     // Docs lives in the admin sub-nav now, so the top nav just has the Admin entry.
     ...(admin ? [
       { href: '/admin', label: 'Admin' },
@@ -44,7 +44,7 @@ export async function TherapistNav() {
         {links.map(l => (
           <Link key={l.href} href={l.href} className={`text-sm transition ${l.href === '/admin' ? 'font-medium text-coral-600 hover:text-coral-700' : 'text-sand-500 hover:text-brand-700'}`}>{l.label}</Link>
         ))}
-        <Link href="/therapist/help" className="text-sm font-medium text-brand-700 hover:text-brand-800 transition">Help</Link>
+        <Link href="/teacher/help" className="text-sm font-medium text-brand-700 hover:text-brand-800 transition">Help</Link>
         <Link href="/sign-out" className="text-sm text-sand-500 hover:text-brand-700 transition">Sign out</Link>
       </div>
       <TherapistMobileMenu links={links} />

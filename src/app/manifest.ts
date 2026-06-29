@@ -5,7 +5,7 @@ export default function manifest(): MetadataRoute.Manifest {
     name: 'Faresay — your practice',
     short_name: 'Faresay',
     description: 'Run your therapy practice from your phone — clients, scheduling, secure video, payments.',
-    start_url: '/therapist/dashboard',
+    start_url: '/teacher/dashboard',
     scope: '/',
     display: 'standalone',
     orientation: 'portrait',
