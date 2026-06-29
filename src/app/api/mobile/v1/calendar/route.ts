@@ -1,10 +1,10 @@
 import { prisma } from '@/lib/prisma'
-import { getMobileTherapist } from '@/lib/mobile-auth'
+import { getMobileTeacher } from '@/lib/mobile-auth'
 
 export const dynamic = 'force-dynamic'
 
 export async function GET(req: Request) {
-  const teacher = await getMobileTherapist()
+  const teacher = await getMobileTeacher()
   if (!teacher) return new Response('Unauthorized', { status: 401 })
 
   const { searchParams } = new URL(req.url)

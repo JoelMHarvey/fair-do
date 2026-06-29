@@ -25,7 +25,7 @@ export default function ClientDocuments({ matchId, initial }: { matchId: string;
     setError('')
     if (!label.trim() || !/^https?:\/\//i.test(url.trim())) { setError('Enter a label and a full https link.'); return }
     setBusy(true)
-    const res = await fetch(`/api/practice/clients/${matchId}/documents`, {
+    const res = await fetch(`/api/practice/students/${matchId}/documents`, {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({ label: label.trim(), url: url.trim(), category }),
@@ -40,7 +40,7 @@ export default function ClientDocuments({ matchId, initial }: { matchId: string;
 
   async function remove(id: string) {
     setDocs(d => d.filter(x => x.id !== id))
-    await fetch(`/api/practice/clients/${matchId}/documents`, {
+    await fetch(`/api/practice/students/${matchId}/documents`, {
       method: 'DELETE', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ id }),
     }).catch(() => {})
   }

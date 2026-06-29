@@ -29,7 +29,7 @@ export default function RateEditor({
       return
     }
     try {
-      const res = await fetch(`/api/practice/clients/${matchId}`, {
+      const res = await fetch(`/api/practice/students/${matchId}`, {
         method: 'PATCH',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ customRatePence }),

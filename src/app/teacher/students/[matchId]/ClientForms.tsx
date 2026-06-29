@@ -12,7 +12,7 @@ export default function ClientForms({ matchId, appUrl, initial }: { matchId: str
 
   async function send(templateKey: string) {
     setBusy(templateKey)
-    const res = await fetch(`/api/practice/clients/${matchId}/forms`, {
+    const res = await fetch(`/api/practice/students/${matchId}/forms`, {
       method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ templateKey }),
     })
     if (res.ok) { const { form } = await res.json(); setForms(f => [{ ...form, responses: null }, ...f]) }
@@ -21,7 +21,7 @@ export default function ClientForms({ matchId, appUrl, initial }: { matchId: str
 
   async function remove(id: string) {
     setForms(f => f.filter(x => x.id !== id))
-    await fetch(`/api/practice/clients/${matchId}/forms`, { method: 'DELETE', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ id }) }).catch(() => {})
+    await fetch(`/api/practice/students/${matchId}/forms`, { method: 'DELETE', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ id }) }).catch(() => {})
   }
 
   function copy(token: string) {

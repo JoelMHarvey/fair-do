@@ -36,8 +36,8 @@ export async function GET(req: Request) {
         await sendSessionReminder({
           clientEmail: cEmail,
           clientFirstName: s.student.firstName,
-          therapistFirstName: s.teacher.firstName,
-          therapistLastName: s.teacher.lastName,
+          teacherFirstName: s.teacher.firstName,
+          teacherLastName: s.teacher.lastName,
           sessionId: s.id,
           scheduledAt: s.scheduledAt,
         })

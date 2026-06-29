@@ -79,7 +79,7 @@ export async function POST(req: Request) {
     })
     const appUrl = process.env.NEXT_PUBLIC_APP_URL ?? 'https://fair-do.co.uk'
     sendSelfBookingConfirm({
-      email, firstName, therapistName: practiceDisplayName(teacher), scheduledAt: when,
+      email, firstName, teacherName: practiceDisplayName(teacher), scheduledAt: when,
       confirmUrl: `${appUrl}/api/practice/self-book/confirm?token=${token}`,
     }).catch(e => console.error('[self-book] confirm email failed:', e))
     return Response.json({ ok: true, pending: true }, { status: 202 })

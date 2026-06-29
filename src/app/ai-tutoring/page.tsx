@@ -22,7 +22,7 @@ const RESEARCH = [
   { label: 'Ofsted — approach to artificial intelligence', url: 'https://www.gov.uk/government/publications/ofsteds-approach-to-artificial-intelligence-ai' },
 ]
 
-export default function AiTherapyPage() {
+export default function AiTutoringPage() {
   return (
     <>
       <SiteNav />

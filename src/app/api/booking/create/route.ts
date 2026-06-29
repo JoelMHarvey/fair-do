@@ -8,7 +8,7 @@ import { checkRateLimit, rateLimitResponse } from '@/lib/ratelimit'
 import { createRoom } from '@/lib/daily'
 import { sendBookingConfirmed } from '@/lib/email'
 import { rewardReferralOnBooking } from '@/lib/referral'
-import { rewardTherapistReferralOnFirstSession } from '@/lib/therapist-referral'
+import { rewardTeacherReferralOnFirstSession } from '@/lib/teacher-referral'
 import { z } from 'zod'
 
 const schema = z.object({
@@ -197,9 +197,9 @@ export async function POST(req: Request) {
       sendBookingConfirmed({
         clientEmail: user.email,
         clientFirstName: student.firstName,
-        therapistEmail: teacher.user.email,
-        therapistFirstName: teacher.firstName,
-        therapistLastName: teacher.lastName,
+        teacherEmail: teacher.user.email,
+        teacherFirstName: teacher.firstName,
+        teacherLastName: teacher.lastName,
         sessionId: session.id,
         scheduledAt: session.scheduledAt,
         ratePence,
@@ -214,7 +214,7 @@ export async function POST(req: Request) {
     // Personal-credit bookings are NOT rewarded here (prevents minting credit from free sessions).
     if (fundedBy === 'organisation') {
       rewardReferralOnBooking(student.id).catch(e => console.error('[booking/create] referral reward failed:', e))
-      rewardTherapistReferralOnFirstSession(teacherId).catch(e => console.error('[booking/create] teacher referral reward failed:', e))
+      rewardTeacherReferralOnFirstSession(teacherId).catch(e => console.error('[booking/create] teacher referral reward failed:', e))
     }
     return Response.json({ paidWithCredit: true, fundedBy, sessionId: session.id }, { status: 201 })
   }

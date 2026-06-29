@@ -2,10 +2,10 @@ import { redirect } from 'next/navigation'
 import { auth } from '@clerk/nextjs/server'
 import { prisma } from '@/lib/prisma'
 import Link from 'next/link'
-import { ensureTherapistReferralCode } from '@/lib/therapist-referral'
+import { ensureTeacherReferralCode } from '@/lib/teacher-referral'
 import { ReferralLinkCard } from '@/components/ReferralLinkCard'
 import { GettingStarted } from '@/components/GettingStarted'
-import { TherapistNav } from '@/components/TherapistNav'
+import { TeacherNav } from '@/components/TeacherNav'
 import { WelcomeModal } from '@/components/WelcomeModal'
 import { InstallHint } from '@/components/InstallHint'
 import { PushToggle } from '@/components/PushToggle'
@@ -94,7 +94,7 @@ export default async function TeacherDashboard() {
   const endOfToday = new Date(now.getFullYear(), now.getMonth(), now.getDate() + 1)
 
   // Peer-referral: code + earned bonuses
-  const referralCode = teacher.referralCode ?? (await ensureTherapistReferralCode(teacher.id, teacher.firstName).catch(() => null))
+  const referralCode = teacher.referralCode ?? (await ensureTeacherReferralCode(teacher.id, teacher.firstName).catch(() => null))
   const appUrl = process.env.NEXT_PUBLIC_APP_URL ?? 'https://fair-do.co.uk'
   const calToken = PRACTICE_PORTAL_ENABLED
     ? await ensureCalendarToken(teacher.id, teacher.calendarToken).catch(() => null)
@@ -106,7 +106,7 @@ export default async function TeacherDashboard() {
 
   return (
     <main className="min-h-screen bg-sand-50">
-      <TherapistNav />
+      <TeacherNav />
       {PRACTICE_PORTAL_ENABLED && <WelcomeModal firstName={teacher.firstName} />}
 
       <div className="max-w-4xl mx-auto px-4 sm:px-6 py-8 sm:py-12">

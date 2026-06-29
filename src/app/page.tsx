@@ -1,6 +1,6 @@
 import type { Metadata } from 'next'
 import { getDictionary } from '@/lib/dictionaries'
-import { TherapistHome } from '@/components/TherapistHome'
+import { TeacherHome } from '@/components/TeacherHome'
 
 export const metadata: Metadata = {
   title: 'fair-do — your whole tutoring business, in one calm place',
@@ -21,5 +21,5 @@ export const metadata: Metadata = {
 
 export default async function Home() {
   const { home } = await getDictionary('en')
-  return <TherapistHome t={home} />
+  return <TeacherHome t={home} />
 }

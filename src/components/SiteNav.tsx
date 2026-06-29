@@ -26,16 +26,16 @@ export async function SiteNav() {
     ? [
         { href: '/for-tutors', label: nav.features },
         { href: '/pricing', label: nav.pricing },
-        ...(DIRECTORY_ENABLED ? [{ href: '/tutors', label: nav.find_therapist }] : []),
+        ...(DIRECTORY_ENABLED ? [{ href: '/tutors', label: nav.find_tutor }] : []),
       ]
     : [
-        ...(DIRECTORY_ENABLED ? [{ href: '/tutors', label: nav.find_therapist }] : []),
-        { href: '/styles', label: nav.therapy_styles },
+        ...(DIRECTORY_ENABLED ? [{ href: '/tutors', label: nav.find_tutor }] : []),
+        { href: '/styles', label: nav.subjects },
         { href: '/#how', label: nav.how_it_works },
         { href: '/faq', label: nav.faq },
       ]
   const cta = PRACTICE_PORTAL_ENABLED
-    ? { href: '/sign-up?role=therapist', label: nav.cta_practice }
+    ? { href: '/sign-up?role=teacher', label: nav.cta_practice }
     : { href: '/sign-up', label: nav.cta_marketplace }
 
   return (

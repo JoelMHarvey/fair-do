@@ -23,8 +23,8 @@ export function slotInAvailability(when: Date, windows: AvailabilityWindow[]): b
 // Uniqueness key for an ACTIVE session slot, stored on Session.slotKey (unique) and
 // nulled on cancel so the slot frees up. Turns double-booking into a DB-level
 // race-proof constraint instead of a check-then-create TOCTOU.
-export function activeSlotKey(therapistId: string, scheduledAt: Date): string {
-  return `${therapistId}:${scheduledAt.toISOString()}`
+export function activeSlotKey(teacherId: string, scheduledAt: Date): string {
+  return `${teacherId}:${scheduledAt.toISOString()}`
 }
 
 // Prisma's unique-constraint violation code.

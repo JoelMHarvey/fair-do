@@ -125,7 +125,7 @@ function TherapistOnboardingInner() {
         endTime: form.availability[d.key].endTime,
       }))
 
-    const res = await fetch('/api/onboarding/therapist', {
+    const res = await fetch('/api/onboarding/teacher', {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({

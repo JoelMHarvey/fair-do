@@ -1,4 +1,4 @@
-import { TherapistNav } from '@/components/TherapistNav'
+import { TeacherNav } from '@/components/TeacherNav'
 import { AdminSubNav } from '@/components/AdminSubNav'
 
 // Founder portal shares the same top nav + admin sub-nav as the admin area
@@ -6,7 +6,7 @@ import { AdminSubNav } from '@/components/AdminSubNav'
 export default function FounderLayout({ children }: { children: React.ReactNode }) {
   return (
     <>
-      <TherapistNav />
+      <TeacherNav />
       <AdminSubNav />
       {children}
     </>

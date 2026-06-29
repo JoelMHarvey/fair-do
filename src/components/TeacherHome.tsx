@@ -9,7 +9,7 @@ type HomeT = typeof en['home']
 
 const BENEFIT_ICONS = ['🤝', '🪶', '🔒', '💷', '⚡', '📱'] as const
 
-export function TherapistHome({ t }: { t: HomeT }) {
+export function TeacherHome({ t }: { t: HomeT }) {
   return (
     <>
       <SiteNav />
@@ -35,7 +35,7 @@ export function TherapistHome({ t }: { t: HomeT }) {
             {t.hero_body}
           </p>
           <div className="flex flex-col sm:flex-row gap-3 justify-center mt-9">
-            <Link href="/sign-up?role=therapist" className="bg-brand-600 text-white px-7 py-3.5 rounded-full font-medium hover:bg-brand-700 transition shadow-lg shadow-brand-600/20">
+            <Link href="/sign-up?role=teacher" className="bg-brand-600 text-white px-7 py-3.5 rounded-full font-medium hover:bg-brand-700 transition shadow-lg shadow-brand-600/20">
               {t.hero_cta_primary}
             </Link>
             <Link href="/for-tutors" className="px-7 py-3.5 rounded-full font-medium text-brand-700 border border-brand-200 hover:bg-brand-50 transition">
@@ -101,7 +101,7 @@ export function TherapistHome({ t }: { t: HomeT }) {
         <div className="max-w-2xl mx-auto px-5 sm:px-8 py-20 text-center">
           <h2 className="font-display text-3xl sm:text-4xl font-semibold text-brand-900 mb-3">{t.cta_heading}</h2>
           <p className="text-sand-700 mb-8">{t.cta_sub}</p>
-          <Link href="/sign-up?role=therapist" className="inline-block bg-brand-600 text-white px-8 py-4 rounded-full font-medium hover:bg-brand-700 transition shadow-lg shadow-brand-600/20">
+          <Link href="/sign-up?role=teacher" className="inline-block bg-brand-600 text-white px-8 py-4 rounded-full font-medium hover:bg-brand-700 transition shadow-lg shadow-brand-600/20">
             {t.cta_button}
           </Link>
           {DIRECTORY_ENABLED && (

@@ -82,7 +82,7 @@ const daysAgoDate = (n) => { const d = new Date(); d.setDate(d.getDate() - n); d
 
 async function main() {
   // --- Therapists (upsert + enrich, refresh availability) ---
-  const therapistIds = []
+  const teacherIds = []
   for (const [i, t] of THERAPISTS.entries()) {
     const clerkId = `demo_therapist_${i + 1}`
     const email = `${t.firstName.toLowerCase()}.${t.lastName.toLowerCase()}@demo.faresay.com`
@@ -104,11 +104,11 @@ async function main() {
     const therapist = await prisma.therapist.upsert({
       where: { userId: user.id }, update: data, create: data,
     })
-    therapistIds.push(therapist.id)
+    teacherIds.push(therapist.id)
 
-    await prisma.availability.deleteMany({ where: { therapistId: therapist.id } })
+    await prisma.availability.deleteMany({ where: { teacherId: therapist.id } })
     await prisma.availability.createMany({
-      data: t.days.map(d => ({ therapistId: therapist.id, dayOfWeek: d, startTime: '09:00', endTime: '17:00' })),
+      data: t.days.map(d => ({ teacherId: therapist.id, dayOfWeek: d, startTime: '09:00', endTime: '17:00' })),
     })
     console.log(`therapist ✓ ${t.firstName} ${t.lastName}`)
   }
@@ -135,24 +135,24 @@ async function main() {
   // --- Matches + completed sessions + reviews (populate ratings) ---
   let made = 0
   for (const r of REVIEWS) {
-    const therapistId = therapistIds[r.t]
+    const teacherId = teacherIds[r.t]
     const clientId = clientIds[r.c]
-    const existingReview = await prisma.review.findFirst({ where: { therapistId, clientId } })
+    const existingReview = await prisma.review.findFirst({ where: { teacherId, clientId } })
     if (existingReview) continue
 
     const match = await prisma.match.upsert({
-      where: { therapistId_clientId: { therapistId, clientId } },
-      update: {}, create: { therapistId, clientId },
+      where: { teacherId_clientId: { teacherId, clientId } },
+      update: {}, create: { teacherId, clientId },
     })
     const session = await prisma.session.create({
       data: {
-        matchId: match.id, therapistId, clientId,
+        matchId: match.id, teacherId, clientId,
         scheduledAt: daysAgoDate(r.daysAgo), status: 'COMPLETED',
         callStartedAt: daysAgoDate(r.daysAgo), callEndedAt: daysAgoDate(r.daysAgo), joinCount: 2,
       },
     })
     await prisma.review.create({
-      data: { sessionId: session.id, clientId, therapistId, rating: r.rating, comment: r.comment, createdAt: daysAgoDate(r.daysAgo) },
+      data: { sessionId: session.id, clientId, teacherId, rating: r.rating, comment: r.comment, createdAt: daysAgoDate(r.daysAgo) },
     })
     made++
   }

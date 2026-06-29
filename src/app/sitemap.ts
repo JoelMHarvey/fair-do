@@ -6,7 +6,7 @@ const BASE = 'https://faresay.com'
 export default function sitemap(): MetadataRoute.Sitemap {
   const staticPaths = [
     '', '/tutors', '/about', '/faq', '/for-tutors', '/for-schools',
-    '/ai-therapy', '/styles', '/help', '/blog', '/gift', '/privacy', '/terms',
+    '/ai-tutoring', '/styles', '/help', '/blog', '/gift', '/privacy', '/terms',
   ]
   const now = new Date()
   const pages = staticPaths.map((p) => ({

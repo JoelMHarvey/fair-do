@@ -10,7 +10,7 @@ const LINKS = [
   { name: 'How tutoring works', detail: 'Subjects, levels and what a lesson looks like.', href: '/styles' },
   { name: 'Find a tutor', detail: 'Answer one short question and get matched.', href: '/sign-up' },
   { name: 'Pricing', detail: 'Simple, fair pricing — and exactly what you keep.', href: '/pricing' },
-  { name: 'Thinking about an AI tutor?', detail: 'An honest look at what AI can and can\'t do.', href: '/ai-therapy' },
+  { name: 'Thinking about an AI tutor?', detail: 'An honest look at what AI can and can\'t do.', href: '/ai-tutoring' },
   { name: 'Raise a concern', detail: 'Tell us if something has gone wrong.', href: '/complaints' },
   { name: 'Terms & privacy', detail: 'How fair-do works and how we handle your data.', href: '/terms' },
 ]

@@ -36,7 +36,7 @@ export default function ApprovalActions({
     setEmError('')
     if (!emSubject.trim() || !emBody.trim()) { setEmError('Add a subject and a message.'); return }
     setEmStatus('sending')
-    const res = await fetch('/api/admin/therapist/email', {
+    const res = await fetch('/api/admin/teacher/email', {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({ teacherId, subject: emSubject.trim(), body: emBody.trim() }),
@@ -62,7 +62,7 @@ export default function ApprovalActions({
       : notes.trim()
 
     setLoading(action)
-    const res = await fetch('/api/admin/therapist/verify', {
+    const res = await fetch('/api/admin/teacher/verify', {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({ teacherId, action, notes: auditNotes }),

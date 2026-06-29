@@ -78,7 +78,7 @@ export function buildSessionICS(opts: {
   sessionId: string
   start: Date
   durationMins?: number
-  therapistName: string
+  teacherName: string
   joinUrl: string
   practiceName?: string   // when set, SUMMARY + ORGANIZER use the practice brand
 }): string {
@@ -87,7 +87,7 @@ export function buildSessionICS(opts: {
   const stamp = toICSDate(start)
   const summary = opts.practiceName
     ? `Session with ${esc(opts.practiceName)}`
-    : `Therapy session with ${esc(opts.therapistName)}`
+    : `Therapy session with ${esc(opts.teacherName)}`
   const lines = [
     'BEGIN:VCALENDAR',
     'VERSION:2.0',

@@ -10,7 +10,7 @@ export default function NotesEditor({ matchId, initial }: { matchId: string; ini
 
   async function save() {
     setBusy(true)
-    const res = await fetch(`/api/practice/clients/${matchId}`, {
+    const res = await fetch(`/api/practice/students/${matchId}`, {
       method: 'PATCH',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({ notes: notes.trim() || null }),

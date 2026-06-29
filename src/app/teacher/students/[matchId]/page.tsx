@@ -2,7 +2,7 @@ import Link from 'next/link'
 import { redirect, notFound } from 'next/navigation'
 import { auth } from '@clerk/nextjs/server'
 import { prisma } from '@/lib/prisma'
-import { TherapistNav } from '@/components/TherapistNav'
+import { TeacherNav } from '@/components/TeacherNav'
 import { PRACTICE_PORTAL_ENABLED, effectiveRatePence, clientEmail } from '@/lib/practice'
 import { PageHeader, HelpHint, EmptyState } from '@/components/Guidance'
 import { HelpTip } from '@/components/HelpTip'
@@ -68,7 +68,7 @@ export default async function StudentDetailPage({ params }: { params: Promise<{ 
 
   return (
     <main className="min-h-screen bg-sand-50">
-      <TherapistNav />
+      <TeacherNav />
 
       <div className="max-w-2xl mx-auto px-4 sm:px-6 py-8 sm:py-12">
         <PageHeader

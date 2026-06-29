@@ -2,7 +2,7 @@ import { redirect } from 'next/navigation'
 import { auth } from '@clerk/nextjs/server'
 import { prisma } from '@/lib/prisma'
 import Link from 'next/link'
-import { TherapistNav } from '@/components/TherapistNav'
+import { TeacherNav } from '@/components/TeacherNav'
 import { PageHeader, HelpHint } from '@/components/Guidance'
 
 export const metadata = { title: 'Help — fair-do', robots: { index: false, follow: false } }
@@ -22,16 +22,16 @@ const SECTIONS: Section[] = [
   {
     title: 'Your students',
     guides: [
-      { id: 'add-student', q: 'How do I add a student?', a: <>Go to <Link href="/teacher/clients" className="text-brand-700 underline">My students</Link> and use <strong>Add a student</strong>. Enter their email and an optional rate; they get a secure link to join. To add lots at once, use <strong>Import</strong> and upload a spreadsheet (CSV).</> },
+      { id: 'add-student', q: 'How do I add a student?', a: <>Go to <Link href="/teacher/students" className="text-brand-700 underline">My students</Link> and use <strong>Add a student</strong>. Enter their email and an optional rate; they get a secure link to join. To add lots at once, use <strong>Import</strong> and upload a spreadsheet (CSV).</> },
       { id: 'invite-link', q: 'What happens when I invite a student?', a: <>They receive a private, one-time link (valid 14 days). When they open it and confirm, they&rsquo;re connected to you as an active student. Nothing is shared with anyone else — it&rsquo;s just between you and them.</> },
-      { id: 'import-csv', q: 'How do I import my existing student list?', a: <>On <Link href="/teacher/clients/import" className="text-brand-700 underline">Import students</Link>, download the example spreadsheet, paste in your students&rsquo; names and emails, and upload it. We&rsquo;ll create them for you. There&rsquo;s a tip box on that page if you get stuck.</> },
-      { id: 'per-student-rate', q: 'Can I charge different students different prices?', a: <>Yes. Open a student from <Link href="/teacher/clients" className="text-brand-700 underline">My students</Link> and set their own rate. That&rsquo;s the price used when you book their lessons. Leave it blank to use your default rate.</> },
+      { id: 'import-csv', q: 'How do I import my existing student list?', a: <>On <Link href="/teacher/students/import" className="text-brand-700 underline">Import students</Link>, download the example spreadsheet, paste in your students&rsquo; names and emails, and upload it. We&rsquo;ll create them for you. There&rsquo;s a tip box on that page if you get stuck.</> },
+      { id: 'per-student-rate', q: 'Can I charge different students different prices?', a: <>Yes. Open a student from <Link href="/teacher/students" className="text-brand-700 underline">My students</Link> and set their own rate. That&rsquo;s the price used when you book their lessons. Leave it blank to use your default rate.</> },
     ],
   },
   {
     title: 'Lessons & video',
     guides: [
-      { id: 'book-lesson', q: 'How do I book a lesson for a student?', a: <>Open the student from <Link href="/teacher/clients" className="text-brand-700 underline">My students</Link> and use <strong>Schedule a lesson</strong>. Pick a date and time; we create the private video room and email your student the details automatically.</> },
+      { id: 'book-lesson', q: 'How do I book a lesson for a student?', a: <>Open the student from <Link href="/teacher/students" className="text-brand-700 underline">My students</Link> and use <strong>Schedule a lesson</strong>. Pick a date and time; we create the private video room and email your student the details automatically.</> },
       { id: 'video', q: 'How do video lessons work?', a: <>They run in the browser — no app to install. The room opens 10 minutes before the start time. You and your student each get a private link; no one else can join.</> },
       { id: 'reminders', q: 'Do students get reminders?', a: <>Yes — confirmation and reminder emails are sent automatically, so you don&rsquo;t have to chase anyone.</> },
     ],
@@ -60,7 +60,7 @@ export default async function TeacherHelp() {
 
   return (
     <main className="min-h-screen bg-gradient-to-b from-brand-50 via-sand-50 to-sand-50">
-      <TherapistNav />
+      <TeacherNav />
 
       <div className="max-w-2xl mx-auto px-5 sm:px-8 py-12">
         <PageHeader title="Help Centre" subtitle="Short, plain-English answers to everything you can do on fair-do. Click any question." />

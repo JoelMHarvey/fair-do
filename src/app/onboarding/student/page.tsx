@@ -64,7 +64,7 @@ function StudentOnboardingInner() {
   async function submit() {
     setSubmitting(true)
     setError('')
-    const res = await fetch('/api/onboarding/client', {
+    const res = await fetch('/api/onboarding/student', {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({

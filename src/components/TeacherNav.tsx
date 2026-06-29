@@ -4,11 +4,11 @@ import { prisma } from '@/lib/prisma'
 import { Logo } from './Logo'
 import { PRACTICE_PORTAL_ENABLED } from '@/lib/practice'
 import { isFounder } from '@/lib/founder'
-import { TherapistMobileMenu } from './TherapistMobileMenu'
+import { TeacherMobileMenu } from './TeacherMobileMenu'
 
 // Shared therapist navigation — consistent across every therapist page, with a
 // compact hamburger on mobile so the links never crowd a small screen.
-export async function TherapistNav() {
+export async function TeacherNav() {
   // Admin/founder accounts (the full-access allowlist) get an Admin link so the
   // console is reachable from where they work (Docs lives in the admin sub-nav).
   const { userId } = await auth()
@@ -25,7 +25,7 @@ export async function TherapistNav() {
     { href: '/teacher/dashboard', label: 'Dashboard' },
     ...(PRACTICE_PORTAL_ENABLED ? [
       { href: '/teacher/calendar', label: 'Calendar' },
-      { href: '/teacher/clients', label: 'Clients' },
+      { href: '/teacher/students', label: 'Clients' },
       { href: '/teacher/supervision', label: 'Supervision' },
       { href: '/teacher/billing', label: 'Billing' },
     ] : []),
@@ -47,7 +47,7 @@ export async function TherapistNav() {
         <Link href="/teacher/help" className="text-sm font-medium text-brand-700 hover:text-brand-800 transition">Help</Link>
         <Link href="/sign-out" className="text-sm text-sand-500 hover:text-brand-700 transition">Sign out</Link>
       </div>
-      <TherapistMobileMenu links={links} />
+      <TeacherMobileMenu links={links} />
     </nav>
   )
 }

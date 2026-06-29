@@ -1,11 +1,11 @@
 import { prisma } from '@/lib/prisma'
-import { getMobileTherapist } from '@/lib/mobile-auth'
+import { getMobileTeacher } from '@/lib/mobile-auth'
 import { z } from 'zod'
 
 export const dynamic = 'force-dynamic'
 
 export async function GET() {
-  const teacher = await getMobileTherapist()
+  const teacher = await getMobileTeacher()
   if (!teacher) return new Response('Unauthorized', { status: 401 })
 
   const windows = await prisma.availability.findMany({
@@ -30,7 +30,7 @@ const putSchema = z.object({
 
 // Full replace: caller sends the complete desired set of windows.
 export async function PUT(req: Request) {
-  const teacher = await getMobileTherapist()
+  const teacher = await getMobileTeacher()
   if (!teacher) return new Response('Unauthorized', { status: 401 })
 
   const body = await req.json().catch(() => null)

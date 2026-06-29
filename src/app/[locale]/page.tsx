@@ -1,7 +1,7 @@
 import { notFound } from 'next/navigation'
 import { getDictionary, isValidLocale, type Locale } from '@/lib/dictionaries'
 import { NON_EN_LOCALES } from '@/lib/locale-config'
-import { TherapistHome } from '@/components/TherapistHome'
+import { TeacherHome } from '@/components/TeacherHome'
 
 export async function generateStaticParams() {
   return NON_EN_LOCALES.map(locale => ({ locale }))
@@ -38,5 +38,5 @@ export default async function LocaleHome({
   if (!isValidLocale(locale) || locale === 'en') notFound()
 
   const { home } = await getDictionary(locale as Locale)
-  return <TherapistHome t={home} />
+  return <TeacherHome t={home} />
 }

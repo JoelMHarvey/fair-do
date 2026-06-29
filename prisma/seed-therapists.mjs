@@ -89,7 +89,7 @@ async function main() {
     })
 
     await prisma.availability.createMany({
-      data: t.days.map(d => ({ therapistId: therapist.id, dayOfWeek: d, startTime: '09:00', endTime: '17:00' })),
+      data: t.days.map(d => ({ teacherId: therapist.id, dayOfWeek: d, startTime: '09:00', endTime: '17:00' })),
     })
     console.log(`created ${t.firstName} ${t.lastName}`)
   }

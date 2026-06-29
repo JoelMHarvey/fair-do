@@ -2,9 +2,9 @@
  * P1 — Mobile API IDOR / auth tests
  *
  * Critical: therapist A must not be able to read therapist B's data.
- * Protection comes from getMobileTherapist() resolving Clerk JWT → Therapist row,
+ * Protection comes from getMobileTeacher() resolving Clerk JWT → Therapist row,
  * then every query filtering on therapist.id. These tests verify:
- *  - 401 returned when getMobileTherapist() returns null (unauthenticated / not a therapist)
+ *  - 401 returned when getMobileTeacher() returns null (unauthenticated / not a therapist)
  *  - All queries scope to the authed therapist's id (no cross-therapist data)
  */
 
@@ -29,7 +29,7 @@ const {
   mockMessageGroupBy: vi.fn(),
 }))
 
-vi.mock('@/lib/mobile-auth', () => ({ getMobileTherapist: mockGetMobileTherapist }))
+vi.mock('@/lib/mobile-auth', () => ({ getMobileTeacher: mockGetMobileTherapist }))
 
 vi.mock('@/lib/prisma', () => ({
   prisma: {

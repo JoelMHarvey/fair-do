@@ -82,7 +82,7 @@ vi.mock('@/lib/stripe', () => ({
 vi.mock('@/lib/daily', () => ({ createRoom: mockCreateRoom }))
 vi.mock('@/lib/email', () => ({ sendBookingConfirmed: mockSendBookingConfirmed }))
 vi.mock('@/lib/referral', () => ({ rewardReferralOnBooking: mockRewardReferral }))
-vi.mock('@/lib/therapist-referral', () => ({ rewardTherapistReferralOnFirstSession: mockRewardTherapistReferral }))
+vi.mock('@/lib/teacher-referral', () => ({ rewardTeacherReferralOnFirstSession: mockRewardTherapistReferral }))
 
 import { POST } from '@/app/api/booking/create/route'
 

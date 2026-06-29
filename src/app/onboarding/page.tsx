@@ -21,7 +21,7 @@ export default function OnboardingPage() {
       body: JSON.stringify({ role, country }),
     })
     if (res.ok) {
-      const dest = role === 'STUDENT' ? '/onboarding/client' : '/onboarding/therapist'
+      const dest = role === 'STUDENT' ? '/onboarding/student' : '/onboarding/teacher'
       router.push(`${dest}?region=${country}`)
     } else {
       setLoading(null)

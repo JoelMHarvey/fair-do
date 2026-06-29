@@ -2,7 +2,7 @@ import { redirect } from 'next/navigation'
 import Link from 'next/link'
 import { auth } from '@clerk/nextjs/server'
 import { prisma } from '@/lib/prisma'
-import { TherapistNav } from '@/components/TherapistNav'
+import { TeacherNav } from '@/components/TeacherNav'
 import { PageHeader, HelpHint, EmptyState } from '@/components/Guidance'
 import { HelpTip } from '@/components/HelpTip'
 import { hasPaidAccess } from '@/lib/access'
@@ -92,7 +92,7 @@ export default async function EarningsPage() {
 
   return (
     <main className="min-h-screen bg-sand-50">
-      <TherapistNav />
+      <TeacherNav />
       <div className="max-w-3xl mx-auto px-6 py-10">
         <PageHeader
           title="Earnings"

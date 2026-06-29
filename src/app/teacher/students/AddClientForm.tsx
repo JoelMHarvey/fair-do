@@ -29,7 +29,7 @@ export default function AddClientForm({ defaultRatePence }: { defaultRatePence: 
     try {
       let res: Response
       if (managed) {
-        res = await fetch('/api/practice/clients/managed', {
+        res = await fetch('/api/practice/students/managed', {
           method: 'POST',
           headers: { 'Content-Type': 'application/json' },
           body: JSON.stringify({ firstName: firstName.trim(), lastName: lastName.trim(), contactEmail: email.trim(), customRatePence }),
@@ -39,7 +39,7 @@ export default function AddClientForm({ defaultRatePence }: { defaultRatePence: 
         if (firstName.trim()) payload.firstName = firstName.trim()
         if (note.trim()) payload.note = note.trim()
         if (customRatePence != null) payload.customRatePence = customRatePence
-        res = await fetch('/api/practice/clients', {
+        res = await fetch('/api/practice/students', {
           method: 'POST',
           headers: { 'Content-Type': 'application/json' },
           body: JSON.stringify(payload),

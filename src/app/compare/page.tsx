@@ -111,7 +111,7 @@ export default function ComparePage() {
           </p>
 
           <div className="mt-10 text-center">
-            <Link href="/sign-up?role=therapist" className="inline-block bg-brand-600 text-white px-7 py-3.5 rounded-full font-medium hover:bg-brand-700 transition shadow-lg shadow-brand-600/20">Start free</Link>
+            <Link href="/sign-up?role=teacher" className="inline-block bg-brand-600 text-white px-7 py-3.5 rounded-full font-medium hover:bg-brand-700 transition shadow-lg shadow-brand-600/20">Start free</Link>
             <p className="text-sm text-sand-500 mt-3">Free to start · UK-first · keep your own students</p>
           </div>
         </div>

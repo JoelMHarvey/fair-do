@@ -72,7 +72,7 @@ test.describe('therapist dashboard', () => {
   test('nav contains "Dashboard" link back', async ({ page }) => {
     await page.goto('/teacher/dashboard')
     await expect(page).not.toHaveURL(/sign-in/)
-    // TherapistNav renders navigation — verify the page has basic chrome.
+    // TeacherNav renders navigation — verify the page has basic chrome.
     await expect(page.locator('nav')).toBeVisible({ timeout: 10_000 })
   })
 })

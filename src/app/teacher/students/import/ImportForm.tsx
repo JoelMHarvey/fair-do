@@ -50,7 +50,7 @@ export default function ImportForm() {
     }
     setLoading(true)
     try {
-      const res = await fetch('/api/practice/clients/import', {
+      const res = await fetch('/api/practice/students/import', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ rows }),
@@ -109,7 +109,7 @@ export default function ImportForm() {
           {loading ? 'Sending invites…' : parsedCount > 0 ? `Send ${parsedCount} invite${parsedCount !== 1 ? 's' : ''}` : 'Send invites'}
         </button>
         {summary && (
-          <Link href="/teacher/clients" className="text-sm text-brand-700 hover:underline">
+          <Link href="/teacher/students" className="text-sm text-brand-700 hover:underline">
             Back to clients →
           </Link>
         )}

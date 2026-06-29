@@ -3,7 +3,7 @@ import { LocalPrice } from '@/components/LocalPrice'
 import { notFound } from 'next/navigation'
 import { auth } from '@clerk/nextjs/server'
 import { prisma } from '@/lib/prisma'
-import { getRetentionStats, getTherapistRating } from '@/lib/metrics'
+import { getRetentionStats, getTeacherRating } from '@/lib/metrics'
 import Link from 'next/link'
 import { Logo } from '@/components/Logo'
 import type { Metadata } from 'next'
@@ -31,7 +31,7 @@ export default async function TutorProfilePage({ params }: { params: Promise<{ i
   if (!teacher) notFound()
 
   const retention = await getRetentionStats(teacher.id)
-  const rating = await getTherapistRating(teacher.id)
+  const rating = await getTeacherRating(teacher.id)
   const reviews = rating.count > 0
     ? await prisma.review.findMany({
         where: { teacherId: teacher.id, comment: { not: null } },

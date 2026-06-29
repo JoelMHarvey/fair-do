@@ -40,7 +40,7 @@ function relTime(ts: number | null): string {
   return d.toLocaleDateString('en-GB', { weekday: 'short', day: 'numeric', month: 'short' }) + ` ${time}`
 }
 
-export default function TherapistResults({ therapists, currency = 'GBP', rates = {} }: { therapists: T[]; currency?: string; rates?: Record<string, number> }) {
+export default function TeacherResults({ teachers, currency = 'GBP', rates = {} }: { teachers: T[]; currency?: string; rates?: Record<string, number> }) {
   // Price in the tutor's charge currency, with an estimate in the visitor's.
   function Price({ minor, country }: { minor: number; country: string }) {
     const base = country === 'US' ? 'USD' : 'GBP'
@@ -55,18 +55,18 @@ export default function TherapistResults({ therapists, currency = 'GBP', rates =
   // Languages offered across the matched tutors (for the filter dropdown).
   const langOptions = useMemo(() => {
     const set = new Set<string>()
-    therapists.forEach(t => t.languages?.forEach(l => set.add(l)))
+    teachers.forEach(t => t.languages?.forEach(l => set.add(l)))
     return [...set].sort()
-  }, [therapists])
+  }, [teachers])
 
   const sorted = useMemo(() => {
-    let arr = [...therapists]
+    let arr = [...teachers]
     if (lang) arr = arr.filter(t => t.languages?.includes(lang))
     if (sort === 'cheapest') arr.sort((a, b) => a.displayPence - b.displayPence)
     else if (sort === 'soonest') arr.sort((a, b) => (a.nextAvailableTs ?? Infinity) - (b.nextAvailableTs ?? Infinity))
     // 'match' keeps server order (by score)
     return arr
-  }, [therapists, sort, lang])
+  }, [teachers, sort, lang])
 
   const tab = (s: Sort, txt: string) =>
     `px-4 py-2 rounded-full text-sm font-medium transition ${
