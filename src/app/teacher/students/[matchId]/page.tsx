@@ -18,6 +18,8 @@ import { ParentMessages } from '@/components/ParentMessages'
 import { LessonNoteEditor } from '@/components/LessonNoteEditor'
 import { PARENT_PORTAL_ENABLED, teacherCanOfferParentPortal } from '@/lib/parent'
 import { AI_NOTES_ENABLED } from '@/lib/lesson-notes'
+import { ResourceLibrary } from '@/components/ResourceLibrary'
+import { RESOURCES_ENABLED } from '@/lib/resources'
 import type { FormField } from '@/lib/forms'
 
 const STATUS_CLASS: Record<string, string> = {
@@ -240,9 +242,27 @@ export default async function StudentDetailPage({ params }: { params: Promise<{ 
           </div>
           <StudentDocuments
             matchId={match.id}
-            initial={match.documents.map(d => ({ id: d.id, label: d.label, url: d.url, category: d.category }))}
+            initial={match.documents.filter(d => !d.fileName).map(d => ({ id: d.id, label: d.label, url: d.url, category: d.category }))}
           />
         </section>
+
+        {/* Resources & homework files (P2-5) */}
+        {RESOURCES_ENABLED && (
+          <section className="mb-8">
+            <h2 className="font-medium text-sand-900 mb-3 flex items-center">
+              Resources &amp; files
+              <HelpTip label="About resources">
+                Upload worksheets, past papers and notes to share with this student. Toggle
+                what they can see. Files the student submits back appear here too.
+              </HelpTip>
+            </h2>
+            <ResourceLibrary
+              matchId={match.id}
+              role="teacher"
+              initial={match.documents.filter(d => d.fileName).map(d => ({ id: d.id, label: d.label, url: d.url, category: d.category, uploadedBy: d.uploadedBy, studentVisible: d.studentVisible, fileName: d.fileName, fileSizeBytes: d.fileSizeBytes }))}
+            />
+          </section>
+        )}
 
         {/* Forms (intake / consent) */}
         <section className="mb-8">
