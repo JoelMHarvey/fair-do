@@ -5,6 +5,7 @@ import { TeacherNav } from '@/components/TeacherNav'
 import { PageHeader, HelpHint } from '@/components/Guidance'
 import ProfileForm from './ProfileForm'
 import BrandingCard from './BrandingCard'
+import { CancellationPolicyCard } from '@/components/CancellationPolicyCard'
 
 const PAID_TIERS = new Set(['practice', 'clinic'])
 const ACTIVE_STATUSES = new Set(['active', 'trialing'])
@@ -58,6 +59,10 @@ export default async function TeacherProfilePage() {
             photoStyle: t.photoStyle ?? 'original',
           }}
         />
+
+        <div className="mt-5">
+          <CancellationPolicyCard windowHours={t.cancellationWindowHours} lateRefundPercent={t.lateCancelRefundPercent} />
+        </div>
 
         <div className="mt-5">
           <BrandingCard

@@ -56,7 +56,7 @@ function makeSession(overrides: Partial<{
     scheduledAt: new Date(Date.now() + 48 * 60 * 60 * 1000), // 48h ahead
     payment: null,
     student: { id: 'client_1', firstName: 'Bob', lastName: 'Jones', organisationId: null, contactEmail: 'bob@example.com', user: null },
-    teacher: { id: 'ther_1', firstName: 'Alice', lastName: 'Smith', user: { email: 'alice@example.com' } },
+    teacher: { id: 'ther_1', firstName: 'Alice', lastName: 'Smith', cancellationWindowHours: 24, lateCancelRefundPercent: 0, user: { email: 'alice@example.com' } },
     ...overrides,
   }
 }

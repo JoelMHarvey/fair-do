@@ -239,7 +239,7 @@ export default function BookingForm({
               </p>
             )}
             <p className="text-xs text-sand-400">
-              {internalPay ? 'No card needed.' : 'Secure payment via Stripe.'} Cancel 24h before for a full refund.
+              {internalPay ? 'No card needed.' : 'Secure payment via Stripe.'} Cancel in good time for a refund — your tutor sets the notice period.
             </p>
           </div>
           {error && <p className="text-red-600 text-sm mb-3">{error}</p>}
