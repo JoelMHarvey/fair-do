@@ -78,7 +78,7 @@ export default function ValuesPage() {
           <p className="mt-3"><a href="mailto:hello@faresay.com" className="text-brand-700 underline hover:text-brand-800">hello@faresay.com</a></p>
 
           <div className="mt-12 flex flex-wrap gap-3">
-            <Link href="/for-therapists" className="inline-block bg-brand-600 text-white px-6 py-3 rounded-full font-medium hover:bg-brand-700 transition shadow-sm">
+            <Link href="/for-tutors" className="inline-block bg-brand-600 text-white px-6 py-3 rounded-full font-medium hover:bg-brand-700 transition shadow-sm">
               Become a founding therapist
             </Link>
             <Link href="/sign-up" className="inline-block bg-white border border-sand-200 text-brand-800 px-6 py-3 rounded-full font-medium hover:border-brand-300 transition">

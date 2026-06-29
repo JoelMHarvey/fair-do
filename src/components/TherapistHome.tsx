@@ -38,7 +38,7 @@ export function TherapistHome({ t }: { t: HomeT }) {
             <Link href="/sign-up?role=therapist" className="bg-brand-600 text-white px-7 py-3.5 rounded-full font-medium hover:bg-brand-700 transition shadow-lg shadow-brand-600/20">
               {t.hero_cta_primary}
             </Link>
-            <Link href="/for-therapists" className="px-7 py-3.5 rounded-full font-medium text-brand-700 border border-brand-200 hover:bg-brand-50 transition">
+            <Link href="/for-tutors" className="px-7 py-3.5 rounded-full font-medium text-brand-700 border border-brand-200 hover:bg-brand-50 transition">
               {t.hero_cta_secondary}
             </Link>
           </div>
