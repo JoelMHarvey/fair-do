@@ -8,8 +8,11 @@ import { activeUsStates } from '@/lib/locale'
 import PhotoUpload from '@/app/teacher/profile/PhotoUpload'
 import { SUBJECTS, LEVELS, AGE_GROUPS, TEACHING_STYLES } from '@/lib/taxonomy'
 
-const QUAL_BODIES_UK = ['QTS', 'QTLS', 'PGCE', 'CertEd', 'ABRSM', 'CELTA / TEFL', 'Other qualified']
-const QUAL_BODIES_US = ['State teaching licence', 'TESOL / TEFL', 'Subject specialist', 'Other qualified']
+// Alphabetical, with the catch-all "Other…" kept last.
+const byLabel = (a: string, b: string) =>
+  a.startsWith('Other') ? 1 : b.startsWith('Other') ? -1 : a.localeCompare(b)
+const QUAL_BODIES_UK = ['QTS', 'QTLS', 'PGCE', 'CertEd', 'ABRSM', 'CELTA / TEFL', 'Other qualified'].sort(byLabel)
+const QUAL_BODIES_US = ['State teaching licence', 'TESOL / TEFL', 'Subject specialist', 'Other qualified'].sort(byLabel)
 
 // Mon–Sun, dayOfWeek: Mon=1 … Sat=6, Sun=0
 const DAYS = [
@@ -321,7 +324,7 @@ function TherapistOnboardingInner() {
               <div>
                 <label className="block text-sm font-medium text-sand-700 mb-2">Subjects</label>
                 <div className="flex flex-wrap gap-2">
-                  {SUBJECTS.map(s => (
+                  {[...SUBJECTS].sort((a, b) => a.localeCompare(b)).map(s => (
                     <button key={s} onClick={() => toggleTag('subjects', s)} className={pill(form.subjects.includes(s))}>{s}</button>
                   ))}
                 </div>

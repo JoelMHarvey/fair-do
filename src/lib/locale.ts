@@ -1,12 +1,13 @@
 export type Region = 'UK' | 'US' | 'PT' | 'FR' | 'IT' | 'ES' | 'DE'
 
-// Languages a tutor can teach in (UK/US-relevant set).
+// Languages a tutor can teach in (UK/US-relevant set). Sorted alphabetically
+// so the multi-select picker is easy to scan.
 export const LANGUAGES = [
   'English', 'Spanish', 'French', 'German', 'Italian', 'Portuguese', 'Polish',
   'Romanian', 'Urdu', 'Punjabi', 'Hindi', 'Bengali', 'Gujarati', 'Tamil',
   'Arabic', 'Farsi', 'Turkish', 'Mandarin', 'Cantonese', 'Welsh', 'Greek',
   'Russian', 'Ukrainian', 'Somali', 'Yoruba', 'British Sign Language',
-]
+].sort((a, b) => a.localeCompare(b))
 
 export type CrisisLine = { name: string; contact: string; detail: string; href: string }
 
