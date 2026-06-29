@@ -572,3 +572,22 @@ export async function sendCancellationNotice(opts: {
     }),
   ])
 }
+
+// Parent portal invite — sent when a teacher invites a parent to follow a student.
+export async function sendParentInvite(opts: {
+  to: string; studentFirstName: string; teacherName: string; acceptUrl: string
+}) {
+  await sendEmail({
+    from: FROM,
+    to: opts.to,
+    subject: `Follow ${opts.studentFirstName}'s tutoring on fair-do`,
+    html: layout({
+      heading: `Stay in the loop on ${escapeHtml(opts.studentFirstName)}'s lessons`,
+      preheader: `${opts.teacherName} invited you to the parent portal`,
+      body: `<p style="margin:0 0 12px">${strong(escapeHtml(opts.teacherName))} has invited you to follow ${escapeHtml(opts.studentFirstName)}'s tutoring on fair-do.</p>
+        <p style="margin:0 0 12px">The parent portal gives you full visibility — upcoming lessons, attendance, invoices, and a direct line to the tutor — for £4.99/month. Cancel any time.</p>
+        <p style="margin:0">Tap below to set it up.</p>`,
+      cta: { label: 'Open the parent portal', url: opts.acceptUrl },
+    }),
+  })
+}

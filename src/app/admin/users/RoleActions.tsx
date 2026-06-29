@@ -3,9 +3,11 @@
 import { useState } from 'react'
 import { useRouter } from 'next/navigation'
 
-type Role = 'STUDENT' | 'TEACHER' | 'ADMIN'
+// PARENT is a valid role (set via the parent-portal accept flow) but not a manual
+// switch target here, so it's in the type but not in ALL.
+type Role = 'STUDENT' | 'TEACHER' | 'ADMIN' | 'PARENT'
 const ALL: Role[] = ['STUDENT', 'TEACHER', 'ADMIN']
-const LABEL: Record<Role, string> = { STUDENT: 'student', TEACHER: 'teacher', ADMIN: 'admin' }
+const LABEL: Record<Role, string> = { STUDENT: 'student', TEACHER: 'teacher', ADMIN: 'admin', PARENT: 'parent' }
 
 export default function RoleActions({
   userId, role, isSelf, allowlisted,

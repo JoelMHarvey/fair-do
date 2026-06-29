@@ -87,6 +87,12 @@ export async function POST(req: Request) {
         ...(tier ? { tier: tier.id, commissionBps: tier.commissionBps } : {}),
       },
     })
+    // Parent portal subscriptions (parent pays fair-do directly) — pause/resume access.
+    const parentActive = event.type !== 'customer.subscription.deleted' && (sub.status === 'active' || sub.status === 'trialing')
+    await prisma.parentLink.updateMany({
+      where: { stripeSubscriptionId: sub.id },
+      data: { portalActive: parentActive },
+    })
     return new Response('OK', { status: 200 })
   }
 
@@ -128,6 +134,24 @@ export async function POST(req: Request) {
           }
         } catch (e) {
           return rollbackAndRetry(event.id, 'studio subscription activation', e)
+        }
+      }
+      return new Response('OK', { status: 200 })
+    }
+
+    // Parent portal subscription started — unlock the parent's access.
+    if (meta.type === 'parent_portal') {
+      const parentLinkId = meta.parentLinkId
+      const subId = typeof checkout.subscription === 'string' ? checkout.subscription : checkout.subscription?.id ?? null
+      const customerId = typeof checkout.customer === 'string' ? checkout.customer : checkout.customer?.id ?? null
+      if (parentLinkId) {
+        try {
+          await prisma.parentLink.update({
+            where: { id: parentLinkId },
+            data: { portalActive: true, stripeSubscriptionId: subId, ...(customerId ? { stripeCustomerId: customerId } : {}) },
+          })
+        } catch (e) {
+          return rollbackAndRetry(event.id, 'parent portal activation', e)
         }
       }
       return new Response('OK', { status: 200 })

@@ -18,6 +18,7 @@ export default async function Dashboard() {
   if (!user) redirect('/onboarding')
   if (user.role === 'ADMIN') redirect('/admin')
   if (user.role === 'TEACHER') redirect('/teacher/dashboard')
+  if (user.role === 'PARENT') redirect('/parent/dashboard')
   if (!user.student) redirect('/onboarding')
 
   const { student } = user

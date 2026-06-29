@@ -13,6 +13,9 @@ import NotesEditor from './NotesEditor'
 import PhoneEditor from './PhoneEditor'
 import StudentDocuments from './ClientDocuments'
 import StudentForms from './ClientForms'
+import InviteParentForm from './InviteParentForm'
+import { ParentMessages } from '@/components/ParentMessages'
+import { PARENT_PORTAL_ENABLED, teacherCanOfferParentPortal } from '@/lib/parent'
 import type { FormField } from '@/lib/forms'
 
 const STATUS_CLASS: Record<string, string> = {
@@ -47,6 +50,17 @@ export default async function StudentDetailPage({ params }: { params: Promise<{ 
   })
   const appUrl = process.env.NEXT_PUBLIC_APP_URL ?? 'https://fair-do.com'
   if (!match || match.teacherId !== teacher.id) notFound()
+
+  // Parent portal (P2-3): show the invite card only when the feature is on and the
+  // teacher is on a plan that can offer it.
+  const showParentPortal = PARENT_PORTAL_ENABLED && (await teacherCanOfferParentPortal(teacher.id))
+  const parentLinks = showParentPortal
+    ? await prisma.parentLink.findMany({
+        where: { studentId: match.studentId, status: { in: ['pending', 'active'] } },
+        include: { parentThread: { include: { messages: { orderBy: { createdAt: 'asc' } } } } },
+        orderBy: { createdAt: 'asc' },
+      })
+    : []
 
   const packages = await prisma.package.findMany({
     where: { teacherId: teacher.id, studentId: match.studentId },
@@ -137,6 +151,43 @@ export default async function StudentDetailPage({ params }: { params: Promise<{ 
           </h2>
           <NotesEditor matchId={match.id} initial={match.notes} />
         </section>
+
+        {/* Parent portal (P2-3) */}
+        {showParentPortal && (
+          <section className="mb-8">
+            <h2 className="font-medium text-sand-900 mb-3 flex items-center">
+              Parent portal
+              <HelpTip label="About the parent portal">
+                Invite a parent to follow this student&rsquo;s lessons — attendance, invoices,
+                and a direct line to you. The parent pays £4.99/month directly; it doesn&rsquo;t
+                affect your earnings.
+              </HelpTip>
+            </h2>
+            {parentLinks.length > 0 && (
+              <ul className="mb-3 space-y-1.5">
+                {parentLinks.map(p => (
+                  <li key={p.id} className="text-sm text-sand-700 flex items-center gap-2">
+                    <span>{p.inviteEmail}</span>
+                    <span className={`text-xs px-2 py-0.5 rounded-full ${p.portalActive ? 'bg-brand-50 text-brand-700 border border-brand-200' : 'bg-sand-100 text-sand-500'}`}>
+                      {p.portalActive ? 'Active' : p.status === 'active' ? 'Linked · not subscribed' : 'Invited'}
+                    </span>
+                  </li>
+                ))}
+              </ul>
+            )}
+            <InviteParentForm matchId={match.id} />
+            {parentLinks.filter(p => p.status === 'active').map(p => (
+              <div key={p.id} className="mt-4 border-t border-sand-100 pt-4">
+                <p className="text-xs text-sand-500 mb-2">Messages with {p.inviteEmail}</p>
+                <ParentMessages
+                  parentLinkId={p.id}
+                  viewerClerkId={userId}
+                  initial={(p.parentThread?.messages ?? []).map(m => ({ id: m.id, body: m.body, senderClerkId: m.senderClerkId, createdAt: m.createdAt.toISOString() }))}
+                />
+              </div>
+            ))}
+          </section>
+        )}
 
         {/* Documents (external links) */}
         <section className="mb-8">

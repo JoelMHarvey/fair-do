@@ -62,6 +62,7 @@ enum UserRole {
   STUDENT
   TEACHER
   ADMIN
+  PARENT
 }
 
 enum Region {
@@ -100,6 +101,8 @@ model User {
 
   teacher Teacher?
   student Student?
+
+  parentLinks ParentLink[] @relation("parentLinks")
 }
 
 model Teacher {
@@ -233,6 +236,57 @@ model Student {
   referralReceived Referral?            @relation("referee")
   reviews          Review[]
   packages         Package[]
+  parentLinks      ParentLink[]
+}
+
+// A parent linked to a student, with a paid portal subscription (P2-3).
+// The parent pays the platform directly (£4.99/mo) — no teacher share.
+model ParentLink {
+  id                   String    @id @default(cuid())
+  // null until the parent accepts the invite and links their account.
+  parentUserId         String?
+  parentUser           User?     @relation("parentLinks", fields: [parentUserId], references: [id])
+  studentId            String
+  student              Student   @relation(fields: [studentId], references: [id])
+  teacherId            String // the teacher who invited the parent (for messaging + gating)
+  status               String    @default("pending") // pending | active | revoked
+  token                String    @unique // invite token emailed to the parent
+  inviteEmail          String // email the invite was sent to
+  stripeCustomerId     String?
+  stripeSubscriptionId String?   @unique
+  portalActive         Boolean   @default(false) // true once the parent has paid
+  createdAt            DateTime  @default(now())
+  acceptedAt           DateTime?
+
+  parentThread ParentMessageThread?
+
+  @@unique([parentUserId, studentId])
+  @@index([parentUserId])
+  @@index([studentId])
+}
+
+// Separate parent↔teacher message thread (not visible to the student).
+model ParentMessageThread {
+  id           String     @id @default(cuid())
+  parentLinkId String     @unique
+  parentLink   ParentLink @relation(fields: [parentLinkId], references: [id])
+  teacherId    String
+  createdAt    DateTime   @default(now())
+  updatedAt    DateTime   @updatedAt
+
+  messages ParentMessage[]
+}
+
+model ParentMessage {
+  id            String              @id @default(cuid())
+  threadId      String
+  thread        ParentMessageThread @relation(fields: [threadId], references: [id])
+  senderClerkId String
+  body          String              @db.Text
+  readAt        DateTime?
+  createdAt     DateTime            @default(now())
+
+  @@index([threadId, createdAt])
 }
 
 model Referral {
