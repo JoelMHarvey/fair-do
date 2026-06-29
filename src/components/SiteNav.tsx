@@ -12,11 +12,24 @@ import { getDictionary, isValidLocale, type Locale } from '@/lib/dictionaries'
 import { PRACTICE_PORTAL_ENABLED, DIRECTORY_ENABLED } from '@/lib/practice'
 
 export async function SiteNav() {
-  const { userId } = await auth()
-  const user = userId ? await prisma.user.findUnique({ where: { clerkId: userId }, select: { role: true } }) : null
-  const founder = userId ? await isFounder() : false
+  // Public pages must render even if auth/DB is briefly unavailable — degrade to a
+  // logged-out nav rather than 500ing the whole page on a Clerk/Prisma hiccup.
   // Allowlist (founder) accounts are admins too — show the Admin link for them, not just role === 'ADMIN'.
-  const isAdmin = founder || user?.role === 'ADMIN'
+  let founder = false
+  let isAdmin = false
+  try {
+    const { userId } = await auth()
+    if (userId) {
+      const [user, isFounderUser] = await Promise.all([
+        prisma.user.findUnique({ where: { clerkId: userId }, select: { role: true } }),
+        isFounder(),
+      ])
+      founder = isFounderUser
+      isAdmin = isFounderUser || user?.role === 'ADMIN'
+    }
+  } catch (e) {
+    console.error('[SiteNav] auth/db lookup failed; rendering logged-out nav', e)
+  }
 
   const rawLocale = (await headers()).get('x-locale') ?? 'en'
   const locale: Locale = isValidLocale(rawLocale) ? rawLocale : 'en'
