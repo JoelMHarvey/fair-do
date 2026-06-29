@@ -40,9 +40,9 @@ export async function POST(req: Request) {
   // Notify safeguarding/admin inbox — non-blocking
   try {
     const resend = new Resend(process.env.RESEND_API_KEY)
-    const adminEmail = process.env.COMPLAINTS_EMAIL ?? 'complaints@faresay.com'
+    const adminEmail = process.env.COMPLAINTS_EMAIL ?? 'complaints@fair-do.com'
     await resend.emails.send({
-      from: process.env.RESEND_FROM ?? 'Faresay <onboarding@resend.dev>',
+      from: process.env.RESEND_FROM ?? 'fair-do <onboarding@resend.dev>',
       to: adminEmail,
       subject: `[${category.toUpperCase()}] New complaint ${complaint.id}`,
       html: `<p><strong>Category:</strong> ${category}</p><p><strong>Reporter:</strong> ${userId}</p>${teacherId ? `<p><strong>Therapist:</strong> ${teacherId}</p>` : ''}${sessionId ? `<p><strong>Session:</strong> ${sessionId}</p>` : ''}<p><strong>Detail:</strong></p><p>${body.replace(/</g, '&lt;')}</p>`,

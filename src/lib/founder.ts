@@ -4,7 +4,7 @@ import path from 'path'
 import { isAdminEmail } from '@/lib/admin'
 
 // Founder/admin business documentation portal. Gated to the full-access allowlist
-// (see lib/admin.ts — joelmharvey@gmail.com, admin@faresay.com, support@faresay.com).
+// (see lib/admin.ts — joelmharvey@gmail.com, admin@fair-do.com, support@fair-do.com).
 export const FOUNDER_EMAIL = (process.env.FOUNDER_EMAIL ?? 'joelmharvey@gmail.com').toLowerCase()
 
 export async function isFounder(): Promise<boolean> {

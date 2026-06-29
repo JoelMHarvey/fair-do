@@ -1,4 +1,4 @@
-// Faresay breathing lotus — calm hero centerpiece. Pure CSS (no JS); the
+// fair-do breathing lotus — calm hero centerpiece. Pure CSS (no JS); the
 // animation + scoped .fl- styles live in globals.css. 4-7-8 breathing cycle,
 // respects prefers-reduced-motion. Per-petal keyframes (no CSS var() inside
 // @keyframes — that doesn't animate reliably on iOS Safari).

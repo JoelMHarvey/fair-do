@@ -39,7 +39,7 @@ vi.mock('@/lib/prisma', () => ({
 
 vi.mock('@/lib/self-book', () => ({ finalizeSelfBooking: mockFinalizeSelfBooking }))
 
-const APP_URL = 'https://faresay.com'
+const APP_URL = 'https://fair-do.com'
 process.env.NEXT_PUBLIC_APP_URL = APP_URL
 
 import { GET } from '@/app/api/practice/self-book/confirm/route'

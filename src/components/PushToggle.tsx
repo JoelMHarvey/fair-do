@@ -12,7 +12,7 @@ function urlBase64ToUint8Array(base64: string): Uint8Array {
 }
 
 // "Turn on notifications" for therapists — get a heads-up when a client messages or
-// books, even when Faresay isn't open. Hides itself if the browser can't do push or
+// books, even when fair-do isn't open. Hides itself if the browser can't do push or
 // the app isn't configured with a VAPID key.
 export function PushToggle() {
   const [supported, setSupported] = useState(false)

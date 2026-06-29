@@ -5,7 +5,7 @@ import { collectMetrics } from '@/lib/monitoring'
 import { HealthDashboard } from '@/components/HealthDashboard'
 
 export const dynamic = 'force-dynamic'
-export const metadata = { title: 'System health — Faresay', robots: { index: false, follow: false } }
+export const metadata = { title: 'System health — fair-do', robots: { index: false, follow: false } }
 
 export default async function FounderHealthPage() {
   if (!(await isFounder())) notFound()

@@ -51,7 +51,7 @@ export default function BrandingCard({
           sources: ['local', 'url'],
           multiple: false,
           cropping: false,
-          folder: 'faresay/logos',
+          folder: 'fair-do/logos',
         },
         // eslint-disable-next-line @typescript-eslint/no-explicit-any
         (err: any, result: any) => {

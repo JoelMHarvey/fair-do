@@ -23,7 +23,7 @@ export type RegionConfig = {
   verificationApproach: 'directory' | 'manual-review' | 'fragmented'
   // Whether professional indemnity insurance is legally required. [LEGAL] confirm per country.
   requiresInsurance: boolean
-  // Professional titles accepted on Faresay in this market. [LEGAL] confirm before launch.
+  // Professional titles accepted on fair-do in this market. [LEGAL] confirm before launch.
   acceptedTitles: string[]
   scopesByState: boolean
   // True for countries with regional registration bodies (ES, IT).
@@ -203,7 +203,7 @@ export function formatMoney(minorUnits: number, region: string | null | undefine
   return `${c.currencySymbol}${(minorUnits / 100).toFixed(2)}`
 }
 
-// States Faresay is LIVE in. Start with NY; add codes here (or via
+// States fair-do is LIVE in. Start with NY; add codes here (or via
 // NEXT_PUBLIC_ACTIVE_US_STATES="NY,NJ") to expand coverage state by state.
 const ENV_STATES = (process.env.NEXT_PUBLIC_ACTIVE_US_STATES ?? '')
   .split(',').map(s => s.trim().toUpperCase()).filter(Boolean)

@@ -3,7 +3,7 @@ import Link from 'next/link'
 import { SiteFooter } from '@/components/SiteFooter'
 import { isFounder } from '@/lib/founder'
 
-export const metadata = { title: 'Brand assets — Faresay', robots: { index: false, follow: false } }
+export const metadata = { title: 'Brand assets — fair-do', robots: { index: false, follow: false } }
 
 type Item = { file: string; name: string; type: string; image: boolean; pad?: boolean; wide?: boolean }
 type Group = { title: string; note?: string; items: Item[] }
@@ -12,11 +12,11 @@ const GROUPS: Group[] = [
   {
     title: 'Logo & icons',
     items: [
-      { file: 'faresay-logo-mark.svg', name: 'Logo mark', type: 'SVG · vector', image: true, pad: true },
-      { file: 'faresay-icon-512.png', name: 'App icon (large)', type: 'PNG · 512', image: true, pad: true },
-      { file: 'faresay-icon-192.png', name: 'App icon', type: 'PNG · 192', image: true, pad: true },
-      { file: 'faresay-apple-touch-180.png', name: 'Apple touch icon', type: 'PNG · 180', image: true, pad: true },
-      { file: 'faresay-social-card.png', name: 'Social / OG card', type: 'PNG · 1200×630', image: true },
+      { file: 'fair-do-logo-mark.svg', name: 'Logo mark', type: 'SVG · vector', image: true, pad: true },
+      { file: 'fair-do-icon-512.png', name: 'App icon (large)', type: 'PNG · 512', image: true, pad: true },
+      { file: 'fair-do-icon-192.png', name: 'App icon', type: 'PNG · 192', image: true, pad: true },
+      { file: 'fair-do-apple-touch-180.png', name: 'Apple touch icon', type: 'PNG · 180', image: true, pad: true },
+      { file: 'fair-do-social-card.png', name: 'Social / OG card', type: 'PNG · 1200×630', image: true },
     ],
   },
   {
@@ -55,7 +55,7 @@ const GROUPS: Group[] = [
   {
     title: 'Design tokens',
     items: [
-      { file: 'faresay-brand-tokens.css', name: 'Brand tokens', type: 'CSS · colours + fonts', image: false },
+      { file: 'fair-do-brand-tokens.css', name: 'Brand tokens', type: 'CSS · colours + fonts', image: false },
     ],
   },
 ]
@@ -74,7 +74,7 @@ export default async function FounderBrandPage() {
           </p>
           <div className="flex flex-wrap gap-3 mb-12">
             <a
-              href="/brand/faresay-brand-kit.zip"
+              href="/brand/fair-do-brand-kit.zip"
               download
               className="inline-flex items-center gap-2 bg-brand-600 text-white rounded-full px-5 py-2.5 text-sm font-medium hover:bg-brand-700 transition shadow-sm"
             >
@@ -120,7 +120,7 @@ export default async function FounderBrandPage() {
           </div>
 
           <p className="text-xs text-sand-400 mt-12">
-            Generated from the Faresay design system. Source of truth is the repo.
+            Generated from the fair-do design system. Source of truth is the repo.
           </p>
         </div>
       </main>

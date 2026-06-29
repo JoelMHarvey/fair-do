@@ -31,7 +31,7 @@ export async function POST(req: Request) {
       line_items: [{
         price_data: {
           currency: 'gbp',
-          product_data: { name: `Faresay credit pool top-up — ${mine.org.name}` },
+          product_data: { name: `fair-do credit pool top-up — ${mine.org.name}` },
           unit_amount: parsed.data.amountPence,
         },
         quantity: 1,

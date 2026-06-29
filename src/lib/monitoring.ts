@@ -81,7 +81,7 @@ const ENDPOINTS = [
 ]
 
 async function endpointHealth(): Promise<EndpointHealth[]> {
-  const base = process.env.NEXT_PUBLIC_APP_URL ?? 'https://faresay.com'
+  const base = process.env.NEXT_PUBLIC_APP_URL ?? 'https://fair-do.com'
   return Promise.all(ENDPOINTS.map(async e => {
     const url = `${base}${e.path}`
     const t = performance.now()

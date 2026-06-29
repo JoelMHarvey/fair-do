@@ -35,7 +35,7 @@ export default function PhotoUpload({
   function openWidget() {
     if (!window.cloudinary || !CLOUD || !PRESET) return
     window.cloudinary.createUploadWidget(
-      { cloudName: CLOUD, uploadPreset: PRESET, sources: ['local', 'camera', 'url'], multiple: false, cropping: true, croppingAspectRatio: 1, folder: 'faresay/therapists' },
+      { cloudName: CLOUD, uploadPreset: PRESET, sources: ['local', 'camera', 'url'], multiple: false, cropping: true, croppingAspectRatio: 1, folder: 'fair-do/therapists' },
       // eslint-disable-next-line @typescript-eslint/no-explicit-any
       (err: any, result: any) => {
         if (!err && result?.event === 'success') onChange(result.info.secure_url, style || 'original')

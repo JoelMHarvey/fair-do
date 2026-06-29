@@ -44,7 +44,7 @@ export async function POST(req: Request) {
 
   // Referral code: manual entry wins, else the /r/CODE cookie.
   const jar = await cookies()
-  const refCode = (bodyRefCode || jar.get('faresay_ref')?.value)?.toUpperCase()
+  const refCode = (bodyRefCode || jar.get('fair-do_ref')?.value)?.toUpperCase()
 
   const newStudent = await prisma.student.create({
     data: {
@@ -86,7 +86,7 @@ export async function POST(req: Request) {
         // duplicate/invalid — ignore
       }
     }
-    jar.delete('faresay_ref')
+    jar.delete('fair-do_ref')
   }
 
   return Response.json({ redirect: '/dashboard' }, { status: 201 })

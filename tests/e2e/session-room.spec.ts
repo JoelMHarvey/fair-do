@@ -33,8 +33,8 @@ test.describe('session room — guest token access', () => {
     await expect(page).not.toHaveURL(/sign-in/, { timeout: 10_000 })
     await expect(page).not.toHaveURL(/^.*\/dashboard$/)
 
-    // The session room nav always renders the "faresay" brand text.
-    await expect(page.getByText('faresay', { exact: true })).toBeVisible({ timeout: 10_000 })
+    // The session room nav always renders the "fair-do" brand text.
+    await expect(page.getByText('fair-do', { exact: true })).toBeVisible({ timeout: 10_000 })
   })
 
   test('missing ?k= token redirects unauthenticated user to sign-in', async ({ page }) => {

@@ -86,7 +86,7 @@ export async function POST(req: Request) {
     })
   }
 
-  const appUrl = process.env.NEXT_PUBLIC_APP_URL ?? 'https://faresay.com'
+  const appUrl = process.env.NEXT_PUBLIC_APP_URL ?? 'https://fair-do.com'
   const acceptUrl = `${appUrl}/practice/join/${invite.token}`
 
   // Email failure shouldn't lose the invite — the teacher can copy the link from the roster.

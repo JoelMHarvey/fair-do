@@ -44,7 +44,7 @@ export async function POST(req: Request) {
     return Response.json({ error: `Billing for the ${tierById(tier)?.name ?? tier} plan isn’t configured yet.` }, { status: 503 })
   }
 
-  const appUrl = process.env.NEXT_PUBLIC_APP_URL ?? 'https://faresay.com'
+  const appUrl = process.env.NEXT_PUBLIC_APP_URL ?? 'https://fair-do.com'
 
   try {
     const stripe = getStripe()

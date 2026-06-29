@@ -81,7 +81,7 @@ export async function POST(req: Request) {
         }
       } catch (e) {
         console.error('[assistant] stream failed:', e instanceof Error ? e.message : e)
-        controller.enqueue(encoder.encode(`\n\nSorry — I hit a problem. Please try again, or email support@faresay.com.`))
+        controller.enqueue(encoder.encode(`\n\nSorry — I hit a problem. Please try again, or email support@fair-do.com.`))
       } finally {
         controller.close()
       }

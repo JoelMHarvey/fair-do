@@ -15,7 +15,7 @@ export function Logo({ className = '' }: { className?: string }) {
         </svg>
       </span>
       <span className="font-display text-xl font-semibold tracking-tight text-brand-900">
-        faresay
+        fair-do
       </span>
     </Link>
   )

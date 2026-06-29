@@ -1,6 +1,6 @@
 // Plausible Stats API reader. Env-gated: returns { configured: false } and never
 // throws if PLAUSIBLE_API_KEY / PLAUSIBLE_SITE_ID aren't set.
-// Generate a key in Plausible → Settings → API Keys; site id is your domain (faresay.com).
+// Generate a key in Plausible → Settings → API Keys; site id is your domain (fair-do.com).
 
 const BASE = process.env.PLAUSIBLE_API_HOST ?? 'https://plausible.io'
 

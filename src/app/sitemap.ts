@@ -1,7 +1,7 @@
 import type { MetadataRoute } from 'next'
 import { POSTS } from '@/lib/blog'
 
-const BASE = 'https://faresay.com'
+const BASE = 'https://fair-do.com'
 
 export default function sitemap(): MetadataRoute.Sitemap {
   const staticPaths = [

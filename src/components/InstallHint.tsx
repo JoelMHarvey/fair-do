@@ -2,11 +2,11 @@
 
 import { useEffect, useState } from 'react'
 
-const KEY = 'faresay_install_dismissed_v1'
+const KEY = 'fair-do_install_dismissed_v1'
 
 type BIPEvent = Event & { prompt: () => Promise<void>; userChoice: Promise<{ outcome: string }> }
 
-// A gentle, dismissible nudge to install Faresay as a phone app. Hides itself if
+// A gentle, dismissible nudge to install fair-do as a phone app. Hides itself if
 // already installed, or once dismissed. Android gets a one-tap Install button;
 // iOS gets the "Share → Add to Home Screen" instruction.
 export function InstallHint() {

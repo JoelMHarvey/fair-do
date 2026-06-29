@@ -9,7 +9,7 @@ import { sendPushToClerkId } from './push'
 // Orchestrates the inbox agent: poll unseen support mail, triage it, then draft / send /
 // escalate per the action policy. Runs only when the level is above "off" (cron entry).
 
-const SUPPORT_FROM = process.env.RESEND_FROM ?? 'fair-do Support <support@faresay.com>'
+const SUPPORT_FROM = process.env.RESEND_FROM ?? 'fair-do Support <support@fair-do.com>'
 const FOUNDER_EMAIL = (process.env.FOUNDER_EMAIL ?? 'joelmharvey@gmail.com').toLowerCase()
 const OPS_TO = process.env.ALERT_EMAIL || process.env.FOUNDER_EMAIL || 'joelmharvey@gmail.com'
 

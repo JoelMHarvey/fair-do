@@ -92,7 +92,7 @@ export async function POST(req: Request) {
     await prisma.studentInvite.createMany({ data: toCreate })
   }
 
-  const appUrl = process.env.NEXT_PUBLIC_APP_URL ?? 'https://faresay.com'
+  const appUrl = process.env.NEXT_PUBLIC_APP_URL ?? 'https://fair-do.com'
   const practiceName = practiceDisplayName(teacher)
   // Fire invite emails in parallel — failures don't fail the import (links live on the roster).
   await Promise.allSettled(

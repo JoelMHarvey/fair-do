@@ -4,8 +4,8 @@ import { simpleParser } from 'mailparser'
 // Unread count for a support mailbox over IMAP. Env-gated: returns
 // { configured: false } and never throws if IMAP_* aren't set.
 //
-// Gmail (once support@faresay.com routes there): IMAP_HOST=imap.gmail.com,
-// IMAP_PORT=993, IMAP_USER=support@faresay.com, IMAP_PASSWORD=<app password>
+// Gmail (once support@fair-do.com routes there): IMAP_HOST=imap.gmail.com,
+// IMAP_PORT=993, IMAP_USER=support@fair-do.com, IMAP_PASSWORD=<app password>
 // (requires 2FA + an App Password; the normal account password won't work).
 
 export type MailboxStats = { configured: boolean; unread?: number; total?: number; error?: string }

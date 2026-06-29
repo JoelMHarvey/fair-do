@@ -112,10 +112,10 @@ export async function POST(req: Request) {
     // Peer referral — give them a code + link to whoever referred them.
     await ensureTeacherReferralCode(existing.id, data.firstName).catch(() => {})
     const jar = await cookies()
-    const refCode = (data.referralCode || jar.get('faresay_ref')?.value)?.toUpperCase()
+    const refCode = (data.referralCode || jar.get('fair-do_ref')?.value)?.toUpperCase()
     if (refCode) {
       await linkTeacherReferral(existing.id, refCode)
-      jar.delete('faresay_ref')
+      jar.delete('fair-do_ref')
     }
   }
 

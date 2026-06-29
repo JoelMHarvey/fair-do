@@ -27,7 +27,7 @@ export const POSTS: Post[] = [
         'That said, if you are in crisis or thinking about harming yourself, please reach out to urgent support now rather than waiting for a session.',
       ] },
       { h: 'Taking a first step', p: [
-        'You don\'t have to commit to anything big. A single session can help you decide if it\'s for you. On Faresay, you answer one short question, get matched with verified therapists who fit, and book when you\'re ready — no subscription, cancel free up to 24 hours before.',
+        'You don\'t have to commit to anything big. A single session can help you decide if it\'s for you. On fair-do, you answer one short question, get matched with verified therapists who fit, and book when you\'re ready — no subscription, cancel free up to 24 hours before.',
       ] },
     ],
   },
