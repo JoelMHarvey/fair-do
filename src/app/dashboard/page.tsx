@@ -4,6 +4,7 @@ import { prisma } from '@/lib/prisma'
 import Link from 'next/link'
 import { Logo } from '@/components/Logo'
 import { ensureReferralCode, REFERRAL_REWARD_PENCE } from '@/lib/referral'
+import { AI_NOTES_ENABLED } from '@/lib/lesson-notes'
 import ReferralCard from './ReferralCard'
 
 export default async function Dashboard() {
@@ -65,6 +66,15 @@ export default async function Dashboard() {
     if (lastMsg && lastMsg.senderClerkId !== userId && !lastMsg.readAt) return total + 1
     return total
   }, 0)
+
+  const lessonNotes = AI_NOTES_ENABLED
+    ? await prisma.lessonNote.findMany({
+        where: { studentId: student.id, status: 'shared' },
+        include: { session: { select: { scheduledAt: true } } },
+        orderBy: { sharedAt: 'desc' },
+        take: 8,
+      })
+    : []
 
   return (
     <main className="min-h-screen bg-sand-50">
@@ -174,6 +184,25 @@ export default async function Dashboard() {
             </div>
           )}
         </section>
+
+        {/* Lesson notes (P2-4) */}
+        {AI_NOTES_ENABLED && lessonNotes.length > 0 && (
+          <section className="mb-8">
+            <h2 className="font-medium text-sand-900 mb-3">Lesson notes</h2>
+            <div className="space-y-3">
+              {lessonNotes.map(n => (
+                <div key={n.id} className="bg-white rounded-2xl border border-sand-200 p-4">
+                  <p className="text-xs text-sand-400 mb-1.5">
+                    {new Date(n.session.scheduledAt).toLocaleDateString('en-GB', { day: 'numeric', month: 'short', year: 'numeric' })}
+                  </p>
+                  <p className="text-sm text-sand-800">{n.topicsCovered}</p>
+                  {n.difficulty && <p className="text-sm text-sand-600 mt-1"><span className="text-sand-400">Found tricky:</span> {n.difficulty}</p>}
+                  {n.homework && <p className="text-sm text-sand-600 mt-1"><span className="text-sand-400">Homework:</span> {n.homework}</p>}
+                </div>
+              ))}
+            </div>
+          </section>
+        )}
 
         {/* Messages / therapist threads */}
         {matches.length > 0 && (

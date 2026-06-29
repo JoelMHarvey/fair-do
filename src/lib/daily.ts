@@ -61,3 +61,58 @@ export async function createMeetingToken(opts: {
     return null
   }
 }
+
+// ── Transcription (P2-4) ─────────────────────────────────────────────────────
+
+function safeJson(s: string): unknown | null {
+  try { return JSON.parse(s) } catch { return null }
+}
+
+// Flatten a Daily transcript (JSON or WebVTT/SRT) to plain text for the AI prompt.
+function flattenTranscript(text: string): string {
+  const json = safeJson(text)
+  if (json) {
+    const out: string[] = []
+    const walk = (v: unknown) => {
+      if (!v) return
+      if (Array.isArray(v)) return v.forEach(walk)
+      if (typeof v === 'object') {
+        const o = v as Record<string, unknown>
+        const t = o.text ?? o.transcript ?? o.value
+        if (typeof t === 'string') out.push(t)
+        else Object.values(o).forEach(walk)
+      }
+    }
+    walk(json)
+    if (out.length) return out.join(' ').replace(/\s+/g, ' ').trim()
+  }
+  // VTT/SRT/plain: drop headers, cue numbers, and timestamp lines.
+  return text
+    .split(/\r?\n/)
+    .filter(l => l.trim() && l.trim() !== 'WEBVTT' && !l.includes('-->') && !/^\d+$/.test(l.trim()))
+    .join(' ')
+    .replace(/\s+/g, ' ')
+    .trim()
+}
+
+// Fetch a finished transcript by id (from the Daily `transcript.ready` webhook).
+// Returns the raw payload + flattened plain text, or null on any failure.
+export async function fetchDailyTranscript(transcriptId: string): Promise<{ rawJson: unknown; plainText: string } | null> {
+  const apiKey = process.env.DAILY_API_KEY
+  if (!apiKey || apiKey === '...') return null
+  try {
+    const linkRes = await fetch(`${DAILY_API}/transcript/${transcriptId}/access-link`, {
+      headers: { Authorization: `Bearer ${apiKey}` },
+    })
+    if (!linkRes.ok) return null
+    const { link } = (await linkRes.json()) as { link?: string }
+    if (!link) return null
+    const contentRes = await fetch(link)
+    if (!contentRes.ok) return null
+    const text = await contentRes.text()
+    return { rawJson: safeJson(text) ?? text, plainText: flattenTranscript(text) }
+  } catch (e) {
+    console.error('[daily] transcript fetch failed:', e instanceof Error ? e.message : e)
+    return null
+  }
+}

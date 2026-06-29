@@ -589,6 +589,40 @@ model Session {
   payment      Payment?
   participants SessionParticipant[]
   review       Review?
+  transcript   LessonTranscript?
+  lessonNote   LessonNote?
+}
+
+// Raw lesson transcript fetched from Daily after a call ends (P2-4). Always stored
+// when transcription is on; access is gated downstream (parent portal / sharing).
+model LessonTranscript {
+  id        String   @id @default(cuid())
+  sessionId String   @unique
+  session   Session  @relation(fields: [sessionId], references: [id])
+  rawJson   Json // Daily transcript format (speaker turns)
+  plainText String   @db.Text // flattened for the AI prompt + search/PDF
+  createdAt DateTime @default(now())
+}
+
+// AI-generated lesson summary (P2-4). Drafted from the transcript by Claude; the
+// teacher reviews/edits and approves before it's shared with student (and parent).
+model LessonNote {
+  id            String    @id @default(cuid())
+  sessionId     String    @unique
+  session       Session   @relation(fields: [sessionId], references: [id])
+  teacherId     String
+  studentId     String
+  topicsCovered String    @db.Text
+  difficulty    String?   @db.Text
+  homework      String?   @db.Text
+  teacherEdit   String?   @db.Text // teacher's amended version (overrides the AI fields when set)
+  status        String    @default("draft") // draft | approved | shared
+  sharedAt      DateTime?
+  createdAt     DateTime  @default(now())
+  updatedAt     DateTime  @updatedAt
+
+  @@index([teacherId])
+  @@index([studentId])
 }
 
 model MessageThread {

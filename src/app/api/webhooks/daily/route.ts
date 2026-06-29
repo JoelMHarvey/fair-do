@@ -1,6 +1,44 @@
 import { headers } from 'next/headers'
 import { createHmac, timingSafeEqual } from 'crypto'
 import { prisma } from '@/lib/prisma'
+import { fetchDailyTranscript } from '@/lib/daily'
+import { AI_NOTES_ENABLED, teacherCanGetAiNotes, generateLessonNote } from '@/lib/lesson-notes'
+
+// Store the finished transcript and (if enabled + the teacher is eligible) draft AI
+// lesson notes. Best-effort: any failure is logged, never fails the webhook.
+async function ingestTranscript(sessionId: string, transcriptId: string | undefined) {
+  if (!transcriptId) return
+  const fetched = await fetchDailyTranscript(transcriptId)
+  if (!fetched) return
+
+  await prisma.lessonTranscript.upsert({
+    where: { sessionId },
+    update: { rawJson: fetched.rawJson as object, plainText: fetched.plainText },
+    create: { sessionId, rawJson: fetched.rawJson as object, plainText: fetched.plainText },
+  })
+
+  if (!AI_NOTES_ENABLED) return
+  const session = await prisma.session.findUnique({
+    where: { id: sessionId },
+    select: { teacherId: true, studentId: true, lessonNote: { select: { id: true } } },
+  })
+  if (!session || session.lessonNote) return // already have a note
+  if (!(await teacherCanGetAiNotes(session.teacherId))) return
+
+  const draft = await generateLessonNote(fetched.plainText)
+  if (!draft) return
+  await prisma.lessonNote.create({
+    data: {
+      sessionId,
+      teacherId: session.teacherId,
+      studentId: session.studentId,
+      topicsCovered: draft.topicsCovered,
+      difficulty: draft.difficulty,
+      homework: draft.homework,
+      status: 'draft',
+    },
+  })
+}
 
 // Daily.co webhook → call observability. Tracks when a session went live, who joined
 // (count), and when it ended — for attendance, no-show handling, and disputes.
@@ -27,13 +65,13 @@ export async function POST(req: Request) {
     }
   }
 
-  let event: { test?: string; type?: string; payload?: { room?: string; user_id?: string } }
+  let event: { test?: string; type?: string; payload?: { room?: string; room_name?: string; user_id?: string; transcript_id?: string; transcriptId?: string } }
   try { event = JSON.parse(raw) } catch { return new Response('Bad payload', { status: 400 }) }
 
   // Daily sends a test ping when you register the webhook.
   if (event.test) return new Response('OK', { status: 200 })
 
-  const room = event.payload?.room
+  const room = event.payload?.room ?? event.payload?.room_name
   if (!room || !room.startsWith('fair-do-')) return new Response('OK', { status: 200 })
   const sessionId = room.slice('fair-do-'.length)
   const joinerId = event.payload?.user_id ?? ''
@@ -55,6 +93,8 @@ export async function POST(req: Request) {
       }
     } else if (event.type === 'participant.left' || event.type === 'meeting.ended') {
       await prisma.session.updateMany({ where: { id: sessionId }, data: { callEndedAt: new Date() } })
+    } else if (event.type === 'transcript.ready' || event.type === 'transcript.ready-to-download') {
+      await ingestTranscript(sessionId, event.payload?.transcript_id ?? event.payload?.transcriptId)
     }
   } catch (e) {
     console.error('[webhooks/daily] failed for', sessionId, e)
