@@ -61,7 +61,7 @@ export default function FormFill({ token, title, fields }: { token: string; titl
           )}
         </div>
       ))}
-      {error && <p className="text-coral-600 text-sm">{error}</p>}
+      {error && <p className="text-red-600 text-sm">{error}</p>}
       <button onClick={submit} disabled={busy} className="w-full bg-brand-600 text-white py-3 rounded-full font-medium hover:bg-brand-700 transition disabled:opacity-50 shadow-sm">
         {busy ? 'Sending…' : 'Submit'}
       </button>

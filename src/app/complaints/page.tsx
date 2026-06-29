@@ -85,7 +85,7 @@ export default function ComplaintsPage() {
               />
             </div>
 
-            {error && <p className="text-coral-600 text-sm">{error}</p>}
+            {error && <p className="text-red-600 text-sm">{error}</p>}
 
             <button
               onClick={submit}

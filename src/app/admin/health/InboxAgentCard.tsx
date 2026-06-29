@@ -81,7 +81,7 @@ export default function InboxAgentCard({
         })}
       </div>
 
-      {error && <p className="text-sm text-coral-600 mt-3">{error}</p>}
+      {error && <p className="text-sm text-red-600 mt-3">{error}</p>}
 
       <div className="flex gap-5 mt-4 pt-4 border-t border-sand-100 text-sm">
         <span className="text-sand-600">{draftCount} draft{draftCount === 1 ? '' : 's'} awaiting review</span>

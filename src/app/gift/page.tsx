@@ -115,7 +115,7 @@ export default function GiftPage() {
             <textarea className={input} rows={3} value={message} onChange={e => setMessage(e.target.value)} placeholder="Thinking of you 💚" maxLength={300} />
           </div>
 
-          {error && <p className="text-coral-600 text-sm">{error}</p>}
+          {error && <p className="text-red-600 text-sm">{error}</p>}
 
           <button
             onClick={buy}

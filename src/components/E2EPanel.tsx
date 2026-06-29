@@ -88,7 +88,7 @@ export function E2EPanel() {
   }
 
   if (data.error) {
-    return <div className="bg-white rounded-xl border border-sand-200 p-4 text-sm text-coral-600">GitHub API error: {data.error}</div>
+    return <div className="bg-white rounded-xl border border-sand-200 p-4 text-sm text-red-600">GitHub API error: {data.error}</div>
   }
 
   const latestRun = data.runs[0]

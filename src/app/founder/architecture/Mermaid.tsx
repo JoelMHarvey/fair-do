@@ -17,9 +17,9 @@ function init() {
     flowchart: { useMaxWidth: false, nodeSpacing: 55, rankSpacing: 60, padding: 12 },
     er: { useMaxWidth: false, entityPadding: 14 },
     themeVariables: {
-      primaryColor: '#f0faf7',
-      primaryBorderColor: '#b0e1d3',
-      primaryTextColor: '#193e39',
+      primaryColor: '#eef2ff',
+      primaryBorderColor: '#c7d2fe',
+      primaryTextColor: '#312e81',
       lineColor: '#c7b9a3',
       secondaryColor: '#fff',
       tertiaryColor: '#fbf8f3',

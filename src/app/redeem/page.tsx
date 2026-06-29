@@ -57,7 +57,7 @@ export default function RedeemPage() {
                 value={code}
                 onChange={e => setCode(e.target.value)}
               />
-              {error && <p className="text-coral-600 text-sm mt-3 text-center">{error}</p>}
+              {error && <p className="text-red-600 text-sm mt-3 text-center">{error}</p>}
               <button
                 onClick={redeem}
                 disabled={code.trim().length < 4 || submitting}

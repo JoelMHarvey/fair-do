@@ -62,7 +62,7 @@ export default function SupervisionClient({ initial }: { initial: Log[] }) {
         </div>
         <input value={supervisorName} onChange={e => setSupervisorName(e.target.value)} placeholder="Supervisor (optional)" className="w-full border border-sand-200 rounded-lg px-3 py-2 text-sm" />
         <textarea value={notes} onChange={e => setNotes(e.target.value)} rows={2} placeholder="Notes (optional) — kept separate from client records" className="w-full border border-sand-200 rounded-lg px-3 py-2 text-sm" />
-        {error && <p className="text-coral-600 text-xs">{error}</p>}
+        {error && <p className="text-red-600 text-xs">{error}</p>}
         <button onClick={add} disabled={busy} className="w-full bg-brand-600 text-white text-sm font-medium py-2 rounded-full hover:bg-brand-700 transition disabled:opacity-40">
           {busy ? 'Saving…' : 'Log supervision'}
         </button>

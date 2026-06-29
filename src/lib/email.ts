@@ -34,7 +34,7 @@ function layout(
   opts: { heading: string; body: string; cta?: { label: string; url: string }; preheader?: string },
   brand?: EmailBrand | null,
 ): string {
-  const color = brand?.color ?? '#217567'
+  const color = brand?.color ?? '#4f46e5'
 
   const headerHtml = brand
     ? `<div style="padding:6px 6px 16px">
@@ -43,27 +43,27 @@ function layout(
           : `<span style="font-family:Georgia,'Times New Roman',serif;font-size:20px;font-weight:bold;color:${color}">${escapeHtml(brand.practiceName)}</span>`}
       </div>`
     : `<div style="padding:6px 6px 16px">
-        <span style="display:inline-block;width:16px;height:16px;border-radius:5px;background:#217567;vertical-align:middle;margin-right:8px"></span>
-        <span style="font-family:Georgia,'Times New Roman',serif;font-size:20px;font-weight:bold;color:#1d5d53;vertical-align:middle">fair-do</span>
+        <span style="display:inline-block;width:16px;height:16px;border-radius:5px;background:#4f46e5;vertical-align:middle;margin-right:8px"></span>
+        <span style="font-family:Georgia,'Times New Roman',serif;font-size:20px;font-weight:bold;color:#4338ca;vertical-align:middle">fair-do</span>
       </div>`
 
   const footerHtml = brand
-    ? `<div style="text-align:center;padding:18px 8px;color:#b8a78e;font-size:12px;line-height:1.6">
+    ? `<div style="text-align:center;padding:18px 8px;color:#a9a59a;font-size:12px;line-height:1.6">
         ${brand.footerLine ? `<p style="margin:0 0 4px">${escapeHtml(brand.footerLine)}</p>` : ''}
-        <p style="margin:0 0 4px">Powered by <a href="https://fair-do.com" style="color:#b8a78e;text-decoration:underline">fair-do</a></p>
+        <p style="margin:0 0 4px">Powered by <a href="https://fair-do.com" style="color:#a9a59a;text-decoration:underline">fair-do</a></p>
       </div>`
-    : `<div style="text-align:center;padding:18px 8px;color:#b8a78e;font-size:12px;line-height:1.6">
+    : `<div style="text-align:center;padding:18px 8px;color:#a9a59a;font-size:12px;line-height:1.6">
         <p style="margin:0 0 4px">fair-do · fair rates for independent tutors</p>
       </div>`
 
   return `
-<div style="background:#faf8f5;padding:24px 0;font-family:Helvetica,Arial,sans-serif">
+<div style="background:#f8f7f4;padding:24px 0;font-family:Helvetica,Arial,sans-serif">
   ${opts.preheader ? `<div style="display:none;max-height:0;overflow:hidden;opacity:0">${opts.preheader}</div>` : ''}
   <div style="max-width:560px;margin:0 auto">
     ${headerHtml}
-    <div style="background:#ffffff;border:1px solid #e8e1d5;border-radius:16px;padding:32px">
-      <h1 style="font-family:Georgia,'Times New Roman',serif;font-size:22px;font-weight:bold;color:#193e39;margin:0 0 14px">${opts.heading}</h1>
-      <div style="color:#665a4b;font-size:15px;line-height:1.6">${opts.body}</div>
+    <div style="background:#ffffff;border:1px solid #e6e4dd;border-radius:16px;padding:32px">
+      <h1 style="font-family:Georgia,'Times New Roman',serif;font-size:22px;font-weight:bold;color:#312e81;margin:0 0 14px">${opts.heading}</h1>
+      <div style="color:#4b4740;font-size:15px;line-height:1.6">${opts.body}</div>
       ${opts.cta ? `<div style="margin-top:26px"><a href="${opts.cta.url}" style="display:inline-block;background:${color};color:#ffffff;padding:12px 26px;border-radius:999px;text-decoration:none;font-weight:600;font-size:15px">${opts.cta.label}</a></div>` : ''}
     </div>
     ${footerHtml}
@@ -76,8 +76,8 @@ function escapeHtml(s: string): string {
   return s.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;')
 }
 
-const strong = (t: string) => `<strong style="color:#2e2920">${t}</strong>`
-const link = (t: string, url: string) => `<a href="${url}" style="color:#217567;text-decoration:underline">${t}</a>`
+const strong = (t: string) => `<strong style="color:#1e1b2e">${t}</strong>`
+const link = (t: string, url: string) => `<a href="${url}" style="color:#4f46e5;text-decoration:underline">${t}</a>`
 
 // ── fair-do-to-teacher emails (never branded) ─────────────────────────────────
 
@@ -90,7 +90,7 @@ export async function sendTeacherApproved(opts: { email: string; firstName: stri
       heading: `Welcome to fair-do, ${opts.firstName}`,
       preheader: 'Your profile is live — students can book you now.',
       body: `<p style="margin:0 0 10px">Your ${opts.qualificationBody} credentials have been verified, and your profile is now live. Students can book lessons with you.</p>
-        <p style="margin:0;color:#80705c;font-size:14px">You keep <strong style="color:#217567">what you charge</strong> — we take no commission on your own students. Payouts reach your bank 2 business days after each completed lesson.</p>`,
+        <p style="margin:0;color:#645f54;font-size:14px">You keep <strong style="color:#4f46e5">what you charge</strong> — we take no commission on your own students. Payouts reach your bank 2 business days after each completed lesson.</p>`,
       cta: { label: 'Go to your dashboard', url: `${APP()}/teacher/dashboard` },
     }),
   })
@@ -108,8 +108,8 @@ export async function sendTeacherAdminMessage(opts: { email: string; firstName: 
       heading: opts.subject,
       preheader: opts.body.slice(0, 110),
       body: `<p style="margin:0 0 12px">Hi ${escapeHtml(opts.firstName)},</p>
-        <div style="color:#665a4b;font-size:15px;line-height:1.6">${htmlBody}</div>
-        <p style="margin:16px 0 0;color:#80705c;font-size:14px">— The fair-do team</p>`,
+        <div style="color:#4b4740;font-size:15px;line-height:1.6">${htmlBody}</div>
+        <p style="margin:16px 0 0;color:#645f54;font-size:14px">— The fair-do team</p>`,
     }),
   })
 }
@@ -149,7 +149,7 @@ export async function sendCredentialExpiryReminder(opts: {
       heading,
       preheader: expired ? 'Renew to keep your profile active.' : `Expires ${when}.`,
       body: `<p style="margin:0 0 12px">Hi ${opts.firstName},</p><p style="margin:0 0 12px">${lead}</p>
-        <p style="margin:0;color:#80705c;font-size:14px">Already renewed? Update the date on your profile and this reminder stops.</p>`,
+        <p style="margin:0;color:#645f54;font-size:14px">Already renewed? Update the date on your profile and this reminder stops.</p>`,
       cta: { label: 'Update my details', url: `${APP()}/teacher/profile` },
     }),
   })
@@ -180,8 +180,8 @@ export async function sendOpsAlert(opts: { to: string; firing: string[]; resolve
   const sev = opts.firing.length > 0
   const items = (arr: string[], colour: string) => arr.map(s => `<li style="margin:6px 0;color:${colour}">${s}</li>`).join('')
   const body = `
-    ${opts.firing.length ? `<p style="margin:0 0 6px;font-weight:bold;color:#c93f1f">New / ongoing issues</p><ul style="margin:0 0 14px;padding-left:18px">${items(opts.firing, '#c93f1f')}</ul>` : ''}
-    ${opts.resolved.length ? `<p style="margin:0 0 6px;font-weight:bold;color:#217567">Resolved</p><ul style="margin:0 0 6px;padding-left:18px">${items(opts.resolved, '#217567')}</ul>` : ''}`
+    ${opts.firing.length ? `<p style="margin:0 0 6px;font-weight:bold;color:#d97706">New / ongoing issues</p><ul style="margin:0 0 14px;padding-left:18px">${items(opts.firing, '#d97706')}</ul>` : ''}
+    ${opts.resolved.length ? `<p style="margin:0 0 6px;font-weight:bold;color:#4f46e5">Resolved</p><ul style="margin:0 0 6px;padding-left:18px">${items(opts.resolved, '#4f46e5')}</ul>` : ''}`
   await sendEmail({
     from: FROM, to: opts.to,
     subject: sev ? `⚠️ fair-do: ${opts.firing.length} issue${opts.firing.length === 1 ? '' : 's'}` : '✅ fair-do: issues resolved',
@@ -208,10 +208,10 @@ export async function sendGiftVoucher(opts: { to: string; code: string; amountPe
         <p style="margin:0 0 16px">${opts.fromPurchaser
           ? `Your ${amount} tuition voucher is ready. Share this code with your recipient:`
           : `Someone wants to help you learn. Here's ${amount} of tuition credit, on them.`}</p>
-        ${opts.message ? `<blockquote style="border-left:3px solid #217567;padding-left:14px;color:#665a4b;font-style:italic;margin:0 0 16px">${opts.message}</blockquote>` : ''}
-        <div style="background:#f0faf7;border:1px solid #b0e1d3;border-radius:14px;padding:20px;text-align:center;margin:0 0 4px">
-          <p style="font-size:13px;color:#80705c;margin:0 0 6px">Voucher code</p>
-          <p style="font-size:24px;font-weight:bold;letter-spacing:2px;color:#1d5d53;margin:0;font-family:'Courier New',monospace">${opts.code}</p>
+        ${opts.message ? `<blockquote style="border-left:3px solid #4f46e5;padding-left:14px;color:#4b4740;font-style:italic;margin:0 0 16px">${opts.message}</blockquote>` : ''}
+        <div style="background:#eef2ff;border:1px solid #c7d2fe;border-radius:14px;padding:20px;text-align:center;margin:0 0 4px">
+          <p style="font-size:13px;color:#645f54;margin:0 0 6px">Voucher code</p>
+          <p style="font-size:24px;font-weight:bold;letter-spacing:2px;color:#4338ca;margin:0;font-family:'Courier New',monospace">${opts.code}</p>
         </div>`,
       cta: { label: 'Redeem now', url: `${APP()}/redeem` },
     }),
@@ -239,7 +239,7 @@ export async function sendSelfBookingConfirm(opts: {
       preheader: `Tap to confirm ${when}.`,
       body: `<p style="margin:0 0 12px">Hi ${opts.firstName},</p>
         <p style="margin:0 0 12px">You requested a lesson with ${strong(opts.brand?.practiceName ?? opts.teacherName)} on ${strong(when)}. Tap below to confirm — your booking isn't held until you do.</p>
-        <p style="margin:0;color:#80705c;font-size:14px">Didn't request this? You can ignore this email; nothing was booked.</p>`,
+        <p style="margin:0;color:#645f54;font-size:14px">Didn't request this? You can ignore this email; nothing was booked.</p>`,
       cta: { label: 'Confirm my lesson', url: opts.confirmUrl },
     }, opts.brand),
   })
@@ -282,8 +282,8 @@ export async function sendBookingConfirmed(opts: {
           <p style="margin:0 0 4px">Tutor: ${strong(displayName)}</p>
           <p style="margin:0 0 4px">When: ${strong(dateStrClient)}</p>
           <p style="margin:0 0 14px">Paid: ${strong(rateStr)}</p>
-          <p style="margin:0 0 6px;color:#80705c;font-size:14px">The calendar invite is attached, and the video room opens 10 minutes before your lesson.</p>
-          <p style="margin:0;color:#80705c;font-size:14px">Need to cancel? ${link('Manage your booking', sessionUrl)} — free up to 24 hours before.</p>`,
+          <p style="margin:0 0 6px;color:#645f54;font-size:14px">The calendar invite is attached, and the video room opens 10 minutes before your lesson.</p>
+          <p style="margin:0;color:#645f54;font-size:14px">Need to cancel? ${link('Manage your booking', sessionUrl)} — free up to 24 hours before.</p>`,
         cta: { label: 'View lesson', url: sessionUrl },
       }, opts.brand),
     }),
@@ -321,8 +321,8 @@ export async function sendSessionReminder(opts: {
       heading: `See you soon, ${opts.clientFirstName}`,
       preheader: `Your lesson with ${displayName} is coming up.`,
       body: `<p style="margin:0 0 4px">Your lesson with ${strong(displayName)} is on ${strong(dateStr)}.</p>
-        <p style="margin:0 0 14px;color:#80705c;font-size:14px">The room opens 10 minutes before.</p>
-        <p style="margin:0;color:#80705c;font-size:14px">Can't make it? ${link('Cancel here', sessionUrl)} — cancellations within 24 hours are non-refundable.</p>`,
+        <p style="margin:0 0 14px;color:#645f54;font-size:14px">The room opens 10 minutes before.</p>
+        <p style="margin:0;color:#645f54;font-size:14px">Can't make it? ${link('Cancel here', sessionUrl)} — cancellations within 24 hours are non-refundable.</p>`,
       cta: { label: 'View lesson', url: sessionUrl },
     }, opts.brand),
   })
@@ -350,7 +350,7 @@ export async function sendNoShowNotice(opts: {
       heading: `Hi ${opts.clientFirstName},`,
       preheader: 'An update about your recent lesson.',
       body: `<p style="margin:0">${body}</p>
-        ${opts.refunded ? `<p style="margin:14px 0 0;color:#217567">A full refund has been issued — card refunds take 5–10 business days; credit/voucher funds are back in your balance now.</p>` : ''}`,
+        ${opts.refunded ? `<p style="margin:14px 0 0;color:#4f46e5">A full refund has been issued — card refunds take 5–10 business days; credit/voucher funds are back in your balance now.</p>` : ''}`,
       cta: opts.reason !== 'student-no-show' ? { label: 'Book another lesson', url: `${APP()}/tutors` } : undefined,
     }, opts.brand),
   })
@@ -377,9 +377,9 @@ export async function sendClientInvite(opts: {
       preheader: `${practice} uses fair-do to manage lessons, payments and your calendar.`,
       body: `
         <p style="margin:0 0 14px">${strong(practice)} would like to see you on fair-do — a simple, secure place to book lessons, join by video and pay, all in one spot.</p>
-        ${note ? `<blockquote style="border-left:3px solid #217567;padding-left:14px;color:#665a4b;font-style:italic;margin:0 0 16px">${note}</blockquote>` : ''}
+        ${note ? `<blockquote style="border-left:3px solid #4f46e5;padding-left:14px;color:#4b4740;font-style:italic;margin:0 0 16px">${note}</blockquote>` : ''}
         ${rateLine}
-        <p style="margin:0;color:#80705c;font-size:14px">Accepting just links you to your tutor's studio — nothing is charged until you book a lesson.</p>`,
+        <p style="margin:0;color:#645f54;font-size:14px">Accepting just links you to your tutor's studio — nothing is charged until you book a lesson.</p>`,
       cta: { label: 'Accept your invite', url: opts.acceptUrl },
     }, opts.brand),
   })
@@ -412,8 +412,8 @@ export async function sendSessionScheduledByTherapist(opts: {
         <p style="margin:0 0 4px">When: ${strong(dateStr)}</p>
         <p style="margin:0 0 14px">${needsPay ? 'Amount to confirm' : 'Fee'}: ${strong(rateStr)}</p>
         ${needsPay
-          ? `<p style="margin:0;color:#80705c;font-size:14px">Tap below to confirm and pay securely. Your video room opens 10 minutes before the lesson.</p>`
-          : `<p style="margin:0;color:#80705c;font-size:14px">Your video room opens 10 minutes before the lesson. Your tutor will arrange payment with you directly.</p>`}`,
+          ? `<p style="margin:0;color:#645f54;font-size:14px">Tap below to confirm and pay securely. Your video room opens 10 minutes before the lesson.</p>`
+          : `<p style="margin:0;color:#645f54;font-size:14px">Your video room opens 10 minutes before the lesson. Your tutor will arrange payment with you directly.</p>`}`,
       cta: needsPay
         ? { label: 'Confirm & pay', url: opts.payUrl! }
         : { label: 'View lesson', url: opts.sessionUrl },
@@ -437,8 +437,8 @@ export async function sendClientBroadcast(opts: {
       preheader: opts.body.slice(0, 110),
       body: `
         <p style="margin:0 0 14px">Hi ${escapeHtml(opts.clientFirstName)},</p>
-        <div style="color:#665a4b;font-size:15px;line-height:1.6">${htmlBody}</div>
-        <p style="margin:18px 0 0;color:#b8a78e;font-size:12px">You're receiving this because you're a student of ${practice} on fair-do.</p>`,
+        <div style="color:#4b4740;font-size:15px;line-height:1.6">${htmlBody}</div>
+        <p style="margin:18px 0 0;color:#a9a59a;font-size:12px">You're receiving this because you're a student of ${practice} on fair-do.</p>`,
     }, opts.brand),
   })
 }
@@ -452,7 +452,7 @@ export async function sendClientEventInvite(opts: {
   brand?: EmailBrand | null
 }) {
   const practice = escapeHtml(opts.brand?.practiceName ?? opts.practiceName)
-  const noteHtml = opts.note?.trim() ? `<div style="color:#665a4b;font-size:15px;line-height:1.6;margin:0 0 14px">${escapeHtml(opts.note).replace(/\r?\n/g, '<br>')}</div>` : ''
+  const noteHtml = opts.note?.trim() ? `<div style="color:#4b4740;font-size:15px;line-height:1.6;margin:0 0 14px">${escapeHtml(opts.note).replace(/\r?\n/g, '<br>')}</div>` : ''
   const rows = [
     `<p style="margin:0 0 4px">When: ${strong(escapeHtml(opts.whenLabel))}</p>`,
     opts.location ? `<p style="margin:0 0 4px">Where: ${strong(escapeHtml(opts.location))}</p>` : '',
@@ -471,8 +471,8 @@ export async function sendClientEventInvite(opts: {
         <p style="margin:0 0 14px">Hi ${escapeHtml(opts.clientFirstName)},</p>
         ${noteHtml}
         ${rows}
-        <p style="margin:14px 0 0;color:#80705c;font-size:14px">The calendar invite is attached — open it to add this to your calendar.</p>
-        <p style="margin:14px 0 0;color:#b8a78e;font-size:12px">You're receiving this because you're a student of ${practice} on fair-do.</p>`,
+        <p style="margin:14px 0 0;color:#645f54;font-size:14px">The calendar invite is attached — open it to add this to your calendar.</p>
+        <p style="margin:14px 0 0;color:#a9a59a;font-size:12px">You're receiving this because you're a student of ${practice} on fair-do.</p>`,
     }, opts.brand),
   })
 }
@@ -496,7 +496,7 @@ export async function sendSessionSeriesScheduled(opts: {
         <p style="margin:0 0 4px">${strong(practice)} has scheduled a weekly series for you.</p>
         <p style="margin:0 0 4px">Lessons: ${strong(`${opts.count}, weekly`)}</p>
         <p style="margin:0 0 14px">First lesson: ${strong(dateStr)}</p>
-        <p style="margin:0;color:#80705c;font-size:14px">${opts.viaPackage
+        <p style="margin:0;color:#645f54;font-size:14px">${opts.viaPackage
           ? 'These come from your package — nothing more to pay. Each room opens 10 minutes before.'
           : 'Your tutor will arrange payment with you directly. Each room opens 10 minutes before.'}</p>`,
       cta: { label: 'View your next lesson', url: opts.sessionUrl },
@@ -525,7 +525,7 @@ export async function sendPackageOffered(opts: {
         <p style="margin:0 0 4px">Package: ${strong(escapeHtml(opts.packageName))}</p>
         <p style="margin:0 0 4px">Lessons: ${strong(String(opts.sessionsTotal))} (${per} each)</p>
         <p style="margin:0 0 14px">Total: ${strong(price)}</p>
-        <p style="margin:0;color:#80705c;font-size:14px">Pay once below — then each lesson you book draws from your package, no card needed.</p>`,
+        <p style="margin:0;color:#645f54;font-size:14px">Pay once below — then each lesson you book draws from your package, no card needed.</p>`,
       cta: { label: 'Buy package', url: opts.payUrl },
     }, opts.brand),
   })
@@ -555,8 +555,8 @@ export async function sendCancellationNotice(opts: {
         preheader: `Your lesson on ${dateStrClient} was cancelled.`,
         body: `<p style="margin:0">Your lesson with ${strong(displayName)} on ${strong(dateStrClient)} has been cancelled.</p>
           ${opts.refunded
-            ? `<p style="margin:14px 0 0;color:#217567">A full refund has been issued — card refunds appear in 5–10 business days; credit/voucher funds are back in your balance now.</p>`
-            : `<p style="margin:14px 0 0;color:#80705c;font-size:14px">As this was cancelled within 24 hours, no refund is available.</p>`}`,
+            ? `<p style="margin:14px 0 0;color:#4f46e5">A full refund has been issued — card refunds appear in 5–10 business days; credit/voucher funds are back in your balance now.</p>`
+            : `<p style="margin:14px 0 0;color:#645f54;font-size:14px">As this was cancelled within 24 hours, no refund is available.</p>`}`,
         cta: { label: 'Find another time', url: `${APP()}/tutors` },
       }, opts.brand),
     }),

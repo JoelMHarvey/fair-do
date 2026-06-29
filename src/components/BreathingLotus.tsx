@@ -17,7 +17,7 @@ export function BreathingLotus({ className }: { className?: string }) {
           </radialGradient>
           <linearGradient id="flPetal" x1="0" y1="0" x2="0" y2="1">
             <stop offset="0%" stopColor="#2f9183" />
-            <stop offset="100%" stopColor="#217567" />
+            <stop offset="100%" stopColor="#4f46e5" />
           </linearGradient>
           <linearGradient id="flPetalLight" x1="0" y1="0" x2="0" y2="1">
             <stop offset="0%" stopColor="#57b3a4" />

@@ -36,7 +36,7 @@ export async function resolveEmailBrand(teacherId: string): Promise<EmailBrand |
 
   const name = teacher.practiceName?.trim() || `${teacher.firstName} ${teacher.lastName}`
   // Re-validate at render time; DB write validation is belt-and-suspenders
-  const color = /^#[0-9a-fA-F]{6}$/.test(teacher.brandColor ?? '') ? teacher.brandColor! : '#217567'
+  const color = /^#[0-9a-fA-F]{6}$/.test(teacher.brandColor ?? '') ? teacher.brandColor! : '#4f46e5'
   const logoUrl = teacher.brandLogoUrl?.startsWith('https://res.cloudinary.com/')
     ? teacher.brandLogoUrl
     : undefined

@@ -69,7 +69,7 @@ export default function ClientDocuments({ matchId, initial }: { matchId: string;
         </select>
         <input value={label} onChange={e => setLabel(e.target.value)} placeholder="Label (e.g. “Intake — Jan 2026”)" className="w-full border border-sand-200 rounded-lg px-3 py-2 text-sm" />
         <input value={url} onChange={e => setUrl(e.target.value)} placeholder="https://… link to the document in your own storage" className="w-full border border-sand-200 rounded-lg px-3 py-2 text-sm" />
-        {error && <p className="text-coral-600 text-xs">{error}</p>}
+        {error && <p className="text-red-600 text-xs">{error}</p>}
         <button onClick={add} disabled={busy} className="w-full bg-brand-600 text-white text-sm font-medium py-2 rounded-full hover:bg-brand-700 transition disabled:opacity-40">
           {busy ? 'Adding…' : 'Add link'}
         </button>

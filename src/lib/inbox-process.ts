@@ -33,7 +33,7 @@ async function resolveRole(email: string): Promise<'teacher' | 'student' | 'unkn
 
 function replyHtml(text: string): string {
   const esc = text.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;')
-  return `<div style="font-family:Helvetica,Arial,sans-serif;font-size:15px;color:#2e2920;line-height:1.6;white-space:pre-wrap">${esc}
+  return `<div style="font-family:Helvetica,Arial,sans-serif;font-size:15px;color:#1e1b2e;line-height:1.6;white-space:pre-wrap">${esc}
 
 — fair-do Support</div>`
 }
