@@ -6,8 +6,8 @@ import { PRACTICE_PORTAL_ENABLED } from '@/lib/practice'
 import { LocalPrice } from '@/components/LocalPrice'
 
 export const metadata = {
-  title: 'Pricing — Faresay',
-  description: 'Simple, fair pricing for your therapy practice. Start free, pay as you grow. Founding pricing locked for early therapists.',
+  title: 'Pricing — fair-do',
+  description: 'Simple, fair pricing for your tutoring practice. Start free, pay as you grow. Founding pricing locked for early tutors.',
 }
 
 const TIERS = [
@@ -16,7 +16,7 @@ const TIERS = [
     price: 'Free',
     cadence: '',
     tagline: 'Everything to run your practice.',
-    features: ['Unlimited clients', 'Scheduling + secure video', 'Card payments & payouts', 'Reminders & messaging', 'Runs on your phone'],
+    features: ['Unlimited students', 'Scheduling + secure video', 'Card payments & payouts', 'Reminders & messaging', 'Runs on your phone'],
     note: 'No commission — you keep what you charge.',
     cta: 'Start free',
     highlight: false,
@@ -27,8 +27,8 @@ const TIERS = [
     pricePence: 2900,
     cadence: '/month',
     tagline: 'For an established solo practice.',
-    features: ['Everything in Starter', 'No commission, ever', 'Per-client pricing & packages', 'Branded email & invite letterhead', 'Targeted client messaging & invites', 'Earnings insights & analytics', 'In-app AI assistant', 'Priority support', 'Your booking page'],
-    note: 'Founding therapists lock a lower rate — see below.',
+    features: ['Everything in Starter', 'No commission, ever', 'Per-student pricing & packages', 'Branded email & invite letterhead', 'Targeted student messaging & invites', 'Earnings insights & analytics', 'In-app AI assistant', 'Priority support', 'Your booking page'],
+    note: 'Founding tutors lock a lower rate — see below.',
     cta: 'Start free',
     highlight: true,
   },
@@ -36,9 +36,9 @@ const TIERS = [
     name: 'Clinic',
     price: 'Coming soon',
     cadence: '',
-    tagline: 'For group practices & clinics.',
-    features: ['Multiple therapists, one clinic', 'Shared team calendar', 'Clinic admin & reporting'],
-    note: 'In development — register your interest and we’ll keep you posted.',
+    tagline: 'For group practices & studios.',
+    features: ['Multiple tutors, one studio', 'Shared team calendar', 'Studio admin & reporting'],
+    note: 'In development — register your interest and we\'ll keep you posted.',
     cta: 'Register interest',
     highlight: false,
   },
@@ -46,9 +46,9 @@ const TIERS = [
 
 const FAQ = [
   { q: 'Do I have to pay to start?', a: 'No. Starter is free — run your whole practice on it. You only pay if you choose a plan with extra tools.' },
-  { q: 'Do you take a commission?', a: 'No. We take no commission on your sessions — you keep what you charge. You pay a flat monthly plan for the software; the only per-session cost is Stripe’s standard card-processing fee, which we keep none of.' },
-  { q: 'Can I cancel any time?', a: 'Yes. No lock-in. If you cancel a paid plan it simply runs to the end of the period, then drops to Starter — your clients and records stay with you.' },
-  { q: 'Are my clients mine?', a: 'Always. You own the relationship and the records. Faresay is your tool, never a middleman.' },
+  { q: 'Do you take a commission?', a: 'No. We take no commission on your lessons — you keep what you charge. You pay a flat monthly plan for the software; the only per-lesson cost is Stripe\'s standard card-processing fee, which we keep none of.' },
+  { q: 'Can I cancel any time?', a: 'Yes. No lock-in. If you cancel a paid plan it simply runs to the end of the period, then drops to Starter — your students and records stay with you.' },
+  { q: 'Are my students mine?', a: 'Always. You own the relationship and the records. fair-do is your tool, never a middleman.' },
 ]
 
 export default function PricingPage() {
@@ -65,7 +65,7 @@ export default function PricingPage() {
           </div>
           <div className="text-center mb-12">
             <span className="inline-flex items-center gap-2 rounded-full bg-coral-50 border border-coral-200 text-coral-700 text-sm font-medium px-4 py-1.5">
-              🚀 Founding pricing — locked for early therapists
+              🚀 Founding pricing — locked for early tutors
             </span>
           </div>
 
@@ -91,7 +91,7 @@ export default function PricingPage() {
                 </ul>
                 <p className="text-xs text-sand-500 mb-5">{t.note}</p>
                 <Link
-                  href={t.name === 'Clinic' ? 'mailto:support@faresay.com' : '/sign-up?role=therapist'}
+                  href={t.name === 'Clinic' ? 'mailto:support@fair-do.com' : '/sign-up?role=therapist'}
                   className={`text-center py-3 rounded-full font-medium transition ${t.highlight ? 'bg-brand-600 text-white hover:bg-brand-700 shadow-sm' : 'border border-brand-200 text-brand-700 hover:bg-brand-50'}`}
                 >
                   {t.cta}
@@ -100,14 +100,14 @@ export default function PricingPage() {
             ))}
           </div>
 
-          <p className="text-center text-xs text-sand-400 mt-6">Prices shown are launch pricing and may change. Founding therapists keep their rate.</p>
+          <p className="text-center text-xs text-sand-400 mt-6">Prices shown are launch pricing and may change. Founding tutors keep their rate.</p>
 
           <div className="text-center mt-8 flex flex-col sm:flex-row gap-x-8 gap-y-2 justify-center">
             <Link href="/pricing/explained" className="inline-flex items-center gap-2 text-brand-700 font-medium hover:text-brand-800 underline underline-offset-4">
               See exactly what you&apos;ll keep →
             </Link>
             <Link href="/compare" className="inline-flex items-center gap-2 text-brand-700 font-medium hover:text-brand-800 underline underline-offset-4">
-              How Faresay compares →
+              How fair-do compares →
             </Link>
           </div>
 

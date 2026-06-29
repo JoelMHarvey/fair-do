@@ -3,18 +3,18 @@ import { getDictionary } from '@/lib/dictionaries'
 import { TherapistHome } from '@/components/TherapistHome'
 
 export const metadata: Metadata = {
-  title: 'Faresay — your whole practice, in one calm place',
-  description: 'The simple, private practice tool for therapists: your clients, scheduling, secure video and payments in one place. Set up in minutes, run it from your phone.',
+  title: 'fair-do — your whole tutoring business, in one calm place',
+  description: 'The simple, private tool for independent tutors: your students, scheduling, secure video and payments in one place. Set up in minutes, run it from your phone.',
   alternates: {
-    canonical: 'https://faresay.com',
+    canonical: 'https://fair-do.com',
     languages: {
-      'en': 'https://faresay.com',
-      'fr': 'https://faresay.com/fr',
-      'de': 'https://faresay.com/de',
-      'it': 'https://faresay.com/it',
-      'es': 'https://faresay.com/es',
-      'pt': 'https://faresay.com/pt',
-      'x-default': 'https://faresay.com',
+      'en': 'https://fair-do.com',
+      'fr': 'https://fair-do.com/fr',
+      'de': 'https://fair-do.com/de',
+      'it': 'https://fair-do.com/it',
+      'es': 'https://fair-do.com/es',
+      'pt': 'https://fair-do.com/pt',
+      'x-default': 'https://fair-do.com',
     },
   },
 }

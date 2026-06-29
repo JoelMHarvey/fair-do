@@ -41,7 +41,7 @@ export default function RedeemPage() {
             <h1 className="font-display text-2xl font-semibold text-brand-900 mb-2">£{(success / 100).toFixed(2)} added</h1>
             <p className="text-sand-600 mb-6">Your credit is ready. It&apos;ll apply automatically at your next booking.</p>
             <Link href="/tutors" className="inline-block bg-brand-600 text-white px-8 py-3 rounded-full font-medium hover:bg-brand-700 transition">
-              Find a therapist
+              Find a tutor
             </Link>
           </div>
         ) : (

@@ -1,7 +1,7 @@
 import Link from 'next/link'
 import { Logo } from '@/components/Logo'
 
-export const metadata = { title: 'Gift sent — Faresay' }
+export const metadata = { title: 'Gift sent — fair-do' }
 
 export default function GiftSuccessPage() {
   return (
@@ -13,7 +13,7 @@ export default function GiftSuccessPage() {
         <div className="text-5xl mb-5">🎁</div>
         <h1 className="font-display text-3xl font-semibold text-brand-900 mb-3">Gift on its way</h1>
         <p className="text-sand-600 mb-8">
-          The voucher code is in the recipient&apos;s inbox (or yours, if you kept it). It can be redeemed at any time against any therapist.
+          The voucher code is in the recipient&apos;s inbox (or yours, if you kept it). It can be redeemed at any time against any tutor.
         </p>
         <Link href="/" className="inline-block bg-brand-600 text-white px-8 py-3 rounded-full font-medium hover:bg-brand-700 transition">
           Back home

@@ -12,18 +12,18 @@ export async function generateMetadata({ params }: { params: Promise<{ locale: s
   if (!isValidLocale(locale) || locale === 'en') return {}
   const { home } = await getDictionary(locale as Locale)
   return {
-    title: `Faresay — ${home.hero_h1_line1} ${home.hero_h1_line2}`,
+    title: `fair-do — ${home.hero_h1_line1} ${home.hero_h1_line2}`,
     description: home.hero_body,
     alternates: {
-      canonical: `https://faresay.com/${locale}`,
+      canonical: `https://fair-do.com/${locale}`,
       languages: {
-        'en': 'https://faresay.com',
-        'fr': 'https://faresay.com/fr',
-        'de': 'https://faresay.com/de',
-        'it': 'https://faresay.com/it',
-        'es': 'https://faresay.com/es',
-        'pt': 'https://faresay.com/pt',
-        'x-default': 'https://faresay.com',
+        'en': 'https://fair-do.com',
+        'fr': 'https://fair-do.com/fr',
+        'de': 'https://fair-do.com/de',
+        'it': 'https://fair-do.com/it',
+        'es': 'https://fair-do.com/es',
+        'pt': 'https://fair-do.com/pt',
+        'x-default': 'https://fair-do.com',
       },
     },
   }

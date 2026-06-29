@@ -2,9 +2,9 @@ import type { MetadataRoute } from 'next'
 
 export default function manifest(): MetadataRoute.Manifest {
   return {
-    name: 'Faresay — your practice',
-    short_name: 'Faresay',
-    description: 'Run your therapy practice from your phone — clients, scheduling, secure video, payments.',
+    name: 'fair-do — your tutoring',
+    short_name: 'fair-do',
+    description: 'Run your tutoring from your phone — students, scheduling, secure video, payments.',
     start_url: '/teacher/dashboard',
     scope: '/',
     display: 'standalone',

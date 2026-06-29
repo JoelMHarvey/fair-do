@@ -86,8 +86,8 @@ export default async function SessionPage({
     ? (await prisma.match.findUnique({ where: { id: session.matchId }, select: { notes: true } }))?.notes ?? null
     : null
   const DOC_LABEL: Record<string, string> = {
-    'session-notes': 'Session notes', assessment: 'Assessment', formulation: 'Formulation',
-    'treatment-plan': 'Lesson plan', risk: 'Risk assessment', outcomes: 'Progress measures', other: 'Other',
+    'session-notes': 'Lesson notes', assessment: 'Assessment', formulation: 'Learning summary',
+    'treatment-plan': 'Lesson plan', risk: 'Safeguarding', outcomes: 'Progress measures', other: 'Other',
   }
 
   return (

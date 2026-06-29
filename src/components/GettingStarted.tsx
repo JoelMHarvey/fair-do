@@ -17,7 +17,7 @@ export function GettingStarted({ steps }: { steps: GuideStep[] }) {
         <h2 className="font-display text-lg font-semibold text-brand-900">Getting started</h2>
         <span className="text-sm text-sand-500">{done} of {steps.length} done</span>
       </div>
-      <p className="text-sand-600 text-sm mb-4">A few quick steps and you&apos;re ready to see clients. We&apos;ll guide you through each one.</p>
+      <p className="text-sand-600 text-sm mb-4">A few quick steps and you&apos;re ready to see students. We&apos;ll guide you through each one.</p>
 
       <div className="h-2 rounded-full bg-sand-100 overflow-hidden mb-5">
         <div className="h-full bg-brand-500 transition-all" style={{ width: `${pct}%` }} />

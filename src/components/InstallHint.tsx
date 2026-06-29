@@ -51,9 +51,9 @@ export function InstallHint() {
     <div className="sm:hidden bg-brand-50 border border-brand-200 rounded-2xl p-4 mb-6 flex items-start gap-3">
       <span className="text-xl shrink-0" aria-hidden>📲</span>
       <div className="min-w-0 flex-1">
-        <p className="font-medium text-brand-900 text-sm">Add Faresay to your phone</p>
+        <p className="font-medium text-brand-900 text-sm">Add fair-do to your phone</p>
         {isIOS ? (
-          <p className="text-xs text-sand-600 mt-0.5">Tap the <strong>Share</strong> button, then <strong>Add to Home Screen</strong> — Faresay opens like an app, no browser needed.</p>
+          <p className="text-xs text-sand-600 mt-0.5">Tap the <strong>Share</strong> button, then <strong>Add to Home Screen</strong> — fair-do opens like an app, no browser needed.</p>
         ) : (
           <p className="text-xs text-sand-600 mt-0.5">Install it as an app for one-tap access — no app store needed.</p>
         )}

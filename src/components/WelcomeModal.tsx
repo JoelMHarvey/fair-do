@@ -27,16 +27,16 @@ export function WelcomeModal({ firstName }: { firstName?: string }) {
         <h2 className="font-display text-2xl font-semibold text-brand-900 mb-1">
           Welcome{firstName ? `, ${firstName}` : ''}
         </h2>
-        <p className="text-sand-600 mb-6">Faresay is your whole practice in one place. Here&apos;s the gist — it takes a few minutes to set up.</p>
+        <p className="text-sand-600 mb-6">fair-do is your whole practice in one place. Here&apos;s the gist — it takes a few minutes to set up.</p>
 
         <ul className="space-y-4 mb-7">
           <li className="flex gap-3">
             <span className="shrink-0 w-7 h-7 rounded-full bg-brand-100 text-brand-700 flex items-center justify-center text-sm font-semibold" aria-hidden>1</span>
-            <span className="text-sm text-sand-700"><strong className="text-sand-900">Add your clients.</strong> Invite them by email, or import your whole list. They&apos;re yours — no one else sees them.</span>
+            <span className="text-sm text-sand-700"><strong className="text-sand-900">Add your students.</strong> Invite them by email, or import your whole list. They&apos;re yours — no one else sees them.</span>
           </li>
           <li className="flex gap-3">
             <span className="shrink-0 w-7 h-7 rounded-full bg-brand-100 text-brand-700 flex items-center justify-center text-sm font-semibold" aria-hidden>2</span>
-            <span className="text-sm text-sand-700"><strong className="text-sand-900">Book sessions.</strong> Pick a time; we create a private video room and email your client automatically.</span>
+            <span className="text-sm text-sand-700"><strong className="text-sand-900">Book lessons.</strong> Pick a time; we create a private video room and email your student automatically.</span>
           </li>
           <li className="flex gap-3">
             <span className="shrink-0 w-7 h-7 rounded-full bg-brand-100 text-brand-700 flex items-center justify-center text-sm font-semibold" aria-hidden>3</span>

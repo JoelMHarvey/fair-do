@@ -24,7 +24,7 @@ export default async function Dashboard() {
   const now = new Date()
 
   const referralCode = student.referralCode ?? (await ensureReferralCode(student.id, student.firstName).catch(() => null))
-  const appUrl = process.env.NEXT_PUBLIC_APP_URL ?? 'https://faresay.com'
+  const appUrl = process.env.NEXT_PUBLIC_APP_URL ?? 'https://fair-do.com'
 
   const [upcomingSessions, matches, payments] = await Promise.all([
     prisma.session.findMany({

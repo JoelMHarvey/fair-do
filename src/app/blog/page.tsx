@@ -4,8 +4,8 @@ import { SiteFooter } from '@/components/SiteFooter'
 import { POSTS } from '@/lib/blog'
 
 export const metadata = {
-  title: 'The Faresay blog — therapy, plainly explained',
-  description: 'Honest, plain-English writing about therapy, anxiety, low mood, and getting support — from the team building fairer mental health care.',
+  title: 'The fair-do blog — tutoring, plainly explained',
+  description: 'Honest, plain-English writing about tutoring, learning, exams, and finding the right tutor — from the team building fairer private tuition.',
 }
 
 export default function BlogIndex() {
@@ -16,8 +16,8 @@ export default function BlogIndex() {
       <section className="relative overflow-hidden">
         <div className="absolute inset-0 -z-10 bg-gradient-to-b from-brand-50 to-sand-50" />
         <div className="max-w-2xl mx-auto px-5 sm:px-8 pt-20 pb-12 text-center">
-          <h1 className="font-display text-4xl sm:text-5xl font-semibold text-brand-900 leading-tight">The Faresay blog</h1>
-          <p className="text-lg text-sand-700 mt-6">Therapy, plainly explained. No jargon, no judgement.</p>
+          <h1 className="font-display text-4xl sm:text-5xl font-semibold text-brand-900 leading-tight">The fair-do blog</h1>
+          <p className="text-lg text-sand-700 mt-6">Tutoring, plainly explained. No jargon, no judgement.</p>
         </div>
       </section>
 

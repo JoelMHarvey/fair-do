@@ -47,8 +47,8 @@ export default function GiftPage() {
 
       <div className="max-w-lg mx-auto px-5 sm:px-6 py-12">
         <div className="text-center mb-8">
-          <h1 className="font-display text-4xl font-semibold text-brand-900 mb-2">Gift therapy</h1>
-          <p className="text-sand-600">Give someone the space to feel better — on their terms, in their time.</p>
+          <h1 className="font-display text-4xl font-semibold text-brand-900 mb-2">Gift tuition</h1>
+          <p className="text-sand-600">Give someone the chance to learn something new — on their terms, in their time.</p>
         </div>
 
         {/* How it works */}
@@ -58,7 +58,7 @@ export default function GiftPage() {
             {[
               ['You choose an amount', 'Pay securely. We create a voucher code — vouchers never expire.'],
               ['They get the code', 'Sent by email (or to you, to share however feels right).'],
-              ['They redeem in their own time', 'It becomes account credit, used against any therapist they choose. No pressure, no deadline.'],
+              ['They redeem in their own time', 'It becomes account credit, used against any tutor they choose. No pressure, no deadline.'],
             ].map(([t, b], i) => (
               <li key={t} className="flex gap-3">
                 <span className="flex h-6 w-6 shrink-0 items-center justify-center rounded-full bg-brand-100 text-brand-700 text-xs font-semibold">{i + 1}</span>
@@ -75,7 +75,7 @@ export default function GiftPage() {
         <div className="bg-brand-50 border border-brand-200 rounded-2xl p-5 mb-6 text-sm text-sand-700">
           <p className="font-medium text-brand-800 mb-1">A gentle word</p>
           <p>
-            Therapy is personal, and being given it can feel complicated. We never tell the recipient it&apos;s &quot;because they need help&quot; — just that someone cares. They redeem privately, choose their own therapist, and are never pressured to use it. If they never do, that&apos;s okay too.
+            Learning is personal, and being given lessons can feel complicated. We never tell the recipient it&apos;s &quot;because they need help&quot; — just that someone believes in them. They redeem privately, choose their own tutor, and are never pressured to use it. If they never do, that&apos;s okay too.
           </p>
         </div>
 

@@ -75,7 +75,7 @@ export function PushToggle() {
     <div className="flex items-center justify-between gap-3 bg-white border border-sand-200 rounded-2xl px-4 py-3 mb-6">
       <div className="min-w-0">
         <p className="text-sm font-medium text-sand-900">🔔 Notifications</p>
-        <p className="text-xs text-sand-500">{on ? 'On — we’ll alert you to new messages and bookings.' : 'Get alerted when a client messages or books, even when Faresay is closed.'}</p>
+        <p className="text-xs text-sand-500">{on ? 'On — we\'ll alert you to new messages and bookings.' : 'Get alerted when a student messages or books, even when fair-do is closed.'}</p>
       </div>
       <button
         onClick={on ? disable : enable}

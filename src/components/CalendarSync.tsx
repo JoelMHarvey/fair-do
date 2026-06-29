@@ -20,7 +20,7 @@ export function CalendarSync({ url }: { url: string }) {
       <div className="flex items-start justify-between gap-3">
         <div>
           <h2 className="font-display text-base font-semibold text-brand-900">📅 Sync your calendar</h2>
-          <p className="text-sand-500 text-sm mt-0.5">See your Faresay sessions in Google, Apple or Outlook — they update automatically.</p>
+          <p className="text-sand-500 text-sm mt-0.5">See your fair-do lessons in Google, Apple or Outlook — they update automatically.</p>
         </div>
         <button onClick={() => setOpen(v => !v)} className="text-sm font-medium text-brand-700 hover:text-brand-800 shrink-0">
           {open ? 'Hide' : 'Set up'}
@@ -45,7 +45,7 @@ export function CalendarSync({ url }: { url: string }) {
             <p><strong>Google Calendar:</strong> Other calendars → <em>+</em> → From URL → paste the link.</p>
             <p><strong>Outlook:</strong> Add calendar → Subscribe from web → paste the link.</p>
           </div>
-          <p className="mt-3 text-xs text-sand-400">Keep this link private — anyone with it can see your session times.</p>
+          <p className="mt-3 text-xs text-sand-400">Keep this link private — anyone with it can see your lesson times.</p>
         </div>
       )}
     </section>
