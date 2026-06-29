@@ -20,7 +20,7 @@ export default function NotFound() {
           href="/help"
           className="px-6 py-3 rounded-full font-medium text-brand-700 border border-brand-200 hover:bg-brand-50 transition"
         >
-          Need urgent help?
+          Have questions?
         </Link>
       </div>
     </main>
