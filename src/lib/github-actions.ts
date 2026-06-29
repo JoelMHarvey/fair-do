@@ -1,5 +1,5 @@
 const OWNER = 'JoelMHarvey'
-const REPO = 'faresay'
+const REPO = 'fair-do'
 const WORKFLOW = 'e2e.yml'
 const API = 'https://api.github.com'
 

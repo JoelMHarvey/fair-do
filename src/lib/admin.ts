@@ -3,7 +3,7 @@ import 'server-only'
 // Full-access accounts: founder + admin pages, all admin powers (approve therapists,
 // see who's online, change roles). The allowlist is the lockout-proof failsafe — these
 // emails are always admins regardless of their stored DB role. Override via env.
-const DEFAULT_ADMIN_EMAILS = ['joelmharvey@gmail.com', 'admin@faresay.com', 'support@faresay.com']
+const DEFAULT_ADMIN_EMAILS = ['joelmharvey@gmail.com', 'admin@fair-do.com', 'support@fair-do.com']
 
 export const ADMIN_EMAILS: Set<string> = new Set(
   (process.env.FOUNDER_EMAILS ?? DEFAULT_ADMIN_EMAILS.join(','))

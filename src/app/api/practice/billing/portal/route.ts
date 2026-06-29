@@ -24,7 +24,7 @@ export async function POST() {
     return Response.json({ error: 'No billing account yet — choose a paid plan first.' }, { status: 409 })
   }
 
-  const appUrl = process.env.NEXT_PUBLIC_APP_URL ?? 'https://faresay.com'
+  const appUrl = process.env.NEXT_PUBLIC_APP_URL ?? 'https://fair-do.com'
   try {
     const portal = await getStripe().billingPortal.sessions.create({
       customer: sub.stripeCustomerId,

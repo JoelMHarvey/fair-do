@@ -1,6 +1,6 @@
 // Practice-portal subscription tiers (Stripe Billing). Prices for paid tiers live in
 // Stripe; their Price IDs are supplied via env so this stays config-driven. Commission is
-// the per-transaction fee (basis points) applied to payments the therapist processes —
+// the per-transaction fee (basis points) applied to payments the tutor processes —
 // lower on higher tiers (the "free + commission, paid buys it down" model).
 export type TierId = 'starter' | 'practice' | 'clinic'
 
@@ -22,7 +22,7 @@ export const PRACTICE_TIERS: Tier[] = [
     commissionBps: 0,
     priceEnv: null,
     blurb: 'Free to start. No commission — you keep what you charge.',
-    features: ['Up to 10 active clients', 'Calendar, invites & video', 'Card payments & payouts', 'No commission on sessions'],
+    features: ['Up to 10 active students', 'Calendar, invites & video', 'Card payments & payouts', 'No commission on lessons'],
   },
   {
     id: 'practice',
@@ -31,7 +31,7 @@ export const PRACTICE_TIERS: Tier[] = [
     commissionBps: 0,
     priceEnv: 'STRIPE_PRICE_PRACTICE',
     blurb: 'For a full-time solo practice.',
-    features: ['Unlimited clients', 'Per-client rates & packages', 'Branded email & invite letterhead', 'Targeted client messaging & invites', 'Earnings insights & analytics', 'In-app AI assistant', 'Reminders & calendar sync', 'No commission on sessions'],
+    features: ['Unlimited students', 'Per-student rates & packages', 'Branded email & invite letterhead', 'Targeted student messaging & invites', 'Earnings insights & analytics', 'In-app AI assistant', 'Reminders & calendar sync', 'No commission on lessons'],
   },
   {
     id: 'clinic',
@@ -39,8 +39,8 @@ export const PRACTICE_TIERS: Tier[] = [
     pricePence: 7900,
     commissionBps: 0,
     priceEnv: 'STRIPE_PRICE_CLINIC',
-    blurb: 'For multi-therapist practices.',
-    features: ['Everything in Practice', 'Multiple therapists', 'Practice-wide reporting', 'No commission'],
+    blurb: 'For tutoring teams with multiple tutors.',
+    features: ['Everything in Practice', 'Multiple tutors', 'Team-wide reporting', 'No commission'],
   },
 ]
 

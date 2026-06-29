@@ -5,7 +5,7 @@ import { redirect } from 'next/navigation'
 export async function GET(_req: Request, { params }: { params: Promise<{ code: string }> }) {
   const { code } = await params
   const jar = await cookies()
-  jar.set('faresay_ref', code.toUpperCase().slice(0, 40), {
+  jar.set('fair-do_ref', code.toUpperCase().slice(0, 40), {
     maxAge: 60 * 60 * 24 * 30, // 30 days
     httpOnly: true,
     sameSite: 'lax',

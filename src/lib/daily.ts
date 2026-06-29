@@ -14,7 +14,7 @@ export async function createRoom(sessionId: string, scheduledAt: Date, maxPartic
       Authorization: `Bearer ${apiKey}`,
     },
     body: JSON.stringify({
-      name: `faresay-${sessionId}`,
+      name: `fair-do-${sessionId}`,
       // Private: a valid meeting token is required to join, so a leaked room URL alone
       // cannot admit a stranger to a therapy session. Tokens are minted per participant
       // in the session page (createMeetingToken).

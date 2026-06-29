@@ -1,5 +1,5 @@
 /**
- * Shared Playwright fixtures and helpers for the Faresay E2E suite.
+ * Shared Playwright fixtures and helpers for the fair-do E2E suite.
  */
 import { test as base, expect, type Page } from '@playwright/test'
 import path from 'path'

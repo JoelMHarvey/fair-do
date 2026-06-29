@@ -5,6 +5,6 @@ export async function qrSvg(data: string): Promise<string> {
   return QRCode.toString(data, {
     type: 'svg',
     margin: 1,
-    color: { dark: '#193e39', light: '#ffffff' },
+    color: { dark: '#312e81', light: '#ffffff' },
   })
 }

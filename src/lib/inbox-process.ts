@@ -9,7 +9,7 @@ import { sendPushToClerkId } from './push'
 // Orchestrates the inbox agent: poll unseen support mail, triage it, then draft / send /
 // escalate per the action policy. Runs only when the level is above "off" (cron entry).
 
-const SUPPORT_FROM = process.env.RESEND_FROM ?? 'fair-do Support <support@faresay.com>'
+const SUPPORT_FROM = process.env.RESEND_FROM ?? 'fair-do Support <support@fair-do.com>'
 const FOUNDER_EMAIL = (process.env.FOUNDER_EMAIL ?? 'joelmharvey@gmail.com').toLowerCase()
 const OPS_TO = process.env.ALERT_EMAIL || process.env.FOUNDER_EMAIL || 'joelmharvey@gmail.com'
 
@@ -33,7 +33,7 @@ async function resolveRole(email: string): Promise<'teacher' | 'student' | 'unkn
 
 function replyHtml(text: string): string {
   const esc = text.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;')
-  return `<div style="font-family:Helvetica,Arial,sans-serif;font-size:15px;color:#2e2920;line-height:1.6;white-space:pre-wrap">${esc}
+  return `<div style="font-family:Helvetica,Arial,sans-serif;font-size:15px;color:#1e1b2e;line-height:1.6;white-space:pre-wrap">${esc}
 
 — fair-do Support</div>`
 }

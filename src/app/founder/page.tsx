@@ -4,7 +4,7 @@ import { SiteFooter } from '@/components/SiteFooter'
 import { isFounder, DOC_GROUPS, buildSearchIndex } from '@/lib/founder'
 import DocSearch from './DocSearch'
 
-export const metadata = { title: 'Business documentation — Faresay', robots: { index: false, follow: false } }
+export const metadata = { title: 'Business documentation — fair-do', robots: { index: false, follow: false } }
 
 export default async function FounderDocsIndex() {
   if (!(await isFounder())) notFound()

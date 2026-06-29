@@ -151,7 +151,7 @@ export default function SelfBookForm({ slug, availability, booked }: { slug: str
           <input aria-label="Mobile for text reminders (optional)" type="tel" value={phone} onChange={e => setPhone(e.target.value)} placeholder="Mobile (optional — for text reminders)" className="w-full border border-sand-300 rounded-xl px-3 py-2.5 text-sm" />
           <textarea value={note} onChange={e => setNote(e.target.value)} rows={2} placeholder="Anything you'd like your tutor to know (optional)" className="w-full border border-sand-300 rounded-xl px-3 py-2.5 text-sm" />
           {TURNSTILE_SITE_KEY && <div ref={tsRef} className="flex justify-center min-h-[65px]" />}
-          {error && <p className="text-coral-600 text-sm">{error}</p>}
+          {error && <p className="text-red-600 text-sm">{error}</p>}
           <button onClick={book} disabled={busy} aria-busy={busy} className="w-full bg-brand-600 text-white py-3 rounded-full font-medium hover:bg-brand-700 transition disabled:opacity-60 shadow-sm inline-flex items-center justify-center gap-2">
             {busy && <span className="w-4 h-4 border-2 border-white/40 border-t-white rounded-full animate-spin" aria-hidden />}
             {busy ? 'Booking your lesson…' : `Book ${fmtDate(date)} at ${time}`}

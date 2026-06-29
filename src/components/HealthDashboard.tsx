@@ -109,7 +109,7 @@ export function HealthDashboard({ m, backHref, backLabel }: { m: Metrics; backHr
             {!m.plausible.configured ? (
               <p className="text-sand-500">Not configured — set <code className="text-xs bg-sand-100 px-1 rounded">PLAUSIBLE_API_KEY</code> + <code className="text-xs bg-sand-100 px-1 rounded">PLAUSIBLE_SITE_ID</code>.</p>
             ) : m.plausible.error ? (
-              <p className="text-coral-600">Error: {m.plausible.error}</p>
+              <p className="text-red-600">Error: {m.plausible.error}</p>
             ) : (
               <>
                 <div className="grid grid-cols-3 gap-3 mb-3">
@@ -137,7 +137,7 @@ export function HealthDashboard({ m, backHref, backLabel }: { m: Metrics; backHr
             {!m.mailbox.configured ? (
               <p className="text-sand-500">Not configured — set <code className="text-xs bg-sand-100 px-1 rounded">IMAP_HOST</code> / <code className="text-xs bg-sand-100 px-1 rounded">IMAP_USER</code> / <code className="text-xs bg-sand-100 px-1 rounded">IMAP_PASSWORD</code>.</p>
             ) : m.mailbox.error ? (
-              <p className="text-coral-600">Error: {m.mailbox.error}</p>
+              <p className="text-red-600">Error: {m.mailbox.error}</p>
             ) : (
               <div className="grid grid-cols-2 gap-3">
                 <Stat label="Unread" value={m.mailbox.unread ?? 0} tone={(m.mailbox.unread ?? 0) > 15 ? 'bad' : (m.mailbox.unread ?? 0) > 0 ? 'warn' : undefined} />

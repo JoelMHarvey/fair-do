@@ -22,13 +22,13 @@ export type FeedEvent = {
 }
 
 // A subscribable VCALENDAR of many events (for a therapist's live calendar feed).
-// Calendar apps poll the URL, so this is one-way Faresay → Google/Apple/Outlook, auto-updating.
+// Calendar apps poll the URL, so this is one-way fair-do → Google/Apple/Outlook, auto-updating.
 export function buildCalendarFeed(events: FeedEvent[], opts?: { name?: string }): string {
-  const name = opts?.name ?? 'Faresay sessions'
+  const name = opts?.name ?? 'fair-do sessions'
   const lines = [
     'BEGIN:VCALENDAR',
     'VERSION:2.0',
-    'PRODID:-//Faresay//Practice//EN',
+    'PRODID:-//fair-do//Practice//EN',
     'CALSCALE:GREGORIAN',
     'METHOD:PUBLISH',
     `X-WR-CALNAME:${esc(name)}`,
@@ -39,7 +39,7 @@ export function buildCalendarFeed(events: FeedEvent[], opts?: { name?: string })
     const end = new Date(e.start.getTime() + (e.durationMins ?? 50) * 60_000)
     lines.push(
       'BEGIN:VEVENT',
-      `UID:session-${e.sessionId}@faresay.com`,
+      `UID:session-${e.sessionId}@fair-do.com`,
       `DTSTAMP:${toICSDate(new Date(e.start))}`,
       `DTSTART:${toICSDate(e.start)}`,
       `DTEND:${toICSDate(end)}`,
@@ -91,10 +91,10 @@ export function buildSessionICS(opts: {
   const lines = [
     'BEGIN:VCALENDAR',
     'VERSION:2.0',
-    'PRODID:-//Faresay//Therapy//EN',
+    'PRODID:-//fair-do//Therapy//EN',
     'METHOD:PUBLISH',
     'BEGIN:VEVENT',
-    `UID:session-${opts.sessionId}@faresay.com`,
+    `UID:session-${opts.sessionId}@fair-do.com`,
     `DTSTAMP:${stamp}`,
     `DTSTART:${toICSDate(start)}`,
     `DTEND:${toICSDate(end)}`,
@@ -103,7 +103,7 @@ export function buildSessionICS(opts: {
     `URL:${opts.joinUrl}`,
   ]
   if (opts.practiceName) {
-    lines.push(`ORGANIZER;CN="${esc(opts.practiceName)}":mailto:noreply@faresay.com`)
+    lines.push(`ORGANIZER;CN="${esc(opts.practiceName)}":mailto:noreply@fair-do.com`)
   }
   lines.push(
     'BEGIN:VALARM',
@@ -139,15 +139,15 @@ export function buildEventICS(opts: {
   const lines = [
     'BEGIN:VCALENDAR',
     'VERSION:2.0',
-    'PRODID:-//Faresay//Therapy//EN',
+    'PRODID:-//fair-do//Therapy//EN',
     'METHOD:REQUEST',
     'BEGIN:VEVENT',
-    `UID:${esc(opts.uid)}@faresay.com`,
+    `UID:${esc(opts.uid)}@fair-do.com`,
     `DTSTAMP:${stamp}`,
     `DTSTART:${toICSDate(start)}`,
     `DTEND:${toICSDate(end)}`,
     `SUMMARY:${esc(opts.title)}`,
-    `ORGANIZER;CN="${esc(opts.organizerName)}":mailto:noreply@faresay.com`,
+    `ORGANIZER;CN="${esc(opts.organizerName)}":mailto:noreply@fair-do.com`,
     `ATTENDEE;CN="${esc(opts.attendeeName ?? opts.attendeeEmail)}";RSVP=TRUE:mailto:${esc(opts.attendeeEmail)}`,
   ]
   if (descParts.length) lines.push(`DESCRIPTION:${esc(descParts.join('\n\n'))}`)

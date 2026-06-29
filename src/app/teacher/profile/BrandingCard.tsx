@@ -26,7 +26,7 @@ export default function BrandingCard({
 }) {
   const [enabled, setEnabled] = useState(initial.brandEnabled)
   const [logoUrl, setLogoUrl] = useState(initial.brandLogoUrl)
-  const [color, setColor] = useState(initial.brandColor || '#217567')
+  const [color, setColor] = useState(initial.brandColor || '#4f46e5')
   const [footerLine, setFooterLine] = useState(initial.brandFooterLine)
   const [replyTo, setReplyTo] = useState(initial.replyToEmail)
   const [widgetReady, setWidgetReady] = useState(false)
@@ -51,7 +51,7 @@ export default function BrandingCard({
           sources: ['local', 'url'],
           multiple: false,
           cropping: false,
-          folder: 'faresay/logos',
+          folder: 'fair-do/logos',
         },
         // eslint-disable-next-line @typescript-eslint/no-explicit-any
         (err: any, result: any) => {
@@ -106,7 +106,7 @@ export default function BrandingCard({
     )
   }
 
-  const previewColor = /^#[0-9a-fA-F]{6}$/.test(color) ? color : '#217567'
+  const previewColor = /^#[0-9a-fA-F]{6}$/.test(color) ? color : '#4f46e5'
 
   return (
     <div className="bg-white rounded-3xl border border-sand-200 p-6 shadow-sm">
@@ -183,7 +183,7 @@ export default function BrandingCard({
                 if (/^#[0-9a-fA-F]{0,6}$/.test(e.target.value)) setColor(e.target.value)
               }}
               maxLength={7}
-              placeholder="#217567"
+              placeholder="#4f46e5"
               className="w-28 border border-sand-300 rounded-xl px-3 py-2 text-sand-900 text-sm font-mono bg-white focus:outline-none focus:ring-2 focus:ring-brand-400 focus:border-transparent transition"
             />
             <span className="text-xs text-sand-400">Header bar and CTA button colour.</span>

@@ -89,7 +89,7 @@ describe('resolveEmailBrand', () => {
   it('falls back to default color when brandColor is invalid hex', async () => {
     mockFindUnique.mockResolvedValue(makeTeacher({ brandColor: 'blue' }))
     const brand = await resolveEmailBrand('t_1')
-    expect(brand?.color).toBe('#217567')
+    expect(brand?.color).toBe('#4f46e5')
   })
 
   it('rejects non-Cloudinary logo URL', async () => {

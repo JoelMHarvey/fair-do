@@ -9,7 +9,7 @@ import {
 
 describe('tierById', () => {
   it('returns correct tier for each id', () => {
-    // Faresay takes no session commission — every tier is 0.
+    // fair-do takes no session commission — every tier is 0.
     expect(tierById('starter')?.commissionBps).toBe(0)
     expect(tierById('practice')?.commissionBps).toBe(0)
     expect(tierById('clinic')?.commissionBps).toBe(0)

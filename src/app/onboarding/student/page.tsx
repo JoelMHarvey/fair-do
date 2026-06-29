@@ -231,7 +231,7 @@ function StudentOnboardingInner() {
               <span className="text-sm text-sand-700">I consent to fair-do processing my personal data to match me with a tutor and provide tuition.</span>
             </label>
 
-            {error && <p className="text-coral-600 text-sm mt-4">{error}</p>}
+            {error && <p className="text-red-600 text-sm mt-4">{error}</p>}
 
             <div className="flex gap-3 mt-7">
               <button onClick={() => setStep(1)} className="px-6 border border-sand-300 text-sand-700 py-3.5 rounded-full font-medium hover:bg-white transition">Back</button>

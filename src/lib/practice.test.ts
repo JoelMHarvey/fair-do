@@ -134,7 +134,7 @@ describe('feature flags', () => {
 
 // ─── Clinic commission-resolution correctness ────────────────────────────────
 // CLINIC-PLAN.md §3 flagged that a clinic member with no personal subscription could
-// fall back to a non-zero commission and be overcharged. That's now moot: Faresay
+// fall back to a non-zero commission and be overcharged. That's now moot: fair-do
 // takes NO session commission on any tier, so every path resolves to 0bps and no
 // overcharge is possible. (If a future tier ever reintroduces a fee, resolve it from
 // the clinic tier, not the solo fallback.)

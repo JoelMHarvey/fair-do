@@ -82,13 +82,13 @@ export function E2EPanel() {
     return (
       <div className="bg-white rounded-xl border border-sand-200 p-4 text-sm text-sand-500">
         Not configured — add <code className="text-xs bg-sand-100 px-1 rounded">GH_PAT</code> to Vercel environment variables
-        (needs <code className="text-xs bg-sand-100 px-1 rounded">actions:read</code> + <code className="text-xs bg-sand-100 px-1 rounded">actions:write</code> scopes on <code className="text-xs bg-sand-100 px-1 rounded">JoelMHarvey/faresay</code>).
+        (needs <code className="text-xs bg-sand-100 px-1 rounded">actions:read</code> + <code className="text-xs bg-sand-100 px-1 rounded">actions:write</code> scopes on <code className="text-xs bg-sand-100 px-1 rounded">JoelMHarvey/fair-do</code>).
       </div>
     )
   }
 
   if (data.error) {
-    return <div className="bg-white rounded-xl border border-sand-200 p-4 text-sm text-coral-600">GitHub API error: {data.error}</div>
+    return <div className="bg-white rounded-xl border border-sand-200 p-4 text-sm text-red-600">GitHub API error: {data.error}</div>
   }
 
   const latestRun = data.runs[0]

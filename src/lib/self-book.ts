@@ -64,7 +64,7 @@ export async function finalizeSelfBooking(input: FinalizeInput): Promise<{ sessi
     await prisma.session.update({ where: { id: session.id }, data: { dailyRoomName: room.name, dailyRoomUrl: room.url } })
   } catch (e) { console.error('[self-book] room failed:', e) }
 
-  const appUrl = process.env.NEXT_PUBLIC_APP_URL ?? 'https://faresay.com'
+  const appUrl = process.env.NEXT_PUBLIC_APP_URL ?? 'https://fair-do.com'
   sendSessionScheduledByTherapist({
     clientEmail: lcEmail, clientFirstName: firstName,
     teacherFirstName: teacher.firstName, teacherLastName: teacher.lastName,

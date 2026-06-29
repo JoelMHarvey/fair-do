@@ -4,7 +4,7 @@ import { getVisitorCurrency } from '@/lib/visitor-currency'
 
 // Shows a price in its charge currency (authoritative) with an estimated
 // conversion to the visitor's currency. Display-only: the actual charge is
-// always in `base` (the therapist's settlement currency / Faresay's billing).
+// always in `base` (the therapist's settlement currency / fair-do's billing).
 export async function LocalPrice({
   minor, base = 'GBP', whole = false, className, approxClassName = 'text-sand-400 font-normal',
 }: {

@@ -32,7 +32,7 @@ export async function POST(_req: Request, { params }: { params: Promise<{ id: st
       actor: { sub: me!.clerkId },
       expiresInSeconds: 600,
     })
-    const appUrl = process.env.NEXT_PUBLIC_APP_URL ?? 'https://faresay.com'
+    const appUrl = process.env.NEXT_PUBLIC_APP_URL ?? 'https://fair-do.com'
     console.log(`[admin] ${me!.email} impersonating ${target.email}`)
     return Response.json({ url: `${appUrl}/sign-in?__clerk_ticket=${actorToken.token}` }, { status: 200 })
   } catch (e) {

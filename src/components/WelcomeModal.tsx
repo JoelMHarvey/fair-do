@@ -2,7 +2,7 @@
 
 import { useEffect, useState } from 'react'
 
-const KEY = 'faresay_welcome_seen_v1'
+const KEY = 'fair-do_welcome_seen_v1'
 
 // One-time friendly orientation the first time a therapist lands on the dashboard.
 // Dismissed per device via localStorage — no backend, can't block anyone.

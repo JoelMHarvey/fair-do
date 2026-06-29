@@ -34,8 +34,8 @@ export async function POST(req: Request) {
   if (event.test) return new Response('OK', { status: 200 })
 
   const room = event.payload?.room
-  if (!room || !room.startsWith('faresay-')) return new Response('OK', { status: 200 })
-  const sessionId = room.slice('faresay-'.length)
+  if (!room || !room.startsWith('fair-do-')) return new Response('OK', { status: 200 })
+  const sessionId = room.slice('fair-do-'.length)
   const joinerId = event.payload?.user_id ?? ''
 
   try {

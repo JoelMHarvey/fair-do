@@ -242,7 +242,7 @@ export default function BookingForm({
               {internalPay ? 'No card needed.' : 'Secure payment via Stripe.'} Cancel 24h before for a full refund.
             </p>
           </div>
-          {error && <p className="text-coral-600 text-sm mb-3">{error}</p>}
+          {error && <p className="text-red-600 text-sm mb-3">{error}</p>}
           <button
             onClick={book}
             disabled={submitting || !bookingsOpen}

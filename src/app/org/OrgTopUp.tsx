@@ -48,7 +48,7 @@ export default function OrgTopUp() {
         ))}
       </div>
       <input className={input} type="number" placeholder="Or custom amount (£)" value={custom} onChange={e => setCustom(e.target.value)} />
-      {error && <p className="text-coral-600 text-sm mt-3">{error}</p>}
+      {error && <p className="text-red-600 text-sm mt-3">{error}</p>}
       <button
         onClick={topup}
         disabled={busy || amountPence < 5000}

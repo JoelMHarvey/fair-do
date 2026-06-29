@@ -10,6 +10,6 @@ export default function robots(): MetadataRoute.Robots {
         '/admin', '/teacher', '/availability', '/org', '/sign-in', '/sign-out',
       ],
     },
-    sitemap: 'https://faresay.com/sitemap.xml',
+    sitemap: 'https://fair-do.com/sitemap.xml',
   }
 }
