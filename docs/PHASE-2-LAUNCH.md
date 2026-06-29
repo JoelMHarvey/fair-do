@@ -32,17 +32,25 @@ Verify: `... npx prisma db pull` runs clean, or load `/dashboard` (no `P2021`/`P
 
 ---
 
-## 1. Pricing: rename the Stripe price env vars 🔴
+## 1. Pricing: create the Stripe prices + set the env vars 🔴
 
-Tiers were renamed Starter/Practice/Clinic → **Free / Pro / School** (prices
-unchanged: £0 / £29 / £79). The Stripe price **ids are the same** — only the env var
-**names** changed.
+Tiers are **Free / Pro / School** (£0 / £29 / £79). The paid plans were never wired in
+Stripe, so create the prices, then set the env vars (they hold Stripe **Price IDs**,
+`price_…`, not amounts).
 
-In Vercel → Settings → Environment Variables (Production):
-- rename `STRIPE_PRICE_PRACTICE` → **`STRIPE_PRICE_PRO`**
-- rename `STRIPE_PRICE_CLINIC` → **`STRIPE_PRICE_SCHOOL`**
+**Create the prices** — Stripe → Products → Add product (twice):
+- **fair-do Pro** → recurring **£29.00 / month**, GBP → copy its Price ID.
+- **fair-do School** → recurring **£79.00 / month**, GBP → copy its Price ID.
 
-Until done, choosing a paid plan returns "billing isn't configured" (Free still works).
+**Set in Vercel** → Settings → Environment Variables (Production):
+- `STRIPE_PRICE_PRO` = the Pro `price_…` id
+- `STRIPE_PRICE_SCHOOL` = the School `price_…` id
+
+> ⚠️ **Mode-specific.** Create the prices in the **same Stripe mode as your
+> `STRIPE_SECRET_KEY`** (Test mode for `sk_test_…`). When you switch to live keys,
+> recreate both prices in Live mode and update these vars to the live `price_…` ids.
+
+Until set, choosing a paid plan returns "billing isn't configured" (Free still works).
 Redeploy after env changes.
 
 > **Commission split** (own 0% / marketplace 10%) is already live in code — no flag.
@@ -135,8 +143,8 @@ each lesson off-session. Gated to Pro/School.
 
 | Var | For | Required? |
 |---|---|---|
-| `STRIPE_PRICE_PRO` | Pro plan (rename of `_PRACTICE`) | 🔴 paid plans |
-| `STRIPE_PRICE_SCHOOL` | School plan (rename of `_CLINIC`) | 🔴 paid plans |
+| `STRIPE_PRICE_PRO` | Pro plan — Stripe price id (£29/mo) | 🔴 paid plans |
+| `STRIPE_PRICE_SCHOOL` | School plan — Stripe price id (£79/mo) | 🔴 paid plans |
 | `WHITEBOARD_ENABLED` | P2-1 | per feature |
 | `EXCALIDRAW_ROOM_SECRET` / `EXCALIDRAW_SERVER_URL` | P2-1 | 🟢 |
 | `RESOURCES_ENABLED` | P2-5 | per feature |
