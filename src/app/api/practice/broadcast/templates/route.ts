@@ -45,7 +45,7 @@ export async function POST(req: Request) {
   if (!userId) return new Response('Unauthorized', { status: 401 })
   const { teacher, isPaid } = await paidTherapist(userId)
   if (!teacher) return new Response('Not a teacher', { status: 403 })
-  if (!isPaid) return Response.json({ error: 'Templates are on the Practice plan.' }, { status: 403 })
+  if (!isPaid) return Response.json({ error: 'Templates are on the Pro plan.' }, { status: 403 })
 
   const parsed = createSchema.safeParse(await req.json())
   if (!parsed.success) return Response.json({ error: 'Invalid template' }, { status: 400 })
@@ -63,7 +63,7 @@ export async function DELETE(req: Request) {
   if (!userId) return new Response('Unauthorized', { status: 401 })
   const { teacher, isPaid } = await paidTherapist(userId)
   if (!teacher) return new Response('Not a teacher', { status: 403 })
-  if (!isPaid) return Response.json({ error: 'Templates are on the Practice plan.' }, { status: 403 })
+  if (!isPaid) return Response.json({ error: 'Templates are on the Pro plan.' }, { status: 403 })
 
   const id = new URL(req.url).searchParams.get('id')
   if (!id) return Response.json({ error: 'Missing id' }, { status: 400 })

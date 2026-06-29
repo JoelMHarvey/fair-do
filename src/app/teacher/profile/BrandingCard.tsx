@@ -93,7 +93,7 @@ export default function BrandingCard({
         <div className="rounded-2xl bg-gradient-to-br from-brand-50 to-sand-50 border border-brand-100 p-5">
           <p className="text-sm font-semibold text-brand-800 mb-1">Make your emails yours</p>
           <p className="text-sm text-sand-600 mb-4">
-            Upgrade to Practice or School to add your logo, accent colour, and reply-to address to every client email.
+            Upgrade to Pro or School to add your logo, accent colour, and reply-to address to every client email.
           </p>
           <a
             href="/teacher/billing"

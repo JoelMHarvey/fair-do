@@ -52,7 +52,7 @@ export async function POST(req: Request) {
   const sub = teacher.subscription
   const isPaid = hasPaidAccess({ email: user!.email, subscription: sub })
   if (!isPaid) {
-    return Response.json({ error: 'The assistant is on the Practice plan.' }, { status: 403 })
+    return Response.json({ error: 'The assistant is on the Pro plan.' }, { status: 403 })
   }
 
   // A small, un-cached context block — the large system prompt above it stays

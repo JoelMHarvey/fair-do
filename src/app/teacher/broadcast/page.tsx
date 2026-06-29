@@ -89,7 +89,7 @@ export default async function BroadcastPage() {
               <>
                 This is for something everyone needs to know — a holiday notice, a change of hours, a new
                 offering. It goes by email to every <strong>active</strong> student with an email on file
-                (that&rsquo;s <strong>{reachable}</strong> right now). Upgrade to the Practice plan to choose
+                (that&rsquo;s <strong>{reachable}</strong> right now). Upgrade to the Pro plan to choose
                 recipients, send calendar invites, and save templates.
               </>
             )}

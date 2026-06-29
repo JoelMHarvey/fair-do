@@ -14,7 +14,7 @@ const FAQS = [
   },
   {
     q: 'How much does it cost?',
-    a: 'fair-do is a monthly subscription. Starter is free, Tutor is around £29/month, and Academy is coming soon. On top of the plan, there\'s a small commission on card payments to cover processing. Full, current details are on our pricing page.',
+    a: 'fair-do is a monthly subscription. Free is free, Pro is around £29/month, and School is for teams. On top of the plan, there\'s a small commission on card payments to cover processing. Full, current details are on our pricing page.',
   },
   {
     q: 'Are my students mine?',

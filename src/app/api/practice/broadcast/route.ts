@@ -61,7 +61,7 @@ export async function POST(req: Request) {
   const sub = teacher.subscription
   const isPaid = hasPaidAccess({ email: user.email, subscription: sub })
   if (!isPaid && (channel === 'event' || studentIds)) {
-    return Response.json({ error: 'Choosing recipients and calendar invites are on the Practice plan.' }, { status: 403 })
+    return Response.json({ error: 'Choosing recipients and calendar invites are on the Pro plan.' }, { status: 403 })
   }
 
   const matches = await prisma.match.findMany({

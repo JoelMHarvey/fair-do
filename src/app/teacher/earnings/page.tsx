@@ -169,7 +169,7 @@ export default async function EarningsPage() {
           </section>
         ) : (
           <div className="mb-10 bg-gradient-to-br from-brand-50 to-sand-50 rounded-2xl border border-brand-200 p-6">
-            <p className="text-sm font-semibold text-brand-800 mb-1">Earnings insights — on the Practice plan</p>
+            <p className="text-sm font-semibold text-brand-800 mb-1">Earnings insights — on the Pro plan</p>
             <p className="text-sm text-sand-600 mb-4">
               Month-on-month trends, a 6-month payout chart, lessons per week and month, and your most active students —
               so you can see how your studio is growing.

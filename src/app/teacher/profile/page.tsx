@@ -7,7 +7,7 @@ import ProfileForm from './ProfileForm'
 import BrandingCard from './BrandingCard'
 import { CancellationPolicyCard } from '@/components/CancellationPolicyCard'
 
-const PAID_TIERS = new Set(['practice', 'clinic'])
+const PAID_TIERS = new Set(['pro', 'school', 'practice', 'clinic'])
 const ACTIVE_STATUSES = new Set(['active', 'trialing'])
 
 export default async function TeacherProfilePage() {

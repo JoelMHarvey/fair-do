@@ -2,7 +2,7 @@ import { auth } from '@clerk/nextjs/server'
 import { prisma } from '@/lib/prisma'
 import { z } from 'zod'
 
-const PAID_TIERS = new Set(['practice', 'clinic'])
+const PAID_TIERS = new Set(['pro', 'school', 'practice', 'clinic'])
 const ACTIVE_STATUSES = new Set(['active', 'trialing'])
 
 const schema = z.object({
@@ -40,7 +40,7 @@ export async function POST(req: Request) {
 
   if (d.brandEnabled && !isPaid) {
     return Response.json(
-      { error: 'Branded emails require a Practice or School plan' },
+      { error: 'Branded emails require a Pro or School plan' },
       { status: 403 },
     )
   }
