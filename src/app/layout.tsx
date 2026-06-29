@@ -72,12 +72,15 @@ export default async function RootLayout({
         )}
         <ClerkProvider>{children}</ClerkProvider>
         <PWARegister />
+        {/* Privacy-friendly analytics by Plausible */}
         <Script
           defer
-          data-domain="fair-do.com"
-          src="https://plausible.io/js/script.js"
+          src="https://plausible.io/js/pa-razXEoY_HICMfZ98WVC7z.js"
           strategy="afterInteractive"
         />
+        <Script id="plausible-init" strategy="afterInteractive">
+          {`window.plausible=window.plausible||function(){(plausible.q=plausible.q||[]).push(arguments)},plausible.init=plausible.init||function(i){plausible.o=i||{}};plausible.init()`}
+        </Script>
       </body>
     </html>
   );

@@ -11,11 +11,11 @@ const securityHeaders = [
     key: 'Content-Security-Policy',
     value: [
       "default-src 'self'",
-      "script-src 'self' 'unsafe-inline' 'unsafe-eval' https://clerk.faresay.com https://*.clerk.accounts.dev https://challenges.cloudflare.com https://plausible.io https://upload-widget.cloudinary.com",
+      "script-src 'self' 'unsafe-inline' 'unsafe-eval' https://clerk.fair-do.com https://*.clerk.accounts.dev https://challenges.cloudflare.com https://plausible.io https://upload-widget.cloudinary.com",
       "style-src 'self' 'unsafe-inline'",
       "img-src 'self' data: https:",
       "font-src 'self' https://upload-widget.cloudinary.com",
-      "connect-src 'self' https://clerk.faresay.com https://*.clerk.accounts.dev https://*.daily.co wss://*.daily.co https://api.stripe.com https://plausible.io https://challenges.cloudflare.com https://api.cloudinary.com https://res.cloudinary.com https://upload-widget.cloudinary.com",
+      "connect-src 'self' https://clerk.fair-do.com https://*.clerk.accounts.dev https://*.daily.co wss://*.daily.co https://api.stripe.com https://plausible.io https://challenges.cloudflare.com https://api.cloudinary.com https://res.cloudinary.com https://upload-widget.cloudinary.com",
       "frame-src 'self' https://*.daily.co https://js.stripe.com https://hooks.stripe.com https://challenges.cloudflare.com https://upload-widget.cloudinary.com",
       "worker-src 'self' blob:",
       "media-src 'self' blob:",
