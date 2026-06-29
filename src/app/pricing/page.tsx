@@ -33,7 +33,7 @@ const TIERS = [
     highlight: true,
   },
   {
-    name: 'Clinic',
+    name: 'School',
     price: 'Coming soon',
     cadence: '',
     tagline: 'For group practices & studios.',
@@ -91,7 +91,7 @@ export default function PricingPage() {
                 </ul>
                 <p className="text-xs text-sand-500 mb-5">{t.note}</p>
                 <Link
-                  href={t.name === 'Clinic' ? 'mailto:support@fair-do.com' : '/sign-up?role=teacher'}
+                  href={t.name === 'School' ? 'mailto:support@fair-do.com' : '/sign-up?role=teacher'}
                   className={`text-center py-3 rounded-full font-medium transition ${t.highlight ? 'bg-brand-600 text-white hover:bg-brand-700 shadow-sm' : 'border border-brand-200 text-brand-700 hover:bg-brand-50'}`}
                 >
                   {t.cta}

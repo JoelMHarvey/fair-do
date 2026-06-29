@@ -35,7 +35,7 @@ export const PRACTICE_TIERS: Tier[] = [
   },
   {
     id: 'clinic',
-    name: 'Clinic',
+    name: 'School',
     pricePence: 7900,
     commissionBps: 0,
     priceEnv: 'STRIPE_PRICE_CLINIC',

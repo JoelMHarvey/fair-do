@@ -40,7 +40,7 @@ export async function POST(req: Request) {
 
   if (d.brandEnabled && !isPaid) {
     return Response.json(
-      { error: 'Branded emails require a Practice or Clinic plan' },
+      { error: 'Branded emails require a Practice or School plan' },
       { status: 403 },
     )
   }

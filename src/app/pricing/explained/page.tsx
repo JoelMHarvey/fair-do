@@ -42,7 +42,7 @@ export default function PricingExplainedPage() {
             <div className="bg-white rounded-2xl border border-sand-200 p-5">
               <p className="font-medium text-brand-900">1. Your monthly plan</p>
               <p className="text-sm text-sand-600 mt-1">
-                Free on Starter, {gbp0(2900)}/month on Practice, {gbp0(7900)}/month on Clinic. A flat fee for the
+                Free on Starter, {gbp0(2900)}/month on Practice, {gbp0(7900)}/month on School. A flat fee for the
                 software — nothing to do with how much you earn. Cancel any time.
               </p>
             </div>

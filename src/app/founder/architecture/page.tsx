@@ -67,7 +67,7 @@ const DIAGRAMS: { id: string; title: string; blurb: string; chart: string }[] = 
   MG --> S["Session — Daily video"]
   S --> P["Payout to teacher (~2 days)"]
   S -.->|cancel| R["refund.ts — reverse_transfer if transferred; restore credit if internal"]
-  CN["Commission — Starter 2.5% · Practice 1% · Clinic 0%"]`,
+  CN["Commission — Starter 2.5% · Practice 1% · School 0%"]`,
   },
   {
     id: 'inbox',
