@@ -15,7 +15,9 @@ import StudentDocuments from './ClientDocuments'
 import StudentForms from './ClientForms'
 import InviteParentForm from './InviteParentForm'
 import { ParentMessages } from '@/components/ParentMessages'
+import { LessonNoteEditor } from '@/components/LessonNoteEditor'
 import { PARENT_PORTAL_ENABLED, teacherCanOfferParentPortal } from '@/lib/parent'
+import { AI_NOTES_ENABLED } from '@/lib/lesson-notes'
 import type { FormField } from '@/lib/forms'
 
 const STATUS_CLASS: Record<string, string> = {
@@ -59,6 +61,15 @@ export default async function StudentDetailPage({ params }: { params: Promise<{ 
         where: { studentId: match.studentId, status: { in: ['pending', 'active'] } },
         include: { parentThread: { include: { messages: { orderBy: { createdAt: 'asc' } } } } },
         orderBy: { createdAt: 'asc' },
+      })
+    : []
+
+  const lessonNotes = AI_NOTES_ENABLED
+    ? await prisma.lessonNote.findMany({
+        where: { teacherId: teacher.id, studentId: match.studentId },
+        include: { session: { select: { scheduledAt: true } } },
+        orderBy: { createdAt: 'desc' },
+        take: 10,
       })
     : []
 
@@ -186,6 +197,29 @@ export default async function StudentDetailPage({ params }: { params: Promise<{ 
                 />
               </div>
             ))}
+          </section>
+        )}
+
+        {/* AI lesson notes (P2-4) */}
+        {AI_NOTES_ENABLED && lessonNotes.length > 0 && (
+          <section className="mb-8">
+            <h2 className="font-medium text-sand-900 mb-3 flex items-center">
+              Lesson notes
+              <HelpTip label="About lesson notes">
+                Drafted automatically from the lesson transcript. Review and edit, then
+                share with the student (and parent, if linked).
+              </HelpTip>
+            </h2>
+            <div className="space-y-4">
+              {lessonNotes.map(n => (
+                <div key={n.id}>
+                  <p className="text-xs text-sand-400 mb-1.5">
+                    {new Date(n.session.scheduledAt).toLocaleDateString('en-GB', { day: 'numeric', month: 'short', year: 'numeric' })}
+                  </p>
+                  <LessonNoteEditor initial={{ sessionId: n.sessionId, topicsCovered: n.topicsCovered, difficulty: n.difficulty, homework: n.homework, status: n.status }} />
+                </div>
+              ))}
+            </div>
           </section>
         )}
 

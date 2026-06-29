@@ -51,7 +51,7 @@ export default async function ParentDashboard() {
     }),
     prisma.session.findMany({
       where: { studentId: student.id, OR: [{ scheduledAt: { lt: now } }, { status: { in: ['COMPLETED', 'CANCELLED', 'NO_SHOW'] } }] },
-      include: { teacher: true },
+      include: { teacher: true, lessonNote: true },
       orderBy: { scheduledAt: 'desc' },
       take: 20,
     }),
@@ -112,6 +112,14 @@ export default async function ParentDashboard() {
                     <p className="text-sm text-sand-500">{s.teacher.firstName} {s.teacher.lastName}</p>
                   </div>
                   <p className="text-xs text-sand-400 mt-0.5">{attendance(s)}</p>
+                  {s.lessonNote?.status === 'shared' && (
+                    <div className="mt-2 rounded-xl bg-brand-50/60 border border-brand-100 px-3 py-2 text-sm text-sand-700">
+                      <p className="text-xs font-medium text-brand-700 mb-1">Lesson notes</p>
+                      <p>{s.lessonNote.topicsCovered}</p>
+                      {s.lessonNote.difficulty && <p className="mt-1"><span className="text-sand-500">Found tricky:</span> {s.lessonNote.difficulty}</p>}
+                      {s.lessonNote.homework && <p className="mt-1"><span className="text-sand-500">Homework:</span> {s.lessonNote.homework}</p>}
+                    </div>
+                  )}
                 </div>
               ))}
             </div>
