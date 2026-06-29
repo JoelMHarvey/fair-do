@@ -42,7 +42,7 @@ export default function DirectoryToggle({ initial }: { initial: boolean }) {
         <p className="text-sm font-medium text-sand-900">Accepting new clients</p>
         <p className="text-xs text-sand-500 mt-0.5">
           {on
-            ? 'Your profile, calendar and booking are listed in the Faresay directory so new clients can find and book you.'
+            ? 'Your profile, calendar and booking are listed in the fair-do directory so new students can find and book you.'
             : 'You’re hidden from the directory. Turn this on to be discoverable and take on new clients.'}
         </p>
         {error && <p className="text-xs text-red-600 mt-1">{error}</p>}

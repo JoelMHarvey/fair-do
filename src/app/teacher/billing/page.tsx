@@ -102,7 +102,7 @@ export default async function BillingPage({ searchParams }: { searchParams: Prom
 
         <p className="text-xs text-sand-400 mt-8">
           Prices shown are per month, exclusive of VAT. Commission is taken from payments you process
-          through Faresay; payouts reach your bank a couple of business days after each session.
+          through fair-do; payouts reach your bank a couple of business days after each lesson.
         </p>
       </div>
     </main>

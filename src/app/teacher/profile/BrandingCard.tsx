@@ -217,7 +217,7 @@ export default function BrandingCard({
             onChange={e => setReplyTo(e.target.value)}
             placeholder="hello@yourpractice.com"
           />
-          <p className="text-xs text-sand-400 mt-1">Client replies go here instead of a Faresay inbox.</p>
+          <p className="text-xs text-sand-400 mt-1">Student replies go here instead of a fair-do inbox.</p>
         </div>
       </div>
 
@@ -268,7 +268,7 @@ function EmailPreview({
   if (!enabled) {
     return (
       <div className="rounded-2xl border border-sand-200 bg-sand-50 p-4 text-center text-sm text-sand-400">
-        Branding off — clients see the default Faresay email.
+        Branding off — students see the default fair-do email.
       </div>
     )
   }
@@ -319,7 +319,7 @@ function EmailPreview({
           </p>
         )}
         <p className="text-sand-400" style={{ fontSize: 11 }}>
-          Powered by Faresay · In a crisis? Call 999 or NHS 111.
+          Powered by fair-do
         </p>
       </div>
     </div>
