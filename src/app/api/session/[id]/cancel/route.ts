@@ -1,6 +1,7 @@
 import { auth } from '@clerk/nextjs/server'
 import { prisma } from '@/lib/prisma'
 import { refundSessionPayment } from '@/lib/refund'
+import { refundPercentForCancellation } from '@/lib/cancellation'
 import { sendCancellationNotice } from '@/lib/email'
 import { clientEmail } from '@/lib/practice'
 
@@ -33,9 +34,15 @@ export async function POST(_req: Request, { params }: { params: Promise<{ id: st
   }
 
   const hoursUntil = (new Date(session.scheduledAt).getTime() - Date.now()) / 3_600_000
-  const cancelledBy = isStudent ? 'student' : 'teacher'
-  // Full refund if >24h ahead, OR whenever the teacher cancels (never penalise the student for that).
-  const eligibleForRefund = hoursUntil >= 24 || cancelledBy === 'teacher'
+  const cancelledBy: 'student' | 'teacher' = isStudent ? 'student' : 'teacher'
+  // Per the teacher's configurable policy (P2-6): full refund if cancelled in time
+  // or by the teacher; otherwise the teacher's late-cancellation percentage.
+  const percent = refundPercentForCancellation({
+    hoursUntil,
+    windowHours: session.teacher.cancellationWindowHours,
+    lateRefundPercent: session.teacher.lateCancelRefundPercent,
+    cancelledBy,
+  })
 
   await prisma.session.update({
     where: { id },
@@ -44,8 +51,9 @@ export async function POST(_req: Request, { params }: { params: Promise<{ id: st
   })
 
   let refunded = false
-  if (eligibleForRefund) {
-    refunded = await refundSessionPayment(session.payment, session.studentId, session.student.organisationId)
+  if (percent > 0) {
+    const refundPence = session.payment ? Math.round((session.payment.amountTotalPence * percent) / 100) : 0
+    refunded = await refundSessionPayment(session.payment, session.studentId, session.student.organisationId, refundPence)
   }
 
   sendCancellationNotice({

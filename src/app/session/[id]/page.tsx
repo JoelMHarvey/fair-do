@@ -76,7 +76,9 @@ export default async function SessionPage({
     ? await prisma.review.findUnique({ where: { sessionId: session.id } })
     : null
   const canReview = isStudent && sessionHappened && !existingReview
-  const refundable = hoursUntil >= 24
+  const cancelWindow = session.teacher.cancellationWindowHours
+  const lateRefundPercent = session.teacher.lateCancelRefundPercent
+  const refundable = hoursUntil >= cancelWindow
 
   const backHref = isStudent ? '/dashboard' : '/teacher/dashboard'
   const wbUrl = WHITEBOARD_ENABLED ? whiteboardUrl(session.id) : null
@@ -198,10 +200,12 @@ export default async function SessionPage({
 
               {canCancel && (
                 <div className="mt-8">
-                  <CancelButton sessionId={id} refundable={refundable} />
+                  <CancelButton sessionId={id} refundable={refundable} windowHours={cancelWindow} lateRefundPercent={lateRefundPercent} />
                   {!refundable && (
                     <p className="text-xs text-coral-300 mt-3">
-                      Within 24 hours — cancelling now is non-refundable.
+                      {lateRefundPercent > 0
+                        ? `Within ${cancelWindow} hours — cancelling now refunds ${lateRefundPercent}%.`
+                        : `Within ${cancelWindow} hours — cancelling now is non-refundable.`}
                     </p>
                   )}
                 </div>

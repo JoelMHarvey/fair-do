@@ -140,6 +140,11 @@ model Teacher {
   isFoundingMember    Boolean       @default(false)
   sessionRatePence    Int // e.g. 5000 = £50.00 per lesson
   introRatePence      Int? // discounted first-lesson rate
+  // Cancellation policy (P2-6). Cancel at least `cancellationWindowHours` ahead → full
+  // refund; later → `lateCancelRefundPercent`% refund. Defaults reproduce the previous
+  // rule (full refund ≥24h ahead, otherwise non-refundable).
+  cancellationWindowHours Int @default(24) // 24 | 48 | 72
+  lateCancelRefundPercent Int @default(0) // 100 | 50 | 0
   groupRatePence      Int? // per-person rate for group lessons
   groupMaxSize        Int           @default(1) // >1 enables group bookings
   availableForNew     Boolean       @default(true)
