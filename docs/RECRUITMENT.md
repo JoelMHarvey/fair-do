@@ -6,7 +6,7 @@ Internal reference for the founding team. Not for public distribution as-is.
 
 ## The one-line pitch
 
-Tutors on fair-do keep **100% of their own students** — 0% commission — and 90% on students fair-do sends them from the marketplace. Set your own rate, your own hours, and we handle all the bookings, video, and payments.
+Tutors on fair-do keep **100% of every lesson** — 0% commission on everything. Set your own rate, your own hours, and we handle all the bookings, video, and payments.
 
 ---
 
@@ -14,15 +14,15 @@ Tutors on fair-do keep **100% of their own students** — 0% commission — and 
 
 | | Tutorful | MyTutor | fair-do |
 |---|---|---|---|
-| **You keep** | ~65–70% (35% service fee) | ~48–52% (40% commission + VAT) | **100% own students · 90% marketplace** |
+| **You keep** | ~65–70% (35% service fee) | ~48–52% (40% commission + VAT) | **100% on every lesson** |
 | **Set your own rate** | Yes | No — banded pricing structure | Yes |
 | **Set your own hours** | Yes | Limited by student demand windows | Yes |
 | **Payout timing** | Weekly in arrears | Monthly | Per lesson (Stripe, same or next day) |
 | **Student lock-in tactics** | Messaging wall; cannot exchange contact details | Platform-mediated only | None — your student relationship, your contact |
 | **Subscription to join** | No | No | No |
-| **Commission rate** | 35% service fee (student-facing) | ~40% + VAT | **0% own students · 10% marketplace** |
+| **Commission rate** | 35% service fee (student-facing) | ~40% + VAT | **0% — no commission ever** |
 
-**What that means in practice:** A tutor charging £45/hour with 15 students per week (15 hours) grosses £675/week. On MyTutor they take home roughly £330. On fair-do they keep **the full £675 on their own students** (0% commission), or £607.50 on marketplace-sourced students (10%). Even at the marketplace rate that is £277.50 per week — over £14,000 per year — back in their pocket for identical work.
+**What that means in practice:** A tutor charging £45/hour with 15 students per week (15 hours) grosses £675/week. On MyTutor they take home roughly £330. On fair-do they keep **the full £675 on every lesson** — that is £345 per week — over £17,000 per year — back in their pocket for identical work.
 
 **Founder note:** We are building the platform tutors deserve — one where a fair rate means the tutor's rate, not ours. The first 15–25 tutors will shape what this becomes, and we want people who care about that. Worth a 15-minute call?
 
@@ -91,7 +91,7 @@ Hi [Name],
 
 I came across your profile and noticed you've been tutoring [subject/specialism] for a while now — your reviews on [Tutorful / MyTutor / your site] look excellent.
 
-I'm building fair-do.com, a UK tutoring platform where tutors keep **100% of their own students** (0% commission) — and 90% on students we introduce — no commission creep, no messaging walls, no platform drama. You set your rate, your hours, and you own the student relationship.
+I'm building fair-do.com, a UK tutoring platform where tutors keep **100% of every lesson** — 0% commission, on everything, always. No commission creep, no messaging walls, no platform drama. You set your rate, your hours, and you own the student relationship.
 
 We're recruiting our founding cohort of 15–25 tutors right now. Founding tutors get priority placement in search results, a permanent Founding Tutor badge on their profile, and access to the referral scheme (£25 for every tutor you refer who completes their first five lessons).
 
@@ -110,9 +110,9 @@ Use for: r/tutors, r/TeachingUK, posting in Facebook groups
 
 ---
 
-**Post title:** A UK tutoring platform — keep 100% of your own students — honest overview
+**Post title:** A UK tutoring platform — 0% commission, keep 100% of every lesson
 
-I've been building fair-do.com, a UK tutoring marketplace where tutors keep **100% of their own students** — we take 10% only on students the marketplace sends you, to cover payments, video, and scheduling. No subscription to join.
+I've been building fair-do.com, a UK tutoring platform where tutors keep **100% of every lesson** — no commission ever. We charge a flat monthly subscription; the Free plan is free to join and covers up to 8 students.
 
 I know "new platform" raises an obvious question: will I actually get students? Fair answer: we're in early launch, so student numbers are growing. We're focusing on building a tight founding cohort first — 15–25 tutors across core subjects — rather than launching thinly across everything.
 
@@ -130,7 +130,7 @@ For tutor groups where you have been invited or are a legitimate member:
 
 ---
 
-Hi [Name / everyone] — quick one. I'm launching fair-do.com, a UK tutoring platform where tutors keep 100% of their own students (10% only on ones we send you). No fees to join, you set your own rate. Looking for a small founding group of tutors (15–25) who want in early — priority placement, founding badge, referral scheme. DM me if curious — happy to explain more. [Link]
+Hi [Name / everyone] — quick one. I'm launching fair-do.com, a UK tutoring platform with 0% commission on every lesson — you keep 100%, always. We charge a flat monthly subscription. No fees to join, you set your own rate. Looking for a small founding group of tutors (15–25) who want in early — priority placement, founding badge, referral scheme. DM me if curious — happy to explain more. [Link]
 
 ---
 
@@ -150,7 +150,7 @@ Quick update — we now have [X] tutors live on fair-do and [X] students who hav
 
 As a founding tutor, you have access to our referral scheme: if you refer another tutor who completes their first five lessons on the platform, you receive £25 — no cap on how many you can refer.
 
-If you know any tutors who are tired of handing 30–40% to a platform, a quick mention from you will carry far more weight than anything we can say cold.
+If you know any tutors who are tired of handing 30–40% to a platform on every lesson, a quick mention from you will carry far more weight than anything we can say cold.
 
 Your referral link: [link]
 
@@ -176,7 +176,7 @@ Thanks for being part of this from the beginning.
 
 ### "What's the catch?"
 
-**Response:** No catch. You keep **100% of your own students** — we charge **0%** commission on those. We take **10% only on students the marketplace sends you**, to cover Stripe processing (around 1.5–2%), hosting, and the marketing that brings you those students. At scale, 10% of a large, growing volume is a sustainable business. Most competitors charge 30–40% because they built margin-extraction into their model from day one. We built ours around tutor retention: if tutors earn more, they stay, they refer others, and the platform grows. The 10% is genuinely the fee — there are no hidden charges, no subscription required to join, and no exclusivity.
+**Response:** No catch. You keep **100% of every lesson** — we charge **0% commission**, on every booking, always. We make money from a flat monthly subscription (free to start). Most competitors charge 30–40% because they built margin-extraction into their model from day one. We built ours around tutor retention: if tutors earn more, they stay, they refer others, and the platform grows. There are no hidden charges, no per-lesson fees, and no exclusivity.
 
 ### "Do I need to be a qualified teacher?"
 
@@ -184,7 +184,7 @@ Thanks for being part of this from the beginning.
 
 ### "What about my own existing students?"
 
-**Response:** Your existing students are yours. We have no exclusivity clause, no restriction on students you bring to the platform, and no interest in locking you in. You can migrate your existing students to fair-do (they sign up for free and book through the platform) and pay **0% commission** on them — compared to whatever your current platform charges. The 10% applies only to students the marketplace sends you. Or you can keep them off-platform entirely and only use fair-do for new students. You can run both approaches simultaneously. The only constraint: if a student finds you through fair-do's marketplace, lessons with that student should be booked through fair-do.
+**Response:** Your existing students are yours. We have no exclusivity clause, no restriction on students you bring to the platform, and no interest in locking you in. You can migrate your existing students to fair-do (they sign up for free and book through the platform) and pay **0% commission** on them — compared to whatever your current platform charges. Or you can keep them off-platform entirely and only use fair-do for new students. You can run both approaches simultaneously.
 
 ### "How is the video / tech?"
 

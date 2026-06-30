@@ -25,7 +25,7 @@ divergence is fine.
 
 The teacher app runs on **fair-do.com** (registered at Cloudflare). "Fair do" is
 immediately legible British English — fair pricing, fair deal for teachers and students —
-and maps directly to the 10% commission pitch. It cannot share `faresay.com`, which is
+and maps directly to the 0% commission pitch. It cannot share `faresay.com`, which is
 a therapy brand.
 
 ### What must be separate (one per product)
@@ -740,8 +740,8 @@ The most impactful single change. Tutorful and MyTutor charge the same commissio
 whether the tutor found the student or the platform did — tutors find this deeply unfair.
 
 **Proposed model:**
-- **Own students** (invited via practice portal): **0% commission**, free on all tiers
-- **Marketplace students** (found through the directory): **10% commission**
+- **Own students** (invited via practice portal): **0% commission**
+- **Marketplace students** (found through the directory): **0% commission** — subscription-only
 
 This undercuts Tutorful/MyTutor by half on marketplace bookings and gives tutors a
 strong reason to consolidate their existing students onto the platform.
@@ -757,7 +757,7 @@ Replace the Faresay Starter/Practice/Clinic tiers with tutor-specific tiers:
 
 | Tier | Price | Limits & features |
 |---|---|---|
-| **Free** | £0/mo | Up to 8 own students, 0% commission on own, marketplace listing, video, scheduling, messaging |
+| **Free** | £0/mo | Up to 8 students, 0% commission on everything, marketplace listing, video, scheduling, messaging |
 | **Pro** | £29/mo | Unlimited own students, recurring bookings, parent portal, AI lesson notes, resource sharing, branded emails, configurable cancellation policy |
 | **School** | £79/mo | Multiple teachers under one account, school/agency B2B features, bulk invoicing, white-label branding |
 
@@ -1141,8 +1141,8 @@ policy (quick wins to fill out the Pro tier).
 | Integrated video | ✅ | ✅ | ❌ | ✅ | ✅ |
 | Integrated payments | ✅ | ✅ | manual | ✅ | ✅ |
 | Practice management | ❌ | ❌ | ✅ | ✅ | ✅ |
-| 0% commission on own students | ❌ | ❌ | ✅ | ✅ | ✅ |
-| Marketplace commission | ~20–25% | ~20–25% | n/a | 10% | 10% |
+| 0% commission on all students | ❌ | ❌ | ✅ | ✅ | ✅ |
+| Marketplace commission | ~20–25% | ~20–25% | n/a | 0% | 0% |
 | Recurring bookings | ❌ | ❌ | ✅ | ❌ | ✅ |
 | Interactive whiteboard | basic | ✅ | ❌ | ❌ | ✅ |
 | Parent portal (transcripts, notes, attendance, invoices) | ❌ | ❌ | ❌ | ❌ | ✅ (£4.99/mo, parent pays) |

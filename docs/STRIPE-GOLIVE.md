@@ -1,9 +1,8 @@
 # Stripe go-live checklist
 
 fair-do uses **Stripe Connect (Express)** with **destination charges**
-(`application_fee_amount` + `transfer_data.destination`). The platform takes a 15%
-fee (10% for founding tutors); the remainder transfers to the tutor's
-connected account. Students pay via Stripe Checkout.
+(`transfer_data.destination`). The full lesson amount transfers to the tutor's
+connected account — fair-do takes no commission. Students pay via Stripe Checkout.
 
 > ⚠️ **fair-do (the platform) is liable** for refunds, chargebacks, and negative
 > balances on destination charges. Keep a cash buffer.
@@ -64,7 +63,7 @@ Test-mode connected accounts (`acct_...`) **do not carry to live**.
 ## 7. Smoke test (before announcing)
 With one real, live-onboarded tutor:
 1. [ ] Book a real lesson, **real card, small amount**
-2. [ ] Charge succeeds → 15% `application_fee` retained → remainder transfers to tutor
+2. [ ] Charge succeeds → full amount transfers to tutor (no application fee)
 3. [ ] `checkout.session.completed` marks the lesson paid + confirmation email sent
 4. [ ] Cancel >24h ahead → refund lands; `charge.refunded` reflected in the payment
 5. [ ] Tutor **payout** appears (≈2 business days)
@@ -72,7 +71,7 @@ With one real, live-onboarded tutor:
 ## 8. Also confirm (not Stripe, but launch-coupled)
 - [ ] `DAILY_WEBHOOK_SECRET` set (video webhook fails closed without it)
 - [ ] `SENTRY_DSN` set (error capture)
-- [ ] VAT treatment of the 15% platform fee confirmed with accountant/solicitor
+
 
 ---
 

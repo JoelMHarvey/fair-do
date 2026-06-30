@@ -147,7 +147,7 @@ The global online tutoring market is projected to reach **$427.6 billion by 2029
 
 | Feature | Tutorful | MyTutor | Superprof | Tutor Hunt | Spires | GoStudent | **fair-do** |
 |---|---|---|---|---|---|---|---|
-| Commission on marketplace bookings | 0% (tutor) / 35% (student) | 40% | 10% | 25–33% | 20–35% | Subscription | **10%** |
+| Commission on marketplace bookings | 0% (tutor) / 35% (student) | 40% | 10% | 25–33% | 20–35% | Subscription | **0%** |
 | Commission on tutor's own students | n/a | 40% | 0% direct | 25–33% | 5% | n/a | **0%** |
 | Student subscription required | No | No | £39/mo | No | No | Yes | **No** |
 | Tutor subscription | No | No | ~$99/yr optional | No | No | n/a | **Free £0 · Pro £29 · School £79** |

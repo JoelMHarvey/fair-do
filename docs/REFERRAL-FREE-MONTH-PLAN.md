@@ -1,11 +1,11 @@
 # Tutor referral reward — free month instead of cash
 
-**Status:** plan. Pairs with the 0%-commission money model.
+**Status:** plan. Pairs with the subscription-only money model (0% commission).
 
 ## The problem
 The tutor referral reward is currently a **£25 cash bonus** (`THERAPIST_REFERRAL_BONUS_PENCE`), recorded as "owed" and paid out manually via the referrer's Connect payout. Two issues now:
 1. **Free-plan referrers** pay fair-do nothing, so a cash bonus to them is pure cash outflow with no offsetting revenue — and there's no clean rail to pay cash to someone who isn't selling lessons yet.
-2. We took the commission to **0%**, so referral cash isn't funded by per-lesson revenue any more — it would come straight off the (subscription-only) bottom line.
+2. Commission is **0%** — referral cash isn't funded by per-lesson revenue; it would come straight off the subscription bottom line.
 
 ## The fix (your idea)
 Reward = **a free month of the paid plan**, not cash.

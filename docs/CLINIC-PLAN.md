@@ -32,7 +32,7 @@ Phases 2–4 (create/invite/roles · shared calendar · seat billing) are **unbu
 There are **two independent money layers** — keep them separate.
 
 ### Layer A — Subscription (clinic → Faresay)
-- **One seat-based subscription on the clinic**, not per therapist. Stripe **`quantity` = active seats**; the owner is billed. Tier = `clinic` ⇒ **0% session commission**.
+- **One seat-based subscription on the clinic**, not per therapist. Stripe **`quantity` = active seats**; the owner is billed. Tier = `clinic` ⇒ **0% session commission** (same as all tiers).
 - Extends the existing `Subscription` model (attach to the clinic / owner, add quantity + proration).
 - Decisions: per-seat £ price · is the owner seat free · proration when adding/removing seats.
 
@@ -41,12 +41,12 @@ Which Stripe Connect account receives a session charge in a clinic?
 
 | Model | How it works | Pros | Cons |
 |------|--------------|------|------|
-| **A — Per-therapist Connect (RECOMMENDED)** | Each therapist keeps their **own** Connect account. A client pays the **treating** therapist directly (destination charge, **0%** Faresay commission). The clinic is purely an admin + billing grouping. | Reuses **all** existing booking / payment / refund / payout / slotKey / webhook code **unchanged**; each therapist paid directly; smallest legal/tax change. | The clinic doesn't centrally collect; if it wants to pay associates itself, that's off-platform. |
+| **A — Per-therapist Connect (RECOMMENDED)** | Each therapist keeps their **own** Connect account. A client pays the **treating** therapist directly (destination charge, **0%** commission). The clinic is purely an admin + billing grouping. | Reuses **all** existing booking / payment / refund / payout / slotKey / webhook code **unchanged**; each therapist paid directly; smallest legal/tax change. | The clinic doesn't centrally collect; if it wants to pay associates itself, that's off-platform. |
 | **B — Clinic Connect account** | **One** clinic Connect account receives every session charge; the clinic distributes to therapists. | Clinic is merchant of record; central collection; fits employer/associate clinics. | Large rework: clinic-level Connect onboarding, payout splitting, clinic becomes controller **and** merchant (VAT/employment/DPA implications), refund + transfer logic reworked. |
 
 **Recommendation: Model A for first release.** Clinic = grouping + seat subscription; therapists keep their own Connect and get paid directly. Offer Model B later only if design-partner clinics demand central collection. This keeps the money-critical code paths (booking/create, practice/booking, webhook, refund.ts) **untouched**.
 
-- **Commission:** clinic tier = 0% → Faresay takes no session commission; revenue is the seat subscription. Card processing stays Stripe's.
+- **Commission:** 0% on all bookings — revenue is the seat subscription. Card processing stays Stripe's.
 - **Refunds / cancellations:** unchanged under Model A (per-therapist Connect → existing `refund.ts`).
 
 ### ⚠️ Commission-resolution correctness (easy to get wrong)

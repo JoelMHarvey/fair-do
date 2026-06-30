@@ -53,10 +53,6 @@ Stripe, so create the prices, then set the env vars (they hold Stripe **Price ID
 Until set, choosing a paid plan returns "billing isn't configured" (Free still works).
 Redeploy after env changes.
 
-> **Commission split** (own 0% / marketplace 10%) is already live in code — no flag.
-> It only applies to directory/marketplace bookings, which are off until
-> `NEXT_PUBLIC_DIRECTORY_ENABLED=true`.
-
 ---
 
 ## 2. Cancellation policy (P2-6) — already on ✅

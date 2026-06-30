@@ -25,22 +25,9 @@ Three structural events in 2024–2026 have materially expanded the addressable 
 
 ### fair-do's addressable market
 
-At 90% tutor retention on a 10% platform fee, fair-do's revenue per pound of gross tutoring value transacted is structurally lower than commission-heavy competitors — but this is intentional. The competitive advantage is in volume capture, not margin extraction. The model requires a larger share of a market where fair pricing is the acquisition mechanism.
+fair-do's revenue is subscription-based — tutors keep 100% of every lesson. Revenue scales with the number of active tutors on paid plans and parent portal subscribers.
 
-At £35–40/hr average session rates, 20 hours per month per active tutor, a platform of 1,000 active tutors would generate approximately £8.4–9.6 million in gross session value annually. At 10% commission, that is £840,000–£960,000 in platform fee revenue before subscriptions and parent portal ARR. The maths scales cleanly.
-
-**Commission model note (current):** fair-do takes **0% on a tutor's own students** (invited/added by hand) and **10% only on marketplace (directory-sourced) bookings** — it is not a flat fee on all session value. The platform-fee projections below therefore assume directory-sourced session volume; own-student volume contributes via subscriptions, not commission. *(updated to current model)*
-
-**Scenario modelling — platform fee revenue at scale:**
-
-| Active tutors | Avg hours/mo | Avg rate | Annual GTV | Platform fee (10%) |
-|---|---|---|---|---|
-| 100 | 15 | £37 | £666,000 | £66,600 |
-| 500 | 18 | £38 | £4,104,000 | £410,400 |
-| 1,000 | 20 | £40 | £9,600,000 | £960,000 |
-| 5,000 | 20 | £42 | £50,400,000 | £5,040,000 |
-
-Subscriptions (Pro at £29/mo, School at £79/mo) and parent portal (£4.99/mo, paid by the parent) compound materially on top of this at scale.
+Subscriptions (Pro at £29/mo, School at £79/mo) and parent portal (£4.99/mo, paid by the parent) are the two revenue streams. No per-lesson commission.
 
 ---
 
@@ -52,7 +39,7 @@ Prove the model. Establish that tutors choose fair-do because it genuinely pays 
 
 ### Focus areas
 
-**Tutor supply first.** The marketplace dynamic means no students book if there are no tutors; no tutors list if there are no students. Resolve this by onboarding tutors ahead of demand, using the commission-rate story as the acquisition hook. Target displaced First Tutors users and tutors currently paying 40–50% to MyTutor. The message: "You earn £40/hr. On MyTutor you keep £20–24. On fair-do you keep £36. Same session, same work."
+**Tutor supply first.** The marketplace dynamic means no students book if there are no tutors; no tutors list if there are no students. Resolve this by onboarding tutors ahead of demand, using the commission-rate story as the acquisition hook. Target displaced First Tutors users and tutors currently paying 40–50% to MyTutor. The message: "You earn £40/hr. On MyTutor they keep 40%. On fair-do you keep it all — we charge a flat monthly fee, not a cut of every lesson."
 
 **Handpick early cohort.** Aim for subject diversity and geographic spread across the UK (Maths, English, Sciences, French/Spanish for GCSE/A-level; tutors in London, Manchester, Birmingham, Edinburgh). Quality signal matters more than volume in this phase.
 
@@ -83,14 +70,11 @@ Support load at 100 tutors is manageable by the founding team. No dedicated supp
 
 | Revenue stream | Monthly (Month 6) |
 |---|---|
-| Platform fee (marketplace bookings × £37 avg × 10%) | £1,110 |
 | Tutor subscriptions (15 Pro × £29 + 3 School × £79) | £672 |
 | Parent portal (100 × £4.99) | £499 |
-| **Total MRR** | **~£2,281** |
+| **Total MRR** | **~£1,171** |
 
-*(updated to current model: subscription prices £29/£79 and the 0%-own / 10%-marketplace commission; platform-fee line assumes marketplace-sourced sessions.)*
-
-Phase 1 is pre-profitability by design. The objective is evidence of product-market fit, not revenue. A 10% platform fee at this scale covers less than infrastructure costs. The investment is in proof-of-concept and tutor satisfaction.
+Phase 1 is pre-profitability by design. The objective is evidence of product-market fit, not revenue. Subscription and parent portal revenue at this scale covers a fraction of infrastructure costs. The investment is in proof-of-concept and tutor satisfaction.
 
 ---
 
@@ -138,13 +122,10 @@ Build growth loops that reduce the marginal cost of acquiring each subsequent tu
 
 | Revenue stream | Monthly |
 |---|---|
-| Platform fee (marketplace bookings × £38 avg × 10%) | £11,400 |
 | Tutor subscriptions (180 Pro × £29 + 60 School × £79) | £9,960 |
 | Parent portal (1,500 × £4.99) | £7,485 |
-| **Total MRR** | **~£28,845** |
-| **ARR run-rate** | **~£346,140** |
-
-*(updated to current model: subscription prices £29/£79; platform-fee line assumes marketplace-sourced sessions under the 0%-own / 10%-marketplace model.)*
+| **Total MRR** | **~£17,445** |
+| **ARR run-rate** | **~£209,340** |
 
 ---
 
@@ -178,7 +159,7 @@ fair-do can position as the school-preferred tutoring infrastructure layer: a ve
 
 fair-do can serve as that aggregator for the independent tutor market, enabling tutors who currently cannot access corporate clients (no procurement capability, no business invoicing, no NDAs) to do so through the platform.
 
-**Product: Corporate L&D Portal.** Employer dashboard enabling a company to: search fair-do's tutor pool by skill (CIMA exam prep, business French, Python, data literacy), book and pay centrally, receive attendance records and progress reports, and generate receipts for expense reimbursement or benefit-in-kind reporting. Price: platform fee (10%) on sessions booked, plus an optional admin subscription at £99–£299/month for enhanced reporting and account management.
+**Product: Corporate L&D Portal.** Employer dashboard enabling a company to: search fair-do's tutor pool by skill (CIMA exam prep, business French, Python, data literacy), book and pay centrally, receive attendance records and progress reports, and generate receipts for expense reimbursement or benefit-in-kind reporting. Price: an admin subscription at £99–£299/month for enhanced reporting and account management. No per-session commission.
 
 **Target clients.** Professional services firms (law, accountancy, consulting) funding trainees' professional exam tuition. Financial services firms with language tuition budgets. Tech companies funding coding upskilling. SMEs with small L&D budgets who want flexibility without training company minimum commitments.
 
@@ -200,7 +181,7 @@ fair-do can serve as that aggregator for the independent tutor market, enabling 
 
 ### Phase 1: Core academic (GCSE and A-level)
 
-Launch with the subjects that generate the highest search volume and clearest parental demand: Mathematics, English Language and Literature, Biology, Chemistry, Physics, French, Spanish. These cover the majority of GCSE and A-level examination cohorts and represent the clearest product-market fit for fair-do's commission story (tutors in these subjects typically charge £35–55/hr, making the £/hour saving from 10% vs 40% commission immediately visible).
+Launch with the subjects that generate the highest search volume and clearest parental demand: Mathematics, English Language and Literature, Biology, Chemistry, Physics, French, Spanish. These cover the majority of GCSE and A-level examination cohorts and represent the clearest product-market fit for fair-do's pricing story (tutors in these subjects typically charge £35–55/hr, making the monthly subscription and 0% commission immediately compelling vs competitors charging 25–40% per lesson).
 
 Secondary Phase 1 subject: 11-plus and 13-plus entrance exam preparation. This is a high-anxiety, high-willingness-to-pay segment; parents in this cohort are often seeking tutors 12–18 months before the exam date, creating long client relationships and high LTV.
 
@@ -208,7 +189,7 @@ Secondary Phase 1 subject: 11-plus and 13-plus entrance exam preparation. This i
 
 Add Musical instruments (piano, guitar, violin — large established demand, often overlooked by academic-focused platforms), Art and Design (GCSE/A-level portfolio prep), Coding for children (Scratch, Python, Swift — growing rapidly, strong parent interest driven by digital careers narrative), Drama, and Photography.
 
-Also add: Oxbridge and Ivy League preparation (admissions interviews, personal statement coaching, super-curricular reading). This is a premium niche — tutors charge £60–£150/hr — where the absolute savings from 10% vs 40% commission are highest.
+Also add: Oxbridge and Ivy League preparation (admissions interviews, personal statement coaching, super-curricular reading). This is a premium niche — tutors charge £60–£150/hr — where the absolute saving from a flat monthly subscription vs 40% commission is most visible.
 
 ### Phase 3: University and professional qualifications
 
@@ -297,20 +278,15 @@ Using session notes, tutor-submitted progress updates, and (if recorded) session
 - Subscription mix: 40% Free (no sub revenue), 40% Pro (£29/mo), 20% School (£79/mo)
 - Parent portal: 3,000 subscribers at £4.99/mo (3:1 student-to-tutor ratio), paid by the parent
 - B2B school partnerships: 10 schools at average £1,000/year contract value
-- Platform fee: 0% on a tutor's own students; 10% only on marketplace (directory-sourced) bookings. The platform-fee line below assumes directory-sourced session volume *(updated to current model)*
-
 ### Annual revenue breakdown at 1,000 active tutors
 
 | Stream | Calculation | Annual |
 |---|---|---|
-| Platform fee (marketplace bookings) | 1,000 tutors × 20 hrs × £40 × 10% × 12 months | £960,000 |
 | Pro subscriptions | 400 tutors × £29 × 12 months | £139,200 |
-| School (top tier) subscriptions | 200 tutors × £79 × 12 months | £189,600 |
+| School subscriptions | 200 tutors × £79 × 12 months | £189,600 |
 | Parent portal | 3,000 × £4.99 × 12 months | £179,640 |
 | School partnerships (B2B) | 10 schools × £1,000 avg | £10,000 |
-| **Total ARR** | | **~£1,478,440** |
-
-*(updated to current model: Pro £29 / School £79 subscription prices; platform-fee line assumes marketplace-sourced sessions under the 0%-own / 10%-marketplace commission.)*
+| **Total ARR** | | **~£518,440** |
 
 ### Cost structure at this scale (annual estimate)
 
@@ -325,11 +301,11 @@ Using session notes, tutor-submitted progress updates, and (if recorded) session
 | Other operating costs | £20,000–30,000 |
 | **Total operating cost** | **~£435,000–520,000** |
 
-**Operating profit at 1,000 active tutors: approximately £960,000–1,045,000 before founder salaries and tax.** *(updated to current model — higher subscription prices lift the ARR base.)* At this scale, fair-do is profitable on an operating basis and self-funding, with room for reinvestment into Phase 3 growth.
+**At 1,000 active tutors, total ARR is approximately £518,000.** Against an estimated operating cost of £435,000–520,000, the business reaches breakeven at this scale — the path to profitability comes from subscription and parent portal growth, not commission.
 
 ### Path to £5M ARR
 
-5,000 active tutors, following the same model, generates approximately £7.0–7.5M ARR inclusive of subscriptions and parent portal *(updated to current model — at the £29/£79 subscription prices, subscription revenue scales materially above the earlier £5M estimate)*. At that scale, the B2B revenue streams (school partnerships, corporate L&D) should be contributing an additional £500,000–1,000,000. The business is generating meaningful free cash flow for international expansion or product investment without requiring external capital.
+5,000 active tutors, following the subscription model, generates approximately £2.6M ARR from subscriptions and parent portal alone. B2B revenue streams (school partnerships, corporate L&D) add an additional £500,000–1,000,000 at that scale. The path to £5M ARR requires B2B contracts, enterprise plans, and parent portal penetration — all achievable without reintroducing per-lesson fees.
 
 ---
 
@@ -337,21 +313,21 @@ Using session notes, tutor-submitted progress updates, and (if recorded) session
 
 ### Tutor churn
 
-**Risk.** Tutors who built their client base using fair-do's platform move off-platform once the relationship is established, to avoid the 10% fee. This is the structural threat to every marketplace.
+**Risk.** Tutors who built their client base using fair-do's platform move off-platform once the relationship is established, returning to DIY tools.
 
-**Mitigants.** (1) Make the platform genuinely better than DIY for ongoing admin: automated session reminders, payment protection, tax receipt generation, progress reports for parents. A tutor who values the time saved at £10/hour would need to save 36 minutes per session to break even on the 10% fee versus self-managed invoicing — credible for tutors managing ten or more clients. (2) Parent portal creates client-side stickiness: parents booking through the portal have an expectation of staying on-platform. (3) Review and reputation data is platform-held: tutors with 40 verified reviews on fair-do have a genuine reason not to start over elsewhere. (4) Free tier is available: tutors with fewer than 8 students pay no subscription, making the net cost of staying on-platform extremely low.
+**Mitigants.** (1) Make the platform genuinely better than DIY for ongoing admin: automated session reminders, payment protection, tax receipt generation, progress reports for parents. (2) Parent portal creates client-side stickiness: parents booking through the portal have an expectation of staying on-platform. (3) Review and reputation data is platform-held: tutors with 40 verified reviews on fair-do have a genuine reason not to start over elsewhere. (4) Free tier: tutors with fewer than 8 students pay nothing, making the cost of staying on-platform zero.
 
 ### Price war from incumbents
 
-**Risk.** Tutorful, MyTutor, or a well-capitalised new entrant drops commission to 15% or below to neutralise fair-do's core proposition.
+**Risk.** Tutorful, MyTutor, or a well-capitalised new entrant drops commission significantly or launches a competing flat-fee subscription to neutralise fair-do's pricing story.
 
-**Mitigants.** Incumbents' cost structures are built around 25–40% take rates; dropping to 10–15% would require fundamental restructuring of investor return expectations or cost models. Superprof already offers near-zero commission but provides no integrated tooling, demonstrating that simply reducing commission is insufficient — the full-service experience at fair-do's price is the offer. If an incumbent matches on price, the competition shifts to product quality and brand trust — terrain where fair-do can compete. Additionally, the ethical positioning becomes more defensible over time as tutors and parents associate the fair-do brand with fair treatment.
+**Mitigants.** Incumbents' cost structures are built around 25–40% take rates; switching to subscription-only would require fundamental restructuring of their revenue models and investor return expectations. Superprof already offers near-zero commission but provides no integrated tooling, demonstrating that price alone is insufficient — the full-service experience at fair-do's price is the offer. If an incumbent matches on price, the competition shifts to product quality and brand trust — terrain where fair-do can compete.
 
 ### Google Meet remaining "good enough"
 
-**Risk.** Self-employed tutors continue to use free tools (Google Meet, Zoom, Calendly, bank transfer) and see no reason to pay 10% to a platform.
+**Risk.** Self-employed tutors continue to use free tools (Google Meet, Zoom, Calendly, bank transfer) and see no reason to pay a monthly subscription.
 
-**Mitigants.** The DIY stack has no client acquisition capability — fair-do offers discoverability. The DIY stack has no payment protection — fair-do holds payment in escrow and releases post-session, protecting tutors from non-payment and no-shows. The DIY stack has no professional trust signals for parents (DBS badge, verified reviews, session count). The 10% fee buys meaningful things. Focus marketing on tutors for whom non-payment and no-shows are already a real, experienced problem — these are the natural early adopters.
+**Mitigants.** The DIY stack has no client acquisition capability — fair-do offers discoverability. The DIY stack has no payment protection — fair-do holds payment in escrow and releases post-session, protecting tutors from non-payment and no-shows. The DIY stack has no professional trust signals for parents (DBS badge, verified reviews, session count). Focus marketing on tutors for whom non-payment and no-shows are already a real, experienced problem — these are the natural early adopters.
 
 ### Schools contracting directly with tutors
 
