@@ -102,7 +102,8 @@ model User {
   teacher Teacher?
   student Student?
 
-  parentLinks ParentLink[] @relation("parentLinks")
+  parentLinks        ParentLink[]        @relation("parentLinks")
+  parentSubscription ParentSubscription? @relation("parentSubscription")
 }
 
 model Teacher {
@@ -270,6 +271,24 @@ model ParentLink {
   @@unique([parentUserId, studentId])
   @@index([parentUserId])
   @@index([studentId])
+}
+
+// One subscription per parent account ("the family"). A single £4.99/mo plan
+// covers every child a tutor has linked to this parent — billing is per-family,
+// not per-child. Per-link portalActive flags are driven off this record.
+model ParentSubscription {
+  id                   String    @id @default(cuid())
+  parentUserId         String    @unique
+  parentUser           User      @relation("parentSubscription", fields: [parentUserId], references: [id])
+  stripeCustomerId     String?
+  stripeSubscriptionId String?   @unique
+  status               String    @default("inactive") // inactive | active | past_due | canceled
+  currentPeriodEnd     DateTime?
+  // Soft abuse guard: set when distinct children exceed FAMILY_SOFT_CAP, so an
+  // account hoarding unrelated students surfaces for review (access is not blocked).
+  flaggedForReview     Boolean   @default(false)
+  createdAt            DateTime  @default(now())
+  updatedAt            DateTime  @updatedAt
 }
 
 // Separate parent↔teacher message thread (not visible to the student).

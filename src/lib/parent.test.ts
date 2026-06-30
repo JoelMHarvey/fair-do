@@ -1,9 +1,24 @@
 import { describe, it, expect, vi, beforeEach } from 'vitest'
 
-const { mockSubFind } = vi.hoisted(() => ({ mockSubFind: vi.fn() }))
-vi.mock('@/lib/prisma', () => ({ prisma: { subscription: { findUnique: mockSubFind } } }))
+const { mockSubFind, mockLinkFindMany, mockLinkUpdateMany, mockPsubFind, mockPsubUpdateMany } = vi.hoisted(() => ({
+  mockSubFind: vi.fn(),
+  mockLinkFindMany: vi.fn(),
+  mockLinkUpdateMany: vi.fn(),
+  mockPsubFind: vi.fn(),
+  mockPsubUpdateMany: vi.fn(),
+}))
+vi.mock('@/lib/prisma', () => ({
+  prisma: {
+    subscription: { findUnique: mockSubFind },
+    parentLink: { findMany: mockLinkFindMany, updateMany: mockLinkUpdateMany },
+    parentSubscription: { findUnique: mockPsubFind, updateMany: mockPsubUpdateMany },
+  },
+}))
 
-import { teacherCanOfferParentPortal, generateParentToken, groupLinksByChild } from '@/lib/parent'
+import {
+  teacherCanOfferParentPortal, generateParentToken, groupLinksByChild,
+  countFamilyChildren, parentHasActivePortal, syncFamilyPortalAccess, FAMILY_SOFT_CAP,
+} from '@/lib/parent'
 
 describe('teacherCanOfferParentPortal', () => {
   beforeEach(() => mockSubFind.mockReset())
@@ -63,6 +78,63 @@ describe('groupLinksByChild', () => {
   it('keeps the first-seen child first (default tab)', () => {
     const groups = groupLinksByChild([link('l1', 'sB'), link('l2', 'sA'), link('l3', 'sB')])
     expect(groups[0].student.id).toBe('sB')
+  })
+})
+
+describe('countFamilyChildren', () => {
+  beforeEach(() => mockLinkFindMany.mockReset())
+
+  it('counts distinct students across links (one child, two tutors → 1)', async () => {
+    mockLinkFindMany.mockResolvedValue([{ studentId: 's1' }, { studentId: 's1' }, { studentId: 's2' }])
+    expect(await countFamilyChildren('u1')).toBe(2)
+  })
+
+  it('returns 0 when no active links', async () => {
+    mockLinkFindMany.mockResolvedValue([])
+    expect(await countFamilyChildren('u1')).toBe(0)
+  })
+})
+
+describe('parentHasActivePortal', () => {
+  beforeEach(() => mockPsubFind.mockReset())
+
+  it('true only when the family sub is active', async () => {
+    mockPsubFind.mockResolvedValue({ status: 'active' })
+    expect(await parentHasActivePortal('u1')).toBe(true)
+  })
+  it('false when past_due / canceled / missing', async () => {
+    mockPsubFind.mockResolvedValue({ status: 'past_due' })
+    expect(await parentHasActivePortal('u1')).toBe(false)
+    mockPsubFind.mockResolvedValue(null)
+    expect(await parentHasActivePortal('u1')).toBe(false)
+  })
+})
+
+describe('syncFamilyPortalAccess', () => {
+  beforeEach(() => {
+    mockLinkUpdateMany.mockReset(); mockLinkFindMany.mockReset(); mockPsubUpdateMany.mockReset()
+    mockLinkUpdateMany.mockResolvedValue({}); mockPsubUpdateMany.mockResolvedValue({})
+  })
+
+  it('applies portalActive to all the parent links', async () => {
+    mockLinkFindMany.mockResolvedValue([{ studentId: 's1' }])
+    await syncFamilyPortalAccess('u1', true)
+    expect(mockLinkUpdateMany).toHaveBeenCalledWith({
+      where: { parentUserId: 'u1', status: 'active' },
+      data: { portalActive: true },
+    })
+  })
+
+  it('does not flag a family at or below the soft cap', async () => {
+    mockLinkFindMany.mockResolvedValue(Array.from({ length: FAMILY_SOFT_CAP }, (_, i) => ({ studentId: `s${i}` })))
+    await syncFamilyPortalAccess('u1', true)
+    expect(mockPsubUpdateMany).toHaveBeenCalledWith({ where: { parentUserId: 'u1' }, data: { flaggedForReview: false } })
+  })
+
+  it('flags a family that exceeds the soft cap', async () => {
+    mockLinkFindMany.mockResolvedValue(Array.from({ length: FAMILY_SOFT_CAP + 1 }, (_, i) => ({ studentId: `s${i}` })))
+    await syncFamilyPortalAccess('u1', true)
+    expect(mockPsubUpdateMany).toHaveBeenCalledWith({ where: { parentUserId: 'u1' }, data: { flaggedForReview: true } })
   })
 })
 

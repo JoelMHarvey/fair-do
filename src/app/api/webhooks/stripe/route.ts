@@ -8,6 +8,7 @@ import { rewardReferralOnBooking } from '@/lib/referral'
 import { rewardTeacherReferralOnFirstSession } from '@/lib/teacher-referral'
 import { commissionBpsForTier, subscriptionPeriodEnd, tierByPriceId } from '@/lib/billing'
 import { clientEmail } from '@/lib/practice'
+import { syncFamilyPortalAccess } from '@/lib/parent'
 import type Stripe from 'stripe'
 
 // A handler failed AFTER we claimed the event as processed. Roll the claim back
@@ -87,12 +88,20 @@ export async function POST(req: Request) {
         ...(tier ? { tier: tier.id, commissionBps: tier.commissionBps } : {}),
       },
     })
-    // Parent portal subscriptions (parent pays fair-do directly) — pause/resume access.
+    // Parent portal subscriptions (parent pays fair-do directly) — one family sub
+    // gates every linked child. Sync the sub record, then fan access out to links.
     const parentActive = event.type !== 'customer.subscription.deleted' && (sub.status === 'active' || sub.status === 'trialing')
-    await prisma.parentLink.updateMany({
+    const psub = await prisma.parentSubscription.findUnique({
       where: { stripeSubscriptionId: sub.id },
-      data: { portalActive: parentActive },
+      select: { parentUserId: true },
     })
+    if (psub) {
+      await prisma.parentSubscription.update({
+        where: { stripeSubscriptionId: sub.id },
+        data: { status, currentPeriodEnd: subscriptionPeriodEnd(sub) },
+      })
+      await syncFamilyPortalAccess(psub.parentUserId, parentActive)
+    }
     return new Response('OK', { status: 200 })
   }
 
@@ -139,17 +148,22 @@ export async function POST(req: Request) {
       return new Response('OK', { status: 200 })
     }
 
-    // Parent portal subscription started — unlock the parent's access.
+    // Parent portal subscription started — activate the family plan and unlock
+    // every child the parent already follows.
     if (meta.type === 'parent_portal') {
-      const parentLinkId = meta.parentLinkId
+      const parentUserId = meta.parentUserId
       const subId = typeof checkout.subscription === 'string' ? checkout.subscription : checkout.subscription?.id ?? null
       const customerId = typeof checkout.customer === 'string' ? checkout.customer : checkout.customer?.id ?? null
-      if (parentLinkId) {
+      if (parentUserId) {
         try {
-          await prisma.parentLink.update({
-            where: { id: parentLinkId },
-            data: { portalActive: true, stripeSubscriptionId: subId, ...(customerId ? { stripeCustomerId: customerId } : {}) },
+          let periodEnd: Date | null = null
+          if (subId) periodEnd = subscriptionPeriodEnd(await getStripe().subscriptions.retrieve(subId))
+          await prisma.parentSubscription.upsert({
+            where: { parentUserId },
+            create: { parentUserId, status: 'active', stripeSubscriptionId: subId, stripeCustomerId: customerId, currentPeriodEnd: periodEnd },
+            update: { status: 'active', stripeSubscriptionId: subId, ...(customerId ? { stripeCustomerId: customerId } : {}), currentPeriodEnd: periodEnd },
           })
+          await syncFamilyPortalAccess(parentUserId, true)
         } catch (e) {
           return rollbackAndRetry(event.id, 'parent portal activation', e)
         }

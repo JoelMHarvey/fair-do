@@ -22,6 +22,48 @@ export async function teacherCanOfferParentPortal(teacherId: string): Promise<bo
   return onPaidTier || sub.addOns.includes('parent_portal')
 }
 
+// Billing is per-family (one £4.99/mo plan per parent account covers every child
+// a tutor has linked). This is the soft abuse ceiling: beyond it the family still
+// works but is flagged for review, catching one account hoarding unrelated kids.
+export const FAMILY_SOFT_CAP = 6
+
+// Distinct children (students) a parent currently follows.
+export async function countFamilyChildren(parentUserId: string): Promise<number> {
+  const links = await prisma.parentLink.findMany({
+    where: { parentUserId, status: 'active' },
+    select: { studentId: true },
+  })
+  return new Set(links.map(l => l.studentId)).size
+}
+
+// True when the parent's family subscription is active.
+export async function parentHasActivePortal(parentUserId: string): Promise<boolean> {
+  const sub = await prisma.parentSubscription.findUnique({
+    where: { parentUserId },
+    select: { status: true },
+  })
+  return sub?.status === 'active'
+}
+
+// Apply the family subscription state to every one of the parent's active links
+// and refresh the soft-abuse flag. Call after subscribe/cancel, or after a new
+// child is linked to an already-subscribed family.
+export async function syncFamilyPortalAccess(parentUserId: string, active: boolean): Promise<void> {
+  await prisma.parentLink.updateMany({
+    where: { parentUserId, status: 'active' },
+    data: { portalActive: active },
+  })
+  const childCount = await countFamilyChildren(parentUserId)
+  const flagged = childCount > FAMILY_SOFT_CAP
+  await prisma.parentSubscription.updateMany({
+    where: { parentUserId },
+    data: { flaggedForReview: flagged },
+  })
+  if (flagged) {
+    console.warn(`[parent] family ${parentUserId} has ${childCount} children (> ${FAMILY_SOFT_CAP}) — flagged for review`)
+  }
+}
+
 // URL-safe random invite token (Web Crypto, present in the Next.js runtime).
 export function generateParentToken(): string {
   const bytes = new Uint8Array(24)
