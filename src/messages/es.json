@@ -1,310 +1,310 @@
 {
   "home": {
-    "hero_badge": "The calm studio tool for tutors",
-    "hero_h1_line1": "Your whole tutoring,",
-    "hero_h1_line2": "in one calm place.",
-    "hero_body": "fair-do brings your students, scheduling, secure video and payments together — simple enough to run from your phone, organised enough for the work you do.",
-    "hero_cta_primary": "Start free",
-    "hero_cta_secondary": "See how it works",
-    "hero_footnote": "Free to start · set up in ~15 minutes · keep your own students",
-    "ethos_eyebrow": "Made by people who care",
-    "ethos_body": "We think tutors deserve better tools — and fairer terms. fair-do grows when you grow. No lock-in, no games, and no agency taking a cut of every lesson.",
-    "benefits_heading": "Everything your tutoring needs",
-    "benefits_sub": "No more juggling a calendar, a payment app, a video tool and a spreadsheet. It's all here — and it's built to stay out of your way.",
+    "hero_badge": "La herramienta de estudio tranquila para profesores particulares",
+    "hero_h1_line1": "Toda tu enseñanza,",
+    "hero_h1_line2": "en un único lugar tranquilo.",
+    "hero_body": "fair-do reúne a tus alumnos, tu agenda, el vídeo seguro y los pagos en un solo sitio: lo bastante sencillo para gestionarlo desde el móvil y lo bastante organizado para el trabajo que haces.",
+    "hero_cta_primary": "Empieza gratis",
+    "hero_cta_secondary": "Mira cómo funciona",
+    "hero_footnote": "Gratis para empezar · configúralo en unos 15 minutos · conserva a tus propios alumnos",
+    "ethos_eyebrow": "Hecho por gente que se preocupa",
+    "ethos_body": "Creemos que los profesores particulares merecen mejores herramientas y condiciones más justas. fair-do crece cuando tú creces. Sin ataduras, sin trucos y sin ninguna agencia llevándose una parte de cada clase.",
+    "benefits_heading": "Todo lo que tu enseñanza necesita",
+    "benefits_sub": "Se acabó hacer malabares con un calendario, una app de pagos, una herramienta de vídeo y una hoja de cálculo. Está todo aquí, y está pensado para no estorbar.",
     "benefits": [
       {
-        "title": "Your students stay yours",
-        "body": "You own the relationship and the record. fair-do is your tool — never a middleman between you and the people you teach."
+        "title": "Tus alumnos siguen siendo tuyos",
+        "body": "La relación y el registro son tuyos. fair-do es tu herramienta, nunca un intermediario entre tú y las personas a las que enseñas."
       },
       {
-        "title": "Genuinely simple",
-        "body": "Set up in about 15 minutes — no tech skills needed. Import your student list, book a lesson, done. Plain-language help on every page."
+        "title": "Sencillo de verdad",
+        "body": "Configúralo en unos 15 minutos, sin conocimientos técnicos. Importa tu lista de alumnos, reserva una clase y listo. Ayuda en lenguaje claro en cada página."
       },
       {
-        "title": "Private by design",
-        "body": "Encrypted, with UK/EU data residency and appropriate safeguards. You stay the data controller — in control of your students' information."
+        "title": "Privado por diseño",
+        "body": "Cifrado, con residencia de datos en el Reino Unido y la UE y las salvaguardas adecuadas. Tú sigues siendo el responsable de los datos, con el control de la información de tus alumnos."
       },
       {
-        "title": "Set your own prices",
-        "body": "Your rate, your hours, even a different price per student. You keep what you charge — fair-do is a simple monthly subscription, not a cut of every lesson."
+        "title": "Pon tus propios precios",
+        "body": "Tu tarifa, tus horas, incluso un precio distinto por alumno. Te quedas con lo que cobras: fair-do es una sencilla suscripción mensual, no una parte de cada clase."
       },
       {
-        "title": "Get paid automatically",
-        "body": "Students pay by card; the money lands in your bank about two business days after each lesson. No chasing, no spreadsheets."
+        "title": "Cobra automáticamente",
+        "body": "Los alumnos pagan con tarjeta; el dinero llega a tu banco unos dos días hábiles después de cada clase. Sin perseguir pagos ni hojas de cálculo."
       },
       {
-        "title": "Runs from your phone",
-        "body": "Add fair-do to your home screen and run your whole tutoring from a phone — no computer required."
+        "title": "Funciona desde tu móvil",
+        "body": "Añade fair-do a la pantalla de inicio y gestiona toda tu enseñanza desde el móvil, sin necesidad de ordenador."
       }
     ],
-    "how_heading": "Up and running this week",
+    "how_heading": "En marcha esta misma semana",
     "steps": [
       {
-        "title": "Add your students",
-        "body": "Invite them by email or import your whole list — set up in minutes."
+        "title": "Añade a tus alumnos",
+        "body": "Invítalos por correo electrónico o importa tu lista entera: configúralo en minutos."
       },
       {
-        "title": "Book lessons",
-        "body": "Pick a time — we create a private video room and email your student automatically."
+        "title": "Reserva clases",
+        "body": "Elige una hora: creamos una sala de vídeo privada y enviamos un correo a tu alumno automáticamente."
       },
       {
-        "title": "Get paid",
-        "body": "Connect payments once; the money arrives in your bank after each lesson."
+        "title": "Cobra",
+        "body": "Conecta los pagos una vez; el dinero llega a tu banco después de cada clase."
       }
     ],
-    "privacy_heading": "Privacy you can stand behind",
-    "privacy_body": "Your students trust you with their progress. We treat their information with care — encrypted, with UK/EU data residency, and never sold or shared. You remain the data controller, in control of your records, always.",
-    "cta_heading": "Start your tutoring on fair-do",
-    "cta_sub": "Free to begin, fair as you grow. We'll set you up personally.",
-    "cta_button": "Start free →",
-    "cta_footer_pre": "Looking for a tutor instead?",
-    "cta_footer_link": "Find one here"
+    "privacy_heading": "Una privacidad que puedes defender",
+    "privacy_body": "Tus alumnos te confían su progreso. Tratamos su información con cuidado: cifrada, con residencia de datos en el Reino Unido y la UE, y nunca vendida ni compartida. Tú sigues siendo el responsable de los datos, con el control de tus registros, siempre.",
+    "cta_heading": "Empieza a enseñar en fair-do",
+    "cta_sub": "Gratis para empezar, justo a medida que creces. Te ayudaremos personalmente con la configuración.",
+    "cta_button": "Empieza gratis →",
+    "cta_footer_pre": "¿Buscas un profesor particular en su lugar?",
+    "cta_footer_link": "Encuentra uno aquí"
   },
   "nav": {
-    "features": "Features",
-    "pricing": "Pricing",
-    "find_tutor": "Find a tutor",
-    "subjects": "Subjects",
-    "how_it_works": "How it works",
-    "faq": "FAQ",
-    "sign_in": "Sign in",
-    "cta_practice": "Start free",
-    "cta_marketplace": "Get started",
-    "dashboard": "Dashboard"
+    "features": "Funciones",
+    "pricing": "Precios",
+    "find_tutor": "Encontrar un profesor",
+    "subjects": "Asignaturas",
+    "how_it_works": "Cómo funciona",
+    "faq": "Preguntas frecuentes",
+    "sign_in": "Iniciar sesión",
+    "cta_practice": "Empieza gratis",
+    "cta_marketplace": "Empezar",
+    "dashboard": "Panel"
   },
   "footer": {
-    "tagline": "The simple way for tutors to run their studio — your students, scheduling, secure video and payments in one place.",
-    "col_clients": "Students",
-    "col_tutors": "Tutors",
-    "col_company": "Company",
-    "link_find_tutor": "Find a tutor",
-    "link_subjects": "Subjects",
-    "link_ai_tutoring": "AI tutoring?",
+    "tagline": "La forma sencilla de que los profesores particulares gestionen su estudio: tus alumnos, tu agenda, el vídeo seguro y los pagos en un solo lugar.",
+    "col_clients": "Alumnos",
+    "col_tutors": "Profesores",
+    "col_company": "Empresa",
+    "link_find_tutor": "Encontrar un profesor",
+    "link_subjects": "Asignaturas",
+    "link_ai_tutoring": "¿Tutoría con IA?",
     "link_blog": "Blog",
-    "link_how_it_works": "How it works",
-    "link_gift": "Gift a lesson",
-    "link_faq": "FAQ",
-    "link_join": "Join fair-do",
-    "link_why": "Why fair-do",
-    "link_compare": "Compare",
-    "link_business": "For schools",
-    "link_about": "About",
-    "link_urgent_help": "Help",
-    "link_privacy": "Privacy",
-    "link_terms": "Terms",
-    "link_complaints": "Complaints",
-    "emergency": "Help & FAQs →",
-    "link_values": "Our values"
+    "link_how_it_works": "Cómo funciona",
+    "link_gift": "Regala una clase",
+    "link_faq": "Preguntas frecuentes",
+    "link_join": "Únete a fair-do",
+    "link_why": "Por qué fair-do",
+    "link_compare": "Comparar",
+    "link_business": "Para colegios",
+    "link_about": "Quiénes somos",
+    "link_urgent_help": "Ayuda",
+    "link_privacy": "Privacidad",
+    "link_terms": "Términos",
+    "link_complaints": "Reclamaciones",
+    "emergency": "Ayuda y preguntas frecuentes →",
+    "link_values": "Nuestros valores"
   },
   "faq": {
-    "heading": "Frequently asked questions",
+    "heading": "Preguntas frecuentes",
     "items": [
       {
-        "q": "What is fair-do?",
-        "a": "fair-do is software for independent tutors. You bring your own students and run your tutoring your way — fair-do gives you scheduling, secure video lessons, and card payments in one place. It's a tool you subscribe to, not a marketplace that finds students for you."
+        "q": "¿Qué es fair-do?",
+        "a": "fair-do es un software para profesores particulares independientes. Traes a tus propios alumnos y enseñas a tu manera: fair-do te ofrece la agenda, las clases por vídeo seguro y los pagos con tarjeta en un solo lugar. Es una herramienta a la que te suscribes, no un mercado que te busca alumnos."
       },
       {
-        "q": "How much does it cost?",
-        "a": "fair-do is a monthly subscription. Free is free, Pro is around £29/month, and School is for teams. On top of the plan, there's a small commission on card payments to cover processing. Full, current details are on our pricing page."
+        "q": "¿Cuánto cuesta?",
+        "a": "fair-do es una suscripción mensual. El plan gratuito es gratis, el Pro cuesta unos 29 £/mes y el plan Colegio es para equipos. Además del plan, hay una pequeña comisión sobre los pagos con tarjeta para cubrir el procesamiento. Tienes todos los detalles actuales en nuestra página de precios."
       },
       {
-        "q": "Are my students mine?",
-        "a": "Yes. The tutoring relationship and your student records belong to you. fair-do is the software and payment processor you use to run your tutoring — we don't own, route, or reassign your students."
+        "q": "¿Mis alumnos son míos?",
+        "a": "Sí. La relación de enseñanza y los registros de tus alumnos te pertenecen. fair-do es el software y el procesador de pagos que utilizas para gestionar tu enseñanza: no somos dueños de tus alumnos, ni los redirigimos ni los reasignamos."
       },
       {
-        "q": "Is my data secure?",
-        "a": "Yes. fair-do is built around UK GDPR. For your student data, you are the data controller and fair-do acts as your processor. We use trusted infrastructure providers to run the service, and some sub-processors are based in the US under Standard Contractual Clauses (SCCs). Our privacy notice sets out exactly who we use and why."
+        "q": "¿Están seguros mis datos?",
+        "a": "Sí. fair-do está construido en torno al RGPD del Reino Unido. Respecto a los datos de tus alumnos, tú eres el responsable de los datos y fair-do actúa como tu encargado del tratamiento. Utilizamos proveedores de infraestructura de confianza para prestar el servicio, y algunos subencargados están ubicados en EE. UU. bajo Cláusulas Contractuales Tipo (CCT). Nuestro aviso de privacidad detalla exactamente a quién recurrimos y por qué."
       },
       {
-        "q": "Are tutors qualified?",
-        "a": "fair-do is for qualified tutors. During onboarding we ask for teaching qualifications (such as QTS or a PGCE) and a current DBS check, and verify the details before a profile goes live."
+        "q": "¿Están cualificados los profesores?",
+        "a": "fair-do es para profesores cualificados. Durante el registro pedimos las titulaciones docentes (como QTS o un PGCE) y un certificado DBS vigente, y verificamos los datos antes de que un perfil se publique."
       },
       {
-        "q": "How do I get set up?",
-        "a": "Create an account, choose \"I am a tutor\", and complete onboarding — your profile, qualification details, availability, and connecting your bank via Stripe so you can take card payments. Once your details are verified you're ready to schedule students and run lessons."
+        "q": "¿Cómo me doy de alta?",
+        "a": "Crea una cuenta, elige «Soy profesor particular» y completa el registro: tu perfil, los datos de tu titulación, tu disponibilidad y la conexión de tu banco mediante Stripe para poder aceptar pagos con tarjeta. Una vez verificados tus datos, ya puedes agendar alumnos y dar clases."
       },
       {
-        "q": "How do payments work?",
-        "a": "Students pay by card through Stripe. Money goes to your connected account and typically reaches your bank around 2 business days after a lesson. fair-do's own charge is your monthly plan plus a small card commission — see pricing for the details."
+        "q": "¿Cómo funcionan los pagos?",
+        "a": "Los alumnos pagan con tarjeta a través de Stripe. El dinero va a tu cuenta conectada y normalmente llega a tu banco unos 2 días hábiles después de una clase. El único cobro propio de fair-do es tu plan mensual más una pequeña comisión por tarjeta: consulta los precios para más detalles."
       }
     ],
-    "footer_pre": "See full plans on our",
-    "footer_link": "pricing page",
-    "footer_mid": ", or email"
+    "footer_pre": "Consulta todos los planes en nuestra",
+    "footer_link": "página de precios",
+    "footer_mid": ", o escríbenos a"
   },
   "about": {
-    "eyebrow": "Our story",
-    "h1": "Technologists with a heart",
-    "lead": "We build software. But we built fair-do because something in this industry felt broken — and we couldn't look away.",
-    "p1": "Good tuition works. The evidence is overwhelming, and most of us have felt it ourselves or watched it change someone we love. We wanted to make it a little easier to reach — and a lot fairer for the people who provide it.",
-    "p2": "Tutors train for years and put real care into the work. We think they should be paid well enough to focus on it — not lose a slice of every lesson to a platform. So we built fair-do as fair, simple software tutors can afford: a flat monthly subscription, never a cut of your teaching fee.",
-    "believe_heading": "What we believe",
+    "eyebrow": "Nuestra historia",
+    "h1": "Tecnólogos con corazón",
+    "lead": "Hacemos software. Pero creamos fair-do porque algo en este sector nos parecía roto, y no pudimos mirar hacia otro lado.",
+    "p1": "La buena enseñanza particular funciona. La evidencia es abrumadora, y la mayoría lo hemos sentido en primera persona o lo hemos visto cambiar a alguien a quien queremos. Quisimos hacerla un poco más accesible, y mucho más justa para quienes la imparten.",
+    "p2": "Los profesores se forman durante años y ponen verdadero esmero en su trabajo. Creemos que deberían cobrar lo suficiente para poder centrarse en él, sin perder una parte de cada clase a manos de una plataforma. Por eso creamos fair-do como un software justo y sencillo que los profesores puedan permitirse: una suscripción mensual fija, nunca una parte de tus honorarios docentes.",
+    "believe_heading": "En qué creemos",
     "beliefs": [
       {
-        "title": "Tutors should earn enough to focus on teaching",
-        "body": "Not juggle three platforms, not burn out. fair-do is one affordable tool to run the whole thing — a flat monthly plan, not a cut of your lessons."
+        "title": "Los profesores deberían ganar lo suficiente para centrarse en enseñar",
+        "body": "Sin hacer malabares con tres plataformas, sin quemarse. fair-do es una única herramienta asequible para gestionarlo todo: un plan mensual fijo, no una parte de tus clases."
       },
       {
-        "title": "Good tuition should reach more people",
-        "body": "Lower fees aren't a marketing trick — they're the point. When lessons cost less, more families who need help can actually get it."
+        "title": "La buena enseñanza debería llegar a más gente",
+        "body": "Las tarifas más bajas no son un truco de marketing: son el objetivo. Cuando las clases cuestan menos, más familias que necesitan ayuda pueden realmente conseguirla."
       },
       {
-        "title": "No company should get rich off the work tutors do",
-        "body": "We take a small, transparent, fixed fee to keep the lights on — and nothing more. A tutor's hard work is not a margin to be optimised."
+        "title": "Ninguna empresa debería enriquecerse a costa del trabajo de los profesores",
+        "body": "Cobramos una pequeña tarifa fija y transparente para mantenernos en marcha, y nada más. El esfuerzo de un profesor no es un margen que optimizar."
       }
     ],
-    "trust_heading": "How we keep tutors trustworthy",
-    "trust_body_pre": "Every tutor on fair-do shares their ",
-    "trust_body_strong": "teaching qualifications (such as QTS or a PGCE) and a current DBS check",
-    "trust_body_post": ". We check these before a profile goes live, and keep a record of each check.",
-    "data_heading": "Your data, treated with care",
-    "data_body_pre": "Your details, and your child's, deserve real care. Lessons run over encrypted video. We store only what's necessary, never sell it, and never use your information to sell ads. See our ",
-    "privacy_link": "Privacy Policy",
+    "trust_heading": "Cómo nos aseguramos de que los profesores sean de confianza",
+    "trust_body_pre": "Todos los profesores de fair-do comparten sus ",
+    "trust_body_strong": "titulaciones docentes (como QTS o un PGCE) y un certificado DBS vigente",
+    "trust_body_post": ". Lo comprobamos antes de que un perfil se publique y conservamos un registro de cada verificación.",
+    "data_heading": "Tus datos, tratados con cuidado",
+    "data_body_pre": "Tus datos, y los de tu hijo, merecen un cuidado de verdad. Las clases se dan por vídeo cifrado. Solo almacenamos lo necesario, nunca lo vendemos y nunca usamos tu información para venderte anuncios. Consulta nuestra ",
+    "privacy_link": "Política de Privacidad",
     "data_body_post": ".",
-    "hello_heading": "Say hello",
-    "hello_body": "We're a small team and we read everything. ",
-    "cta": "Find a tutor"
+    "hello_heading": "Saluda",
+    "hello_body": "Somos un equipo pequeño y lo leemos todo. ",
+    "cta": "Encontrar un profesor"
   },
   "pricing": {
-    "h1": "Simple, fair pricing",
-    "lead": "Start free and pay as you grow. No lock-in, no surprises — and we grow only when you do.",
-    "founding_badge": "🚀 Founding pricing — locked for early tutors",
-    "most_popular": "Most popular",
+    "h1": "Precios sencillos y justos",
+    "lead": "Empieza gratis y paga a medida que creces. Sin permanencia, sin sorpresas — y solo crecemos cuando tú creces.",
+    "founding_badge": "🚀 Precio fundador — bloqueado para los primeros profes",
+    "most_popular": "El más popular",
     "tiers": {
       "free": {
         "name": "Free",
-        "price": "Free",
+        "price": "Gratis",
         "cadence": "",
-        "tagline": "Everything to run your practice.",
+        "tagline": "Todo lo necesario para llevar tu actividad.",
         "features": [
-          "Unlimited students",
-          "Scheduling + secure video",
-          "Card payments & payouts",
-          "Reminders & messaging",
-          "Runs on your phone"
+          "Estudiantes ilimitados",
+          "Agenda + vídeo seguro",
+          "Pagos con tarjeta y abonos",
+          "Recordatorios y mensajería",
+          "Funciona en tu móvil"
         ],
-        "note": "No commission — you keep what you charge.",
-        "cta": "Start free"
+        "note": "Sin comisión — te quedas con lo que cobras.",
+        "cta": "Empieza gratis"
       },
       "pro": {
         "name": "Pro",
         "price": "£29",
-        "cadence": "/month",
-        "tagline": "For an established solo practice.",
+        "cadence": "/mes",
+        "tagline": "Para una actividad individual ya establecida.",
         "features": [
-          "Everything in Free",
-          "No commission, ever",
-          "Per-student pricing & packages",
-          "Branded email & invite letterhead",
-          "Targeted student messaging & invites",
-          "Earnings insights & analytics",
-          "In-app AI assistant",
-          "Priority support",
-          "Your booking page"
+          "Todo lo de Free",
+          "Sin comisión, nunca",
+          "Precios y paquetes por estudiante",
+          "Correo con tu marca y membrete para invitaciones",
+          "Mensajes e invitaciones segmentados a estudiantes",
+          "Información y analíticas de ingresos",
+          "Asistente de IA integrado",
+          "Soporte prioritario",
+          "Tu página de reservas"
         ],
-        "note": "Founding tutors lock a lower rate — see below.",
-        "cta": "Start free"
+        "note": "Los profes fundadores bloquean una tarifa más baja — mira abajo.",
+        "cta": "Empieza gratis"
       },
       "school": {
         "name": "School",
-        "price": "Coming soon",
+        "price": "Próximamente",
         "cadence": "",
-        "tagline": "For group practices & studios.",
+        "tagline": "Para academias y estudios en grupo.",
         "features": [
-          "Multiple tutors, one studio",
-          "Shared team calendar",
-          "Studio admin & reporting"
+          "Varios profes, un solo estudio",
+          "Calendario de equipo compartido",
+          "Administración e informes del estudio"
         ],
-        "note": "In development — register your interest and we'll keep you posted.",
-        "cta": "Register interest"
+        "note": "En desarrollo — apúntate y te mantendremos al día.",
+        "cta": "Apuntarme"
       }
     },
-    "prices_note": "Prices shown are launch pricing and may change. Founding tutors keep their rate.",
-    "link_explained": "See exactly what you'll keep →",
-    "link_compare": "How fair-do compares →",
-    "faq_heading": "Questions",
+    "prices_note": "Los precios mostrados son de lanzamiento y pueden cambiar. Los profes fundadores mantienen su tarifa.",
+    "link_explained": "Ve exactamente con qué te quedas →",
+    "link_compare": "Cómo se compara fair-do →",
+    "faq_heading": "Preguntas",
     "faq_items": [
       {
-        "q": "Do I have to pay to start?",
-        "a": "No. The Free plan runs your whole tutoring business. You only pay if you choose a plan with extra tools."
+        "q": "¿Tengo que pagar para empezar?",
+        "a": "No. El plan Free hace funcionar todo tu negocio de tutoría. Solo pagas si eliges un plan con herramientas adicionales."
       },
       {
-        "q": "Do you take a commission?",
-        "a": "No. We take no commission on your lessons — you keep what you charge. You pay a flat monthly plan for the software; the only per-lesson cost is Stripe's standard card-processing fee, which we keep none of."
+        "q": "¿Os lleváis una comisión?",
+        "a": "No. No nos llevamos ninguna comisión de tus clases — te quedas con lo que cobras. Pagas una cuota mensual fija por el software; el único coste por clase es la tarifa estándar de procesamiento de tarjeta de Stripe, de la que no nos quedamos nada."
       },
       {
-        "q": "Can I cancel any time?",
-        "a": "Yes. No lock-in. If you cancel a paid plan it simply runs to the end of the period, then drops to Free — your students and records stay with you."
+        "q": "¿Puedo cancelar en cualquier momento?",
+        "a": "Sí. Sin permanencia. Si cancelas un plan de pago, simplemente sigue activo hasta el final del periodo y luego pasa a Free — tus estudiantes y registros se quedan contigo."
       },
       {
-        "q": "Are my students mine?",
-        "a": "Always. You own the relationship and the records. fair-do is your tool, never a middleman."
+        "q": "¿Mis estudiantes son míos?",
+        "a": "Siempre. Tú eres dueño de la relación y de los registros. fair-do es tu herramienta, nunca un intermediario."
       }
     ],
-    "cta_button": "Start free →"
+    "cta_button": "Empieza gratis →"
   },
   "styles": {
-    "eyebrow": "A plain-English guide",
-    "h1": "Subjects & how tutoring works",
-    "lead": "You don't need it all worked out before you start — a good tutor will guide you. Start with the simple version below, and open “Go deeper” on any subject to see what you'll cover and how lessons run.",
-    "good_for": "Good for",
-    "feels_label": "What a lesson feels like:",
-    "go_deeper": "Go deeper — what you'll cover & how lessons work",
-    "cover_label": "What you'll cover",
-    "exams_label": "Exams & curricula",
-    "how_label": "How lessons work",
-    "read_more": "Read more",
-    "find_tutor": "Find a tutor →",
-    "unsure_body": "Still unsure which subject or level you need? That's completely normal. Answer one short question and we'll match you with tutors who fit — you can always switch.",
-    "unsure_cta": "Get matched",
-    "help_pre": "Have a question first? See our ",
-    "help_link": "help & FAQs",
+    "eyebrow": "Una guía en lenguaje sencillo",
+    "h1": "Asignaturas y cómo funciona la tutoría",
+    "lead": "No necesitas tenerlo todo resuelto antes de empezar — un buen profe te guiará. Empieza con la versión sencilla de abajo y abre «Profundizar» en cualquier asignatura para ver qué cubrirás y cómo son las clases.",
+    "good_for": "Bueno para",
+    "feels_label": "Cómo se siente una clase:",
+    "go_deeper": "Profundizar — qué cubrirás y cómo funcionan las clases",
+    "cover_label": "Qué cubrirás",
+    "exams_label": "Exámenes y programas",
+    "how_label": "Cómo funcionan las clases",
+    "read_more": "Leer más",
+    "find_tutor": "Encuentra un profe →",
+    "unsure_body": "¿Aún no sabes qué asignatura o nivel necesitas? Es completamente normal. Responde una breve pregunta y te emparejaremos con profes que encajen — siempre puedes cambiar.",
+    "unsure_cta": "Encuentra tu match",
+    "help_pre": "¿Tienes una pregunta antes? Mira nuestra ",
+    "help_link": "ayuda y preguntas frecuentes",
     "help_post": ".",
     "subjects": [
       {
         "key": "Maths",
-        "name": "Maths",
+        "name": "Matemáticas",
         "icon": "🔢",
-        "what": "From times tables to A-level calculus — building confidence step by step, filling the gaps and making the reasoning click rather than just memorising rules.",
+        "what": "Desde las tablas de multiplicar hasta el cálculo de A-level — ganando confianza paso a paso, cubriendo lagunas y haciendo que el razonamiento encaje en lugar de solo memorizar reglas.",
         "goodFor": [
           "KS2",
           "GCSE",
           "A-level",
-          "Exam confidence"
+          "Confianza en exámenes"
         ],
-        "feels": "Active and worked-through. You'll tackle problems together, with the tutor spotting exactly where it breaks down and setting a little practice between lessons.",
-        "origin": "Number, algebra, geometry, ratio, statistics and probability — scaled to your stage, whether that's shoring up KS2 basics or stretching toward A-level.",
-        "history": "Lessons map to the national curriculum and the main exam boards (AQA, Edexcel, OCR), so what you practise lines up with what you'll actually be assessed on.",
-        "howItWorks": "The tutor checks where you are, targets the gaps, and works through past-paper-style questions until the method feels automatic — building toward steady, visible progress.",
+        "feels": "Activo y trabajado en detalle. Resolveréis problemas juntos, con el profe detectando exactamente dónde se atasca y dejando un poco de práctica entre clases.",
+        "origin": "Números, álgebra, geometría, proporciones, estadística y probabilidad — adaptado a tu etapa, ya sea reforzar lo básico de KS2 o estirar hacia A-level.",
+        "history": "Las clases siguen el currículo nacional y las principales juntas examinadoras (AQA, Edexcel, OCR), así que lo que practicas coincide con lo que de verdad te evaluarán.",
+        "howItWorks": "El profe comprueba dónde estás, apunta a las lagunas y trabaja preguntas tipo examen anterior hasta que el método te salga automático — avanzando hacia un progreso constante y visible.",
         "resources": [
           {
-            "label": "BBC Bitesize — Maths",
+            "label": "BBC Bitesize — Matemáticas",
             "url": "https://www.bbc.co.uk/bitesize/subjects/z6vg9j6"
           },
           {
-            "label": "AQA — GCSE Maths",
+            "label": "AQA — GCSE Matemáticas",
             "url": "https://www.aqa.org.uk/subjects/mathematics/gcse/mathematics-8300"
           }
         ]
       },
       {
         "key": "English",
-        "name": "English",
+        "name": "Inglés",
         "icon": "📖",
-        "what": "Reading, writing, grammar and analysis — for everything from early literacy to GCSE literature essays and university applications.",
+        "what": "Lectura, escritura, gramática y análisis — para todo, desde la alfabetización temprana hasta ensayos de literatura de GCSE y solicitudes universitarias.",
         "goodFor": [
-          "Literacy",
-          "GCSE English",
-          "Essay writing",
-          "Comprehension"
+          "Alfabetización",
+          "GCSE Inglés",
+          "Redacción de ensayos",
+          "Comprensión"
         ],
-        "feels": "A mix of discussion and practice. You'll read together, plan and redraft writing, and learn to back up a point with evidence.",
-        "origin": "Reading comprehension, creative and persuasive writing, grammar and punctuation, and close analysis of set texts and unseen passages.",
-        "history": "Aligned to the national curriculum and the major boards (AQA, Edexcel, OCR), covering both the language and literature papers.",
-        "howItWorks": "The tutor builds from where your confidence is, models what good writing looks like, then hands the pen back to you with focused feedback each lesson.",
+        "feels": "Una mezcla de conversación y práctica. Leeréis juntos, planificaréis y reescribiréis textos, y aprenderás a respaldar un argumento con pruebas.",
+        "origin": "Comprensión lectora, escritura creativa y persuasiva, gramática y puntuación, y análisis detallado de textos fijados y pasajes no vistos antes.",
+        "history": "Alineado con el currículo nacional y las principales juntas (AQA, Edexcel, OCR), cubriendo tanto los exámenes de lengua como los de literatura.",
+        "howItWorks": "El profe construye desde donde está tu confianza, te muestra cómo es una buena escritura y luego te devuelve la pluma con comentarios concretos en cada clase.",
         "resources": [
           {
-            "label": "BBC Bitesize — English",
+            "label": "BBC Bitesize — Inglés",
             "url": "https://www.bbc.co.uk/bitesize/subjects/z3kw2hv"
           },
           {
@@ -315,104 +315,104 @@
       },
       {
         "key": "Science",
-        "name": "The sciences",
+        "name": "Las ciencias",
         "icon": "🔬",
-        "what": "Biology, chemistry and physics made concrete — turning abstract ideas into things you can picture, explain and apply under exam conditions.",
+        "what": "Biología, química y física hechas concretas — convirtiendo ideas abstractas en cosas que puedes imaginar, explicar y aplicar en condiciones de examen.",
         "goodFor": [
           "KS3",
           "GCSE",
           "A-level",
-          "Combined & Triple"
+          "Combined y Triple"
         ],
-        "feels": "Explanatory and hands-on with examples. Expect diagrams, worked calculations and plenty of \"but why does that happen?\".",
-        "origin": "Cells, forces, reactions, energy, the required practicals, and the maths skills that sit underneath every science paper.",
-        "history": "Mapped to GCSE Combined and Triple Science and A-level specifications across AQA, Edexcel and OCR.",
-        "howItWorks": "The tutor pins down the misconceptions, links each topic to exam-style questions, and rehearses the mark-scheme language examiners are looking for.",
+        "feels": "Explicativo y práctico con ejemplos. Espera diagramas, cálculos trabajados y mucho «pero ¿por qué pasa eso?».",
+        "origin": "Células, fuerzas, reacciones, energía, las prácticas obligatorias y las habilidades matemáticas que sustentan todos los exámenes de ciencias.",
+        "history": "Adaptado a las especificaciones de GCSE Combined y Triple Science y de A-level de AQA, Edexcel y OCR.",
+        "howItWorks": "El profe identifica los conceptos erróneos, conecta cada tema con preguntas tipo examen y ensaya el lenguaje del esquema de corrección que buscan los examinadores.",
         "resources": [
           {
-            "label": "BBC Bitesize — Science",
+            "label": "BBC Bitesize — Ciencias",
             "url": "https://www.bbc.co.uk/bitesize/subjects/zng4d2p"
           },
           {
-            "label": "AQA — GCSE Sciences",
+            "label": "AQA — GCSE Ciencias",
             "url": "https://www.aqa.org.uk/subjects/science"
           }
         ]
       },
       {
         "key": "Languages",
-        "name": "Modern languages",
+        "name": "Lenguas modernas",
         "icon": "🗣️",
-        "what": "French, Spanish, German and more — building real speaking confidence alongside the grammar and vocabulary that exams ask for.",
+        "what": "Francés, español, alemán y más — construyendo confianza real al hablar junto con la gramática y el vocabulario que piden los exámenes.",
         "goodFor": [
           "GCSE",
           "A-level",
-          "Speaking",
-          "Conversation"
+          "Hablar",
+          "Conversación"
         ],
-        "feels": "Lots of talking. You'll practise out loud in a low-pressure setting, with grammar introduced as you need it rather than as dry rules.",
-        "origin": "Speaking, listening, reading and writing across familiar topics, plus the grammar and tenses each level expects.",
-        "history": "Aligned to GCSE and A-level modern-language specifications (AQA, Edexcel), including the speaking exam.",
-        "howItWorks": "The tutor blends real conversation with targeted drills, corrects gently in the moment, and builds steadily toward each paper of the exam.",
+        "feels": "Mucha conversación. Practicarás en voz alta en un ambiente sin presión, con la gramática introducida según la necesites en lugar de como reglas áridas.",
+        "origin": "Hablar, escuchar, leer y escribir sobre temas familiares, además de la gramática y los tiempos verbales que cada nivel espera.",
+        "history": "Alineado con las especificaciones de lenguas modernas de GCSE y A-level (AQA, Edexcel), incluido el examen oral.",
+        "howItWorks": "El profe combina conversación real con ejercicios concretos, corrige con suavidad en el momento y avanza con paso firme hacia cada parte del examen.",
         "resources": [
           {
-            "label": "BBC Bitesize — Languages",
+            "label": "BBC Bitesize — Lenguas",
             "url": "https://www.bbc.co.uk/bitesize/subjects/z9dqxnb"
           },
           {
-            "label": "AQA — GCSE French",
+            "label": "AQA — GCSE Francés",
             "url": "https://www.aqa.org.uk/subjects/languages/gcse/french-8652"
           }
         ]
       },
       {
         "key": "Music",
-        "name": "Music",
+        "name": "Música",
         "icon": "🎵",
-        "what": "Instrument lessons, theory and exam prep — for beginners finding their feet and graded students working toward the next certificate.",
+        "what": "Clases de instrumento, teoría y preparación de exámenes — para principiantes que dan sus primeros pasos y estudiantes por grados que trabajan hacia el siguiente certificado.",
         "goodFor": [
-          "Beginners",
-          "Graded exams",
-          "Theory",
-          "Aural"
+          "Principiantes",
+          "Exámenes por grados",
+          "Teoría",
+          "Educación auditiva"
         ],
-        "feels": "Practical and encouraging. You'll play, the tutor listens and guides, and practice goals are set for the week ahead.",
-        "origin": "Technique, sight-reading, aural, scales and repertoire — plus music theory for those who want it.",
-        "history": "Geared to the graded systems (ABRSM, Trinity), from absolute beginner through to the advanced grades.",
-        "howItWorks": "The tutor meets your level, breaks tricky passages down into manageable pieces, and shapes each lesson around your next goal or grade.",
+        "feels": "Práctico y alentador. Tocarás, el profe escucha y guía, y se fijan objetivos de práctica para la semana siguiente.",
+        "origin": "Técnica, lectura a primera vista, educación auditiva, escalas y repertorio — además de teoría musical para quien la quiera.",
+        "history": "Orientado a los sistemas por grados (ABRSM, Trinity), desde principiante absoluto hasta los grados avanzados.",
+        "howItWorks": "El profe se adapta a tu nivel, desglosa los pasajes difíciles en partes manejables y da forma a cada clase en torno a tu próximo objetivo o grado.",
         "resources": [
           {
-            "label": "ABRSM — exams & grades",
+            "label": "ABRSM — exámenes y grados",
             "url": "https://www.abrsm.org/en-gb/"
           },
           {
-            "label": "BBC Bitesize — Music",
+            "label": "BBC Bitesize — Música",
             "url": "https://www.bbc.co.uk/bitesize/subjects/zpf3cdm"
           }
         ]
       },
       {
         "key": "Exam prep",
-        "name": "11+, entrance & exam prep",
+        "name": "11+, acceso y preparación de exámenes",
         "icon": "🎯",
-        "what": "Focused preparation for the high-stakes moments — 11+, independent-school entrance, GCSE and A-level finals — where technique and timing matter as much as content.",
+        "what": "Preparación enfocada para los momentos decisivos — 11+, acceso a colegios privados, finales de GCSE y A-level — donde la técnica y el control del tiempo importan tanto como el contenido.",
         "goodFor": [
           "11+",
-          "Entrance exams",
-          "GCSE finals",
-          "A-level finals"
+          "Exámenes de acceso",
+          "Finales de GCSE",
+          "Finales de A-level"
         ],
-        "feels": "Structured and reassuring. Past papers under realistic conditions, then a careful review of what to do differently next time.",
-        "origin": "Verbal and non-verbal reasoning, subject content, timed practice, and the exam technique that turns knowledge into marks.",
-        "history": "Tailored to the specific exam — GL and CEM 11+ styles, individual school papers, and the main GCSE and A-level boards.",
-        "howItWorks": "The tutor builds a realistic plan back from the exam date, rehearses under timed conditions, and grows confidence so the day itself feels familiar.",
+        "feels": "Estructurado y tranquilizador. Exámenes anteriores en condiciones realistas y luego una revisión cuidadosa de qué hacer distinto la próxima vez.",
+        "origin": "Razonamiento verbal y no verbal, contenido de las asignaturas, práctica cronometrada y la técnica de examen que convierte el conocimiento en puntos.",
+        "history": "Adaptado al examen concreto — estilos 11+ de GL y CEM, exámenes propios de cada colegio y las principales juntas de GCSE y A-level.",
+        "howItWorks": "El profe traza un plan realista partiendo de la fecha del examen, ensaya en condiciones cronometradas y construye confianza para que el día en sí resulte familiar.",
         "resources": [
           {
-            "label": "The Eleven Plus exams — overview",
+            "label": "The Eleven Plus exams — visión general",
             "url": "https://www.elevenplusexams.co.uk/"
           },
           {
-            "label": "BBC Bitesize — exam revision",
+            "label": "BBC Bitesize — repaso de exámenes",
             "url": "https://www.bbc.co.uk/bitesize/articles/zhtdhcw"
           }
         ]
@@ -420,835 +420,835 @@
     ]
   },
   "for_schools": {
-    "hero_badge": "🎉 10% off all lessons for your first month",
-    "hero_title_line1": "One-to-one tutoring",
-    "hero_title_line2": "your students will actually use",
-    "hero_subtitle": "Intervention and catch-up tutoring without the agency mark-up. fair-do gives your pupils verified tutors at a fair price — and you only pay for lessons taken.",
-    "hero_cta": "Talk to us",
+    "hero_badge": "🎉 10% de descuento en todas las clases tu primer mes",
+    "hero_title_line1": "Tutoría individual",
+    "hero_title_line2": "que tus estudiantes sí usarán",
+    "hero_subtitle": "Tutoría de refuerzo y recuperación sin el recargo de las agencias. fair-do ofrece a tus alumnos profes verificados a un precio justo — y solo pagas por las clases impartidas.",
+    "hero_cta": "Habla con nosotros",
     "benefits": [
       {
         "icon": "💷",
-        "title": "Pay for what's used",
-        "body": "No fixed per-seat fees. Top up a shared credit pool and your students draw from it as they need lessons."
+        "title": "Paga por lo que se usa",
+        "body": "Sin cuotas fijas por plaza. Recarga un fondo de créditos compartido y tus estudiantes tiran de él según necesitan clases."
       },
       {
         "icon": "🔒",
-        "title": "Safeguarding built in",
-        "body": "Every tutor is DBS-checked before they can teach under-18s. You see usage totals, never private lesson content."
+        "title": "Protección integrada",
+        "body": "Cada profe pasa la verificación DBS antes de poder enseñar a menores de 18. Tú ves los totales de uso, nunca el contenido privado de las clases."
       },
       {
         "icon": "✓",
-        "title": "Verified tutors only",
-        "body": "Every tutor holds a current teaching qualification (QTS, PGCE or subject-specialist). Verified before they ever take a booking."
+        "title": "Solo profes verificados",
+        "body": "Cada profe tiene una titulación docente vigente (QTS, PGCE o especialista en la asignatura). Verificado antes de aceptar siquiera una reserva."
       },
       {
         "icon": "📊",
-        "title": "Simple reporting",
-        "body": "Monthly invoice, utilisation summary, and spend — everything your finance office needs, nothing they don't."
+        "title": "Informes sencillos",
+        "body": "Factura mensual, resumen de uso y gasto — todo lo que necesita tu oficina de finanzas, nada que no necesite."
       }
     ],
-    "how_heading": "How it works",
+    "how_heading": "Cómo funciona",
     "steps": [
       {
-        "title": "Fund a credit pool",
-        "body": "Top up an amount that suits your cohort. Credits never expire."
+        "title": "Financia un fondo de créditos",
+        "body": "Recarga la cantidad que convenga a tu grupo. Los créditos nunca caducan."
       },
       {
-        "title": "Invite your students",
-        "body": "Pupils join with their school email and book the tutor that fits them."
+        "title": "Invita a tus estudiantes",
+        "body": "Los alumnos se unen con su correo del centro y reservan al profe que mejor les encaje."
       },
       {
-        "title": "Lessons draw from the pool",
-        "body": "Each booking is covered automatically — no expense claims, no friction."
+        "title": "Las clases tiran del fondo",
+        "body": "Cada reserva se cubre automáticamente — sin notas de gasto, sin fricción."
       },
       {
-        "title": "Monthly summary",
-        "body": "You get utilisation and spend. Always anonymised."
+        "title": "Resumen mensual",
+        "body": "Recibes el uso y el gasto. Siempre anonimizado."
       }
     ],
-    "final_heading": "Ready to support your students?",
-    "final_body": "Tell us your cohort size and we'll size a plan. No sales theatre.",
-    "manage_link": "Already a customer? Manage your plan →",
-    "back_home": "← Back home"
+    "final_heading": "¿Listo para apoyar a tus estudiantes?",
+    "final_body": "Dinos el tamaño de tu grupo y dimensionaremos un plan. Sin teatro de ventas.",
+    "manage_link": "¿Ya eres cliente? Gestiona tu plan →",
+    "back_home": "← Volver al inicio"
   },
   "help": {
-    "nav_home": "← Home",
-    "heading": "Help & FAQs",
-    "intro": "Everything you need to get started with fair-do. Can't find an answer? Email us any time.",
-    "quick_links_heading": "Quick links",
-    "common_questions_heading": "Common questions",
-    "link_works_name": "How tutoring works",
-    "link_works_detail": "Subjects, levels and what a lesson looks like.",
-    "link_find_name": "Find a tutor",
-    "link_find_detail": "Answer one short question and get matched.",
-    "link_pricing_name": "Pricing",
-    "link_pricing_detail": "Simple, fair pricing — and exactly what you keep.",
-    "link_ai_name": "Thinking about an AI tutor?",
-    "link_ai_detail": "An honest look at what AI can and can't do.",
-    "link_concern_name": "Raise a concern",
-    "link_concern_detail": "Tell us if something has gone wrong.",
-    "link_terms_name": "Terms & privacy",
-    "link_terms_detail": "How fair-do works and how we handle your data.",
+    "nav_home": "← Inicio",
+    "heading": "Ayuda y preguntas frecuentes",
+    "intro": "Todo lo que necesitas para empezar con fair-do. ¿No encuentras una respuesta? Escríbenos cuando quieras.",
+    "quick_links_heading": "Enlaces rápidos",
+    "common_questions_heading": "Preguntas habituales",
+    "link_works_name": "Cómo funciona la tutoría",
+    "link_works_detail": "Asignaturas, niveles y cómo es una clase.",
+    "link_find_name": "Encuentra un profe",
+    "link_find_detail": "Responde una breve pregunta y te emparejamos.",
+    "link_pricing_name": "Precios",
+    "link_pricing_detail": "Precios sencillos y justos — y exactamente con qué te quedas.",
+    "link_ai_name": "¿Pensando en un tutor de IA?",
+    "link_ai_detail": "Una mirada honesta a lo que la IA puede y no puede hacer.",
+    "link_concern_name": "Plantea una preocupación",
+    "link_concern_detail": "Cuéntanos si algo ha ido mal.",
+    "link_terms_name": "Términos y privacidad",
+    "link_terms_detail": "Cómo funciona fair-do y cómo tratamos tus datos.",
     "faq": [
       {
-        "q": "How do I find the right tutor?",
-        "a": "Tell us the subject and level you need and we'll match you with tutors who fit. You can read each tutor's profile, see their qualifications, and switch at any time if it isn't the right fit."
+        "q": "¿Cómo encuentro al profe adecuado?",
+        "a": "Dinos la asignatura y el nivel que necesitas y te emparejaremos con profes que encajen. Puedes leer el perfil de cada profe, ver sus titulaciones y cambiar en cualquier momento si no es el encaje adecuado."
       },
       {
-        "q": "How do lessons happen?",
-        "a": "Lessons are booked and held through fair-do, including secure video for online tuition. Your tutor sets their own availability, and you'll get reminders before each lesson."
+        "q": "¿Cómo se dan las clases?",
+        "a": "Las clases se reservan y se imparten a través de fair-do, incluido el vídeo seguro para la tutoría online. Tu profe fija su propia disponibilidad y recibirás recordatorios antes de cada clase."
       },
       {
-        "q": "Are tutors qualified and checked?",
-        "a": "Tutors hold recognised teaching qualifications (such as QTS, PGCE or a relevant subject degree) and, where they work with children, an appropriate DBS check. Details are shown on each tutor's profile."
+        "q": "¿Los profes están titulados y verificados?",
+        "a": "Los profes tienen titulaciones docentes reconocidas (como QTS, PGCE o un grado relevante en la asignatura) y, cuando trabajan con menores, la verificación DBS correspondiente. Los detalles se muestran en el perfil de cada profe."
       },
       {
-        "q": "How much does it cost?",
-        "a": "Tutors set their own fees, which you'll see before you book. See our pricing page for how the platform itself works."
+        "q": "¿Cuánto cuesta?",
+        "a": "Los profes fijan sus propias tarifas, que verás antes de reservar. Consulta nuestra página de precios para saber cómo funciona la plataforma en sí."
       },
       {
-        "q": "How do I get in touch?",
-        "a": "Email us at support@fair-do.com and we'll be glad to help."
+        "q": "¿Cómo me pongo en contacto?",
+        "a": "Escríbenos a support@fair-do.com y estaremos encantados de ayudarte."
       }
     ],
-    "still_heading": "Still need a hand?",
-    "still_body_pre": "Email us at ",
-    "still_body_mid": " and we'll get back to you. Looking for a tutor? ",
-    "still_body_link": "Get matched",
+    "still_heading": "¿Aún necesitas una mano?",
+    "still_body_pre": "Escríbenos a ",
+    "still_body_mid": " y te responderemos. ¿Buscas un profe? ",
+    "still_body_link": "Encuentra tu match",
     "still_body_post": "."
   },
   "for_tutors": {
-    "hero_badge": "How fair-do works",
-    "hero_title_line1": "Run your whole tutoring business,",
-    "hero_title_line2": "the gentle way.",
-    "hero_lead": "fair-do is the calm, private software you use to run your own tutoring — your students, scheduling, secure video, payments and reminders, together in one place. On your computer and on your phone. Built for you, not for shareholders.",
-    "hero_cta_primary": "Start free",
-    "hero_cta_secondary": "See pricing",
-    "hero_note": "Free to start · set up in ~15 minutes · keep your own students",
-    "features_heading": "Everything your tutoring needs",
-    "features_subheading": "A closer look at how fair-do takes the admin off your plate, so you can give your attention to the work that matters.",
+    "hero_badge": "Cómo funciona fair-do",
+    "hero_title_line1": "Gestiona todo tu negocio de tutorías,",
+    "hero_title_line2": "de la forma más amable.",
+    "hero_lead": "fair-do es el software tranquilo y privado que usas para gestionar tus propias tutorías: tus alumnos, los horarios, el vídeo seguro, los pagos y los recordatorios, todo en un mismo lugar. En tu ordenador y en tu teléfono. Hecho para ti, no para los accionistas.",
+    "hero_cta_primary": "Empieza gratis",
+    "hero_cta_secondary": "Ver precios",
+    "hero_note": "Gratis para empezar · listo en unos 15 minutos · conserva tus propios alumnos",
+    "features_heading": "Todo lo que tus tutorías necesitan",
+    "features_subheading": "Una mirada más de cerca a cómo fair-do te quita la administración de encima, para que puedas dedicar tu atención al trabajo que de verdad importa.",
     "features": [
       {
         "icon": "🤝",
-        "title": "Your students stay yours",
-        "body": "You own the relationship and the record — full stop. fair-do is the software you run your tutoring with, never a middleman who owns your students or rents them back to you. If you ever leave, your student list and your notes go with you."
+        "title": "Tus alumnos siguen siendo tuyos",
+        "body": "La relación y el registro son tuyos, y punto. fair-do es el software con el que gestionas tus tutorías, nunca un intermediario que sea dueño de tus alumnos y te los alquile. Si algún día te vas, tu lista de alumnos y tus notas se van contigo."
       },
       {
         "icon": "🧰",
-        "title": "Everything in one place",
-        "body": "Your students, your schedule, secure video, payments and automatic reminders — all in a single calm place. No more stitching together a calendar, a video app, a card reader and a spreadsheet, and hoping they keep in step."
+        "title": "Todo en un mismo lugar",
+        "body": "Tus alumnos, tu agenda, el vídeo seguro, los pagos y los recordatorios automáticos: todo en un único lugar tranquilo. Se acabó tener que unir un calendario, una app de vídeo, un lector de tarjetas y una hoja de cálculo, y cruzar los dedos para que vayan a la par."
       },
       {
         "icon": "🪶",
-        "title": "Genuinely simple",
-        "body": "Set up in about 15 minutes, with no tech skills needed. Every page is written in plain English, with help right where you are — no manuals, no jargon. And because it installs as an app on your phone, you can run the whole thing from your pocket."
+        "title": "Genuinamente sencillo",
+        "body": "Listo en unos 15 minutos, sin necesidad de conocimientos técnicos. Cada página está escrita en lenguaje claro, con ayuda justo donde estás: sin manuales, sin jerga. Y como se instala como una app en tu teléfono, puedes gestionarlo todo desde tu bolsillo."
       },
       {
         "icon": "🔒",
-        "title": "Private and secure",
-        "body": "Everything is encrypted, with UK/EU data residency and appropriate safeguards for any services outside the UK. You stay in control: you are the data controller for your students' information, and fair-do is simply your processor. We never sell or share what your students trust you with."
+        "title": "Privado y seguro",
+        "body": "Todo está cifrado, con residencia de los datos en el Reino Unido/UE y las salvaguardas adecuadas para cualquier servicio fuera del Reino Unido. Tú mantienes el control: eres el responsable del tratamiento de los datos de tus alumnos, y fair-do es simplemente tu encargado del tratamiento. Nunca vendemos ni compartimos lo que tus alumnos te confían."
       },
       {
         "icon": "💷",
-        "title": "Set your own prices",
-        "body": "Your tutoring, your rates. Charge what you're worth, set a different price for a particular student if you like, or offer a package of lessons. You decide — we just make it easy to take the payment."
+        "title": "Pon tus propios precios",
+        "body": "Tus tutorías, tus tarifas. Cobra lo que vales, pon un precio distinto a un alumno concreto si quieres, u ofrece un paquete de clases. Tú decides; nosotros solo te lo ponemos fácil para cobrar."
       },
       {
         "icon": "⚡",
-        "title": "Get paid automatically",
-        "body": "Students pay by card and the money lands in your bank through Stripe, about two business days after each lesson. No invoices to chase, no end-of-month reconciling. You keep what you charge — fair-do is a flat monthly subscription, not a cut of your lessons."
+        "title": "Cobra automáticamente",
+        "body": "Los alumnos pagan con tarjeta y el dinero llega a tu banco a través de Stripe, unos dos días hábiles después de cada clase. Sin facturas que perseguir, sin cuadres a fin de mes. Te quedas con lo que cobras: fair-do es una suscripción mensual fija, no un porcentaje de tus clases."
       }
     ],
-    "ethos_eyebrow": "Made by people with heart",
-    "ethos_body": "We believe tutors deserve better tools and fairer terms. fair-do only grows when you grow — so there's no lock-in, no hidden games, and no company getting rich off your hard work. Keep your students, keep your records, and leave whenever you like.",
-    "steps_heading": "Up and running this week",
-    "steps_subheading": "Three small steps — that's the whole thing.",
+    "ethos_eyebrow": "Hecho por personas con corazón",
+    "ethos_body": "Creemos que los tutores merecen mejores herramientas y condiciones más justas. fair-do solo crece cuando tú creces, así que no hay ataduras, ni juegos ocultos, ni ninguna empresa enriqueciéndose a costa de tu esfuerzo. Conserva tus alumnos, conserva tus registros y márchate cuando quieras.",
+    "steps_heading": "En marcha esta misma semana",
+    "steps_subheading": "Tres pequeños pasos: eso es todo.",
     "steps": [
       {
         "n": 1,
-        "title": "Add your students",
-        "body": "Invite them by email or bring your whole list across. You own the relationship and the records — your tutoring runs on your terms."
+        "title": "Añade a tus alumnos",
+        "body": "Invítalos por correo electrónico o trae toda tu lista de una vez. La relación y los registros son tuyos: tus tutorías funcionan según tus condiciones."
       },
       {
         "n": 2,
-        "title": "Book lessons",
-        "body": "Pick a time and fair-do creates a private, secure video room and emails your student the details. Reminders go out on their own."
+        "title": "Reserva clases",
+        "body": "Elige una hora y fair-do crea una sala de vídeo privada y segura y envía a tu alumno los detalles por correo. Los recordatorios salen solos."
       },
       {
         "n": 3,
-        "title": "Get paid",
-        "body": "Connect payments once. After each lesson the fee is taken and paid out to your bank — no chasing, no spreadsheets."
+        "title": "Cobra",
+        "body": "Conecta los pagos una sola vez. Después de cada clase, la tarifa se cobra y se ingresa en tu banco: sin persecuciones, sin hojas de cálculo."
       }
     ],
-    "privacy_heading": "Privacy you can stand behind",
-    "privacy_body": "Your students trust you with their learning and their details. We treat their information with care — encrypted, with UK/EU data residency, and never sold or shared. You are the data controller; fair-do is your processor and nothing more. You stay in control of your records, always.",
-    "cta_heading": "Start tutoring on fair-do",
-    "cta_body": "Free to begin and fair as you grow. Set up in about 15 minutes, on web or phone — and we'll be here if you need a hand.",
-    "cta_button": "Start free →",
-    "cta_footer_pre": "Want the numbers first?",
-    "cta_footer_link": "See pricing",
+    "privacy_heading": "Una privacidad que puedes respaldar",
+    "privacy_body": "Tus alumnos te confían su aprendizaje y sus datos. Tratamos su información con cuidado: cifrada, con residencia de los datos en el Reino Unido/UE, y nunca vendida ni compartida. Tú eres el responsable del tratamiento; fair-do es tu encargado del tratamiento y nada más. Tú mantienes el control de tus registros, siempre.",
+    "cta_heading": "Empieza a dar clases en fair-do",
+    "cta_body": "Gratis para empezar y justo a medida que creces. Listo en unos 15 minutos, en la web o en el teléfono, y aquí estaremos si necesitas una mano.",
+    "cta_button": "Empieza gratis →",
+    "cta_footer_pre": "¿Quieres ver primero los números?",
+    "cta_footer_link": "Ver precios",
     "cta_footer_post": "."
   },
   "values": {
-    "eyebrow": "Our values",
-    "h1": "Why we built fair-do",
-    "intro": "We build software for a living. fair-do started because we kept noticing something about online tutoring that bothered us, and after a while we couldn't leave it alone.",
-    "bothered_heading": "What bothered us",
-    "bothered_p1": "Good tutoring works. That's not a hunch — the evidence is strong, and most of us have either felt it or watched it change someone close to us.",
-    "bothered_p2": "But the way it's sold online had drifted somewhere wrong. A lot of the big platforms take a huge share of every lesson — up to 65% in some cases. So the tutor, who trained for years and does the actual hard, human part of the work, ends up with maybe a third. The student pays full price, often when they're least able to afford it. And a company in the middle, who never meets either of them, takes the biggest cut.",
-    "bothered_p3": "We kept thinking someone would come along and fix it. Nobody did. So we had a go ourselves.",
-    "believe_heading": "What we actually believe",
+    "eyebrow": "Nuestros valores",
+    "h1": "Por qué creamos fair-do",
+    "intro": "Nos dedicamos a hacer software. fair-do nació porque no dejábamos de notar algo en las tutorías online que nos incomodaba y, al cabo de un tiempo, ya no pudimos dejarlo pasar.",
+    "bothered_heading": "Lo que nos incomodaba",
+    "bothered_p1": "Una buena tutoría funciona. No es una corazonada: la evidencia es sólida, y casi todos lo hemos sentido o lo hemos visto cambiar a alguien cercano.",
+    "bothered_p2": "Pero la forma en que se vende online había derivado hacia algo equivocado. Muchas de las grandes plataformas se llevan una parte enorme de cada clase: hasta el 65 % en algunos casos. Así que el tutor, que se formó durante años y hace la parte realmente dura y humana del trabajo, acaba quedándose con quizá un tercio. El alumno paga el precio completo, a menudo cuando menos puede permitírselo. Y una empresa intermediaria, que nunca conoce a ninguno de los dos, se lleva el mayor trozo.",
+    "bothered_p3": "No dejábamos de pensar que alguien vendría a arreglarlo. Nadie lo hizo. Así que lo intentamos nosotros mismos.",
+    "believe_heading": "Lo que de verdad creemos",
     "beliefs": [
       {
-        "strong": "Tutors should keep what they earn.",
-        "body": "On fair-do they keep what they charge — we don't take a cut of your lessons. Tutors pay one flat monthly fee to use the platform, and that's the arrangement. The work is theirs."
+        "strong": "Los tutores deberían quedarse con lo que ganan.",
+        "body": "En fair-do se quedan con lo que cobran: no nos llevamos un porcentaje de tus clases. Los tutores pagan una única cuota mensual fija por usar la plataforma, y ese es el trato. El trabajo es suyo."
       },
       {
-        "strong": "Cheaper isn't a gimmick — it's the point.",
-        "body": "Take out the middleman's cut and lessons can simply cost less. That's how good tutoring reaches families it currently prices out. We're not running a sale; this is the reason the company exists."
+        "strong": "Que sea más barato no es un truco: es la razón de ser.",
+        "body": "Quita la parte del intermediario y las clases sencillamente pueden costar menos. Así es como la buena tutoría llega a familias a las que hoy se les hace inalcanzable. No estamos haciendo una oferta; esta es la razón por la que existe la empresa."
       },
       {
-        "strong": "Nobody should get rich off the work tutors do.",
-        "body": "We charge a small, flat fee to keep things running, and that's it. A tutor's hard work isn't a number to be squeezed for margin, and we're not going to build a business that treats it like one."
+        "strong": "Nadie debería enriquecerse a costa del trabajo de los tutores.",
+        "body": "Cobramos una cuota pequeña y fija para mantenerlo todo en marcha, y eso es todo. El esfuerzo de un tutor no es un número que exprimir para sacar margen, y no vamos a construir un negocio que lo trate como tal."
       },
       {
-        "strong": "We don't cut corners on trust.",
-        "body": "Every tutor here shares their teaching qualifications and a current DBS check. We check before anyone's approved, we keep a record of it, and we check again down the line. “Move fast and break things” is fine for a photo app. Not for this."
+        "strong": "No recortamos en confianza.",
+        "body": "Cada tutor de aquí comparte sus titulaciones docentes y un certificado DBS vigente. Lo comprobamos antes de aprobar a nadie, dejamos constancia de ello y volvemos a comprobarlo más adelante. «Muévete rápido y rompe cosas» está bien para una app de fotos. No para esto."
       }
     ],
-    "promise_tutors_heading": "What we promise tutors",
-    "promise_tutors_intro": "You've probably been burned by a platform before, so let's be specific.",
+    "promise_tutors_heading": "Lo que prometemos a los tutores",
+    "promise_tutors_intro": "Probablemente alguna plataforma ya te ha decepcionado antes, así que vamos a ser concretos.",
     "promise_tutors_points": [
-      "You keep what you charge — we don't take a percentage of your lessons. You cover only the standard card-processing fee every business pays, and we keep none of it.",
-      "The price you join at is the price you keep — for good. It doesn't go up. And as we grow, the rate for new joiners actually comes down, because a bigger platform should be cheaper to run, not greedier.",
-      "If you're just getting started — a couple of students, finding your feet — you start free. You don't pay anything until your tutoring has grown enough that fair-do is clearly worth it. You're verified and visible from day one regardless.",
-      "And it's your tutoring, not ours. Your rates, your hours, your students. We take care of the booking, the payments, the video. You can walk away whenever you like and take your students with you."
+      "Te quedas con lo que cobras: no nos llevamos un porcentaje de tus clases. Solo cubres la comisión estándar por procesamiento de tarjeta que paga cualquier empresa, y de eso no nos quedamos nada.",
+      "El precio al que te unes es el precio que mantienes, para siempre. No sube. Y a medida que crecemos, la tarifa para los nuevos en realidad baja, porque una plataforma más grande debería ser más barata de gestionar, no más codiciosa.",
+      "Si estás empezando —un par de alumnos, encontrando tu sitio—, empiezas gratis. No pagas nada hasta que tus tutorías hayan crecido lo suficiente como para que fair-do valga claramente la pena. Estás verificado y visible desde el primer día, en cualquier caso.",
+      "Y son tus tutorías, no las nuestras. Tus tarifas, tus horarios, tus alumnos. Nosotros nos ocupamos de las reservas, los pagos y el vídeo. Puedes marcharte cuando quieras y llevarte a tus alumnos contigo."
     ],
-    "promise_students_heading": "What we promise students",
-    "promise_students_intro": "If you're the one looking for help, here's where we stand.",
+    "promise_students_heading": "Lo que prometemos a los alumnos",
+    "promise_students_intro": "Si eres tú quien busca ayuda, aquí está nuestra postura.",
     "promise_students_points": [
-      "Everyone you'll find here is a real, qualified tutor — we've checked.",
-      "You're not paying over the odds to cover someone's advertising budget, because there isn't a middleman taking a slice.",
-      "Your privacy matters more to us than almost anything. Lessons are encrypted. We keep only what we have to, we never sell your information, and we will never use your learning to sell you ads.",
-      "And you're a person to us. Not a conversion, not a number on a dashboard."
+      "Todas las personas que encontrarás aquí son tutores reales y cualificados: lo hemos comprobado.",
+      "No estás pagando de más para cubrir el presupuesto publicitario de nadie, porque no hay un intermediario llevándose una tajada.",
+      "Tu privacidad nos importa más que casi cualquier otra cosa. Las clases están cifradas. Guardamos solo lo imprescindible, nunca vendemos tu información y jamás usaremos tu aprendizaje para venderte anuncios.",
+      "Y para nosotros eres una persona. No una conversión, ni un número en un panel."
     ],
-    "going_heading": "Where we're going",
-    "going_p1": "Right now fair-do is mostly built for tutors. But the bigger idea is this: a place where anyone can find the right tutor for them and book them directly — the way you'd choose anyone you're trusting with something that matters. Good tutoring, fairly priced, as ordinary as it should be.",
-    "going_p2": "We're building toward that slowly and in the right order. The verification, the safeguarding, the foundations — those come first, before we open things up. Some of it isn't here yet, and we'd rather say so than promise it early.",
-    "going_p3": "The one thing that won't move is the idea underneath: tutoring that's fair. Fair to the people who do the work, and fair to the people who need it.",
-    "hello_heading": "Say hello",
-    "hello_body": "We're a small team and we read everything — including the bits we've got wrong. Tell us.",
-    "cta_primary": "Become a founding tutor",
-    "cta_secondary": "Find a tutor"
+    "going_heading": "Hacia dónde vamos",
+    "going_p1": "Ahora mismo fair-do está pensado sobre todo para tutores. Pero la idea más amplia es esta: un lugar donde cualquiera pueda encontrar al tutor adecuado para sí mismo y reservarlo directamente, como elegirías a cualquier persona a quien le confías algo que importa. Buena tutoría, a un precio justo, tan corriente como debería ser.",
+    "going_p2": "Avanzamos hacia eso despacio y en el orden correcto. La verificación, la protección, los cimientos: eso va primero, antes de abrirlo todo. Parte de ello aún no está aquí, y preferimos decirlo a prometerlo antes de tiempo.",
+    "going_p3": "Lo único que no se moverá es la idea que hay debajo: una tutoría que sea justa. Justa para quienes hacen el trabajo, y justa para quienes lo necesitan.",
+    "hello_heading": "Saluda",
+    "hello_body": "Somos un equipo pequeño y lo leemos todo, incluidas las cosas en las que nos hemos equivocado. Cuéntanoslo.",
+    "cta_primary": "Hazte tutor fundador",
+    "cta_secondary": "Encuentra un tutor"
   },
   "compare": {
-    "h1": "How fair-do compares",
-    "lead": "An honest look at fair-do next to the booking and admin software UK tutors usually weigh up. The others are mature and feature-rich; fair-do is the calm, UK-first, free-to-start option where the essentials are built in and your students stay yours.",
+    "h1": "Cómo se compara fair-do",
+    "lead": "Una mirada honesta a fair-do frente al software de reservas y administración que los tutores del Reino Unido suelen sopesar. Los demás son maduros y están llenos de funciones; fair-do es la opción tranquila, pensada primero para el Reino Unido y gratuita para empezar, donde lo esencial viene incluido y tus alumnos siguen siendo tuyos.",
     "edges": [
       {
         "icon": "🪶",
-        "title": "Free to start",
-        "body": "Run your whole tutoring business on the free plan. Most UK alternatives are paid-only from day one."
+        "title": "Gratis para empezar",
+        "body": "Gestiona todo tu negocio de tutorías con el plan gratuito. La mayoría de las alternativas del Reino Unido son de pago desde el primer día."
       },
       {
         "icon": "🇬🇧",
-        "title": "Built UK-first, for tutors",
-        "body": "Tutoring-shaped, not a generic admin tool. UK/EU data residency, UK GDPR, you as the data controller."
+        "title": "Pensado primero para el Reino Unido, para tutores",
+        "body": "Hecho a la medida de las tutorías, no una herramienta administrativa genérica. Residencia de los datos en el Reino Unido/UE, RGPD del Reino Unido, y tú como responsable del tratamiento."
       },
       {
         "icon": "📦",
-        "title": "The essentials, all included",
-        "body": "Secure video, GBP payments, email + SMS reminders, intake forms, self-booking — no per-feature add-ons or SMS credit packs."
+        "title": "Lo esencial, todo incluido",
+        "body": "Vídeo seguro, pagos en GBP, recordatorios por correo + SMS, formularios de admisión, autorreserva: sin complementos por función ni paquetes de créditos de SMS."
       },
       {
         "icon": "🤝",
-        "title": "You own everything",
-        "body": "Your students, your records. Export and leave any time. fair-do is your tool, never a middleman."
+        "title": "Todo es tuyo",
+        "body": "Tus alumnos, tus registros. Exporta y márchate cuando quieras. fair-do es tu herramienta, nunca un intermediario."
       }
     ],
-    "matrix_heading": "Feature by feature",
-    "legend_included": "included",
-    "legend_partial": "partial / add-on / paid",
+    "matrix_heading": "Función por función",
+    "legend_included": "incluido",
+    "legend_partial": "parcial / complemento / de pago",
     "legend_no": "no",
-    "table_feature": "Feature",
+    "table_feature": "Función",
     "rows": [
-      "Built for UK tutors",
-      "Free plan to start",
-      "UK / EU data residency",
-      "GBP card payments & payouts",
-      "Built-in secure video",
-      "Email + SMS reminders included",
-      "Student self-booking page",
-      "You own your students & records",
-      "Designed just for tutoring"
+      "Pensado para tutores del Reino Unido",
+      "Plan gratuito para empezar",
+      "Residencia de los datos en el Reino Unido / UE",
+      "Pagos y abonos con tarjeta en GBP",
+      "Vídeo seguro integrado",
+      "Recordatorios por correo + SMS incluidos",
+      "Página de autorreserva para alumnos",
+      "Tus alumnos y registros son tuyos",
+      "Diseñado solo para tutorías"
     ],
     "marks": {
-      "yes": "Yes / included",
-      "partial": "Partial / add-on / paid",
+      "yes": "Sí / incluido",
+      "partial": "Parcial / complemento / de pago",
       "no": "No"
     },
-    "growing_heading": "Where we're still growing",
-    "growing_intro": "We believe in being straight with you:",
-    "growing_newer_strong": "We're newer.",
-    "growing_newer_body": " The established names have years of features — deep reporting, large multi-tutor academies, and more. We’re focused and growing.",
-    "growing_webapp_strong": "We're a web app today",
-    "growing_webapp_body": " (it installs to your phone's home screen). A native app is on the way.",
-    "growing_fees_strong": "Card payments carry a small commission",
-    "growing_fees_body": " (0–2.5%, and 0% on Academy) on top of Stripe’s fee — the trade for a genuinely free entry plan. ",
-    "growing_fees_link": "See exactly what you keep →",
-    "disclaimer": "Comparison researched and fact-checked in June 2026 from each provider's own website and reputable reviews. Competitors' pricing and features change — please check their sites for the latest. This is a factual comparison, not a criticism of any other product; they're good tools, built for different needs.",
-    "cta": "Start free",
-    "cta_sub": "Free to start · UK-first · keep your own students"
+    "growing_heading": "En qué seguimos creciendo",
+    "growing_intro": "Creemos en ser sinceros contigo:",
+    "growing_newer_strong": "Somos más nuevos.",
+    "growing_newer_body": " Los nombres consolidados tienen años de funciones: informes detallados, grandes academias con varios tutores y más. Nosotros estamos centrados y creciendo.",
+    "growing_webapp_strong": "Hoy somos una aplicación web",
+    "growing_webapp_body": " (se instala en la pantalla de inicio de tu teléfono). Una app nativa está en camino.",
+    "growing_fees_strong": "Los pagos con tarjeta llevan una pequeña comisión",
+    "growing_fees_body": " (0–2,5 %, y 0 % en Academy) sobre la comisión de Stripe: el intercambio por un plan de entrada genuinamente gratuito. ",
+    "growing_fees_link": "Ve exactamente con cuánto te quedas →",
+    "disclaimer": "Comparación investigada y verificada en junio de 2026 a partir de la propia web de cada proveedor y de reseñas fiables. Los precios y las funciones de la competencia cambian; consulta sus webs para lo más reciente. Esta es una comparación factual, no una crítica a ningún otro producto; son buenas herramientas, hechas para necesidades distintas.",
+    "cta": "Empieza gratis",
+    "cta_sub": "Gratis para empezar · pensado primero para el Reino Unido · conserva tus propios alumnos"
   },
   "ai_tutoring": {
-    "eyebrow": "The honest version",
-    "h1": "Why not just use an AI tutor?",
-    "lead": "It's a fair question — and the elephant in the room for a company like ours. We build software for human tutors, so we're not neutral. But you deserve a straight, impartial answer, not a sales pitch. Here's what AI can genuinely do, what it can't, and what the evidence actually says.",
-    "what_heading": "What “AI tutoring” actually is",
-    "what_body": "It usually means a chatbot or app that helps you learn — sometimes walking you through structured practice, sometimes just explaining a topic or checking your working. Some are purpose-built for education and curriculum-aware; others are general chatbots students use informally. They're available 24/7, usually free or cheap, and you can start instantly with no waiting list.",
-    "upsides_heading": "The genuine upsides",
+    "eyebrow": "La versión honesta",
+    "h1": "¿Por qué no usar simplemente un tutor de IA?",
+    "lead": "Es una pregunta justa, y el tema incómodo para una empresa como la nuestra. Hacemos software para tutores humanos, así que no somos neutrales. Pero mereces una respuesta directa e imparcial, no un argumento de venta. Esto es lo que la IA puede hacer de verdad, lo que no puede, y lo que dice realmente la evidencia.",
+    "what_heading": "Qué es en realidad la «tutoría con IA»",
+    "what_body": "Suele referirse a un chatbot o una app que te ayuda a aprender: a veces guiándote por una práctica estructurada, a veces simplemente explicando un tema o revisando tu razonamiento. Algunos están hechos a propósito para la educación y conocen el currículo; otros son chatbots generales que los alumnos usan de forma informal. Están disponibles 24/7, normalmente gratis o baratos, y puedes empezar al instante sin lista de espera.",
+    "upsides_heading": "Las ventajas genuinas",
     "upsides": [
       {
-        "t": "Access & cost",
-        "b": "Free or a few pounds a month versus an hourly rate. No travel, no waiting list, available at 11pm the night before a deadline."
+        "t": "Acceso y coste",
+        "b": "Gratis o unas pocas libras al mes frente a una tarifa por hora. Sin desplazamientos, sin lista de espera, disponible a las 11 de la noche antes de una entrega."
       },
       {
-        "t": "Endlessly patient",
-        "b": "It never tires, never judges a \"silly\" question, and will re-explain the same thing ten different ways until it lands."
+        "t": "Infinitamente paciente",
+        "b": "Nunca se cansa, nunca juzga una pregunta «tonta» y volverá a explicar lo mismo de diez maneras distintas hasta que cale."
       },
       {
-        "t": "Good at drills & explanation",
-        "b": "Practice questions, instant feedback, step-by-step worked solutions, flashcards and recall — AI does these consistently and tirelessly."
+        "t": "Bueno para los ejercicios y las explicaciones",
+        "b": "Preguntas de práctica, comentarios al instante, soluciones resueltas paso a paso, tarjetas de memoria y repaso: la IA hace estas cosas de forma constante e incansable."
       },
       {
-        "t": "A bridge, not a wall",
-        "b": "For a quick concept check, a homework nudge, or while waiting to start with a tutor, it can genuinely help a student take the first step."
+        "t": "Un puente, no un muro",
+        "b": "Para una comprobación rápida de un concepto, un empujoncito con los deberes, o mientras se espera para empezar con un tutor, puede ayudar de verdad a que un alumno dé el primer paso."
       }
     ],
-    "risks_heading": "The real risks",
+    "risks_heading": "Los riesgos reales",
     "risks": [
       {
-        "t": "It doesn't actually know the student",
-        "b": "A good tutor reads a flicker of confusion on a face, remembers what clicked last week, and adapts in the moment. An AI guesses from text alone — it isn't really with the learner."
+        "t": "En realidad no conoce al alumno",
+        "b": "Un buen tutor capta un destello de confusión en una cara, recuerda qué encajó la semana pasada y se adapta en el momento. Una IA adivina solo a partir del texto: no está realmente con quien aprende."
       },
       {
-        "t": "No accountability",
-        "b": "A real tutor builds a relationship with the family, can be asked how things are going, and is answerable for their work. A chatbot has none of that."
+        "t": "Sin responsabilidad",
+        "b": "Un tutor real construye una relación con la familia, puede contarle cómo van las cosas y responde por su trabajo. Un chatbot no tiene nada de eso."
       },
       {
-        "t": "It can be confidently wrong",
-        "b": "AI can give plausible but incorrect answers or working (\"hallucinate\"). For a student who can't yet tell right from wrong, that's a real problem."
+        "t": "Puede equivocarse con total seguridad",
+        "b": "La IA puede dar respuestas o razonamientos plausibles pero incorrectos («alucinar»). Para un alumno que aún no sabe distinguir lo correcto de lo incorrecto, eso es un problema real."
       },
       {
-        "t": "It can do the work for them",
-        "b": "The easiest path with a chatbot is to copy the answer. Real learning comes from struggling productively — something a good tutor protects and a chatbot can quietly undermine."
+        "t": "Puede hacerles el trabajo",
+        "b": "El camino más fácil con un chatbot es copiar la respuesta. El aprendizaje real viene de esforzarse de forma productiva, algo que un buen tutor protege y que un chatbot puede socavar en silencio."
       },
       {
-        "t": "Privacy",
-        "b": "A child's schoolwork and details become data. Read the privacy policy carefully — some tools train on or share what you put in."
+        "t": "Privacidad",
+        "b": "Los deberes y los datos de un niño se convierten en datos. Lee con atención la política de privacidad: algunas herramientas entrenan con lo que introduces o lo comparten."
       },
       {
-        "t": "Patchy on the actual exam",
-        "b": "General AI doesn't reliably know your exact board, spec or mark scheme. A tutor who knows the exam can be the difference between knowing a topic and scoring the marks."
+        "t": "Irregular en el examen de verdad",
+        "b": "La IA general no conoce de forma fiable tu junta, tu temario o tu baremo de corrección exactos. Un tutor que conoce el examen puede marcar la diferencia entre saber un tema y conseguir los puntos."
       }
     ],
-    "research_heading": "What the research says (so far)",
-    "research_body": "Honestly: it's early and mixed. AI tools can help with practice and feedback, and there's genuine promise in personalised drills. But the strongest evidence in education is still for structured, one-to-one teaching with a person who knows the learner. Long-term effects, accuracy at scale, and the impact on how children actually learn are still open questions, and professional bodies urge caution and human oversight.",
+    "research_heading": "Lo que dice la investigación (de momento)",
+    "research_body": "Con honestidad: es pronto y los resultados son dispares. Las herramientas de IA pueden ayudar con la práctica y los comentarios, y hay una promesa genuina en los ejercicios personalizados. Pero la evidencia más sólida en educación sigue estando del lado de la enseñanza estructurada, uno a uno, con una persona que conoce a quien aprende. Los efectos a largo plazo, la precisión a gran escala y el impacto en cómo aprenden de verdad los niños siguen siendo preguntas abiertas, y los organismos profesionales recomiendan cautela y supervisión humana.",
     "research": [
       {
-        "label": "Education Endowment Foundation — one-to-one tuition evidence",
+        "label": "Education Endowment Foundation — evidencia sobre tutoría uno a uno",
         "url": "https://educationendowmentfoundation.org.uk/education-evidence/teaching-learning-toolkit/one-to-one-tuition"
       },
       {
-        "label": "DfE — generative AI in education (policy paper)",
+        "label": "DfE — IA generativa en educación (documento de política)",
         "url": "https://www.gov.uk/government/publications/generative-artificial-intelligence-in-education"
       },
       {
-        "label": "EEF — using digital technology to improve learning",
+        "label": "EEF — uso de la tecnología digital para mejorar el aprendizaje",
         "url": "https://educationendowmentfoundation.org.uk/education-evidence/guidance-reports/digital"
       },
       {
-        "label": "Ofsted — approach to artificial intelligence",
+        "label": "Ofsted — enfoque sobre la inteligencia artificial",
         "url": "https://www.gov.uk/government/publications/ofsteds-approach-to-artificial-intelligence-ai"
       }
     ],
-    "tools_heading": "Tools people are using",
-    "tools_note": "Shared for information, not endorsement. Check each one's privacy policy, and remember none of them replaces a teacher who knows your child.",
+    "tools_heading": "Herramientas que la gente está usando",
+    "tools_note": "Compartidas a título informativo, no como recomendación. Revisa la política de privacidad de cada una, y recuerda que ninguna sustituye a un docente que conoce a tu hijo.",
     "tools": [
       {
         "name": "Khan Academy (Khanmigo)",
         "url": "https://www.khanmigo.ai/",
-        "note": "An AI tutor built on Khan Academy's lessons; piloted in some schools for guided practice."
+        "note": "Un tutor de IA construido sobre las lecciones de Khan Academy; probado en algunos colegios para la práctica guiada."
       },
       {
         "name": "Photomath",
         "url": "https://photomath.com/",
-        "note": "Scans a maths problem and shows step-by-step working; handy for checking method."
+        "note": "Escanea un problema de matemáticas y muestra el procedimiento paso a paso; práctico para comprobar el método."
       },
       {
         "name": "Duolingo",
         "url": "https://www.duolingo.com/",
-        "note": "Gamified language practice with AI-driven exercises and feedback."
+        "note": "Práctica de idiomas gamificada con ejercicios y comentarios impulsados por IA."
       },
       {
         "name": "Century Tech",
         "url": "https://www.century.tech/",
-        "note": "An AI learning platform used in some UK schools for personalised practice."
+        "note": "Una plataforma de aprendizaje con IA usada en algunos colegios del Reino Unido para la práctica personalizada."
       },
       {
         "name": "General LLMs (ChatGPT, Claude, Gemini)",
         "url": "https://www.anthropic.com/claude",
-        "note": "Not built for teaching, but widely used to explain topics and check work. No guarantee of accuracy."
+        "note": "No están hechos para enseñar, pero se usan mucho para explicar temas y revisar el trabajo. Sin garantía de precisión."
       }
     ],
-    "motivation_heading": "On motivation, and being known",
-    "motivation_body": "The heart of good tutoring isn't information — it's relationship. A tutor who believes in a student, notices the moment something clicks, and turns up week after week builds the confidence that makes learning stick. That encouragement, and the gentle accountability of someone who knows you, is where a lot of the progress happens. An AI can imitate the words. It can't choose to care, and it can't be proud of you. For drills and quick answers that's fine. For lasting confidence, it matters more than it sounds.",
-    "take_heading": "Our honest take",
-    "take_body": "Use the right tool for the job. For practice questions, explanations, flashcards, or an 11pm moment when no one's awake, a good AI tool can genuinely help — and we'd rather a student have that than nothing. For building real understanding, confidence and exam technique, we believe a real, qualified human tutor is worth it — and we've built fair-do so that's affordable, not a luxury. The two aren't enemies. But they're not the same.",
-    "cta_find": "Find a human tutor",
-    "cta_subjects": "Subjects & how tutoring works",
-    "disclaimer": "This article is general information, not formal academic advice. Links to third-party tools and research are for context, not endorsement."
+    "motivation_heading": "Sobre la motivación, y sentirse conocido",
+    "motivation_body": "El corazón de una buena tutoría no es la información: es la relación. Un tutor que cree en un alumno, que nota el momento en que algo encaja y que aparece semana tras semana construye la confianza que hace que el aprendizaje perdure. Ese ánimo, y la responsabilidad amable de alguien que te conoce, es donde ocurre buena parte del progreso. Una IA puede imitar las palabras. No puede elegir importarle, ni puede estar orgullosa de ti. Para los ejercicios y las respuestas rápidas, eso está bien. Para una confianza duradera, importa más de lo que parece.",
+    "take_heading": "Nuestra opinión honesta",
+    "take_body": "Usa la herramienta adecuada para cada tarea. Para preguntas de práctica, explicaciones, tarjetas de memoria o un momento a las 11 de la noche cuando no hay nadie despierto, una buena herramienta de IA puede ayudar de verdad, y preferimos que un alumno tenga eso a no tener nada. Para construir una comprensión real, confianza y técnica de examen, creemos que un tutor humano real y cualificado vale la pena, y hemos creado fair-do para que eso sea asequible, no un lujo. Los dos no son enemigos. Pero no son lo mismo.",
+    "cta_find": "Encuentra un tutor humano",
+    "cta_subjects": "Asignaturas y cómo funcionan las tutorías",
+    "disclaimer": "Este artículo es información general, no un consejo académico formal. Los enlaces a herramientas y estudios de terceros son a título de contexto, no como recomendación."
   },
   "gift": {
-    "nav_home": "← Home",
-    "h1": "Gift tuition",
-    "subtitle": "Give someone the chance to learn something new — on their terms, in their time.",
-    "how_heading": "How it works",
+    "nav_home": "← Inicio",
+    "h1": "Regala clases",
+    "subtitle": "Dale a alguien la oportunidad de aprender algo nuevo — a su manera, a su ritmo.",
+    "how_heading": "Cómo funciona",
     "steps": [
       {
-        "t": "You choose an amount",
-        "b": "Pay securely. We create a voucher code — vouchers never expire."
+        "t": "Eliges un importe",
+        "b": "Paga de forma segura. Creamos un código de vale — los vales no caducan nunca."
       },
       {
-        "t": "They get the code",
-        "b": "Sent by email (or to you, to share however feels right)."
+        "t": "Reciben el código",
+        "b": "Enviado por correo electrónico (o a ti, para que lo compartas como mejor te parezca)."
       },
       {
-        "t": "They redeem in their own time",
-        "b": "It becomes account credit, used against any tutor they choose. No pressure, no deadline."
+        "t": "Lo canjean cuando quieran",
+        "b": "Se convierte en saldo en la cuenta, para usar con cualquier tutor que elijan. Sin presión, sin fecha límite."
       }
     ],
-    "gentle_heading": "A gentle word",
-    "gentle_body": "Learning is personal, and being given lessons can feel complicated. We never tell the recipient it's \"because they need help\" — just that someone believes in them. They redeem privately, choose their own tutor, and are never pressured to use it. If they never do, that's okay too.",
-    "amount_label": "Amount",
-    "custom_placeholder": "Or enter custom amount (£)",
-    "your_email_label": "Your email",
+    "gentle_heading": "Una palabra amable",
+    "gentle_body": "Aprender es algo personal, y que te regalen clases puede resultar complicado. Nunca le decimos a quien lo recibe que es \"porque necesita ayuda\" — solo que alguien cree en él. Lo canjea en privado, elige su propio tutor y nunca se le presiona para usarlo. Y si nunca lo usa, también está bien.",
+    "amount_label": "Importe",
+    "custom_placeholder": "O introduce un importe personalizado (£)",
+    "your_email_label": "Tu correo electrónico",
     "your_email_placeholder": "you@email.com",
-    "recipient_label": "Recipient email",
-    "recipient_hint": " — leave blank to receive the code yourself",
+    "recipient_label": "Correo del destinatario",
+    "recipient_hint": " — déjalo en blanco para recibir el código tú mismo",
     "recipient_placeholder": "them@email.com",
-    "message_label": "Message",
-    "message_hint": " — optional",
-    "message_placeholder": "Thinking of you 💚",
-    "error_generic": "Something went wrong",
-    "redirecting": "Redirecting…",
-    "buy_prefix": "Buy gift —",
-    "secure_note": "Secure payment via Stripe. Vouchers never expire."
+    "message_label": "Mensaje",
+    "message_hint": " — opcional",
+    "message_placeholder": "Pensando en ti 💚",
+    "error_generic": "Algo salió mal",
+    "redirecting": "Redirigiendo…",
+    "buy_prefix": "Comprar regalo —",
+    "secure_note": "Pago seguro a través de Stripe. Los vales no caducan nunca."
   },
   "onboarding_home": {
-    "heading": "Welcome to fair-do",
-    "subtitle": "How are you joining us today?",
-    "country_label": "Where are you?",
-    "country_uk": "🇬🇧 United Kingdom",
-    "country_us": "🇺🇸 United States",
-    "student_title_need": "I need a tutor",
-    "student_title_have": "I have a tutor",
-    "student_subtitle_need": "Find qualified tutors at fair prices",
-    "student_subtitle_have": "Connect with your tutor on fair-do",
-    "setting_up": "Setting up…",
-    "teacher_title": "I am a tutor",
-    "teacher_subtitle": "Run your whole studio from one place",
-    "footer_note": "You can only choose once. Contact support to change your role."
+    "heading": "Te damos la bienvenida a fair-do",
+    "subtitle": "¿Cómo te unes a nosotros hoy?",
+    "country_label": "¿Dónde estás?",
+    "country_uk": "🇬🇧 Reino Unido",
+    "country_us": "🇺🇸 Estados Unidos",
+    "student_title_need": "Necesito un tutor",
+    "student_title_have": "Tengo un tutor",
+    "student_subtitle_need": "Encuentra tutores cualificados a precios justos",
+    "student_subtitle_have": "Conecta con tu tutor en fair-do",
+    "setting_up": "Configurando…",
+    "teacher_title": "Soy tutor",
+    "teacher_subtitle": "Gestiona todo tu estudio desde un solo lugar",
+    "footer_note": "Solo puedes elegir una vez. Contacta con soporte para cambiar tu rol."
   },
   "onboarding_complete": {
-    "heading": "Application submitted",
-    "review_pre": "Your profile is under review. We’ll email you within 2 business days once your ",
-    "review_post": " credentials are verified.",
-    "cta": "Go to dashboard"
+    "heading": "Solicitud enviada",
+    "review_pre": "Tu perfil está en revisión. Te enviaremos un correo en un plazo de 2 días laborables una vez que se verifiquen tus credenciales de ",
+    "review_post": ".",
+    "cta": "Ir al panel"
   },
   "onboarding_connect": {
-    "heading": "Join your tutor",
-    "lead": "On fair-do, you connect directly to your own tutor — there's no middleman.",
-    "invite_heading": "Have an invite?",
-    "invite_body": "Open the personal link your tutor sent you, or scan their QR code. That connects you and lets you book — no browsing required.",
-    "no_invite_heading": "Don't have one yet?",
-    "no_invite_body": "Ask your tutor for your fair-do invite — that's how students join for now. Browsing tutors yourself is coming soon.",
-    "signin_pre": "Already have an account?",
-    "signin_link": "Sign in",
-    "tutor_pre": "Are you a tutor?",
-    "tutor_link": "See how fair-do works"
+    "heading": "Únete a tu tutor",
+    "lead": "En fair-do, conectas directamente con tu propio tutor — sin intermediarios.",
+    "invite_heading": "¿Tienes una invitación?",
+    "invite_body": "Abre el enlace personal que te envió tu tutor, o escanea su código QR. Eso os conecta y te permite reservar — sin necesidad de buscar.",
+    "no_invite_heading": "¿Aún no tienes una?",
+    "no_invite_body": "Pídele a tu tutor tu invitación de fair-do — así es como se unen los estudiantes por ahora. Buscar tutores por tu cuenta llegará pronto.",
+    "signin_pre": "¿Ya tienes una cuenta?",
+    "signin_link": "Inicia sesión",
+    "tutor_pre": "¿Eres tutor?",
+    "tutor_link": "Mira cómo funciona fair-do"
   },
   "onboarding_student": {
-    "step1_heading": "Let's find your tutor",
-    "step1_subtitle": "Two quick steps. Take your time.",
-    "about_prompt": "Want to know who we are first?",
-    "about_link": "Read our story",
-    "first_name_label": "First name",
+    "step1_heading": "Vamos a encontrar a tu tutor",
+    "step1_subtitle": "Dos pasos rápidos. Tómate tu tiempo.",
+    "about_prompt": "¿Quieres saber primero quiénes somos?",
+    "about_link": "Lee nuestra historia",
+    "first_name_label": "Nombre",
     "first_name_placeholder": "Alex",
-    "last_name_label": "Last name",
+    "last_name_label": "Apellido",
     "last_name_placeholder": "Morgan",
-    "state_label": "Which state are you in?",
-    "state_placeholder": "Select your state…",
-    "subjects_label": "What subject(s) do you need help with?",
-    "subjects_hint": "— choose any",
-    "levels_label": "What level are you studying at?",
-    "levels_hint": "— pick any",
-    "goals_label": "What are your main goals?",
-    "goals_hint": "— optional",
-    "frequency_label": "How often would you like lessons?",
-    "frequency_hint": "— optional",
-    "referral_label": "Referral code?",
-    "referral_hint": "— optional, gets you £10 off",
+    "state_label": "¿En qué estado estás?",
+    "state_placeholder": "Selecciona tu estado…",
+    "subjects_label": "¿En qué asignatura(s) necesitas ayuda?",
+    "subjects_hint": "— elige las que quieras",
+    "levels_label": "¿En qué nivel estás estudiando?",
+    "levels_hint": "— elige cualquiera",
+    "goals_label": "¿Cuáles son tus principales objetivos?",
+    "goals_hint": "— opcional",
+    "frequency_label": "¿Con qué frecuencia te gustaría tener clases?",
+    "frequency_hint": "— opcional",
+    "referral_label": "¿Código de recomendación?",
+    "referral_hint": "— opcional, te da £10 de descuento",
     "referral_placeholder": "FRIEND-XXXX",
-    "continue_button": "Continue",
-    "step2_heading": "Before we begin",
-    "step2_subtitle": "One thing we need you to know.",
-    "consent_heading": "Your data, protected",
-    "consent_body": "We use your details (name, email, lesson history and progress notes) only to match you with a tutor and run your lessons. Seen by your tutor and essential staff only. Full details in our",
-    "privacy_link": "Privacy Policy",
-    "consent_checkbox": "I consent to fair-do processing my personal data to match me with a tutor and provide tuition.",
-    "error_generic": "Something went wrong. Please try again.",
-    "back_button": "Back",
-    "submitting": "Finding your matches…",
-    "submit_button": "See my matches"
+    "continue_button": "Continuar",
+    "step2_heading": "Antes de empezar",
+    "step2_subtitle": "Una cosa que necesitamos que sepas.",
+    "consent_heading": "Tus datos, protegidos",
+    "consent_body": "Usamos tus datos (nombre, correo electrónico, historial de clases y notas de progreso) solo para emparejarte con un tutor y gestionar tus clases. Los ven únicamente tu tutor y el personal esencial. Todos los detalles en nuestra",
+    "privacy_link": "Política de Privacidad",
+    "consent_checkbox": "Doy mi consentimiento para que fair-do procese mis datos personales con el fin de emparejarme con un tutor y ofrecer clases.",
+    "error_generic": "Algo salió mal. Inténtalo de nuevo.",
+    "back_button": "Atrás",
+    "submitting": "Buscando tus coincidencias…",
+    "submit_button": "Ver mis coincidencias"
   },
   "onboarding_teacher": {
-    "founding_badge": "Founding member · locked pricing",
-    "why_link": "Why fair-do?",
-    "error_generic": "Something went wrong. Please try again.",
-    "cred_label_us": "license",
-    "cred_label_uk": "qualification",
-    "continue": "Continue",
-    "back": "Back",
-    "optional_suffix": "(optional)",
-    "step1_heading": "Your profile",
-    "step1_subtitle": "Students see this when browsing tutors — a photo and a clear title help them choose you.",
-    "photo_label": "Profile photo",
-    "photo_hint": "Optional now — but profiles with a photo get far more enquiries. You can change it any time.",
-    "first_name_label": "First name",
-    "last_name_label": "Last name",
-    "professional_title_label": "Professional title",
-    "professional_title_placeholder": "e.g. Qualified Maths Teacher, GCSE Science Tutor",
-    "tagline_label": "Tagline",
-    "tagline_placeholder": "One warm line students see first",
-    "mobile_label": "Mobile",
-    "mobile_hint": "(private — account & new-student alerts)",
+    "founding_badge": "Miembro fundador · precio bloqueado",
+    "why_link": "¿Por qué fair-do?",
+    "error_generic": "Algo salió mal. Inténtalo de nuevo.",
+    "cred_label_us": "licencia",
+    "cred_label_uk": "titulación",
+    "continue": "Continuar",
+    "back": "Atrás",
+    "optional_suffix": "(opcional)",
+    "step1_heading": "Tu perfil",
+    "step1_subtitle": "Los estudiantes ven esto cuando buscan tutores — una foto y un título claro les ayudan a elegirte.",
+    "photo_label": "Foto de perfil",
+    "photo_hint": "Opcional por ahora — pero los perfiles con foto reciben muchas más consultas. Puedes cambiarla cuando quieras.",
+    "first_name_label": "Nombre",
+    "last_name_label": "Apellido",
+    "professional_title_label": "Título profesional",
+    "professional_title_placeholder": "p. ej. Profesor de Matemáticas cualificado, Tutor de Ciencias de GCSE",
+    "tagline_label": "Lema",
+    "tagline_placeholder": "Una línea cálida que los estudiantes ven primero",
+    "mobile_label": "Móvil",
+    "mobile_hint": "(privado — alertas de cuenta y de nuevos estudiantes)",
     "mobile_placeholder": "07700 900123",
-    "bio_label": "Bio",
-    "bio_placeholder": "Describe your teaching approach, experience, and what students can expect…",
-    "bio_counter": " chars · minimum 50 · 100–500 recommended",
-    "rate_label": "Lesson rate per 50 min",
-    "rate_note_pre": "Students pay ",
-    "rate_note_post": " by card — paid straight to your connected account. fair-do charges your monthly plan plus a small card commission.",
-    "step2_heading": "Credentials & subjects",
-    "step2_subtitle": "Verified before your profile goes live.",
-    "cred_body_suffix": "body",
-    "license_state_label": "State of licensure",
-    "license_state_placeholder": "Select state…",
-    "license_state_hint": "You can only see students located in this state. fair-do is live in New York first.",
-    "cred_ref_suffix": "reference",
+    "bio_label": "Biografía",
+    "bio_placeholder": "Describe tu enfoque docente, tu experiencia y qué pueden esperar los estudiantes…",
+    "bio_counter": " caracteres · mínimo 50 · se recomiendan 100–500",
+    "rate_label": "Tarifa por clase de 50 min",
+    "rate_note_pre": "Los estudiantes pagan ",
+    "rate_note_post": " con tarjeta — directamente a tu cuenta conectada. fair-do cobra tu plan mensual más una pequeña comisión por tarjeta.",
+    "step2_heading": "Credenciales y asignaturas",
+    "step2_subtitle": "Verificadas antes de que tu perfil se publique.",
+    "cred_body_suffix": "organismo",
+    "license_state_label": "Estado de licencia",
+    "license_state_placeholder": "Selecciona estado…",
+    "license_state_hint": "Solo puedes ver estudiantes ubicados en este estado. fair-do está disponible primero en New York.",
+    "cred_ref_suffix": "referencia",
     "cred_ref_placeholder": "e.g. 123456 or RP12345",
-    "expiry_label": "Expiry date",
-    "dbs_number_label": "DBS number",
-    "dbs_number_hint": "(if you teach under-18s)",
+    "expiry_label": "Fecha de caducidad",
+    "dbs_number_label": "Número DBS",
+    "dbs_number_hint": "(si das clase a menores de 18)",
     "dbs_number_placeholder": "e.g. 001234567890",
-    "dbs_date_label": "DBS issue date",
-    "subjects_label": "Subjects",
-    "levels_label": "Levels you teach",
-    "age_groups_label": "Age groups",
-    "teaching_styles_label": "Teaching styles",
-    "step3_heading": "Your availability",
-    "step3_subtitle": "All times UK (Europe/London).",
+    "dbs_date_label": "Fecha de emisión del DBS",
+    "subjects_label": "Asignaturas",
+    "levels_label": "Niveles que enseñas",
+    "age_groups_label": "Grupos de edad",
+    "teaching_styles_label": "Estilos de enseñanza",
+    "step3_heading": "Tu disponibilidad",
+    "step3_subtitle": "Todas las horas en horario del Reino Unido (Europe/London).",
     "days": [
-      "Monday",
-      "Tuesday",
-      "Wednesday",
-      "Thursday",
-      "Friday",
-      "Saturday",
-      "Sunday"
+      "Lunes",
+      "Martes",
+      "Miércoles",
+      "Jueves",
+      "Viernes",
+      "Sábado",
+      "Domingo"
     ],
-    "step4_heading": "Set up payments",
-    "step4_subtitle": "fair-do pays you via Stripe. Setup takes ~5 minutes.",
-    "summary_rate_label": "Your lesson rate",
-    "payment_note_pre": "Students pay by card via Stripe and the money goes straight to your connected account. fair-do's fee is your monthly plan plus a small card commission — see",
-    "pricing_link": "pricing",
+    "step4_heading": "Configura los pagos",
+    "step4_subtitle": "fair-do te paga a través de Stripe. La configuración tarda unos 5 minutos.",
+    "summary_rate_label": "Tu tarifa por clase",
+    "payment_note_pre": "Los estudiantes pagan con tarjeta a través de Stripe y el dinero va directamente a tu cuenta conectada. La tarifa de fair-do es tu plan mensual más una pequeña comisión por tarjeta — consulta",
+    "pricing_link": "precios",
     "payment_note_post": ".",
-    "payment_kyc_note": "Payments typically reach your bank around 2 business days after each lesson. Stripe handles all KYC.",
-    "agreement_pre": "I have read and accept the",
-    "terms_link": "Tutor Terms",
-    "agreement_mid": " and the",
-    "dpa_link": "Data Processing Agreement",
-    "agreement_post": ". I understand I am the data controller for my students' records and fair-do is my processor.",
-    "redirecting": "Redirecting to Stripe…",
-    "connect_button": "Connect bank account →"
+    "payment_kyc_note": "Los pagos suelen llegar a tu banco unos 2 días laborables después de cada clase. Stripe se encarga de todo el KYC.",
+    "agreement_pre": "He leído y acepto los",
+    "terms_link": "Términos para Tutores",
+    "agreement_mid": " y el",
+    "dpa_link": "Acuerdo de Tratamiento de Datos",
+    "agreement_post": ". Entiendo que soy el responsable del tratamiento de los datos de mis estudiantes y que fair-do es mi encargado del tratamiento.",
+    "redirecting": "Redirigiendo a Stripe…",
+    "connect_button": "Conectar cuenta bancaria →"
   },
   "teacher_dashboard": {
-    "credential_paused_strong": "Your profile is paused.",
-    "credential_paused_body": "Renew below to take new bookings again — sessions already booked are unaffected.",
-    "update_details": "Update my details →",
-    "action_invite_student": "+ Invite a student",
-    "action_students": "Students",
-    "action_message_students": "Message students",
-    "action_plans_billing": "Plans & billing",
-    "pending_strong": "Profile under review.",
-    "payments_not_connected_strong": "Payments not connected.",
-    "payments_not_connected_body": "Complete Stripe setup to receive payouts.",
-    "payments_setup_now": "Set up now →",
-    "stat_upcoming": "Upcoming",
-    "stat_active_students": "Active students",
-    "stat_this_month": "This month",
-    "upcoming_lessons_heading": "Upcoming lessons",
-    "upcoming_lessons_empty": "No upcoming lessons",
-    "badge_live": "Live",
-    "badge_today": "Today",
-    "session_join": "Join →",
-    "session_view": "View →",
-    "messages_heading": "Messages",
-    "messages_empty": "No messages yet"
+    "credential_paused_strong": "Tu perfil está en pausa.",
+    "credential_paused_body": "Renueva abajo para volver a aceptar nuevas reservas; las sesiones ya reservadas no se ven afectadas.",
+    "update_details": "Actualizar mis datos →",
+    "action_invite_student": "+ Invitar a un alumno",
+    "action_students": "Alumnos",
+    "action_message_students": "Enviar mensaje a los alumnos",
+    "action_plans_billing": "Planes y facturación",
+    "pending_strong": "Perfil en revisión.",
+    "payments_not_connected_strong": "Pagos no conectados.",
+    "payments_not_connected_body": "Completa la configuración de Stripe para recibir tus pagos.",
+    "payments_setup_now": "Configurar ahora →",
+    "stat_upcoming": "Próximas",
+    "stat_active_students": "Alumnos activos",
+    "stat_this_month": "Este mes",
+    "upcoming_lessons_heading": "Próximas clases",
+    "upcoming_lessons_empty": "No hay clases próximas",
+    "badge_live": "En directo",
+    "badge_today": "Hoy",
+    "session_join": "Unirse →",
+    "session_view": "Ver →",
+    "messages_heading": "Mensajes",
+    "messages_empty": "Aún no hay mensajes"
   },
   "student_dashboard": {
-    "nav_home": "Home",
-    "nav_find_tutor": "Find a tutor",
-    "nav_sign_out": "Sign out",
-    "subtitle": "Your learning dashboard",
-    "stat_upcoming": "Upcoming lessons",
-    "stat_tutors": "My tutors",
-    "stat_unread": "Unread messages",
-    "stat_credit": "Credit balance",
-    "redeem_voucher": "Redeem voucher",
-    "gift_lesson": "Gift a lesson",
-    "upcoming_heading": "Upcoming lessons",
-    "book_new": "+ Book new",
-    "no_lessons": "No lessons booked yet",
-    "find_tutor_cta": "Find a tutor",
-    "live_now": "Live now",
-    "join": "Join",
-    "view": "View",
-    "resources_heading": "Resources",
-    "notes_heading": "Lesson notes",
-    "found_tricky": "Found tricky:",
-    "homework": "Homework:",
-    "messages_heading": "Messages",
-    "no_messages": "No messages yet",
-    "payments_heading": "Payments & receipts",
-    "lesson_package": "Lesson package",
-    "refunded": "refunded",
-    "receipt": "Receipt →"
+    "nav_home": "Inicio",
+    "nav_find_tutor": "Buscar profesor",
+    "nav_sign_out": "Cerrar sesión",
+    "subtitle": "Tu panel de aprendizaje",
+    "stat_upcoming": "Próximas clases",
+    "stat_tutors": "Mis profesores",
+    "stat_unread": "Mensajes sin leer",
+    "stat_credit": "Saldo disponible",
+    "redeem_voucher": "Canjear vale",
+    "gift_lesson": "Regalar una clase",
+    "upcoming_heading": "Próximas clases",
+    "book_new": "+ Reservar nueva",
+    "no_lessons": "Aún no has reservado ninguna clase",
+    "find_tutor_cta": "Buscar profesor",
+    "live_now": "En directo ahora",
+    "join": "Unirse",
+    "view": "Ver",
+    "resources_heading": "Recursos",
+    "notes_heading": "Notas de la clase",
+    "found_tricky": "Le costó:",
+    "homework": "Deberes:",
+    "messages_heading": "Mensajes",
+    "no_messages": "Aún no hay mensajes",
+    "payments_heading": "Pagos y recibos",
+    "lesson_package": "Paquete de clases",
+    "refunded": "reembolsado",
+    "receipt": "Recibo →"
   },
   "parent_dashboard": {
-    "sign_out": "Sign out",
-    "heading_lessons": "lessons",
-    "subtitle": "Parent portal",
-    "your_tutor": "Your tutor",
-    "verified": "Verified",
-    "view_certificate": "View teaching certificate ↗",
-    "upcoming_heading": "Upcoming lessons",
-    "upcoming_empty": "No lessons booked.",
-    "history_heading": "Lesson history",
-    "history_empty": "No past lessons yet.",
-    "lesson_notes": "Lesson notes",
-    "found_tricky": "Found tricky:",
-    "homework": "Homework:",
-    "invoices_heading": "Invoices",
-    "invoices_empty": "No payments yet.",
-    "lesson_package": "Lesson package",
-    "message_heading": "Message the tutor"
+    "sign_out": "Cerrar sesión",
+    "heading_lessons": "clases",
+    "subtitle": "Portal para familias",
+    "your_tutor": "Tu profesor",
+    "verified": "Verificado",
+    "view_certificate": "Ver certificado docente ↗",
+    "upcoming_heading": "Próximas clases",
+    "upcoming_empty": "No hay clases reservadas.",
+    "history_heading": "Historial de clases",
+    "history_empty": "Aún no hay clases anteriores.",
+    "lesson_notes": "Notas de la clase",
+    "found_tricky": "Le costó:",
+    "homework": "Deberes:",
+    "invoices_heading": "Facturas",
+    "invoices_empty": "Aún no hay pagos.",
+    "lesson_package": "Paquete de clases",
+    "message_heading": "Enviar mensaje al profesor"
   },
   "teacher_nav": {
-    "dashboard": "Dashboard",
-    "calendar": "Calendar",
-    "students": "Students",
-    "billing": "Billing",
-    "earnings": "Earnings",
-    "edit_profile": "Edit profile",
-    "admin": "Admin",
-    "help": "Help",
-    "sign_out": "Sign out"
+    "dashboard": "Panel",
+    "calendar": "Calendario",
+    "students": "Alumnos",
+    "billing": "Facturación",
+    "earnings": "Ingresos",
+    "edit_profile": "Editar perfil",
+    "admin": "Administración",
+    "help": "Ayuda",
+    "sign_out": "Cerrar sesión"
   },
   "getting_started": {
-    "heading": "Getting started",
-    "progress_of": "of",
-    "progress_done": "done",
-    "intro": "A few quick steps and you're ready to see students. We'll guide you through each one.",
-    "start": "Start →"
+    "heading": "Primeros pasos",
+    "progress_of": "de",
+    "progress_done": "completado",
+    "intro": "Unos pocos pasos rápidos y estarás listo para recibir alumnos. Te guiaremos en cada uno.",
+    "start": "Empezar →"
   },
   "referral_card": {
-    "copied": "Copied ✓",
-    "copy": "Copy",
-    "your_code": "Your code:"
+    "copied": "Copiado ✓",
+    "copy": "Copiar",
+    "your_code": "Tu código:"
   },
   "recurring_card_prompt": {
-    "title": "Keep your regular lessons running",
-    "description": "Your tutor set up a standing lesson. Authorise a card and each one is booked and paid automatically — cancel any time.",
-    "button_idle": "Save a card",
-    "button_busy": "Opening…",
-    "default_error": "Could not start card setup."
+    "title": "Mantén tus clases habituales en marcha",
+    "description": "Tu profesor ha programado una clase fija. Autoriza una tarjeta y cada clase se reserva y se cobra automáticamente; puedes cancelar cuando quieras.",
+    "button_idle": "Guardar una tarjeta",
+    "button_busy": "Abriendo…",
+    "default_error": "No se pudo iniciar la configuración de la tarjeta."
   },
   "booking_link_card": {
-    "heading": "🔗 Your booking link",
-    "description": "Share this so students can book you directly — add it to your website, email signature or social bio.",
-    "copy": "Copy",
-    "copied": "Copied"
+    "heading": "🔗 Tu enlace de reservas",
+    "description": "Compártelo para que los alumnos puedan reservar contigo directamente: añádelo a tu web, a la firma de tu correo o a tu biografía en redes sociales.",
+    "copy": "Copiar",
+    "copied": "Copiado"
   },
   "calendar_sync": {
-    "heading": "📅 Sync your calendar",
-    "subtitle": "See your fair-do lessons in Google, Apple or Outlook — they update automatically.",
-    "hide": "Hide",
-    "set_up": "Set up",
-    "copied": "Copied",
-    "copy": "Copy",
+    "heading": "📅 Sincroniza tu calendario",
+    "subtitle": "Consulta tus clases de fair-do en Google, Apple u Outlook: se actualizan automáticamente.",
+    "hide": "Ocultar",
+    "set_up": "Configurar",
+    "copied": "Copiado",
+    "copy": "Copiar",
     "apple_label": "Apple Calendar:",
-    "apple_link": "tap to add",
-    "apple_instructions": ", or Settings → Calendar → Add Account → Subscribed Calendar → paste the link.",
+    "apple_link": "toca para añadir",
+    "apple_instructions": ", o Ajustes → Calendario → Añadir cuenta → Calendario suscrito → pega el enlace.",
     "google_label": "Google Calendar:",
-    "google_instructions": "Other calendars → + → From URL → paste the link.",
+    "google_instructions": "Otros calendarios → + → Desde URL → pega el enlace.",
     "outlook_label": "Outlook:",
-    "outlook_instructions": "Add calendar → Subscribe from web → paste the link.",
-    "privacy_note": "Keep this link private — anyone with it can see your lesson times."
+    "outlook_instructions": "Añadir calendario → Suscribirse desde la web → pega el enlace.",
+    "privacy_note": "Mantén este enlace en privado: cualquiera que lo tenga puede ver los horarios de tus clases."
   },
   "install_hint": {
-    "heading": "Add fair-do to your phone",
-    "ios_prefix": "Tap the ",
-    "ios_share": "Share",
-    "ios_middle": " button, then ",
-    "ios_add_to_home": "Add to Home Screen",
-    "ios_suffix": " — fair-do opens like an app, no browser needed.",
-    "android_body": "Install it as an app for one-tap access — no app store needed.",
-    "install_button": "Install app",
-    "dismiss": "Not now"
+    "heading": "Añade fair-do a tu teléfono",
+    "ios_prefix": "Toca el botón ",
+    "ios_share": "Compartir",
+    "ios_middle": " y luego ",
+    "ios_add_to_home": "Añadir a pantalla de inicio",
+    "ios_suffix": ": fair-do se abre como una app, sin necesidad de navegador.",
+    "android_body": "Instálalo como una app para acceder con un solo toque, sin necesidad de tienda de aplicaciones.",
+    "install_button": "Instalar app",
+    "dismiss": "Ahora no"
   },
   "push_toggle": {
-    "title": "🔔 Notifications",
-    "status_on": "On — we'll alert you to new messages and bookings.",
-    "status_off": "Get alerted when a student messages or books, even when fair-do is closed.",
+    "title": "🔔 Notificaciones",
+    "status_on": "Activadas: te avisaremos de nuevos mensajes y reservas.",
+    "status_off": "Recibe un aviso cuando un alumno te escriba o reserve, incluso con fair-do cerrado.",
     "button_busy": "…",
-    "button_off": "Turn off",
-    "button_on": "Turn on"
+    "button_off": "Desactivar",
+    "button_on": "Activar"
   },
   "welcome_modal": {
-    "greeting": "Welcome",
-    "intro": "fair-do is your whole practice in one place. Here's the gist — it takes a few minutes to set up.",
+    "greeting": "Bienvenido",
+    "intro": "fair-do reúne toda tu actividad en un solo lugar. Aquí va lo esencial: se configura en unos minutos.",
     "steps": [
       {
-        "title": "Add your students.",
-        "body": "Invite them by email, or import your whole list. They're yours — no one else sees them."
+        "title": "Añade a tus alumnos.",
+        "body": "Invítalos por correo o importa tu lista entera. Son tuyos: nadie más los ve."
       },
       {
-        "title": "Book lessons.",
-        "body": "Pick a time; we create a private video room and email your student automatically."
+        "title": "Reserva clases.",
+        "body": "Elige una hora; creamos una sala de vídeo privada y enviamos un correo a tu alumno automáticamente."
       },
       {
-        "title": "Get paid.",
-        "body": "Connect payments when you're ready and the money lands in your bank automatically."
+        "title": "Cobra.",
+        "body": "Conecta los pagos cuando quieras y el dinero llega a tu cuenta automáticamente."
       }
     ],
-    "help_before": "Stuck at any point? There's a ",
-    "help_link": "Help",
-    "help_after": " link at the top of every page — and no question is too small.",
-    "cta": "Let's get started →"
+    "help_before": "¿Te atascas en algún momento? Hay un enlace de ",
+    "help_link": "Ayuda",
+    "help_after": " en la parte superior de cada página, y ninguna pregunta es demasiado pequeña.",
+    "cta": "Empecemos →"
   },
   "parent_messages": {
-    "empty": "No messages yet.",
-    "composer_placeholder": "Write a message…",
-    "send": "Send",
-    "sending": "Sending…",
-    "send_error": "Could not send."
+    "empty": "Aún no hay mensajes.",
+    "composer_placeholder": "Escribe un mensaje…",
+    "send": "Enviar",
+    "sending": "Enviando…",
+    "send_error": "No se pudo enviar."
   },
   "resource_library": {
     "categories": [
       {
         "value": "worksheet",
-        "label": "Worksheet"
+        "label": "Ficha de ejercicios"
       },
       {
         "value": "homework",
-        "label": "Homework"
+        "label": "Deberes"
       },
       {
         "value": "past-paper",
-        "label": "Past paper"
+        "label": "Examen de años anteriores"
       },
       {
         "value": "notes",
-        "label": "Notes"
+        "label": "Apuntes"
       },
       {
         "value": "submission",
-        "label": "Submitted work"
+        "label": "Trabajo entregado"
       },
       {
         "value": "other",
-        "label": "Other"
+        "label": "Otro"
       }
     ],
-    "error_too_large": "File is larger than 25 MB.",
-    "error_save_failed": "save failed",
-    "error_upload_failed": "Upload failed — try again.",
-    "from_student": "from student",
-    "visible_to_student": "Visible to student",
-    "hidden": "Hidden",
-    "remove": "Remove",
-    "uploading": "Uploading…",
-    "not_configured": "File uploads aren’t configured yet."
+    "error_too_large": "El archivo supera los 25 MB.",
+    "error_save_failed": "error al guardar",
+    "error_upload_failed": "Error al subir el archivo: inténtalo de nuevo.",
+    "from_student": "del alumno",
+    "visible_to_student": "Visible para el alumno",
+    "hidden": "Oculto",
+    "remove": "Quitar",
+    "uploading": "Subiendo…",
+    "not_configured": "La subida de archivos aún no está configurada."
   },
   "recurring_booking_card": {
     "days": [
-      "Sunday",
-      "Monday",
-      "Tuesday",
-      "Wednesday",
-      "Thursday",
-      "Friday",
-      "Saturday"
+      "Domingo",
+      "Lunes",
+      "Martes",
+      "Miércoles",
+      "Jueves",
+      "Viernes",
+      "Sábado"
     ],
-    "every_prefix": "Every",
-    "at": "at",
+    "every_prefix": "Cada",
+    "at": "a las",
     "min": "min",
-    "status_waiting": "waiting for student to add a card",
-    "status_active": "active",
-    "status_paused": "paused",
-    "pause": "Pause",
-    "resume": "Resume",
-    "cancel": "Cancel",
-    "day_label": "Day",
-    "time_label": "Time",
-    "minutes_label": "Minutes",
-    "setting_up": "Setting up…",
-    "set_up": "Set up",
-    "error_default": "Could not set up.",
-    "footer_note": "The student gets a prompt to authorise a card. We then create and charge each lesson automatically."
+    "status_waiting": "esperando a que el alumno añada una tarjeta",
+    "status_active": "activa",
+    "status_paused": "en pausa",
+    "pause": "Pausar",
+    "resume": "Reanudar",
+    "cancel": "Cancelar",
+    "day_label": "Día",
+    "time_label": "Hora",
+    "minutes_label": "Minutos",
+    "setting_up": "Configurando…",
+    "set_up": "Configurar",
+    "error_default": "No se pudo configurar.",
+    "footer_note": "El alumno recibe un aviso para autorizar una tarjeta. Después creamos y cobramos cada clase automáticamente."
   },
   "email": {
     "teacher_approved": {
-      "subject": "You're approved — welcome to fair-do",
-      "heading": "Welcome to fair-do, {firstName}",
-      "preheader": "Your profile is live — students can book you now.",
-      "body_p1": "Your {qualificationBody} credentials have been verified, and your profile is now live. Students can book lessons with you.",
-      "body_p2": "You keep <strong style=\"color:#4f46e5\">what you charge</strong> — we take no commission on your own students. Payouts reach your bank 2 business days after each completed lesson.",
-      "cta": "Go to your dashboard"
+      "subject": "Estás aprobado: te damos la bienvenida a fair-do",
+      "heading": "Te damos la bienvenida a fair-do, {firstName}",
+      "preheader": "Tu perfil está activo: los alumnos ya pueden reservar contigo.",
+      "body_p1": "Tus credenciales de {qualificationBody} se han verificado y tu perfil ya está activo. Los alumnos pueden reservar clases contigo.",
+      "body_p2": "Tú te quedas con <strong style=\"color:#4f46e5\">lo que cobras</strong>: no nos llevamos ninguna comisión por tus propios alumnos. Los pagos llegan a tu cuenta bancaria 2 días hábiles después de cada clase completada.",
+      "cta": "Ir a tu panel"
     },
     "gift_voucher": {
-      "subject_receipt": "Your fair-do gift receipt — {amount}",
-      "subject_gift": "You've been gifted {amount} of tuition",
-      "heading_receipt": "Thank you for your gift",
-      "heading_gift": "A gift for you",
-      "preheader_receipt": "Your voucher code is inside.",
-      "preheader_gift": "{amount} of tuition, on someone who cares.",
-      "intro_receipt": "Your {amount} tuition voucher is ready. Share this code with your recipient:",
-      "intro_gift": "Someone wants to help you learn. Here's {amount} of tuition credit, on them.",
-      "code_label": "Voucher code",
-      "cta": "Redeem now"
+      "subject_receipt": "Tu recibo de regalo de fair-do — {amount}",
+      "subject_gift": "Te han regalado {amount} de clases",
+      "heading_receipt": "Gracias por tu regalo",
+      "heading_gift": "Un regalo para ti",
+      "preheader_receipt": "Tu código de vale está dentro.",
+      "preheader_gift": "{amount} de clases, de parte de alguien que se preocupa por ti.",
+      "intro_receipt": "Tu vale de {amount} de clases está listo. Comparte este código con la persona que lo recibirá:",
+      "intro_gift": "Alguien quiere ayudarte a aprender. Aquí tienes {amount} de crédito para clases, invita la casa.",
+      "code_label": "Código de vale",
+      "cta": "Canjear ahora"
     },
     "session_reminder": {
-      "subject": "Reminder: your lesson tomorrow — {date}",
-      "heading": "See you soon, {firstName}",
-      "preheader": "Your lesson with {displayName} is coming up.",
-      "body_p1": "Your lesson with <strong style=\"color:#1e1b2e\">{displayName}</strong> is on <strong style=\"color:#1e1b2e\">{date}</strong>.",
-      "body_p2": "The room opens 10 minutes before.",
-      "body_p3": "Can't make it? {cancelLink} — cancellations within 24 hours are non-refundable.",
-      "cancel_link_text": "Cancel here",
-      "cta": "View lesson"
+      "subject": "Recordatorio: tu clase mañana — {date}",
+      "heading": "Nos vemos pronto, {firstName}",
+      "preheader": "Tu clase con {displayName} se acerca.",
+      "body_p1": "Tu clase con <strong style=\"color:#1e1b2e\">{displayName}</strong> es el <strong style=\"color:#1e1b2e\">{date}</strong>.",
+      "body_p2": "La sala se abre 10 minutos antes.",
+      "body_p3": "¿No puedes asistir? {cancelLink}: las cancelaciones dentro de las 24 horas no son reembolsables.",
+      "cancel_link_text": "Cancela aquí",
+      "cta": "Ver clase"
     }
   }
 }
