@@ -8,7 +8,7 @@
 
 fair-do is a **UK B2B SaaS practice-management tool that tutors subscribe to**. They manage their own students, take secure video lessons, get paid, and stay compliant.
 
-- **Business model:** a monthly **subscription** (**Free £0 · Pro £29 · School £79**) + a **source-based commission**. Commission is **0% on a tutor's own students** (invited/added) and **10% only on marketplace (directory-sourced) bookings** — `MARKETPLACE_COMMISSION_BPS` / `commissionForSource` in `src/lib/billing.ts`, independent of tier. Everything else is paid straight out to the tutor.
+- **Business model:** a monthly **subscription** (**Free £0 · Pro £29 · School £79 · Enterprise custom**). No commission — tutors keep 100% of every lesson; the only per-lesson cost is Stripe's standard card-processing fee, which fair-do keeps none of. `MARKETPLACE_COMMISSION_BPS = 0` in `src/lib/billing.ts`.
 - **Data roles:** the **tutor is the data controller**; **fair-do is the processor**. Students/records belong to the tutor.
 - **Status:** pre-launch / onboarding first tutors. Public student booking is gated off; the tutor portal is the active path.
 
