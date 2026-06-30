@@ -6,7 +6,7 @@ Internal reference for the founding team. Not for public distribution as-is.
 
 ## The one-line pitch
 
-Tutors on fair-do keep 90% of every session — set your own rate, your own hours, and we handle all the bookings, video, and payments.
+Tutors on fair-do keep **100% of their own students** — 0% commission — and 90% on students fair-do sends them from the marketplace. Set your own rate, your own hours, and we handle all the bookings, video, and payments.
 
 ---
 
@@ -14,15 +14,15 @@ Tutors on fair-do keep 90% of every session — set your own rate, your own hour
 
 | | Tutorful | MyTutor | fair-do |
 |---|---|---|---|
-| **You keep per session** | ~65–70% (35% service fee charged to student, reducing bookings at your price point) | ~48–52% (40% commission + VAT effect) | **90%** |
+| **You keep** | ~65–70% (35% service fee) | ~48–52% (40% commission + VAT) | **100% own students · 90% marketplace** |
 | **Set your own rate** | Yes | No — banded pricing structure | Yes |
 | **Set your own hours** | Yes | Limited by student demand windows | Yes |
-| **Payout timing** | Weekly in arrears | Monthly | Per session (Stripe, same or next day) |
-| **Student lock-in tactics** | Messaging wall; cannot exchange contact details | Platform-mediated only | None — your client relationship, your contact |
+| **Payout timing** | Weekly in arrears | Monthly | Per lesson (Stripe, same or next day) |
+| **Student lock-in tactics** | Messaging wall; cannot exchange contact details | Platform-mediated only | None — your student relationship, your contact |
 | **Subscription to join** | No | No | No |
-| **Commission rate** | 35% service fee (student-facing) | ~40% + VAT | 10% platform fee |
+| **Commission rate** | 35% service fee (student-facing) | ~40% + VAT | **0% own students · 10% marketplace** |
 
-**What that means in practice:** A tutor charging £45/hour with 15 students per week (15 hours) grosses £675/week. On MyTutor they take home roughly £330. On fair-do they take home £607.50. That is £277.50 per week — over £14,000 per year — back in their pocket for identical work.
+**What that means in practice:** A tutor charging £45/hour with 15 students per week (15 hours) grosses £675/week. On MyTutor they take home roughly £330. On fair-do they keep **the full £675 on their own students** (0% commission), or £607.50 on marketplace-sourced students (10%). Even at the marketplace rate that is £277.50 per week — over £14,000 per year — back in their pocket for identical work.
 
 **Founder note:** We are building the platform tutors deserve — one where a fair rate means the tutor's rate, not ours. The first 15–25 tutors will shape what this becomes, and we want people who care about that. Worth a 15-minute call?
 
@@ -85,15 +85,15 @@ thetutorsassociation.org.uk — the professional body for UK tutors. Attend or s
 
 ### LinkedIn / email — cold, personalised
 
-**Subject line:** 90% take-home — founding tutors, fair-do.com
+**Subject line:** Keep 100% of your own students — founding tutors, fair-do.com
 
 Hi [Name],
 
 I came across your profile and noticed you've been tutoring [subject/specialism] for a while now — your reviews on [Tutorful / MyTutor / your site] look excellent.
 
-I'm building fair-do.com, a UK tutoring platform where tutors keep 90% of every session fee — no commission creep, no messaging walls, no platform drama. You set your rate, your hours, and you own the client relationship.
+I'm building fair-do.com, a UK tutoring platform where tutors keep **100% of their own students** (0% commission) — and 90% on students we introduce — no commission creep, no messaging walls, no platform drama. You set your rate, your hours, and you own the student relationship.
 
-We're recruiting our founding cohort of 15–25 tutors right now. Founding tutors get priority placement in search results, a permanent Founding Tutor badge on their profile, and access to the referral scheme (£25 for every tutor you refer who completes their first five sessions).
+We're recruiting our founding cohort of 15–25 tutors right now. Founding tutors get priority placement in search results, a permanent Founding Tutor badge on their profile, and access to the referral scheme (£25 for every tutor you refer who completes their first five lessons).
 
 No subscription required to join. No exclusivity clause — you can keep your existing listings running in parallel while you're evaluating us.
 
@@ -110,13 +110,13 @@ Use for: r/tutors, r/TeachingUK, posting in Facebook groups
 
 ---
 
-**Post title:** A UK tutoring platform where tutors keep 90% — honest overview
+**Post title:** A UK tutoring platform — keep 100% of your own students — honest overview
 
-I've been building fair-do.com, a UK tutoring marketplace where tutors keep 90% of their session fee — we take 10% to cover payments, video, and scheduling. No subscription to join.
+I've been building fair-do.com, a UK tutoring marketplace where tutors keep **100% of their own students** — we take 10% only on students the marketplace sends you, to cover payments, video, and scheduling. No subscription to join.
 
 I know "new platform" raises an obvious question: will I actually get students? Fair answer: we're in early launch, so student numbers are growing. We're focusing on building a tight founding cohort first — 15–25 tutors across core subjects — rather than launching thinly across everything.
 
-Founding tutors get priority search placement, a Founding Tutor badge, and a referral scheme (£25 per tutor referred who completes five sessions).
+Founding tutors get priority search placement, a Founding Tutor badge, and a referral scheme (£25 per tutor referred who completes five lessons).
 
 If you're on a platform taking 30–40% and you're open to evaluating something different, happy to chat or answer questions here. Not trying to spam — just building something I think is worth building.
 
@@ -130,7 +130,7 @@ For tutor groups where you have been invited or are a legitimate member:
 
 ---
 
-Hi [Name / everyone] — quick one. I'm launching fair-do.com, a UK tutoring platform where tutors keep 90%. No fees to join, you set your own rate. Looking for a small founding group of tutors (15–25) who want in early — priority placement, founding badge, referral scheme. DM me if curious — happy to explain more. [Link]
+Hi [Name / everyone] — quick one. I'm launching fair-do.com, a UK tutoring platform where tutors keep 100% of their own students (10% only on ones we send you). No fees to join, you set your own rate. Looking for a small founding group of tutors (15–25) who want in early — priority placement, founding badge, referral scheme. DM me if curious — happy to explain more. [Link]
 
 ---
 
@@ -146,9 +146,9 @@ Once you have 3–5 tutors on the platform, use this:
 
 Hi [Name],
 
-Quick update — we now have [X] tutors live on fair-do and [X] students who have booked sessions. Things are moving.
+Quick update — we now have [X] tutors live on fair-do and [X] students who have booked lessons. Things are moving.
 
-As a founding tutor, you have access to our referral scheme: if you refer another tutor who completes their first five sessions on the platform, you receive £25 — no cap on how many you can refer.
+As a founding tutor, you have access to our referral scheme: if you refer another tutor who completes their first five lessons on the platform, you receive £25 — no cap on how many you can refer.
 
 If you know any tutors who are tired of handing 30–40% to a platform, a quick mention from you will carry far more weight than anything we can say cold.
 
@@ -172,27 +172,27 @@ Thanks for being part of this from the beginning.
 
 ### "How many students will I actually get?"
 
-**Response:** Honest answer: we are in early launch and student numbers are growing, not established. We will not promise a number we cannot stand behind. What we can say is: founding tutors receive priority placement in search results, which means you are more visible than any tutor who joins after you. We are investing in SEO and paid acquisition targeting parents actively searching for tutors. We are also launching with a geographic and subject focus rather than claiming to cover everything on day one — this means the students we do have are being matched to a smaller pool. Many tutors join while keeping their existing listings active, building a fair-do client base in parallel without any risk to their current income.
+**Response:** Honest answer: we are in early launch and student numbers are growing, not established. We will not promise a number we cannot stand behind. What we can say is: founding tutors receive priority placement in search results, which means you are more visible than any tutor who joins after you. We are investing in SEO and paid acquisition targeting parents actively searching for tutors. We are also launching with a geographic and subject focus rather than claiming to cover everything on day one — this means the students we do have are being matched to a smaller pool. Many tutors join while keeping their existing listings active, building a fair-do student base in parallel without any risk to their current income.
 
-### "What's the catch on 90%?"
+### "What's the catch?"
 
-**Response:** No catch. We take 10% to cover Stripe payment processing fees (around 1.5–2%), platform hosting and maintenance, and marketing to bring you students. At scale, 10% of a large, growing volume is a sustainable business. Most competitors charge 30–40% because they built margin-extraction into their model from day one. We built ours around tutor retention: if tutors earn more, they stay, they refer others, and the platform grows. The 10% is genuinely the fee — there are no hidden charges, no subscription required to join, and no exclusivity.
+**Response:** No catch. You keep **100% of your own students** — we charge **0%** commission on those. We take **10% only on students the marketplace sends you**, to cover Stripe processing (around 1.5–2%), hosting, and the marketing that brings you those students. At scale, 10% of a large, growing volume is a sustainable business. Most competitors charge 30–40% because they built margin-extraction into their model from day one. We built ours around tutor retention: if tutors earn more, they stay, they refer others, and the platform grows. The 10% is genuinely the fee — there are no hidden charges, no subscription required to join, and no exclusivity.
 
 ### "Do I need to be a qualified teacher?"
 
 **Response:** No. There is no legal requirement to hold QTS or a PGCE to tutor privately in the UK, and we do not require it. Many excellent tutors are graduates, subject specialists, or career-changers. For tutors working with under-18s, a DBS check is required regardless of qualifications. Your profile allows you to show your credentials — degree, PGCE, QTS, subject expertise — and parents can make their own judgements. If you have QTS, display it; it is a strong trust signal. If you do not, your subject knowledge and reviews will speak for themselves.
 
-### "What about my own existing clients?"
+### "What about my own existing students?"
 
-**Response:** Your existing clients are yours. We have no exclusivity clause, no restriction on students you bring to the platform, and no interest in locking you in. You can migrate your existing students to fair-do (they sign up for free and book through the platform) and pay 10% on their sessions — compared to whatever your current platform charges. Or you can keep them off-platform entirely and only use fair-do for new students. You can run both approaches simultaneously. The only constraint: if a student finds you through fair-do's marketplace, sessions with that student should be booked through fair-do.
+**Response:** Your existing students are yours. We have no exclusivity clause, no restriction on students you bring to the platform, and no interest in locking you in. You can migrate your existing students to fair-do (they sign up for free and book through the platform) and pay **0% commission** on them — compared to whatever your current platform charges. The 10% applies only to students the marketplace sends you. Or you can keep them off-platform entirely and only use fair-do for new students. You can run both approaches simultaneously. The only constraint: if a student finds you through fair-do's marketplace, lessons with that student should be booked through fair-do.
 
 ### "How is the video / tech?"
 
-**Response:** Sessions run in-browser — no download required for you or your student. The video is built into the platform, which means scheduling, session, notes, and payment all live in one place. You do not need Zoom, Skype, or any third-party tool (though if you strongly prefer one, nothing stops you using it; the scheduling and payment infrastructure is the part that matters). The in-browser video is optimised for one-to-one sessions and works on any modern laptop or tablet.
+**Response:** Lessons run in-browser — no download required for you or your student. The video is built into the platform, which means scheduling, lesson, notes, and payment all live in one place. You do not need Zoom, Skype, or any third-party tool (though if you strongly prefer one, nothing stops you using it; the scheduling and payment infrastructure is the part that matters). The in-browser video is optimised for one-to-one lessons and works on any modern laptop or tablet.
 
 ### "What if a student doesn't pay?"
 
-**Response:** Payment is collected upfront at booking via Stripe. Students pay before the session is confirmed — we do not allow lessons to happen without payment secured. This means you never chase an invoice, never have an awkward conversation about an unpaid session, and never lose income to a no-show. If a session is cancelled within the cancellation window, the refund policy (set by you within the platform's parameters) determines what the student receives. Late cancellations and no-shows default to protecting your time: the standard setting holds the session fee for cancellations under 24 hours.
+**Response:** Payment is collected upfront at booking via Stripe. Students pay before the lesson is confirmed — we do not allow lessons to happen without payment secured. This means you never chase an invoice, never have an awkward conversation about an unpaid lesson, and never lose income to a no-show. If a lesson is cancelled within the cancellation window, the refund policy (set by you within the platform's parameters) determines what the student receives. Late cancellations and no-shows default to protecting your time: the standard setting holds the lesson fee for cancellations under 24 hours.
 
 ---
 
@@ -208,12 +208,12 @@ Enter subjects taught, levels (Primary, KS3, GCSE, A-Level, University, Adult), 
 Enter your DBS certificate number and issue date. For tutors on the DBS Update Service, the platform performs an online status check. For tutors with a paper certificate, you self-declare and we spot-check via the Update Service where possible. Profiles working with under-18s are not made publicly visible until DBS is confirmed.
 
 **Step 4: Connect Stripe**
-Click "Set up payouts" to connect a Stripe Express account. This takes 3–5 minutes and requires your National Insurance number and bank account details. All session payments flow through Stripe — your payout hits your bank account within 1–2 business days of each session.
+Click "Set up payouts" to connect a Stripe Express account. This takes 3–5 minutes and requires your National Insurance number and bank account details. All lesson payments flow through Stripe — your payout hits your bank account within 1–2 business days of each lesson.
 
 **Step 5: Set availability**
 Use the availability calendar to set your recurring weekly schedule and any blocked dates. Students can only book slots you have marked available. You can update this any time.
 
-**Step 6: Set session rates**
+**Step 6: Set lesson rates**
 Confirm your hourly rate (or set different rates by level if you prefer). You can offer a free 15-minute introductory call — this is optional but increases booking conversion significantly.
 
 **Step 7: Go live**
@@ -231,9 +231,9 @@ Founding tutors (first 25) receive permanent priority placement in search result
 
 ### 2. Referral scheme — £25 per successful referral
 
-Pay £25 (cash via Stripe, not credit) for each tutor a founding tutor refers who completes their first five sessions. No cap. Founding tutors who refer actively can earn hundreds of pounds within the first few months.
+Pay £25 (cash via Stripe, not credit) for each tutor a founding tutor refers who completes their first five lessons. No cap. Founding tutors who refer actively can earn hundreds of pounds within the first few months.
 
-**Why it works:** Tutors talk to other tutors. Word-of-mouth within the TES community, NQT Facebook groups, and EduTwitter is more credible than any marketing you can buy. A founding tutor referring from genuine enthusiasm (because they are keeping 90%) is your highest-conversion acquisition channel. £25 per referral is well below the cost of paid acquisition for a tutor who stays.
+**Why it works:** Tutors talk to other tutors. Word-of-mouth within the TES community, NQT Facebook groups, and EduTwitter is more credible than any marketing you can buy. A founding tutor referring from genuine enthusiasm (because they keep 100% of their own students) is your highest-conversion acquisition channel. £25 per referral is well below the cost of paid acquisition for a tutor who stays.
 
 ### 3. Founding Tutor badge (permanent profile marker)
 
@@ -276,21 +276,21 @@ Use a spreadsheet or a free tier of Notion/Airtable. You do not need dedicated C
 | Responses | 20–30 (20–30% response rate is realistic for personalised outreach) | Month 1 |
 | Calls booked | 10–15 | Month 1–2 |
 | Signed up (profile created) | 8–12 | Month 2 |
-| Active (completed first session) | 5–8 | Month 2–3 |
+| Active (completed first lesson) | 5–8 | Month 2–3 |
 | Founding cohort full | 15–25 active tutors | Month 3 |
 
 ### Conversion rates to aim for
 
 - Cold outreach → response: 20–30% (personalised outreach only; spray-and-pray drops to 2–5%)
 - Response → call booked: 50–60%
-- Call → signed up: 60–70% (the 90% rate does the work once you address the "will I get students?" objection)
-- Signed up → active (first session): 70–80% (drop-off here is usually profile incompletion or DBS delay — chase these)
+- Call → signed up: 60–70% (the 0%-on-own-students offer does the work once you address the "will I get students?" objection)
+- Signed up → active (first lesson): 70–80% (drop-off here is usually profile incompletion or DBS delay — chase these)
 
 ### Weekly review rhythm
 
 Each week, ask:
 1. How many tutors did we contact? (Target: 20–30/week in early months)
-2. How many are now active (completed at least one session)?
+2. How many are now active (completed at least one lesson)?
 3. What is the most common objection this week?
 4. Which channel is converting best?
 5. Are any founding tutors using the referral scheme?
