@@ -2,13 +2,13 @@
 
 **Status:** Design for review · **Default state:** OFF · **Owner:** Joel Harvey
 
-An AI agent that watches the support inboxes (`support@`, `hello@`, `enquiries@`), and for mail from therapists or clients: **acknowledges** it's being handled, **suggests a fix** when it's confident and appropriate, and **escalates** anything serious to a human. Toggleable from the metrics dashboard; **off until deliberately enabled**.
+An AI agent that watches the support inboxes (`support@`, `hello@`, `enquiries@`), and for mail from tutors or students: **acknowledges** it's being handled, **suggests a fix** when it's confident and appropriate, and **escalates** anything serious to a human. Toggleable from the metrics dashboard; **off until deliberately enabled**.
 
 ---
 
 ## 1. First principle: safety before cleverness
 
-This agent emails real customers — wrong or tone-deaf replies cost trust, and the inboxes carry **special-category data** (people describing mental-health issues). So:
+This agent emails real customers — wrong or tone-deaf replies cost trust, and the inboxes can carry **sensitive data** (e.g. safeguarding concerns about children). So:
 
 - **Off by default.** Ships disabled; does nothing until an admin turns it on from the dashboard.
 - **Staged autonomy** (one dial, raise it as trust grows):
@@ -93,7 +93,7 @@ model InboxMessage {
 }
 ```
 
-Retention: because bodies can contain special-category data, store a **sanitised preview**, set a retention window (e.g. purge resolved rows after 90 days via the existing cleanup cron), and document Resend/Anthropic as sub-processors.
+Retention: because bodies can contain sensitive safeguarding data, store a **sanitised preview**, set a retention window (e.g. purge resolved rows after 90 days via the existing cleanup cron), and document Resend/Anthropic as sub-processors.
 
 ---
 
@@ -102,9 +102,9 @@ Retention: because bodies can contain special-category data, store a **sanitised
 - Model: **`claude-sonnet-4-6`** (fast, cheap, plenty for triage; escalate-decisions can optionally double-check with a stronger model later).
 - Uses `@anthropic-ai/sdk`, env-gated on `ANTHROPIC_API_KEY` (no key ⇒ agent reports "not configured" and stays off).
 - **System prompt = a curated brief**, version-controlled, NOT the raw codebase:
-  - What Faresay is + the current model (subscription + small card fee, **no commission**, therapist = data controller, directory off, bookings gating, etc.).
-  - Common issues + their real fixes (Cloudinary photo not configured, "can't find my therapist" → invite/QR flow, payout timing, password reset → faresay.com, session-room access, etc.) — drawn from the actual product so suggestions are correct.
-  - Hard rules: never give clinical advice; never promise refunds/timelines; flag crisis language → escalate with the crisis resources; British, plain, calm (reuse `voice.md` tone); never invent.
+  - What fair-do is + the current model (subscription + small card fee, **no commission**, tutor = data controller, directory off, bookings gating, etc.).
+  - Common issues + their real fixes (Cloudinary photo not configured, "can't find my tutor" → invite/QR flow, payout timing, password reset → fair-do.com, lesson-room access, etc.) — drawn from the actual product so suggestions are correct.
+  - Hard rules: never give safeguarding advice; never promise refunds/timelines; flag safeguarding/crisis language → escalate with the safeguarding resources; British, plain, calm (reuse `voice.md` tone); never invent.
 - **Structured output** (forced tool/JSON schema), validated before any action:
   ```ts
   { category: 'acknowledge'|'suggest_fix'|'escalate',
@@ -120,8 +120,8 @@ Retention: because bodies can contain special-category data, store a **sanitised
 ## 6. Action policy
 
 - **Acknowledge** — short, warm, on-brand "we've got your message, a real person is looking into it." Safe to auto-send at `ack`/`assist`.
-- **Suggest fix** — auto-sent **only** at `assist`, **only** when `confidence ≥ 0.8` **and** the topic is on the allow-list (account/login, photo upload, finding-your-therapist, booking basics, general "how does Faresay work"). Otherwise → draft for review.
-- **Escalate (always to a human)** when any trigger fires — **safeguarding / self-harm / crisis**, legal, GDPR/data request, payment dispute/refund, complaint about a therapist, press/partnership, or low confidence. Action: email the founder + web push, mark `escalated`, leave the customer reply to a human (except an optional neutral "we've received this and a member of the team will be in touch").
+- **Suggest fix** — auto-sent **only** at `assist`, **only** when `confidence ≥ 0.8` **and** the topic is on the allow-list (account/login, photo upload, finding-your-tutor, booking basics, general "how does fair-do work"). Otherwise → draft for review.
+- **Escalate (always to a human)** when any trigger fires — **safeguarding / self-harm / crisis**, legal, GDPR/data request, payment dispute/refund, complaint about a tutor, press/partnership, or low confidence. Action: email the founder + web push, mark `escalated`, leave the customer reply to a human (except an optional neutral "we've received this and a member of the team will be in touch").
 
 ---
 
@@ -159,4 +159,4 @@ The whole pipeline is a strict no-op until the level is raised **and** `ANTHROPI
 1. **Inbound:** IMAP poll (recommended) or a webhook provider?
 2. **Top autonomy you ever want:** stop at `draft` (always human-sent), allow `ack`, or allow `assist` (auto-fixes)?
 3. **Escalation destination:** founder email + web push enough, or also Slack/SMS?
-4. **Reply identity:** send as `support@faresay.com` signed "Faresay Support", and should replies say a human will follow up, or stand alone?
+4. **Reply identity:** send as `support@fair-do.com` signed "fair-do Support", and should replies say a human will follow up, or stand alone?

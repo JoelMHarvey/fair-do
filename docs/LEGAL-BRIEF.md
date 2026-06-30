@@ -1,26 +1,26 @@
 # fair-do Legal Brief
 
-**Prepared for:** Faresay Ltd founders (internal use)
+**Prepared for:** fair-do Ltd founders (internal use)
 **Date:** June 2026
 **Platform:** fair-do.com — UK online tutoring marketplace
 
-> **Disclaimer:** This document is an internal founders' brief compiled from desk research. It is not legal advice and does not create a solicitor-client relationship. Faresay Ltd must engage a qualified UK solicitor (ideally one specialising in technology, education, and data protection law) to review all platform documentation, contracts, and compliance policies before launch. Law and regulatory guidance change frequently; verify current positions with qualified counsel.
+> **Disclaimer:** This document is an internal founders' brief compiled from desk research. It is not legal advice and does not create a solicitor-client relationship. fair-do Ltd must engage a qualified UK solicitor (ideally one specialising in technology, education, and data protection law) to review all platform documentation, contracts, and compliance policies before launch. Law and regulatory guidance change frequently; verify current positions with qualified counsel.
 
 ---
 
 ## Company structure
 
-**Faresay Ltd trading as fair-do** is the correct legal structure. No new company registration is required. A UK company can lawfully trade under a different name from its registered name without registering a separate entity at Companies House. Trading names are not registered; only company names are.
+**fair-do Ltd** is the correct legal structure. No new company registration is required — the existing company (which previously operated the Faresay therapy platform) can be used for fair-do.com rather than incorporating a new entity. A UK company can lawfully trade under a name different from its registered name without registering a separate entity at Companies House; trading names are not registered, only company names are. `[LEGAL] confirm whether the company is being formally renamed to fair-do Ltd at Companies House, or retaining its existing registered name and trading as "fair-do" — the mandatory disclosure wording below depends on which.`
 
 **Practical implications:**
 
 - Every piece of business communication that reaches customers — website footer, emails, invoices, booking confirmations, T&Cs, privacy policy — must display the full legal name and registration details alongside the trading name. The mandatory disclosure format under Companies Act 2006 ss.82–85 and the Company, Limited Liability Partnership and Business (Names and Trading Disclosures) Regulations 2015 is:
 
-  > *Faresay Ltd, trading as fair-do | Company No. [XXXXXXX] | Registered in England and Wales | Registered office: [full address]*
+  > *fair-do Ltd | Company No. [XXXXXXX] | Registered in England and Wales | Registered office: [full address]*
 
 - "fair-do" does not appear to contain any sensitive or restricted words (such as "Royal", "National", "Authority", or "Chartered") that would require Secretary of State approval.
 
-**Bank account:** The existing Faresay Ltd bank account can be used for fair-do.com without opening a separate account. Notify the bank of the trading name as a matter of good practice (most business current accounts allow this with a simple notification). Ensure invoices and Stripe payouts reference the legal entity name Faresay Ltd.
+**Bank account:** The existing fair-do Ltd bank account can be used for fair-do.com without opening a separate account. Notify the bank of the trading name as a matter of good practice (most business current accounts allow this with a simple notification). Ensure invoices and Stripe payouts reference the legal entity name fair-do Ltd.
 
 **Trade mark:** The trading name "fair-do" receives no automatic legal protection. A UK trade mark application to the Intellectual Property Office (IPO) is strongly recommended before or shortly after launch, particularly given the risk of a competitor registering a similar name in class 41 (education and tutoring services). Cost is approximately £170 for one class (online application). Without registration, the platform's only recourse against copycat brands is the slow and expensive action for passing off.
 
@@ -48,7 +48,7 @@
 
 ### Legitimate Interests Assessments (LIAs)
 
-Wherever Art. 6(1)(f) is relied upon, a written LIA must be completed and retained. The LIA must: (1) identify the legitimate interest; (2) demonstrate the processing is necessary for that interest; (3) balance Faresay's interest against the data subject's reasonable expectations and rights. This is not a tick-box — it requires genuine analysis. ICO publishes a LIA template.
+Wherever Art. 6(1)(f) is relied upon, a written LIA must be completed and retained. The LIA must: (1) identify the legitimate interest; (2) demonstrate the processing is necessary for that interest; (3) balance fair-do's interest against the data subject's reasonable expectations and rights. This is not a tick-box — it requires genuine analysis. ICO publishes a LIA template.
 
 ### Retention periods
 
@@ -90,7 +90,7 @@ Under Art. 9 UK GDPR, "special category data" includes data revealing physical o
 - Do not store lesson content or notes at the platform level — let tutors and students manage their own records.
 - The platform stores scheduling, payment, and communication metadata only.
 - If subject labels (e.g., "SEN", "ADHD support") appear on tutor profiles or in search filters, treat this as a signal that the students matched are potentially in a sensitive category. Apply Art. 9 documentation and explicit consent requirements to any processing that links a specific student to such a subject area.
-- Add a note to the privacy notice flagging this edge case and clarifying what Faresay does and does not store.
+- Add a note to the privacy notice flagging this edge case and clarifying what fair-do does and does not store.
 
 ---
 
@@ -150,7 +150,7 @@ Tutors are independent contractors. The legal obligation to obtain DBS clearance
 However, the platform must not simply take tutors at their word. Practical requirements:
 
 1. **Verification at onboarding:** Require tutors to upload their Enhanced DBS certificate (or provide the certificate number and date). Verify currency — DBS certificates do not expire in law but should be renewed every three years or when a tutor's role changes materially.
-2. **DBS Update Service:** Strongly encourage (or require as a condition of remaining on the platform) tutors to subscribe to the DBS Update Service (£16/year for tutors). This allows Faresay to perform real-time status checks against the certificate, so that if a tutor is added to a barred list after their certificate was issued, the platform will be informed. Without this, a certificate issued years ago provides limited current assurance.
+2. **DBS Update Service:** Strongly encourage (or require as a condition of remaining on the platform) tutors to subscribe to the DBS Update Service (£16/year for tutors). This allows fair-do to perform real-time status checks against the certificate, so that if a tutor is added to a barred list after their certificate was issued, the platform will be informed. Without this, a certificate issued years ago provides limited current assurance.
 3. **Audit log:** Maintain an internal record of: tutor name, DBS certificate number, issue date, level of check, date platform verified, date of last Update Service check. This log must be retained per GDPR (certificate number and dates are personal data — store securely, minimise access, apply retention schedule).
 4. **Renewal reminders:** Send automated reminders at the two-year mark, prompting tutors to renew before the three-year recommended interval.
 
@@ -171,7 +171,7 @@ The platform has an independent duty of care as the operator of a service that f
 - **DBS verification** (see above) — the most important single safeguarding control.
 - **Code of conduct for tutors:** Tutors must agree to a safeguarding code of conduct before going live, covering: all lessons via platform video (not WhatsApp, personal Zoom, etc.); no out-of-platform private messaging with students; parents may observe any lesson; camera must show only an appropriate background environment; no collection of students' personal contact details.
 - **Reporting mechanism:** An in-platform reporting tool — accessible from within the lesson interface and the dashboard — for students, parents, and tutors to report safeguarding concerns. Reports must be triaged quickly (within one working day for serious concerns).
-- **Designated Safeguarding Lead (DSL):** Appoint a named individual within Faresay Ltd as DSL. Not currently a legal requirement for private tutoring platforms (it is a legal requirement in schools), but strongly recommended. The DSL must know how to escalate concerns to statutory agencies: Local Authority Designated Officer (LADO) for allegations against adults working with children; police and children's services for immediate risk.
+- **Designated Safeguarding Lead (DSL):** Appoint a named individual within fair-do Ltd as DSL. Not currently a legal requirement for private tutoring platforms (it is a legal requirement in schools), but strongly recommended. The DSL must know how to escalate concerns to statutory agencies: Local Authority Designated Officer (LADO) for allegations against adults working with children; police and children's services for immediate risk.
 - **Published safeguarding policy:** Publish a Safeguarding and Child Protection Policy on the platform website. It must cover: how concerns are reported, escalation path to statutory agencies, record-keeping obligations, and staff/tutor training requirements.
 - **Suspension authority:** The platform must reserve the right in its T&Cs to suspend or remove a tutor account immediately and without advance notice pending a safeguarding investigation. This must be enforceable — ensure it is clearly drafted in the tutor agreement.
 
@@ -201,9 +201,9 @@ Tutors are independent contractors. This must be established by both contractual
 | Factor | What the platform should do |
 |---|---|
 | Substitution | Tutor agreement must include a genuine right to send a substitute (qualified, with DBS clearance). Even if rarely exercised in practice, the contractual right matters. |
-| Control | Platform sets quality standards and a code of conduct (acceptable for a marketplace), but does not dictate teaching methods, curriculum, lesson structure, or session content. |
+| Control | Platform sets quality standards and a code of conduct (acceptable for a marketplace), but does not dictate teaching methods, curriculum, lesson structure, or lesson content. |
 | Mutual obligation | No obligation on the platform to offer bookings; no obligation on the tutor to accept them. Tutors can decline students; platforms can remove listings. This is the marketplace model. |
-| Exclusivity | Tutors must be free to work for other platforms and private clients simultaneously. Do not include exclusivity clauses. |
+| Exclusivity | Tutors must be free to work for other platforms and private students simultaneously. Do not include exclusivity clauses. |
 | Equipment and insurance | Tutors use their own equipment. Professional indemnity insurance is the tutor's own responsibility (strongly recommend requiring it as a condition of onboarding). |
 | Tax and National Insurance | Explicitly state in the tutor agreement that tutors are solely responsible for their own income tax, National Insurance contributions, and VAT compliance. |
 
@@ -215,7 +215,7 @@ IR35 (off-payroll working rules under Chapter 10 ITEPA 2003) applies only to wor
 
 ### Professional indemnity insurance
 
-Require tutors to hold valid professional indemnity insurance as a condition of platform membership. Minimum recommended level: £1 million per claim. This protects both the tutor and reduces Faresay's exposure in the event of a claim arising from tutor conduct.
+Require tutors to hold valid professional indemnity insurance as a condition of platform membership. Minimum recommended level: £1 million per claim. This protects both the tutor and reduces fair-do's exposure in the event of a claim arising from tutor conduct.
 
 ---
 
@@ -229,12 +229,12 @@ Under the Payment Services Regulations 2017 (implementing PSD2 in UK law), any b
 
 - Funds flow from the student/parent directly to the tutor's connected Stripe account.
 - The platform receives its commission as an application fee deducted by Stripe from the payment before the tutor receives the net amount.
-- Funds never sit in a Faresay-controlled account.
-- Faresay does not execute payments, issue refunds, or hold funds in its own name.
+- Funds never sit in a fair-do-controlled account.
+- fair-do does not execute payments, issue refunds, or hold funds in its own name.
 
-Under this structure, Faresay is not providing regulated payment services and does not need its own FCA authorisation. The T&Cs must make clear that payment services are provided by Stripe Payments UK Ltd (FCA reference number: 900461) and that payment complaints should be directed to Stripe.
+Under this structure, fair-do is not providing regulated payment services and does not need its own FCA authorisation. The T&Cs must make clear that payment services are provided by Stripe Payments UK Ltd (FCA reference number: 900461) and that payment complaints should be directed to Stripe.
 
-**Do not break this structure:** If the platform ever holds funds in a Faresay bank account before distributing to tutors (even briefly), this changes the analysis entirely and may require FCA authorisation. Seek advice before making any change to payment flows.
+**Do not break this structure:** If the platform ever holds funds in a fair-do bank account before distributing to tutors (even briefly), this changes the analysis entirely and may require FCA authorisation. Seek advice before making any change to payment flows.
 
 ### VAT considerations
 
@@ -266,7 +266,7 @@ These Regulations apply to all distance contracts (including online bookings) wh
 
 This acknowledgement must be active (checked by the user), not pre-ticked, and must appear before payment is confirmed.
 
-**Pre-contract information:** Before payment, display: lesson description, tutor name, total price (inclusive of any VAT or fees), identity of the trader (Faresay Ltd trading as fair-do), and how to exercise cancellation rights. Email confirmation constitutes the required "durable medium."
+**Pre-contract information:** Before payment, display: lesson description, tutor name, total price (inclusive of any VAT or fees), identity of the trader (fair-do Ltd trading as fair-do), and how to exercise cancellation rights. Email confirmation constitutes the required "durable medium."
 
 **Refund timeline:** Refunds following a valid cancellation must be issued within 14 days of the cancellation. Configure Stripe refunds to be triggered automatically (or with minimal manual intervention) within this window.
 
@@ -286,24 +286,24 @@ Under the Copyright, Designs and Patents Act 1988, copyright in original works (
 - **Student-created materials** (essays, notes taken during lessons, written work): owned by the student (or, if under 18, the student — copyright is not affected by age).
 - **Lesson recordings:** Jointly created content — complex ownership. The simplest approach is a contractual assignment or licence at the point of consent to record.
 
-### What Faresay needs from users
+### What fair-do needs from users
 
 The platform must not display, store, or make available any user content without a licence. The T&Cs must include:
 
-- A licence grant from tutors to Faresay Ltd: non-exclusive, royalty-free, worldwide licence to reproduce, store, display, and transmit tutor-created content (including profiles, sample materials, and lesson-related content) to the extent necessary to operate the platform.
+- A licence grant from tutors to fair-do Ltd: non-exclusive, royalty-free, worldwide licence to reproduce, store, display, and transmit tutor-created content (including profiles, sample materials, and lesson-related content) to the extent necessary to operate the platform.
 - An equivalent licence grant from students/parents covering content they submit (reviews, feedback, lesson notes shared via the platform).
-- Both licences should terminate when the account is deleted (subject to Faresay's data retention obligations).
+- Both licences should terminate when the account is deleted (subject to fair-do's data retention obligations).
 
 ### No AI training on lesson content
 
-The T&Cs must explicitly state that Faresay Ltd will not use lesson recordings, transcripts, or lesson notes to train AI models without separate, explicit, informed consent from both the tutor and the student/parent. This is both a legal safeguard (UK GDPR and Copyright Act considerations) and a strong trust signal to a market that is rightly sensitive about lesson content confidentiality.
+The T&Cs must explicitly state that fair-do Ltd will not use lesson recordings, transcripts, or lesson notes to train AI models without separate, explicit, informed consent from both the tutor and the student/parent. This is both a legal safeguard (UK GDPR and Copyright Act considerations) and a strong trust signal to a market that is rightly sensitive about lesson content confidentiality.
 
 ### Lesson recordings — consent
 
 Recording a lesson without the consent of all participants is unlawful (Regulation of Investigatory Powers Act 2000; UK GDPR). Consent must be:
 
 - Obtained from the tutor and from the parent/guardian (for minor students) before each recorded lesson, or via a clear opt-in setting applied to all lessons.
-- Granular: separate consent for (a) the student's own access to their recording; (b) the parent's access; (c) any dispute resolution use by Faresay.
+- Granular: separate consent for (a) the student's own access to their recording; (b) the parent's access; (c) any dispute resolution use by fair-do.
 - Revocable: users must be able to opt out of recording, and existing recordings must be deleted on request (subject to a legitimate interests retention period for safeguarding purposes).
 
 ---
@@ -312,7 +312,7 @@ Recording a lesson without the consent of all participants is unlawful (Regulati
 
 The platform T&Cs must cover all of the following:
 
-1. **Parties and nature of the relationship:** Faresay Ltd (trading as fair-do) is a marketplace facilitator connecting independent tutors with students/parents. Faresay is not an employer of tutors, not a party to the lesson contract between tutor and student, and not a provider of education.
+1. **Parties and nature of the relationship:** fair-do Ltd is a marketplace facilitator connecting independent tutors with students/parents. fair-do is not an employer of tutors, not a party to the lesson contract between tutor and student, and not a provider of education.
 2. **Tutor independent contractor status:** Tutors are independent contractors; they are solely responsible for their own tax, National Insurance, insurance, DBS clearance, and professional obligations.
 3. **Consumer cancellation rights:** 14-day cooling-off period; early commencement acknowledgement; lesson cancellation policy; refund timeframe.
 4. **Payment terms:** Payment processed by Stripe Payments UK Ltd; platform fee disclosed; payout timing to tutors; what happens to funds if a lesson is cancelled.
@@ -322,7 +322,7 @@ The platform T&Cs must cover all of the following:
 8. **User-generated content and reviews:** Platform's right to moderate and remove content that is defamatory, false, or otherwise unlawful; obligation not to suppress genuine negative reviews; review authenticity policy.
 9. **Acceptable use and conduct:** Online safety code of conduct for tutors; no out-of-platform contact with students; no recording without consent; no sharing of student personal data.
 10. **Account suspension and termination:** Platform's right to suspend or terminate immediately for safeguarding concerns, fraud, or material breach; no liability to suspended users during investigation.
-11. **Limitation of liability:** Faresay's liability limited to the fees paid for the booking in question; no liability for tutor conduct (correctly placed on the tutor); no exclusion of liability for death, personal injury, or fraud. Note: liability limitation clauses are subject to Consumer Rights Act 2015 fairness test for consumer-facing T&Cs.
+11. **Limitation of liability:** fair-do's liability limited to the fees paid for the booking in question; no liability for tutor conduct (correctly placed on the tutor); no exclusion of liability for death, personal injury, or fraud. Note: liability limitation clauses are subject to Consumer Rights Act 2015 fairness test for consumer-facing T&Cs.
 12. **Governing law and jurisdiction:** English law; courts of England and Wales.
 
 ---
@@ -331,8 +331,8 @@ The platform T&Cs must cover all of the following:
 
 The privacy policy must be published at or before the point of data collection and must cover:
 
-1. **Identity and contact details of the data controller:** Faresay Ltd, registered address, DPO contact (or nominated privacy contact) email address.
-2. **What personal data is collected:** Explicitly list categories — contact information, payment data (note: full card details are held by Stripe, not Faresay), booking history, lesson metadata, DBS check details (tutors), age/date of birth (students), parental consent records.
+1. **Identity and contact details of the data controller:** fair-do Ltd, registered address, DPO contact (or nominated privacy contact) email address.
+2. **What personal data is collected:** Explicitly list categories — contact information, payment data (note: full card details are held by Stripe, not fair-do), booking history, lesson metadata, DBS check details (tutors), age/date of birth (students), parental consent records.
 3. **Lawful basis for each category of processing:** Map each processing activity to its Art. 6 basis (and Art. 9 basis where applicable). Do not use a single basis for all processing.
 4. **How data is used:** Be specific — e.g., "to match students with tutors," "to process payments via Stripe," "to verify tutor DBS clearance," "to send booking confirmation emails."
 5. **Third-party data sharing:** Name each third party and what data is shared: Stripe (payment processing), video platform provider (lesson delivery), Clerk or similar (authentication), analytics providers. For each, state the basis for sharing and whether data is transferred outside the UK.
@@ -348,17 +348,17 @@ The privacy policy must be published at or before the point of data collection a
 
 ### ICO registration — mandatory before launch
 
-Faresay Ltd must register with the Information Commissioner's Office as a data controller and pay the annual data protection fee. Failure to register is a **criminal offence** under s.137 DPA 2018.
+fair-do Ltd must register with the Information Commissioner's Office as a data controller and pay the annual data protection fee. Failure to register is a **criminal offence** under s.137 DPA 2018.
 
 | Detail | Information |
 |---|---|
 | Registration portal | ico.org.uk/registration |
 | Time required | Approximately 15 minutes |
 | Annual fee (Tier 1: under £632k turnover or fewer than 10 staff) | £52/year (£47 by Direct Debit) |
-| What to register | Faresay Ltd as data controller; fair-do.com as the processing activity |
+| What to register | fair-do Ltd as data controller; fair-do.com as the processing activity |
 | When to register | Before any personal data is collected — including during beta testing |
 
-Faresay Ltd may already be registered as a data controller for the Faresay therapy platform. If so, the registration should be updated to include fair-do.com processing activities rather than re-registering. Check the ICO register for the current registration status.
+fair-do Ltd may already be registered as a data controller for the Faresay therapy platform. If so, the registration should be updated to include fair-do.com processing activities rather than re-registering. Check the ICO register for the current registration status.
 
 ### No Ofsted registration required
 
@@ -366,11 +366,11 @@ Online-only tutoring marketplaces with no physical teaching premises are not req
 
 ### FCA — no registration required
 
-As noted above, using Stripe Connect correctly means Faresay does not itself provide regulated payment services. No FCA registration or authorisation is required.
+As noted above, using Stripe Connect correctly means fair-do does not itself provide regulated payment services. No FCA registration or authorisation is required.
 
 ### Companies House — no action required
 
-No new company registration is needed. Check that the existing Faresay Ltd filing obligations (confirmation statement, annual accounts) are current.
+No new company registration is needed. Check that the existing fair-do Ltd filing obligations (confirmation statement, annual accounts) are current.
 
 ---
 
@@ -382,7 +382,7 @@ Prioritised pre-launch checklist:
 
 2. **Engage a UK solicitor** — instruct a solicitor with technology and education law experience to: (a) draft or review the tutor independent contractor agreement; (b) draft or review the consumer-facing T&Cs; (c) review the privacy policy; (d) advise on the Children's Code compliance approach. Budget £3,000–£8,000 for a competent review of these documents.
 
-3. **Data processing agreements (DPAs):** Enter into UK GDPR-compliant data processing agreements with every third-party processor that handles personal data on Faresay's behalf:
+3. **Data processing agreements (DPAs):** Enter into UK GDPR-compliant data processing agreements with every third-party processor that handles personal data on fair-do's behalf:
    - **Stripe** — Stripe's DPA is available online; review and accept via the Stripe Dashboard.
    - **Video platform** (e.g., Daily.co or equivalent) — obtain and sign a DPA before any lessons go live.
    - **Authentication provider** (e.g., Clerk) — obtain and sign a DPA.
@@ -392,9 +392,9 @@ Prioritised pre-launch checklist:
 
 5. **Age gate and parental consent flow:** Design and build the under-13 parental consent flow before accepting any registrations. This is a Children's Code requirement that cannot be retrofitted after launch.
 
-6. **Safeguarding policy:** Draft and publish the Safeguarding and Child Protection Policy, appoint a DSL, and build the in-platform reporting tool. Consider a brief safeguarding awareness session for any Faresay staff who will be reviewing reports.
+6. **Safeguarding policy:** Draft and publish the Safeguarding and Child Protection Policy, appoint a DSL, and build the in-platform reporting tool. Consider a brief safeguarding awareness session for any fair-do staff who will be reviewing reports.
 
-7. **Stripe Connect configuration:** Confirm the payment flow architecture with a Stripe integration engineer before go-live. Specifically confirm that: (a) funds never enter a Faresay-controlled account; (b) the application fee mechanism is correctly configured; (c) tutor KYC/identity verification is collected during onboarding.
+7. **Stripe Connect configuration:** Confirm the payment flow architecture with a Stripe integration engineer before go-live. Specifically confirm that: (a) funds never enter a fair-do-controlled account; (b) the application fee mechanism is correctly configured; (c) tutor KYC/identity verification is collected during onboarding.
 
 8. **Tutor agreement:** Draft the independent contractor agreement with the substitution clause, IR35 guidance note, tax responsibility clause, DBS requirement, professional indemnity insurance requirement, and safeguarding code of conduct incorporated or annexed.
 

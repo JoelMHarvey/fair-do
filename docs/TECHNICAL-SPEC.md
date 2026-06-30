@@ -1,16 +1,16 @@
-# Faresay — Technical Specification
+# fair-do — Technical Specification
 
-**The canonical technical reference for Faresay.** Generated from the codebase; the repo is the source of truth. See `docs/INBOX-AGENT-SPEC.md`, `NATIVE-APP-SPEC.md`, `CLINIC-PLAN.md`, `I18N-PLAN.md`, `TEST-PLAN.md`, `CREDENTIAL-VERIFICATION.md`, `SECURITY.md`, `STRIPE-GOLIVE.md`, `LAUNCH.md` for deep dives. Live diagrams: `/founder/architecture`.
+**The canonical technical reference for fair-do.** Generated from the codebase; the repo is the source of truth. See `docs/INBOX-AGENT-SPEC.md`, `NATIVE-APP-SPEC.md`, `CLINIC-PLAN.md`, `I18N-PLAN.md`, `TEST-PLAN.md`, `CREDENTIAL-VERIFICATION.md`, `SECURITY.md`, `STRIPE-GOLIVE.md`, `LAUNCH.md` for deep dives. Live diagrams: `/founder/architecture`.
 
 ---
 
 ## 1. Product
 
-Faresay is a **UK B2B SaaS practice-management tool that therapists subscribe to**. They manage their own clients, take secure video sessions, get paid, and stay compliant.
+fair-do is a **UK B2B SaaS practice-management tool that tutors subscribe to**. They manage their own students, take secure video lessons, get paid, and stay compliant.
 
-- **Business model:** a monthly **subscription** + a **small card commission** — **not** a marketplace fee. Commission by tier: **Starter 2.5% · Practice 1% · Clinic 0%** (non-subscriber falls back to 2.5%). Everything else is paid straight out to the therapist.
-- **Data roles:** the **therapist is the data controller**; **Faresay is the processor**. Clients/records belong to the therapist.
-- **Status:** pre-launch / onboarding first therapists. Public client booking is gated off; the therapist portal is the active path.
+- **Business model:** a monthly **subscription** + a **small card commission** — **not** a marketplace fee. Commission by tier: **Starter 2.5% · Practice 1% · Clinic 0%** (non-subscriber falls back to 2.5%). Everything else is paid straight out to the tutor.
+- **Data roles:** the **tutor is the data controller**; **fair-do is the processor**. Students/records belong to the tutor.
+- **Status:** pre-launch / onboarding first tutors. Public student booking is gated off; the tutor portal is the active path.
 
 ---
 
@@ -59,13 +59,13 @@ Render it interactively (6 diagrams incl. full DB schema) at **`/founder/archite
 
 ## 4. Data model (34 models)
 
-Hub-and-spoke around **`Match`** (a therapist↔client relationship).
+Hub-and-spoke around **`Match`** (a tutor↔student relationship).
 
-- **Identity:** `User` (Clerk id, role) → `Therapist` **or** `Client` (1:1). `Organisation` pools corporate `Client`s.
-- **Therapist:** `Availability`, `Subscription` (tier + `commissionBps`), `CredentialCheck` (audit), `ClientInvite`, `Package`, `Broadcast`, `SupervisionLog`, `TherapistReferral`.
-- **Match:** `Session`, `MessageThread`→`Message`, `ClientDocument`, `ClientForm`, `OutcomeScore`.
+- **Identity:** `User` (Clerk id, role) → `Teacher` **or** `Student` (1:1). `Organisation` pools corporate `Student`s.
+- **Teacher:** `Availability`, `Subscription` (tier + `commissionBps`), `CredentialCheck` (audit), `StudentInvite`, `Package`, `Broadcast`, `BroadcastTemplate`, `TeacherReferral`.
+- **Match:** `Session`, `MessageThread`→`Message`, `StudentDocument`, `StudentForm`, `LessonNote`.
 - **Session:** `Payment` (1:1), `Review` (1:1), `SessionParticipant`; `slotKey @unique` (double-book guard), `guestToken @unique` (magic-link room access), `dailyRoomName/Url`.
-- **Money:** `Payment` (amount, `platformFeePence`, `therapistPayoutPence`, `transferred`, currency), `GiftVoucher`, `Referral`.
+- **Money:** `Payment` (amount, `platformFeePence`, `teacherPayoutPence`, `transferred`, currency), `GiftVoucher`, `Referral`.
 - **Ops/standalone:** `FxRate`, `CronRun`, `AlertState`, `ProcessedStripeEvent`, `PendingSelfBooking`, `PushSubscription`, `NativeDevice`, `Setting` (runtime toggles), `InboxMessage` (inbox-agent audit), `Complaint`.
 
 ---
@@ -73,8 +73,8 @@ Hub-and-spoke around **`Match`** (a therapist↔client relationship).
 ## 5. Auth & access control
 
 - **Clerk** for identity; middleware in **`src/proxy.ts`** (`clerkMiddleware` + a **public-route allowlist**). Protected routes call `auth.protect()`.
-- **Web** uses Clerk cookies; **mobile** sends `Authorization: Bearer <clerk-jwt>` (`src/lib/mobile-auth.ts` resolves it to the Therapist).
-- **Roles** (`UserRole`): `CLIENT` · `THERAPIST` · `ADMIN`. Admin pages (`/admin*`) gate on `user.role === 'ADMIN'`.
+- **Web** uses Clerk cookies; **mobile** sends `Authorization: Bearer <clerk-jwt>` (`src/lib/mobile-auth.ts` resolves it to the Teacher).
+- **Roles** (`UserRole`): `STUDENT` · `TEACHER` · `ADMIN`. Admin pages (`/admin*`) gate on `user.role === 'ADMIN'`.
 - **Founder portal** (`/founder*`) is gated by **email** (`FOUNDER_EMAIL`, default `joelmharvey@gmail.com`) via `isFounder()` — separate from the ADMIN role. The nav shows a "Docs" link only to the founder.
 - **Token-gated public routes** (no account): self-book magic link (`?k=guestToken`, constant-time compare), intake forms, ICS calendar feed, self-book confirm.
 
@@ -84,31 +84,31 @@ Hub-and-spoke around **`Match`** (a therapist↔client relationship).
 
 Two money layers:
 
-**A. Subscription (therapist → Faresay).** Stripe subscription per therapist; tier sets `commissionBps`. Synced via the Stripe webhook (`customer.subscription.*`, `checkout.session.completed type=practice_subscription`).
+**A. Subscription (tutor → fair-do).** Stripe subscription per tutor; tier sets `commissionBps`. Synced via the Stripe webhook (`customer.subscription.*`, `checkout.session.completed type=practice_subscription`).
 
-**B. Session payments (client → therapist).**
-- **Card:** Stripe Checkout **destination charge** — `application_fee_amount` = commission, `transfer_data.destination` = therapist's Connect account. The webhook (`checkout.session.completed`) creates the `Payment` + Daily room + emails. `Payment.transferred` records whether the charge actually transferred.
+**B. Lesson payments (student → tutor).**
+- **Card:** Stripe Checkout **destination charge** — `application_fee_amount` = commission, `transfer_data.destination` = tutor's Connect account. The webhook (`checkout.session.completed`) creates the `Payment` + Daily room + emails. `Payment.transferred` records whether the charge actually transferred.
 - **Internal:** corporate **org credit pool** or personal **credit balance** — atomic conditional decrement, no Stripe.
-- **Double-book guard:** `Session.slotKey` (`therapistId:ISO`, unique, nulled on cancel) — concurrent bookings lose with a clean 409.
+- **Double-book guard:** `Session.slotKey` (`teacherId:ISO`, unique, nulled on cancel) — concurrent bookings lose with a clean 409.
 - **Refunds (`src/lib/refund.ts`):** card → Stripe refund with `reverse_transfer`/`refund_application_fee` **only when `transferred`**; internal → restore the org pool / personal credit.
 - **Webhook idempotency:** `ProcessedStripeEvent` claims each event; a handler failure calls `rollbackAndRetry` to delete the claim so Stripe re-delivers (never "charged but unprovisioned").
-- **Connect gate:** booking refuses to charge a therapist whose account isn't `charges_enabled`; `stripeOnboarded` (set by `account.updated`) gates bookability + directory listing.
+- **Connect gate:** booking refuses to charge a tutor whose account isn't `charges_enabled`; `stripeOnboarded` (set by `account.updated`) gates bookability + directory listing.
 
 ---
 
-## 7. Booking & sessions
+## 7. Booking & lessons
 
-- **Therapist-initiated** (`/api/practice/booking`): single / weekly series / package draw-down; online (Stripe) or offline.
-- **Client self-pay** (`/api/booking/create`): gated by **`BOOKINGS_ENABLED`**; intro rate, group seats, org/credit funding.
-- **Public self-booking** (`/p/[slug]` → `/api/practice/self-book`): rate-limited + Turnstile, **double opt-in** by default (`PendingSelfBooking` + email confirm), slot validated **in the therapist's `Availability.timezone`** (not server-local). Account-less clients reach the room via a signed `?k=` magic link.
-- **Video:** Daily.co room per session; identified meeting tokens attribute joins (client vs therapist); room opens 10 min before; Daily webhook records join/no-show data.
-- **Lifecycle:** cancellation (24h refund rule / therapist-always-refundable), no-show detection + refund (cron), reviews after the session.
+- **Tutor-initiated** (`/api/practice/booking`): single / weekly series / package draw-down; online (Stripe) or offline.
+- **Student self-pay** (`/api/booking/create`): gated by **`BOOKINGS_ENABLED`**; intro rate, group seats, org/credit funding.
+- **Public self-booking** (`/p/[slug]` → `/api/practice/self-book`): rate-limited + Turnstile, **double opt-in** by default (`PendingSelfBooking` + email confirm), slot validated **in the tutor's `Availability.timezone`** (not server-local). Account-less students reach the room via a signed `?k=` magic link.
+- **Video:** Daily.co room per lesson; identified meeting tokens attribute joins (student vs tutor); room opens 10 min before; Daily webhook records join/no-show data.
+- **Lifecycle:** cancellation (24h refund rule / tutor-always-refundable), no-show detection + refund (cron), reviews after the lesson.
 
 ---
 
 ## 8. Credential verification
 
-Sign-up → `onboarding/therapist` (registration body/number/expiry, insurance, rates) → **PENDING** → admin at `/admin` opens the public register (BACP/UKCP/HCPC/NCPS) + a 4-point checklist → **Approve** (writes immutable `CredentialCheck`, sets `ACTIVE` + `credentialVerified`, emails) → Stripe Connect onboarding → **bookable**, or **Reject** (SUSPENDED). The **credentials cron** then monitors registration + insurance expiry: nudge at 60/30/14/7/1 days, 14-day grace, then auto-suspend. SOP: `docs/CREDENTIAL-VERIFICATION.md`.
+Sign-up → `onboarding/teacher` (teaching credential type/number/expiry — QTS/QTLS/PGCE — DBS check, insurance, rates) → **PENDING** → admin at `/admin` opens the relevant teaching register (DfE Teaching Regulation Agency / GTCS / qualified-teacher registers) + a 4-point checklist → **Approve** (writes immutable `CredentialCheck`, sets `ACTIVE` + `credentialVerified`, emails) → Stripe Connect onboarding → **bookable**, or **Reject** (SUSPENDED). The **credentials cron** then monitors credential + DBS + insurance expiry: nudge at 60/30/14/7/1 days, 14-day grace, then auto-suspend. SOP: `docs/CREDENTIAL-VERIFICATION.md`.
 
 ---
 
@@ -117,7 +117,7 @@ Sign-up → `onboarding/therapist` (registration body/number/expiry, insurance, 
 - **Email — Resend** (`src/lib/email.ts`, ~16 templates). A `sendEmail()` wrapper **throws on Resend's `{error}`** so failures aren't swallowed. `RESEND_FROM` is the send identity.
 - **SMS — Twilio** (reminders; messaging-service or from-number).
 - **Web push — VAPID** (`web-push`); native APNs/FCM planned (`NativeDevice`).
-- **Inbox agent** (`docs/INBOX-AGENT-SPEC.md`): a cron polls `support@/hello@/enquiries@` over IMAP, triages each message with Anthropic, then **drafts / sends / escalates** per a staged autonomy level (`off → draft → ack → assist`, a DB `Setting`, **off by default**, toggled on `/admin/health`). Serious mail (safeguarding/crisis/legal/GDPR/refund) always escalates to the founder and is never auto-replied. Audit in `InboxMessage`.
+- **Inbox agent** (`docs/INBOX-AGENT-SPEC.md`): a cron polls `support@/hello@/enquiries@` over IMAP, triages each message with Anthropic, then **drafts / sends / escalates** per a staged autonomy level (`off → draft → ack → assist`, a DB `Setting`, **off by default**, toggled on `/admin/health`). Serious mail (safeguarding/legal/GDPR/refund) always escalates to the founder and is never auto-replied. Audit in `InboxMessage`.
 
 ---
 
@@ -131,24 +131,24 @@ Sign-up → `onboarding/therapist` (registration body/number/expiry, insurance, 
 
 ## 11. Mobile app (`/native`)
 
-Expo / React Native therapist app. Clerk Expo auth → `Authorization: Bearer` → the **`/api/mobile/v1/*`** read API (`dashboard`, `clients`, `clients/[matchId]`, `calendar`, `availability`, `earnings`, `profile`), scoped per therapist. Sentry with PII scrubbing. Full plan + remaining work: `docs/NATIVE-APP-SPEC.md`.
+Expo / React Native tutor app. Clerk Expo auth → `Authorization: Bearer` → the **`/api/mobile/v1/*`** read API (`dashboard`, `clients`, `clients/[matchId]`, `calendar`, `availability`, `earnings`, `profile`), scoped per tutor. Sentry with PII scrubbing. Full plan + remaining work: `docs/NATIVE-APP-SPEC.md`.
 
 ---
 
 ## 12. Feature flags
 
-- **`BOOKINGS_ENABLED`** — public client self-pay booking (off pre-launch).
-- **`PRACTICE_PORTAL_ENABLED`** — therapist portal + self-booking.
-- **`NEXT_PUBLIC_DIRECTORY_ENABLED`** — public therapist directory (off; noindex; onboarding routes cold clients to their therapist's invite instead).
+- **`BOOKINGS_ENABLED`** — public student self-pay booking (off pre-launch).
+- **`PRACTICE_PORTAL_ENABLED`** — tutor portal + self-booking.
+- **`NEXT_PUBLIC_DIRECTORY_ENABLED`** — public tutor directory (off; noindex; onboarding routes cold students to their tutor's invite instead).
 - **`inbox_agent_level`** — runtime DB `Setting` (off/draft/ack/assist).
 - **`SELFBOOK_REQUIRE_CONFIRM`** — double opt-in (default on).
-- Gap-closer flags (compliance/outcomes/AI-assist/PMI/clinics) live on the `epic/gap-closers` branch.
+- Gap-closer flags (compliance/progress-reports/AI-assist/clinics) live on the `epic/gap-closers` branch.
 
 ---
 
 ## 13. Security & compliance
 
-- **UK GDPR:** client clinical data is **special-category**; therapist = controller, Faresay = processor. Minimised retention, per-therapist data isolation, special-category handling in the inbox agent + mobile app.
+- **UK GDPR:** student data — often relating to **children** — needs heightened protection; tutor = controller, fair-do = processor. Minimised retention, per-tutor data isolation, safeguarding-aware handling in the inbox agent + mobile app.
 - **Headers/CSP:** `next.config.ts` — strict CSP (allow-lists Clerk, Stripe, Daily, Plausible, Turnstile, Cloudinary widget), HSTS, X-Frame-Options, etc.
 - **Bot/abuse:** Turnstile on public mutating endpoints; Upstash rate limiting.
 - **Secrets:** server-only (Clerk/Stripe/Resend/Twilio/Anthropic keys never `NEXT_PUBLIC_`); `.env*` gitignored.
@@ -207,8 +207,10 @@ public/brand/       brand kit (served on /founder/brand)
 ## 18. Roadmap & known gaps
 
 - **Native app** — foundation merged; M1–M4 to build (`NATIVE-APP-SPEC.md`).
-- **Clinics** — multi-therapist; foundation on draft `feat/clinic-multi-therapist`; payment/commission/testing plan in `CLINIC-PLAN.md`.
+- **Clinics** — multi-tutor; foundation on draft `feat/clinic-multi-therapist`; payment/commission/testing plan in `CLINIC-PLAN.md`.
 - **i18n** — FR/DE/IT plan in `I18N-PLAN.md` (Phase 0 in progress).
 - **US expansion** — `US-EXPANSION-PLAN.md`.
-- **Hardening before paid bookings:** gate matching on `stripeOnboarded`, managed-client reconciliation, internal-credit→therapist payout (latent), full security/IDOR re-audit.
+- **Hardening before paid bookings:** gate matching on `stripeOnboarded`, managed-student reconciliation, internal-credit→tutor payout (latent), full security/IDOR re-audit.
 - **Operator config to go live:** Stripe live keys, `CRON_SECRET`, Resend domain + `RESEND_FROM`, Twilio sender, `ANTHROPIC_API_KEY` + IMAP (to enable the inbox agent), ICO registration number.
+</content>
+</invoke>
