@@ -130,16 +130,16 @@ describe('subscriptionPeriodEnd', () => {
   })
 })
 
-describe('commissionForSource (P2 pricing)', () => {
-  it('takes 10% on marketplace bookings', () => {
-    expect(commissionForSource(5000, 'marketplace')).toEqual({ bps: 1000, feePence: 500 })
+describe('commissionForSource (subscription-only model)', () => {
+  it('takes 0% on marketplace bookings', () => {
+    expect(commissionForSource(5000, 'marketplace')).toEqual({ bps: 0, feePence: 0 })
   })
   it('takes nothing on own students (invite/manual/null)', () => {
     expect(commissionForSource(5000, 'invite')).toEqual({ bps: 0, feePence: 0 })
     expect(commissionForSource(5000, 'manual')).toEqual({ bps: 0, feePence: 0 })
     expect(commissionForSource(5000, null)).toEqual({ bps: 0, feePence: 0 })
   })
-  it('rounds the fee', () => {
-    expect(commissionForSource(3333, 'marketplace').feePence).toBe(333)
+  it('returns zero fee for any amount', () => {
+    expect(commissionForSource(3333, 'marketplace').feePence).toBe(0)
   })
 })
