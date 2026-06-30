@@ -1053,7 +1053,8 @@
     "invoices_heading": "Invoices",
     "invoices_empty": "No payments yet.",
     "lesson_package": "Lesson package",
-    "message_heading": "Message the tutor"
+    "message_heading": "Message the tutor",
+    "children_tablist": "Os seus filhos"
   },
   "teacher_nav": {
     "dashboard": "Dashboard",

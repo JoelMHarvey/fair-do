@@ -29,6 +29,21 @@ export function generateParentToken(): string {
   return Array.from(bytes, b => b.toString(16).padStart(2, '0')).join('')
 }
 
+// Group a parent's active links by child (student). A child may be linked to
+// several tutors, so each returned child owns one or more links. Input order is
+// preserved, so the first child stays the default tab.
+export function groupLinksByChild<L extends { student: { id: string } }>(
+  links: L[],
+): { student: L['student']; links: L[] }[] {
+  const children: { student: L['student']; links: L[] }[] = []
+  for (const l of links) {
+    const existing = children.find(c => c.student.id === l.student.id)
+    if (existing) existing.links.push(l)
+    else children.push({ student: l.student, links: [l] })
+  }
+  return children
+}
+
 // The signed-in Clerk user resolved to their parent links (active student access).
 export async function getParentLinks(clerkId: string) {
   const user = await prisma.user.findUnique({

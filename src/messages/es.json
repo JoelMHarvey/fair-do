@@ -1053,7 +1053,8 @@
     "invoices_heading": "Facturas",
     "invoices_empty": "Aún no hay pagos.",
     "lesson_package": "Paquete de clases",
-    "message_heading": "Enviar mensaje al profesor"
+    "message_heading": "Enviar mensaje al profesor",
+    "children_tablist": "Tus hijos"
   },
   "teacher_nav": {
     "dashboard": "Panel",

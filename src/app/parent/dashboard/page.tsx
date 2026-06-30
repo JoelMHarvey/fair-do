@@ -4,7 +4,7 @@ import { auth } from '@clerk/nextjs/server'
 import { prisma } from '@/lib/prisma'
 import { Logo } from '@/components/Logo'
 import { ParentMessages } from '@/components/ParentMessages'
-import { PARENT_PORTAL_ENABLED } from '@/lib/parent'
+import { PARENT_PORTAL_ENABLED, groupLinksByChild } from '@/lib/parent'
 import { getDictionary, getLocaleFromHeaders } from '@/lib/dictionaries'
 
 function fmtDate(d: Date) {
@@ -22,7 +22,11 @@ function attendance(s: { scheduledAt: Date; callStartedAt: Date | null; callEnde
   return ranMin != null ? `${start}, ran ${ranMin} min` : start
 }
 
-export default async function ParentDashboard() {
+export default async function ParentDashboard({
+  searchParams,
+}: {
+  searchParams: Promise<{ child?: string }>
+}) {
   if (!PARENT_PORTAL_ENABLED) redirect('/')
   const { userId } = await auth()
   if (!userId) redirect('/sign-in')
@@ -38,12 +42,17 @@ export default async function ParentDashboard() {
   const active = links.filter(l => l.portalActive)
   if (active.length === 0) redirect('/parent/subscribe')
 
-  // v1: show the first child's portal. Multi-child tabs are a follow-up.
-  const link = active[0]
-  const student = link.student
+  // Group active links by child (student). One child may be linked to several
+  // tutors, so each child owns one or more links (each with its own thread).
+  const children = groupLinksByChild(active)
+
+  // Selected child from the URL, falling back to the first.
+  const { child: childParam } = await searchParams
+  const selected = children.find(c => c.student.id === childParam) ?? children[0]
+  const student = selected.student
   const now = new Date()
 
-  const [upcoming, past, payments] = await Promise.all([
+  const [upcoming, past, payments, tutors] = await Promise.all([
     prisma.session.findMany({
       where: { studentId: student.id, status: 'SCHEDULED', scheduledAt: { gte: now } },
       include: { teacher: true },
@@ -62,18 +71,14 @@ export default async function ParentDashboard() {
       orderBy: { createdAt: 'desc' },
       take: 20,
     }),
+    // Tutors for this child's links — only those that opted to show credentials.
+    prisma.teacher.findMany({
+      where: { id: { in: selected.links.map(l => l.teacherId) } },
+      select: { id: true, firstName: true, lastName: true, qualificationBody: true, credentialVerified: true, credentialDocUrl: true, showCredentialToParents: true },
+    }),
   ])
 
-  const messages = (link.parentThread?.messages ?? []).map(m => ({
-    id: m.id, body: m.body, senderClerkId: m.senderClerkId, createdAt: m.createdAt.toISOString(),
-  }))
-
-  // Tutor's credentials — only if the tutor opted to show them.
-  const tutor = await prisma.teacher.findUnique({
-    where: { id: link.teacherId },
-    select: { firstName: true, lastName: true, qualificationBody: true, credentialVerified: true, credentialDocUrl: true, showCredentialToParents: true },
-  })
-  const showTutorCred = tutor?.showCredentialToParents && !!tutor.qualificationBody
+  const visibleTutors = tutors.filter(t => t.showCredentialToParents && !!t.qualificationBody)
 
   const { parent_dashboard } = await getDictionary(await getLocaleFromHeaders())
 
@@ -85,24 +90,50 @@ export default async function ParentDashboard() {
       </nav>
 
       <div className="max-w-3xl mx-auto px-4 sm:px-6 py-8 sm:py-12">
+        {/* Child tabs — only when the parent has more than one child linked. */}
+        {children.length > 1 && (
+          <div className="flex flex-wrap gap-2 mb-6" role="tablist" aria-label={parent_dashboard.children_tablist}>
+            {children.map(c => {
+              const isActive = c.student.id === student.id
+              return (
+                <Link
+                  key={c.student.id}
+                  href={`/parent/dashboard?child=${c.student.id}`}
+                  role="tab"
+                  aria-selected={isActive}
+                  className={`px-4 py-2 rounded-full text-sm font-medium border transition-colors ${
+                    isActive
+                      ? 'bg-brand-700 text-white border-brand-700'
+                      : 'bg-white text-sand-700 border-sand-200 hover:border-brand-300'
+                  }`}
+                >
+                  {c.student.firstName}
+                </Link>
+              )
+            })}
+          </div>
+        )}
+
         <h1 className="font-display text-3xl font-semibold text-brand-900 mb-1">{student.firstName}&rsquo;s {parent_dashboard.heading_lessons}</h1>
         <p className="text-sand-500 mb-8 text-sm">{parent_dashboard.subtitle}</p>
 
-        {showTutorCred && tutor && (
-          <section className="mb-8">
-            <div className="bg-white rounded-2xl border border-sand-200 p-5">
-              <p className="text-xs text-sand-500 mb-1">{parent_dashboard.your_tutor}</p>
-              <p className="font-medium text-sand-900">{tutor.firstName} {tutor.lastName}</p>
-              <p className="text-sm text-sand-700 mt-1">
-                {tutor.qualificationBody}
-                {tutor.credentialVerified && <span className="text-brand-700"> · {parent_dashboard.verified} ✓</span>}
-              </p>
-              {tutor.credentialDocUrl && (
-                <a href={tutor.credentialDocUrl} target="_blank" rel="noopener noreferrer" className="inline-block mt-2 text-sm text-brand-600 hover:text-brand-700 font-medium">
-                  {parent_dashboard.view_certificate}
-                </a>
-              )}
-            </div>
+        {visibleTutors.length > 0 && (
+          <section className="mb-8 space-y-3">
+            {visibleTutors.map(tutor => (
+              <div key={tutor.id} className="bg-white rounded-2xl border border-sand-200 p-5">
+                <p className="text-xs text-sand-500 mb-1">{parent_dashboard.your_tutor}</p>
+                <p className="font-medium text-sand-900">{tutor.firstName} {tutor.lastName}</p>
+                <p className="text-sm text-sand-700 mt-1">
+                  {tutor.qualificationBody}
+                  {tutor.credentialVerified && <span className="text-brand-700"> · {parent_dashboard.verified} ✓</span>}
+                </p>
+                {tutor.credentialDocUrl && (
+                  <a href={tutor.credentialDocUrl} target="_blank" rel="noopener noreferrer" className="inline-block mt-2 text-sm text-brand-600 hover:text-brand-700 font-medium">
+                    {parent_dashboard.view_certificate}
+                  </a>
+                )}
+              </div>
+            ))}
           </section>
         )}
 
@@ -183,11 +214,24 @@ export default async function ParentDashboard() {
           )}
         </section>
 
-        {/* Messages */}
+        {/* Messages — one thread per tutor linked to this child. */}
         <section>
           <h2 className="font-medium text-sand-900 mb-3">{parent_dashboard.message_heading}</h2>
-          <div className="bg-white rounded-2xl border border-sand-200 p-4">
-            <ParentMessages parentLinkId={link.id} viewerClerkId={userId} initial={messages} />
+          <div className="space-y-4">
+            {selected.links.map(l => {
+              const messages = (l.parentThread?.messages ?? []).map(m => ({
+                id: m.id, body: m.body, senderClerkId: m.senderClerkId, createdAt: m.createdAt.toISOString(),
+              }))
+              const tutor = tutors.find(t => t.id === l.teacherId)
+              return (
+                <div key={l.id} className="bg-white rounded-2xl border border-sand-200 p-4">
+                  {selected.links.length > 1 && tutor && (
+                    <p className="text-xs text-sand-500 mb-2">{tutor.firstName} {tutor.lastName}</p>
+                  )}
+                  <ParentMessages parentLinkId={l.id} viewerClerkId={userId} initial={messages} />
+                </div>
+              )
+            })}
           </div>
         </section>
       </div>
