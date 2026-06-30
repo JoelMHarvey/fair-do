@@ -1,11 +1,17 @@
+import type { Metadata } from 'next'
 import Link from 'next/link'
 import { SiteNav } from '@/components/SiteNav'
 import { SiteFooter } from '@/components/SiteFooter'
 import { getDictionary, getLocaleFromHeaders } from '@/lib/dictionaries'
+import { localeAlternates } from '@/lib/i18n-seo'
 
-export const metadata = {
+const baseMetadata: Metadata = {
   title: 'Subjects & how tutoring works — fair-do',
   description: 'Maths, English, the sciences, languages, music and exam prep explained — what you\'ll cover, how lessons work, the exams they map to, and where to read more.',
+}
+
+export async function generateMetadata(): Promise<Metadata> {
+  return { ...baseMetadata, alternates: await localeAlternates('/styles') }
 }
 
 export default async function StylesPage() {

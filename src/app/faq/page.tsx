@@ -1,11 +1,17 @@
+import type { Metadata } from 'next'
 import Link from 'next/link'
 import { SiteNav } from '@/components/SiteNav'
 import { SiteFooter } from '@/components/SiteFooter'
+import { localeAlternates } from '@/lib/i18n-seo'
 import { getDictionary, getLocaleFromHeaders } from '@/lib/dictionaries'
 
-export const metadata = {
+const baseMetadata: Metadata = {
   title: 'FAQ — fair-do',
   description: 'Common questions about fair-do: what it is, pricing, student ownership, data security, and getting set up as a tutor.',
+}
+
+export async function generateMetadata(): Promise<Metadata> {
+  return { ...baseMetadata, alternates: await localeAlternates('/faq') }
 }
 
 export default async function FaqPage() {

@@ -1,13 +1,19 @@
+import type { Metadata } from 'next'
 import { notFound } from 'next/navigation'
 import Link from 'next/link'
 import { SiteNav } from '@/components/SiteNav'
 import { SiteFooter } from '@/components/SiteFooter'
 import { PRACTICE_PORTAL_ENABLED } from '@/lib/practice'
 import { getDictionary, getLocaleFromHeaders } from '@/lib/dictionaries'
+import { localeAlternates } from '@/lib/i18n-seo'
 
-export const metadata = {
+const baseMetadata: Metadata = {
   title: 'How fair-do compares — software for UK tutors',
   description: 'An honest, factual comparison of fair-do with the booking and admin tools UK tutors usually weigh up — for independent private tutors.',
+}
+
+export async function generateMetadata(): Promise<Metadata> {
+  return { ...baseMetadata, alternates: await localeAlternates('/compare') }
 }
 
 // Providers in column order. fair-do first.

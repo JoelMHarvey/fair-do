@@ -1,11 +1,17 @@
+import type { Metadata } from 'next'
 import Link from 'next/link'
 import { SiteNav } from '@/components/SiteNav'
 import { SiteFooter } from '@/components/SiteFooter'
 import { getDictionary, getLocaleFromHeaders } from '@/lib/dictionaries'
+import { localeAlternates } from '@/lib/i18n-seo'
 
-export const metadata = {
+const baseMetadata: Metadata = {
   title: 'AI tutoring: an honest look — fair-do',
   description: 'An impartial guide to AI tutors and learning chatbots — the benefits, the real risks, what the research says, the tools available, and where a human teacher still matters.',
+}
+
+export async function generateMetadata(): Promise<Metadata> {
+  return { ...baseMetadata, alternates: await localeAlternates('/ai-tutoring') }
 }
 
 export default async function AiTutoringPage() {
