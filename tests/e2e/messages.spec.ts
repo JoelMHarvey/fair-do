@@ -1,8 +1,8 @@
 /**
- * P2 E2E — Therapist message thread
+ * P2 E2E — Teacher message thread
  *
- * Verifies that a therapist can open a message thread and send a message.
- * Runs in the chromium project (therapist storageState loaded).
+ * Verifies that a teacher can open a message thread and send a message.
+ * Runs in the chromium project (teacher storageState loaded).
  *
  * Required env vars:
  *   E2E_TEST_MATCH_ID — ID of a seeded active match on staging
@@ -40,7 +40,7 @@ test.describe('message thread', () => {
     ])
   })
 
-  test('therapist can send a message and it appears in the thread', async ({ page }) => {
+  test('teacher can send a message and it appears in the thread', async ({ page }) => {
     await page.goto(`/messages/${MATCH_ID}`)
     await expect(page).not.toHaveURL(/sign-in/)
 

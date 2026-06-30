@@ -1,7 +1,7 @@
 /**
  * P2 E2E — Session room guest-token access
  *
- * Verifies that a self-booked (account-less) client can open the session room
+ * Verifies that a self-booked (account-less) student can open the session room
  * via the signed ?k= link without any Clerk authentication.
  *
  * Runs in the chromium-public project (no storageState loaded).
@@ -56,7 +56,7 @@ test.describe('session room — guest token access', () => {
   test('session room renders "← Dashboard" back link', async ({ page }) => {
     await page.goto(`/session/${SESSION_ID}?k=${GUEST_TOKEN}`)
     await expect(page).not.toHaveURL(/sign-in/)
-    // Guest clients see the back link pointing to /dashboard.
+    // Guest students see the back link pointing to /dashboard.
     await expect(page.getByText('← Dashboard', { exact: false })).toBeVisible({ timeout: 10_000 })
   })
 })

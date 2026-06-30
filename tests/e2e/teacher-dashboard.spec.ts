@@ -1,25 +1,25 @@
 /**
- * P2 E2E — Therapist dashboard smoke test
+ * P2 E2E — Teacher dashboard smoke test
  *
- * Requires: chromium project (therapist storageState loaded automatically).
+ * Requires: chromium project (teacher storageState loaded automatically).
  * Env vars needed for full assertions:
- *   E2E_THERAPIST_FIRST_NAME — first name on the seeded therapist account
- *   E2E_THERAPIST_LAST_NAME  — last name (optional; checks first name only if absent)
+ *   E2E_TEACHER_FIRST_NAME — first name on the seeded teacher account
+ *   E2E_TEACHER_LAST_NAME  — last name (optional; checks first name only if absent)
  */
 import { expect, test } from './fixtures'
 
-test.describe('therapist dashboard', () => {
+test.describe('teacher dashboard', () => {
   test('renders after sign-in', async ({ page }) => {
     await page.goto('/teacher/dashboard')
 
     // Must land on the dashboard, not sign-in or onboarding.
-    // If this fails, check that the test therapist has a Therapist DB record
+    // If this fails, check that the test teacher has a Teacher DB record
     // (run `node prisma/seed-e2e.mjs` against staging to create it).
     await expect(page).not.toHaveURL(/sign-in/, { timeout: 10_000 })
     await expect(page).toHaveURL(/teacher\/dashboard/)
   })
 
-  test('h1 shows therapist full name', async ({ page }) => {
+  test('h1 shows teacher full name', async ({ page }) => {
     await page.goto('/teacher/dashboard')
     await expect(page).not.toHaveURL(/sign-in/)
 
@@ -27,8 +27,8 @@ test.describe('therapist dashboard', () => {
     await expect(h1).toBeVisible({ timeout: 10_000 })
 
     // If name env vars are set, assert exact text; otherwise just assert non-empty.
-    const firstName = process.env.E2E_THERAPIST_FIRST_NAME
-    const lastName = process.env.E2E_THERAPIST_LAST_NAME
+    const firstName = process.env.E2E_TEACHER_FIRST_NAME
+    const lastName = process.env.E2E_TEACHER_LAST_NAME
     if (firstName) {
       const expected = lastName ? `${firstName} ${lastName}` : firstName
       await expect(h1).toContainText(expected)
@@ -38,13 +38,13 @@ test.describe('therapist dashboard', () => {
     }
   })
 
-  test('stat cards visible: Upcoming, Active clients, This month', async ({ page }) => {
+  test('stat cards visible: Upcoming, Active students, This month', async ({ page }) => {
     await page.goto('/teacher/dashboard')
     await expect(page).not.toHaveURL(/sign-in/)
 
     // All three stat labels must be present.
     // Use exact: true — "Upcoming" also appears in "Upcoming sessions" heading and "No upcoming sessions".
-    for (const label of ['Upcoming', 'Active clients', 'This month']) {
+    for (const label of ['Upcoming', 'Active students', 'This month']) {
       await expect(page.getByText(label, { exact: true })).toBeVisible({ timeout: 10_000 })
     }
   })
