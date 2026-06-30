@@ -5,6 +5,7 @@ import { prisma } from '@/lib/prisma'
 import { Logo } from '@/components/Logo'
 import { ParentMessages } from '@/components/ParentMessages'
 import { PARENT_PORTAL_ENABLED } from '@/lib/parent'
+import { getDictionary, getLocaleFromHeaders } from '@/lib/dictionaries'
 
 function fmtDate(d: Date) {
   return new Date(d).toLocaleString('en-GB', { dateStyle: 'medium', timeStyle: 'short' })
@@ -74,29 +75,31 @@ export default async function ParentDashboard() {
   })
   const showTutorCred = tutor?.showCredentialToParents && !!tutor.qualificationBody
 
+  const { parent_dashboard } = await getDictionary(await getLocaleFromHeaders())
+
   return (
     <main className="min-h-screen bg-sand-50">
       <nav className="border-b border-sand-200 bg-white/80 backdrop-blur px-5 sm:px-8 h-16 flex items-center justify-between sticky top-0 z-40">
         <Logo />
-        <Link href="/sign-out" className="text-sm text-sand-500 hover:text-brand-700">Sign out</Link>
+        <Link href="/sign-out" className="text-sm text-sand-500 hover:text-brand-700">{parent_dashboard.sign_out}</Link>
       </nav>
 
       <div className="max-w-3xl mx-auto px-4 sm:px-6 py-8 sm:py-12">
-        <h1 className="font-display text-3xl font-semibold text-brand-900 mb-1">{student.firstName}&rsquo;s lessons</h1>
-        <p className="text-sand-500 mb-8 text-sm">Parent portal</p>
+        <h1 className="font-display text-3xl font-semibold text-brand-900 mb-1">{student.firstName}&rsquo;s {parent_dashboard.heading_lessons}</h1>
+        <p className="text-sand-500 mb-8 text-sm">{parent_dashboard.subtitle}</p>
 
         {showTutorCred && tutor && (
           <section className="mb-8">
             <div className="bg-white rounded-2xl border border-sand-200 p-5">
-              <p className="text-xs text-sand-500 mb-1">Your tutor</p>
+              <p className="text-xs text-sand-500 mb-1">{parent_dashboard.your_tutor}</p>
               <p className="font-medium text-sand-900">{tutor.firstName} {tutor.lastName}</p>
               <p className="text-sm text-sand-700 mt-1">
                 {tutor.qualificationBody}
-                {tutor.credentialVerified && <span className="text-brand-700"> · Verified ✓</span>}
+                {tutor.credentialVerified && <span className="text-brand-700"> · {parent_dashboard.verified} ✓</span>}
               </p>
               {tutor.credentialDocUrl && (
                 <a href={tutor.credentialDocUrl} target="_blank" rel="noopener noreferrer" className="inline-block mt-2 text-sm text-brand-600 hover:text-brand-700 font-medium">
-                  View teaching certificate ↗
+                  {parent_dashboard.view_certificate}
                 </a>
               )}
             </div>
@@ -105,9 +108,9 @@ export default async function ParentDashboard() {
 
         {/* Upcoming */}
         <section className="mb-8">
-          <h2 className="font-medium text-sand-900 mb-3">Upcoming lessons</h2>
+          <h2 className="font-medium text-sand-900 mb-3">{parent_dashboard.upcoming_heading}</h2>
           {upcoming.length === 0 ? (
-            <div className="bg-white rounded-2xl border border-sand-200 p-6 text-center text-sand-400 text-sm">No lessons booked.</div>
+            <div className="bg-white rounded-2xl border border-sand-200 p-6 text-center text-sand-400 text-sm">{parent_dashboard.upcoming_empty}</div>
           ) : (
             <div className="space-y-3">
               {upcoming.map(s => (
@@ -125,9 +128,9 @@ export default async function ParentDashboard() {
 
         {/* Past + attendance */}
         <section className="mb-8">
-          <h2 className="font-medium text-sand-900 mb-3">Lesson history</h2>
+          <h2 className="font-medium text-sand-900 mb-3">{parent_dashboard.history_heading}</h2>
           {past.length === 0 ? (
-            <div className="bg-white rounded-2xl border border-sand-200 p-6 text-center text-sand-400 text-sm">No past lessons yet.</div>
+            <div className="bg-white rounded-2xl border border-sand-200 p-6 text-center text-sand-400 text-sm">{parent_dashboard.history_empty}</div>
           ) : (
             <div className="bg-white rounded-2xl border border-sand-200 overflow-hidden">
               {past.map((s, i) => (
@@ -139,10 +142,10 @@ export default async function ParentDashboard() {
                   <p className="text-xs text-sand-400 mt-0.5">{attendance(s)}</p>
                   {s.lessonNote?.status === 'shared' && (
                     <div className="mt-2 rounded-xl bg-brand-50/60 border border-brand-100 px-3 py-2 text-sm text-sand-700">
-                      <p className="text-xs font-medium text-brand-700 mb-1">Lesson notes</p>
+                      <p className="text-xs font-medium text-brand-700 mb-1">{parent_dashboard.lesson_notes}</p>
                       <p>{s.lessonNote.topicsCovered}</p>
-                      {s.lessonNote.difficulty && <p className="mt-1"><span className="text-sand-500">Found tricky:</span> {s.lessonNote.difficulty}</p>}
-                      {s.lessonNote.homework && <p className="mt-1"><span className="text-sand-500">Homework:</span> {s.lessonNote.homework}</p>}
+                      {s.lessonNote.difficulty && <p className="mt-1"><span className="text-sand-500">{parent_dashboard.found_tricky}</span> {s.lessonNote.difficulty}</p>}
+                      {s.lessonNote.homework && <p className="mt-1"><span className="text-sand-500">{parent_dashboard.homework}</span> {s.lessonNote.homework}</p>}
                     </div>
                   )}
                 </div>
@@ -153,9 +156,9 @@ export default async function ParentDashboard() {
 
         {/* Invoices */}
         <section className="mb-8">
-          <h2 className="font-medium text-sand-900 mb-3">Invoices</h2>
+          <h2 className="font-medium text-sand-900 mb-3">{parent_dashboard.invoices_heading}</h2>
           {payments.length === 0 ? (
-            <div className="bg-white rounded-2xl border border-sand-200 p-6 text-center text-sand-400 text-sm">No payments yet.</div>
+            <div className="bg-white rounded-2xl border border-sand-200 p-6 text-center text-sand-400 text-sm">{parent_dashboard.invoices_empty}</div>
           ) : (
             <div className="bg-white rounded-2xl border border-sand-200 overflow-hidden">
               {payments.map((p, i) => {
@@ -165,7 +168,7 @@ export default async function ParentDashboard() {
                   <div key={p.id} className={`flex items-center justify-between px-4 py-3 ${i > 0 ? 'border-t border-sand-100' : ''}`}>
                     <div>
                       <p className="text-sm font-medium text-sand-900">
-                        {p.session ? `${p.session.teacher.firstName} ${p.session.teacher.lastName}` : 'Lesson package'}
+                        {p.session ? `${p.session.teacher.firstName} ${p.session.teacher.lastName}` : parent_dashboard.lesson_package}
                       </p>
                       <p className="text-xs text-sand-400 mt-0.5">
                         {p.createdAt.toLocaleDateString('en-GB', { day: 'numeric', month: 'short', year: 'numeric' })} · {sym}{(p.amountTotalPence / 100).toFixed(2)}
@@ -182,7 +185,7 @@ export default async function ParentDashboard() {
 
         {/* Messages */}
         <section>
-          <h2 className="font-medium text-sand-900 mb-3">Message the tutor</h2>
+          <h2 className="font-medium text-sand-900 mb-3">{parent_dashboard.message_heading}</h2>
           <div className="bg-white rounded-2xl border border-sand-200 p-4">
             <ParentMessages parentLinkId={link.id} viewerClerkId={userId} initial={messages} />
           </div>

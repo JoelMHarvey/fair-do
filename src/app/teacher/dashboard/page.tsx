@@ -13,6 +13,7 @@ import { CalendarSync } from '@/components/CalendarSync'
 import { ensureCalendarToken, calendarFeedUrl } from '@/lib/calendar'
 import { PRACTICE_PORTAL_ENABLED } from '@/lib/practice'
 import { daysUntil, expiryState } from '@/lib/credentials-expiry'
+import { getDictionary, getLocaleFromHeaders } from '@/lib/dictionaries'
 
 const STATUS_LABEL = { PENDING: 'Under review', ACTIVE: 'Live', SUSPENDED: 'Suspended' } as const
 const STATUS_CLASS = {
@@ -104,6 +105,8 @@ export default async function TeacherDashboard() {
   const freeMonthsWaiting = teacher.freeMonthsOwed ?? 0 // banked, auto-applied next time they subscribe/upgrade
   const pendingReferrals = referrals.filter(r => r.status === 'pending').length
 
+  const { teacher_dashboard } = await getDictionary(await getLocaleFromHeaders())
+
   return (
     <main className="min-h-screen bg-sand-50">
       <TeacherNav />
@@ -138,7 +141,7 @@ export default async function TeacherDashboard() {
           const fmtD = (d: Date) => d.toLocaleDateString('en-GB', { day: 'numeric', month: 'long', year: 'numeric' })
           return (
             <div className={`rounded-xl p-5 text-sm mb-6 border ${worst ? 'bg-coral-50 border-coral-200 text-coral-700' : 'bg-amber-50 border-amber-200 text-amber-800'}`}>
-              {teacher.credentialSuspended && <p className="mb-2"><strong>Your profile is paused.</strong> Renew below to take new bookings again — sessions already booked are unaffected.</p>}
+              {teacher.credentialSuspended && <p className="mb-2"><strong>{teacher_dashboard.credential_paused_strong}</strong> {teacher_dashboard.credential_paused_body}</p>}
               {items.map((i, n) => (
                 <p key={n} className={n > 0 ? 'mt-1' : ''}>
                   {i.days! <= 0
@@ -146,7 +149,7 @@ export default async function TeacherDashboard() {
                     : <>Your <strong>{i.label}</strong> expires in <strong>{i.days} day{i.days === 1 ? '' : 's'}</strong> ({fmtD(i.date!)}).</>}
                 </p>
               ))}
-              <Link href="/teacher/profile" className="inline-block mt-3 font-medium underline">Update my details →</Link>
+              <Link href="/teacher/profile" className="inline-block mt-3 font-medium underline">{teacher_dashboard.update_details}</Link>
             </div>
           )
         })()}
@@ -155,16 +158,16 @@ export default async function TeacherDashboard() {
         {PRACTICE_PORTAL_ENABLED && (
           <div className="flex flex-wrap gap-2 mb-6">
             <Link href="/teacher/students" className="bg-brand-600 hover:bg-brand-700 text-white text-sm font-medium rounded-full px-4 py-2 transition">
-              + Invite a student
+              {teacher_dashboard.action_invite_student}
             </Link>
             <Link href="/teacher/students" className="bg-white border border-sand-200 hover:border-brand-300 text-sand-700 text-sm font-medium rounded-full px-4 py-2 transition">
-              Students
+              {teacher_dashboard.action_students}
             </Link>
             <Link href="/teacher/broadcast" className="bg-white border border-sand-200 hover:border-brand-300 text-sand-700 text-sm font-medium rounded-full px-4 py-2 transition">
-              Message students
+              {teacher_dashboard.action_message_students}
             </Link>
             <Link href="/teacher/billing" className="bg-white border border-sand-200 hover:border-brand-300 text-sand-700 text-sm font-medium rounded-full px-4 py-2 transition">
-              Plans &amp; billing
+              {teacher_dashboard.action_plans_billing}
             </Link>
           </div>
         )}
@@ -182,29 +185,29 @@ export default async function TeacherDashboard() {
         )}
         {teacher.status === 'PENDING' && (
           <div className="bg-amber-50 border border-amber-200 rounded-xl p-5 text-sm text-amber-800 mb-6">
-            <strong>Profile under review.</strong> We&apos;re verifying your {teacher.qualificationBody} credentials (ref: {teacher.qualificationRef}). You&apos;ll receive an email within 2 business days.
+            <strong>{teacher_dashboard.pending_strong}</strong> We&apos;re verifying your {teacher.qualificationBody} credentials (ref: {teacher.qualificationRef}). You&apos;ll receive an email within 2 business days.
           </div>
         )}
         {!teacher.stripeOnboarded && (
           <div className="bg-sand-100 border border-sand-200 rounded-xl p-5 text-sm text-sand-700 mb-6">
-            <strong>Payments not connected.</strong> Complete Stripe setup to receive payouts.{' '}
-            <a href="/onboarding/teacher" className="text-brand-600 hover:underline">Set up now →</a>
+            <strong>{teacher_dashboard.payments_not_connected_strong}</strong> {teacher_dashboard.payments_not_connected_body}{' '}
+            <a href="/onboarding/teacher" className="text-brand-600 hover:underline">{teacher_dashboard.payments_setup_now}</a>
           </div>
         )}
 
         {/* Stats */}
         <div className="grid grid-cols-3 gap-3 mb-8">
           <div className="bg-white rounded-2xl border border-sand-200 p-5">
-            <p className="text-xs text-sand-500 mb-1">Upcoming</p>
+            <p className="text-xs text-sand-500 mb-1">{teacher_dashboard.stat_upcoming}</p>
             <p className="text-3xl font-semibold text-sand-900">{upcomingSessions.length}</p>
             <p className="text-xs text-sand-400 mt-1">lesson{upcomingSessions.length !== 1 ? 's' : ''}</p>
           </div>
           <div className="bg-white rounded-2xl border border-sand-200 p-5">
-            <p className="text-xs text-sand-500 mb-1">Active students</p>
+            <p className="text-xs text-sand-500 mb-1">{teacher_dashboard.stat_active_students}</p>
             <p className="text-3xl font-semibold text-sand-900">{activeStudents}</p>
           </div>
           <div className="bg-white rounded-2xl border border-sand-200 p-5">
-            <p className="text-xs text-sand-500 mb-1">This month</p>
+            <p className="text-xs text-sand-500 mb-1">{teacher_dashboard.stat_this_month}</p>
             <p className="text-3xl font-semibold text-sand-900">{fmt(monthTotal)}</p>
             <p className="text-xs text-sand-400 mt-1">{monthPayments.length} lesson{monthPayments.length !== 1 ? 's' : ''}</p>
           </div>
@@ -220,10 +223,10 @@ export default async function TeacherDashboard() {
 
         {/* Upcoming sessions */}
         <section className="mb-8">
-          <h2 className="font-medium text-sand-900 mb-3">Upcoming lessons</h2>
+          <h2 className="font-medium text-sand-900 mb-3">{teacher_dashboard.upcoming_lessons_heading}</h2>
           {upcomingSessions.length === 0 ? (
             <div className="bg-white rounded-2xl border border-sand-200 p-8 text-center text-sand-400 text-sm">
-              No upcoming lessons
+              {teacher_dashboard.upcoming_lessons_empty}
             </div>
           ) : (
             <div className="bg-white rounded-2xl border border-sand-200 overflow-hidden">
@@ -247,18 +250,18 @@ export default async function TeacherDashboard() {
                     <div className="flex items-center gap-3">
                       {isLive ? (
                         <span className="text-xs font-medium text-brand-700 bg-brand-50 px-2 py-0.5 rounded-full">
-                          Live
+                          {teacher_dashboard.badge_live}
                         </span>
                       ) : isToday && (
                         <span className="text-xs font-medium text-coral-700 bg-coral-50 px-2 py-0.5 rounded-full">
-                          Today
+                          {teacher_dashboard.badge_today}
                         </span>
                       )}
                       <Link
                         href={`/session/${s.id}`}
                         className="text-sm text-brand-600 hover:text-brand-700 font-medium"
                       >
-                        {isLive ? 'Join →' : 'View →'}
+                        {isLive ? teacher_dashboard.session_join : teacher_dashboard.session_view}
                       </Link>
                     </div>
                   </div>
@@ -272,7 +275,7 @@ export default async function TeacherDashboard() {
         {threads.length > 0 && (
           <section>
             <div className="flex items-center justify-between mb-3">
-              <h2 className="font-medium text-sand-900">Messages</h2>
+              <h2 className="font-medium text-sand-900">{teacher_dashboard.messages_heading}</h2>
             </div>
             <div className="space-y-2">
               {threads.map(t => {
@@ -293,7 +296,7 @@ export default async function TeacherDashboard() {
                           {lastMsg.body}
                         </p>
                       ) : (
-                        <p className="text-sm text-sand-400 mt-0.5">No messages yet</p>
+                        <p className="text-sm text-sand-400 mt-0.5">{teacher_dashboard.messages_empty}</p>
                       )}
                     </div>
                     {isUnread && <span className="w-2 h-2 rounded-full bg-brand-500 shrink-0" />}
