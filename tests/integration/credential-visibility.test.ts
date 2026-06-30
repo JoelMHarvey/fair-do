@@ -4,6 +4,12 @@ import { describe, it, expect, vi, beforeEach } from 'vitest'
 const m = vi.hoisted(() => ({ auth: vi.fn(), userFind: vi.fn(), teacherUpdate: vi.fn() }))
 vi.mock('@clerk/nextjs/server', () => ({ auth: m.auth }))
 vi.mock('@/lib/prisma', () => ({ prisma: { user: { findUnique: m.userFind }, teacher: { update: m.teacherUpdate } } }))
+vi.mock('@/lib/parent', () => ({ PARENT_PORTAL_ENABLED: true }))
+vi.mock('@/lib/ratelimit', () => ({
+  checkRateLimit: vi.fn(async () => ({ allowed: true })),
+  rateLimitResponse: vi.fn(() => new Response('rl', { status: 429 })),
+}))
+vi.mock('next/headers', () => ({ headers: vi.fn(async () => ({ get: () => null })) }))
 
 import { POST } from '@/app/api/teacher/credential-visibility/route'
 

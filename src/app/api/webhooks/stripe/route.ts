@@ -50,10 +50,14 @@ export async function POST(req: Request) {
   if (event.type === 'account.updated') {
     const account = event.data.object as Stripe.Account
     const onboarded = !!(account.charges_enabled && account.payouts_enabled && account.details_submitted)
-    await prisma.teacher.updateMany({
-      where: { stripeAccountId: account.id },
-      data: { stripeOnboarded: onboarded },
-    })
+    try {
+      await prisma.teacher.updateMany({
+        where: { stripeAccountId: account.id },
+        data: { stripeOnboarded: onboarded },
+      })
+    } catch (e) {
+      return rollbackAndRetry(event.id, 'account.updated', e)
+    }
     return new Response('OK', { status: 200 })
   }
 
@@ -65,10 +69,14 @@ export async function POST(req: Request) {
       : charge.payment_intent?.id ?? null
     if (piId) {
       const fullyRefunded = charge.amount_refunded >= charge.amount
-      await prisma.payment.updateMany({
-        where: { stripePaymentIntentId: piId },
-        data: { status: fullyRefunded ? 'refunded' : 'partially_refunded', stripeChargeId: charge.id },
-      })
+      try {
+        await prisma.payment.updateMany({
+          where: { stripePaymentIntentId: piId },
+          data: { status: fullyRefunded ? 'refunded' : 'partially_refunded', stripeChargeId: charge.id },
+        })
+      } catch (e) {
+        return rollbackAndRetry(event.id, 'charge.refunded', e)
+      }
     }
     return new Response('OK', { status: 200 })
   }
@@ -78,29 +86,35 @@ export async function POST(req: Request) {
   if (event.type === 'customer.subscription.updated' || event.type === 'customer.subscription.deleted') {
     const sub = event.data.object as Stripe.Subscription
     const status = event.type === 'customer.subscription.deleted' ? 'canceled' : sub.status
-    // Resync tier + commission if the plan changed (e.g. an upgrade/downgrade in the billing portal).
-    const tier = tierByPriceId(sub.items?.data?.[0]?.price?.id)
-    await prisma.subscription.updateMany({
-      where: { stripeSubscriptionId: sub.id },
-      data: {
-        status,
-        currentPeriodEnd: subscriptionPeriodEnd(sub),
-        ...(tier ? { tier: tier.id, commissionBps: tier.commissionBps } : {}),
-      },
-    })
-    // Parent portal subscriptions (parent pays fair-do directly) — one family sub
-    // gates every linked child. Sync the sub record, then fan access out to links.
-    const parentActive = event.type !== 'customer.subscription.deleted' && (sub.status === 'active' || sub.status === 'trialing')
-    const psub = await prisma.parentSubscription.findUnique({
-      where: { stripeSubscriptionId: sub.id },
-      select: { parentUserId: true },
-    })
-    if (psub) {
-      await prisma.parentSubscription.update({
+    try {
+      // Resync tier + commission if the plan changed (e.g. an upgrade/downgrade in the billing portal).
+      const tier = tierByPriceId(sub.items?.data?.[0]?.price?.id)
+      await prisma.subscription.updateMany({
         where: { stripeSubscriptionId: sub.id },
-        data: { status, currentPeriodEnd: subscriptionPeriodEnd(sub) },
+        data: {
+          status,
+          currentPeriodEnd: subscriptionPeriodEnd(sub),
+          ...(tier ? { tier: tier.id, commissionBps: tier.commissionBps } : {}),
+        },
       })
-      await syncFamilyPortalAccess(psub.parentUserId, parentActive)
+      // Parent portal subscriptions (parent pays fair-do directly) — one family sub
+      // gates every linked child. Sync the sub record, then fan access out to links.
+      const parentActive = event.type !== 'customer.subscription.deleted' && (sub.status === 'active' || sub.status === 'trialing')
+      const psub = await prisma.parentSubscription.findUnique({
+        where: { stripeSubscriptionId: sub.id },
+        select: { parentUserId: true },
+      })
+      if (psub) {
+        await prisma.parentSubscription.update({
+          where: { stripeSubscriptionId: sub.id },
+          data: { status, currentPeriodEnd: subscriptionPeriodEnd(sub) },
+        })
+        await syncFamilyPortalAccess(psub.parentUserId, parentActive)
+      }
+    } catch (e) {
+      // Without this, a transient failure leaves the idempotency marker in place and
+      // Stripe's retry short-circuits — e.g. a cancellation that never revokes access.
+      return rollbackAndRetry(event.id, 'subscription lifecycle', e)
     }
     return new Response('OK', { status: 200 })
   }
@@ -158,6 +172,17 @@ export async function POST(req: Request) {
         try {
           let periodEnd: Date | null = null
           if (subId) periodEnd = subscriptionPeriodEnd(await getStripe().subscriptions.retrieve(subId))
+          // Double-subscribe race: if a different live sub already exists for this
+          // family (two checkouts started before the first webhook landed), cancel
+          // the superseded one so the parent isn't billed twice. Best-effort.
+          const prior = await prisma.parentSubscription.findUnique({
+            where: { parentUserId },
+            select: { stripeSubscriptionId: true },
+          })
+          if (prior?.stripeSubscriptionId && subId && prior.stripeSubscriptionId !== subId) {
+            await getStripe().subscriptions.cancel(prior.stripeSubscriptionId)
+              .catch(e => console.error('[stripe webhook] failed to cancel superseded parent sub', prior.stripeSubscriptionId, e))
+          }
           await prisma.parentSubscription.upsert({
             where: { parentUserId },
             create: { parentUserId, status: 'active', stripeSubscriptionId: subId, stripeCustomerId: customerId, currentPeriodEnd: periodEnd },

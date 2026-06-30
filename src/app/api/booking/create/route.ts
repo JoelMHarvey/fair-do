@@ -186,6 +186,9 @@ export async function POST(req: Request) {
           teacherPayoutPence: teacherPayout,
           currency: teacher.country === 'US' ? 'usd' : 'gbp',
           status: 'paid',
+          // Pin the funding org so a later refund returns to the pool that paid,
+          // even if the student changes/leaves the org in between.
+          fundingOrgId: fundedBy === 'organisation' && org ? org.id : null,
         },
       })
       const room = await createRoom(session.id, session.scheduledAt, roomMax).catch(() => null)

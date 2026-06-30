@@ -141,9 +141,34 @@ describe('parent accept', () => {
     expect(m.transaction).not.toHaveBeenCalled()
   })
 
+  it('403 when the signed-in email does not match the invited email', async () => {
+    m.linkFindUnique.mockResolvedValue({ id: 'pl1', studentId: 's1', teacherId: 't1', status: 'pending', parentUserId: null, inviteEmail: 'invited@x.com', createdAt: new Date() })
+    m.userFind.mockResolvedValue({ id: 'u1', teacher: null, student: null, email: 'attacker@x.com' })
+    const res = await accept(req({ token: 'tok_test' }))
+    expect(res.status).toBe(403)
+    expect(m.transaction).not.toHaveBeenCalled()
+  })
+
+  it('409 when the token would hijack a link already owned by someone else', async () => {
+    m.linkFindUnique.mockResolvedValue({ id: 'pl1', studentId: 's1', teacherId: 't1', status: 'active', parentUserId: 'u_other', inviteEmail: 'p@x.com', createdAt: new Date() })
+    m.userFind.mockResolvedValue({ id: 'u1', teacher: null, student: null, email: 'p@x.com' })
+    const res = await accept(req({ token: 'tok_test' }))
+    expect(res.status).toBe(409)
+    expect(m.transaction).not.toHaveBeenCalled()
+  })
+
+  it('410 when the invite has expired', async () => {
+    const old = new Date(Date.now() - 30 * 24 * 60 * 60 * 1000)
+    m.linkFindUnique.mockResolvedValue({ id: 'pl1', studentId: 's1', teacherId: 't1', status: 'pending', parentUserId: null, inviteEmail: 'p@x.com', createdAt: old })
+    m.userFind.mockResolvedValue({ id: 'u1', teacher: null, student: null, email: 'p@x.com' })
+    const res = await accept(req({ token: 'tok_test' }))
+    expect(res.status).toBe(410)
+    expect(m.transaction).not.toHaveBeenCalled()
+  })
+
   it('links account + sets PARENT role + creates thread', async () => {
-    m.linkFindUnique.mockResolvedValue({ id: 'pl1', studentId: 's1', teacherId: 't1', status: 'pending', parentUserId: null })
-    m.userFind.mockResolvedValue({ id: 'u1', teacher: null, student: null })
+    m.linkFindUnique.mockResolvedValue({ id: 'pl1', studentId: 's1', teacherId: 't1', status: 'pending', parentUserId: null, inviteEmail: 'p@x.com', createdAt: new Date() })
+    m.userFind.mockResolvedValue({ id: 'u1', teacher: null, student: null, email: 'P@X.com' })
     m.linkFindFirst.mockResolvedValue(null)
     m.userUpdate.mockResolvedValue({})
     m.linkUpdate.mockResolvedValue({})
@@ -157,8 +182,8 @@ describe('parent accept', () => {
   })
 
   it('covers a new child immediately when the family already pays', async () => {
-    m.linkFindUnique.mockResolvedValue({ id: 'pl2', studentId: 's2', teacherId: 't2', status: 'pending', parentUserId: null })
-    m.userFind.mockResolvedValue({ id: 'u1', teacher: null, student: null })
+    m.linkFindUnique.mockResolvedValue({ id: 'pl2', studentId: 's2', teacherId: 't2', status: 'pending', parentUserId: null, inviteEmail: 'p@x.com', createdAt: new Date() })
+    m.userFind.mockResolvedValue({ id: 'u1', teacher: null, student: null, email: 'p@x.com' })
     m.linkFindFirst.mockResolvedValue(null)
     m.userUpdate.mockResolvedValue({})
     m.linkUpdate.mockResolvedValue({})

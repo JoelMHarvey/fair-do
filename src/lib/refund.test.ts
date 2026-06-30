@@ -33,6 +33,7 @@ function makePayment(overrides: Partial<{
   stripePaymentIntentId: string
   amountTotalPence: number
   transferred: boolean
+  fundingOrgId: string | null
 }> = {}) {
   return {
     id: 'pay_1',
@@ -93,6 +94,20 @@ describe('refundSessionPayment — routing', () => {
       data: { creditPoolPence: { increment: 3000 } },
     })
     expect(mockRefundsCreate).not.toHaveBeenCalled()
+  })
+
+  it('routes org_ prefix to the FUNDING org, not the student current org', async () => {
+    const result = await refundSessionPayment(
+      makePayment({ stripePaymentIntentId: 'org_abc', amountTotalPence: 3000, fundingOrgId: 'org_funder' }),
+      CLIENT_ID,
+      'org_current_different', // student's org at refund time differs from funder
+    )
+    expect(result).toBe(true)
+    expect(mockOrgUpdate).toHaveBeenCalledWith({
+      where: { id: 'org_funder' },
+      data: { creditPoolPence: { increment: 3000 } },
+    })
+    expect(mockClientUpdate).not.toHaveBeenCalled()
   })
 
   it('routes org_ prefix to client balance when no orgId', async () => {

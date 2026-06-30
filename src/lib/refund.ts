@@ -1,7 +1,7 @@
 import { prisma } from './prisma'
 import { getStripe } from './stripe'
 
-type RefundablePayment = { id: string; status: string; stripePaymentIntentId: string; amountTotalPence: number; transferred?: boolean }
+type RefundablePayment = { id: string; status: string; stripePaymentIntentId: string; amountTotalPence: number; transferred?: boolean; fundingOrgId?: string | null }
 
 /**
  * Refund a session's payment to the right place:
@@ -26,8 +26,12 @@ export async function refundSessionPayment(
   const isInternal = pi.startsWith('credit_') || pi.startsWith('org_')
   try {
     if (isInternal) {
-      if (pi.startsWith('org_') && clientOrganisationId) {
-        await prisma.organisation.update({ where: { id: clientOrganisationId }, data: { creditPoolPence: { increment: amount } } })
+      // Refund org-pool payments to the org that actually funded them (pinned on the
+      // payment), not the student's current org. Fall back to the passed org id for
+      // legacy rows without fundingOrgId; only credit the student if neither resolves.
+      const orgId = pi.startsWith('org_') ? (payment.fundingOrgId ?? clientOrganisationId) : null
+      if (orgId) {
+        await prisma.organisation.update({ where: { id: orgId }, data: { creditPoolPence: { increment: amount } } })
       } else {
         await prisma.student.update({ where: { id: studentId }, data: { creditBalancePence: { increment: amount } } })
       }

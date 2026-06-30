@@ -1,5 +1,7 @@
+import { headers } from 'next/headers'
 import { prisma } from '@/lib/prisma'
 import { PRACTICE_PORTAL_ENABLED } from '@/lib/practice'
+import { checkRateLimit, rateLimitResponse } from '@/lib/ratelimit'
 import type { FormField } from '@/lib/forms'
 
 // Public form submission (token-gated). The student fills the form their teacher sent.
@@ -7,6 +9,10 @@ export async function POST(req: Request, { params }: { params: Promise<{ token: 
   if (!PRACTICE_PORTAL_ENABLED) return new Response('Not found', { status: 404 })
   const { token } = await params
   if (!token || token.length < 12) return new Response('Not found', { status: 404 })
+
+  const ip = (await headers()).get('x-forwarded-for')?.split(',')[0].trim() ?? 'unknown'
+  const rl = await checkRateLimit(`form-submit:${ip}`, { limit: 20, windowMs: 60_000 })
+  if (!rl.allowed) return rateLimitResponse(rl.retryAfterMs)
 
   const form = await prisma.studentForm.findUnique({ where: { token } })
   if (!form || form.status === 'completed') return new Response('Not available', { status: 410 })

@@ -8,7 +8,7 @@ import { RESOURCES_ENABLED, MAX_RESOURCE_BYTES, RESOURCE_CATEGORIES } from '@/li
 const createSchema = z.object({
   matchId: z.string().min(1),
   label: z.string().trim().min(1).max(200),
-  url: z.string().url().max(2000),
+  url: z.string().url().max(2000).refine(u => /^https?:\/\//i.test(u), 'Must be a http(s) link'),
   category: z.enum(RESOURCE_CATEGORIES),
   fileName: z.string().max(300).optional(),
   fileSizeBytes: z.number().int().nonnegative().max(MAX_RESOURCE_BYTES).optional(),

@@ -1,5 +1,7 @@
+import { headers } from 'next/headers'
 import { prisma } from '@/lib/prisma'
 import { PRACTICE_PORTAL_ENABLED } from '@/lib/practice'
+import { checkRateLimit } from '@/lib/ratelimit'
 import { finalizeSelfBooking } from '@/lib/self-book'
 import { isUniqueViolation } from '@/lib/slots'
 
@@ -13,6 +15,10 @@ export async function GET(req: Request) {
     Response.redirect(`${appUrl}/${slug ? `p/${slug}` : ''}?booking=${status}`, 303)
 
   if (!PRACTICE_PORTAL_ENABLED) return new Response('Not found', { status: 404 })
+
+  const ip = (await headers()).get('x-forwarded-for')?.split(',')[0].trim() ?? 'unknown'
+  const rl = await checkRateLimit(`self-book-confirm:${ip}`, { limit: 30, windowMs: 60_000 })
+  if (!rl.allowed) return redirect('error')
 
   const token = new URL(req.url).searchParams.get('token')
   if (!token) return redirect('invalid')

@@ -38,6 +38,11 @@ vi.mock('@/lib/prisma', () => ({
 }))
 
 vi.mock('@/lib/self-book', () => ({ finalizeSelfBooking: mockFinalizeSelfBooking }))
+vi.mock('@/lib/ratelimit', () => ({
+  checkRateLimit: vi.fn(async () => ({ allowed: true })),
+  rateLimitResponse: vi.fn(() => new Response('rl', { status: 429 })),
+}))
+vi.mock('next/headers', () => ({ headers: vi.fn(async () => ({ get: () => null })) }))
 
 const APP_URL = 'https://fair-do.com'
 process.env.NEXT_PUBLIC_APP_URL = APP_URL

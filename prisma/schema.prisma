@@ -722,6 +722,9 @@ model Payment {
   transferred           Boolean  @default(false) // true if the charge transferred to the teacher's Connect account
   currency              String   @default("gbp")
   status                String
+  // For org-pool ('org_') payments: the org that funded it, so a refund returns to
+  // that pool even if the student later changes/leaves the org. Null otherwise.
+  fundingOrgId          String?
   createdAt             DateTime @default(now())
   updatedAt             DateTime @updatedAt
 }

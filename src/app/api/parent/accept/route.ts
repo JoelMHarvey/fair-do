@@ -5,6 +5,9 @@ import { PARENT_PORTAL_ENABLED, parentHasActivePortal, syncFamilyPortalAccess } 
 
 const schema = z.object({ token: z.string().min(1) })
 
+// Parent invites expire if not accepted within two weeks.
+const INVITE_TTL_DAYS = 14
+
 export async function POST(req: Request) {
   if (!PARENT_PORTAL_ENABLED) return new Response('Not found', { status: 404 })
 
@@ -27,10 +30,13 @@ export async function POST(req: Request) {
     const cu = await currentUser()
     const email = cu?.primaryEmailAddress?.emailAddress ?? cu?.emailAddresses[0]?.emailAddress
     if (!email) return Response.json({ error: 'No email on your account.' }, { status: 400 })
-    user = await prisma.user.upsert({
-      where: { email },
-      update: { clerkId: userId },
-      create: { clerkId: userId, email, role: 'PARENT' },
+    // Don't silently rebind an existing account's Clerk ID — treat a mismatch as an error.
+    const byEmail = await prisma.user.findUnique({ where: { email }, include: { teacher: true, student: true } })
+    if (byEmail && byEmail.clerkId !== userId) {
+      return Response.json({ error: 'This email is already linked to another account.' }, { status: 409 })
+    }
+    user = byEmail ?? await prisma.user.create({
+      data: { clerkId: userId, email, role: 'PARENT' },
       include: { teacher: true, student: true },
     })
   }
@@ -40,9 +46,29 @@ export async function POST(req: Request) {
     return Response.json({ error: 'Use a separate email for the parent portal — this account is already a tutor or student.' }, { status: 409 })
   }
 
-  // Already linked (e.g. re-accept) → idempotent success.
+  // Bind the invite to the email it was sent to. A leaked/forwarded token must not
+  // let a different account claim a child's data.
+  if (user.email.toLowerCase() !== link.inviteEmail.toLowerCase()) {
+    return Response.json({ error: 'This invite was sent to a different email address.' }, { status: 403 })
+  }
+
+  // Already linked to this same parent → idempotent success.
   if (link.parentUserId === user.id && link.status === 'active') {
     return Response.json({ ok: true }, { status: 200 })
+  }
+
+  // Never let a token re-claim a link already owned by someone else, or accept a
+  // non-pending (already-used) invite — prevents ownership hijack of a live link.
+  if (link.parentUserId && link.parentUserId !== user.id) {
+    return Response.json({ error: 'This invite has already been used.' }, { status: 409 })
+  }
+  if (link.status !== 'pending') {
+    return Response.json({ error: 'This invite is no longer valid.' }, { status: 409 })
+  }
+
+  // Expire stale invites.
+  if (Date.now() - new Date(link.createdAt).getTime() > INVITE_TTL_DAYS * 24 * 60 * 60 * 1000) {
+    return Response.json({ error: 'This invite has expired. Ask your tutor for a new one.' }, { status: 410 })
   }
 
   // One parent account per student.
