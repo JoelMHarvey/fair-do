@@ -233,16 +233,35 @@
       },
       "school": {
         "name": "School",
-        "price": "Próximamente",
-        "cadence": "",
+        "price": "£79",
+        "cadence": "/mes",
         "tagline": "Para academias y estudios en grupo.",
         "features": [
-          "Varios profes, un solo estudio",
-          "Calendario de equipo compartido",
-          "Administración e informes del estudio"
+          "Todo lo de Pro",
+          "Varios profes en una sola cuenta",
+          "Calendario y administración de equipo",
+          "Informes y beneficios del estudio",
+          "Sin comisión",
+          "Hasta 2 profes · 150 clases/mes"
         ],
-        "note": "En desarrollo — apúntate y te mantendremos al día.",
-        "cta": "Apuntarme"
+        "note": "Academias más grandes: bandas Standard (£199 · 5 profes) y Pro (£399 · 12 profes) disponibles a petición.",
+        "cta": "Empezar"
+      },
+      "enterprise": {
+        "name": "Enterprise",
+        "price": "A medida",
+        "cadence": "",
+        "tagline": "Para grandes academias y redes de tutorías.",
+        "features": [
+          "Todo lo de School Pro",
+          "Profes ilimitados",
+          "Precio por volumen de sesiones",
+          "Gestor de cuenta dedicado",
+          "SLA de residencia de datos en el Reino Unido",
+          "Incorporación y formación a medida"
+        ],
+        "note": "Precio a medida según el número de profes y el volumen de sesiones. Sin sorpresas.",
+        "cta": "Contactar con ventas"
       }
     },
     "prices_note": "Los precios mostrados son de lanzamiento y pueden cambiar. Los profes fundadores mantienen su tarifa.",
