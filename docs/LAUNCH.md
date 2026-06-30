@@ -44,7 +44,7 @@ fair-do.com is a UK online tutoring marketplace forked from the Faresay therapy 
 
 | Path | Schedule | Purpose |
 |---|---|---|
-| `/api/cron/reminders` | Every hour (`:00`) | Session reminder emails |
+| `/api/cron/reminders` | Every hour (`:00`) | Lesson reminder emails |
 | `/api/cron/no-shows` | Every hour (`:15`) | No-show detection |
 | `/api/cron/credentials` | Daily at 08:00 | Tutor credential/insurance expiry checks |
 | `/api/cron/alerts` | Every 15 min | Ops health alerts |
@@ -190,11 +190,11 @@ DIRECT_URL=postgresql://...@ep-xxx.eu-west-2.aws.neon.tech/fair-do?sslmode=requi
 
 - Privacy: `private` — a valid meeting token is required to join (a leaked room URL alone cannot admit a stranger)
 - Default max participants: `2` (tutor + student)
-- Parent observation: max participants `3` — the `createRoom()` function accepts `maxParticipants` so the booking flow can pass `3` for sessions with parent observation enabled
-- Rooms expire 3 hours after the scheduled session time
+- Parent observation: max participants `3` — the `createRoom()` function accepts `maxParticipants` so the booking flow can pass `3` for lessons with parent observation enabled
+- Rooms expire 3 hours after the scheduled lesson time
 - Chat enabled; screenshare disabled
 
-**Webhook** (if session attendance tracking is needed — check `src/app/api/webhooks/daily/route.ts`):
+**Webhook** (if lesson attendance tracking is needed — check `src/app/api/webhooks/daily/route.ts`):
 
 1. Daily Dashboard → Developers → Webhooks → Add Webhook
 2. URL: `https://fair-do.com/api/webhooks/daily`
@@ -231,11 +231,11 @@ Add all records in Cloudflare with **grey cloud (DNS only)** and click **Verify*
 - Tutor approved / rejected / suspended
 - Credential expiry reminders
 - Booking confirmed (with .ics calendar attachment)
-- Session reminder (24 hours before)
+- Lesson reminder (24 hours before)
 - No-show notice
 - Cancellation notice
 - Package offered / series scheduled
-- Client / student invite
+- Student invite
 - Gift vouchers
 - Ops alert digest (to admin inbox)
 - Admin messages to tutors
@@ -366,7 +366,7 @@ Verify the Plausible script is not blocked by the CSP. The `next.config.ts` CSP 
 2. **API Keys → Create Key** → name: `fair-do-production`
 3. Set `ANTHROPIC_API_KEY` in the Vercel fair-do project environment variables
 
-**Used for**: In-session lesson note generation and the AI assistant (`src/lib/assistant.ts`, `src/app/api/assistant/chat/route.ts`).
+**Used for**: In-lesson note generation and the AI assistant (`src/lib/assistant.ts`, `src/app/api/assistant/chat/route.ts`).
 
 Model in use: check `src/lib/assistant.ts` for the `model` parameter — update to the desired Claude model if needed.
 
@@ -517,7 +517,7 @@ Work through this in a staging deployment (e.g. a Vercel preview URL with test-m
 - [ ] Send a test email via Resend dashboard → confirm delivery and check `From:` shows `fair-do <hello@fair-do.com>`
 - [ ] Booking confirmation email arrives with `.ics` calendar attachment
 - [ ] Cancellation email arrives for both tutor and student
-- [ ] Session reminder email arrives (trigger manually via the cron endpoint)
+- [ ] Lesson reminder email arrives (trigger manually via the cron endpoint)
 - [ ] Tutor approval email arrives
 - [ ] No-show notice email arrives
 - [ ] Ops alert email arrives at `ADMIN_EMAIL`
@@ -529,7 +529,7 @@ Work through this in a staging deployment (e.g. a Vercel preview URL with test-m
 - [ ] Meeting token is generated for both tutor and student
 - [ ] Video room opens in the browser and both participants can join
 - [ ] Room is private — accessing the room URL directly without a token is rejected
-- [ ] Room expires correctly (3 hours after scheduled session time)
+- [ ] Room expires correctly (3 hours after scheduled lesson time)
 - [ ] `DAILY_API_KEY` is confirmed as the fair-do key, not Faresay's (if separate keys were created)
 
 ### 3.5 Authentication
@@ -543,7 +543,7 @@ Work through this in a staging deployment (e.g. a Vercel preview URL with test-m
 
 ### 3.6 Data & Privacy
 
-- [ ] Privacy Policy is live at `https://fair-do.com/privacy` — must be UK GDPR-compliant, covering data collected (names, emails, payment methods, session recordings if any), retention periods, lawful basis, and user rights
+- [ ] Privacy Policy is live at `https://fair-do.com/privacy` — must be UK GDPR-compliant, covering data collected (names, emails, payment methods, lesson recordings if any), retention periods, lawful basis, and user rights
 - [ ] Terms & Conditions are live at `https://fair-do.com/terms` — covering tutor obligations, parent/student obligations, cancellation policy, and platform fees
 - [ ] Cookie consent banner is displayed on first visit (if using analytics/marketing cookies beyond strictly necessary)
 - [ ] Plausible is cookieless by default — confirm no additional cookie consent is required for analytics
@@ -562,19 +562,19 @@ Work through this in a staging deployment (e.g. a Vercel preview URL with test-m
 - Each tutor completes: profile → Stripe Connect onboarding → credential verification (admin manual review)
 - Check that tutors can set availability, set rates, and generate student invite links
 - Verify tutor subscription tiers work (Free tier, no payment required to start)
-- Internal booking test: Joel books a session with a founding tutor, goes through full checkout, receives confirmation email, joins video room
+- Internal booking test: Joel books a lesson with a founding tutor, goes through full checkout, receives confirmation email, joins video room
 
 **Success criteria**: at least 3 tutors are fully onboarded, verified, and have a live profile.
 
 ### Week 3–4: First Student Bookings
 
 - Founding tutors invite their existing students via the invite link (`/api/practice/clients`)
-- Students complete onboarding and book their first session
+- Students complete onboarding and book their first lesson
 - Monitor Sentry for any errors during the first real bookings
 - Monitor Stripe for payment flow integrity
 - Gather tutor and student feedback on UX
 
-**Success criteria**: at least 5 sessions booked and completed without manual intervention.
+**Success criteria**: at least 5 lessons booked and completed without manual intervention.
 
 ### Week 4: Open Waitlist
 
@@ -613,7 +613,7 @@ Switch each service from test/staging to production mode in this order:
 - [ ] All Vercel environment variables updated to production values
 - [ ] Trigger a fresh Vercel deployment (or redeploy) after updating env vars
 - [ ] Visit `https://fair-do.com/api/health` — confirm 200 OK
-- [ ] Make one live test booking with a real card (£1 session or use the lowest possible amount) and immediately refund it
+- [ ] Make one live test booking with a real card (£1 lesson or use the lowest possible amount) and immediately refund it
 - [ ] Confirm the booking confirmation email arrives from `hello@fair-do.com`
 - [ ] Confirm Sentry receives the test event from `src/instrumentation.ts` init
 - [ ] Confirm Plausible records a page view on the homepage

@@ -1,6 +1,6 @@
 # fair-do Scale & Expansion
 
-> Faresay Ltd trading as fair-do.com — internal strategy document  
+> fair-do Ltd trading as fair-do.com — internal strategy document  
 > Date: June 2026
 
 ---
@@ -405,4 +405,4 @@ Referral activation rate: the proportion of active tutors who have sent at least
 
 ---
 
-*Faresay Ltd — Company number to be confirmed. Registered in England and Wales.*
+*fair-do Ltd — Company number to be confirmed. Registered in England and Wales.*
