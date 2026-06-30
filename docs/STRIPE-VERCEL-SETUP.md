@@ -10,6 +10,35 @@ deliberately. (Deeper Connect/liability background lives in `STRIPE-GOLIVE.md`.)
 
 ---
 
+## ⭐ Test mode first (do this now — no bank account needed)
+
+**Live needs the company bank account; Test mode does not.** You can validate every
+paid flow today with Stripe **test cards**, then swap to Live later with no code
+changes. Do this now:
+
+1. Stripe → toggle **Test mode** (top-right). Developers → API keys → copy
+   `sk_test_…` → set `STRIPE_SECRET_KEY` in Vercel (Preview/Production as you test).
+2. Connect → enable in test (a test platform profile is enough).
+3. Create the **3 prices in Test mode** (monthly, GBP): Pro £29, School £79, Parent
+   portal £4.99 → `STRIPE_PRICE_PRO`, `STRIPE_PRICE_SCHOOL`, `STRIPE_PRICE_PARENT_PORTAL`.
+4. Webhook: either
+   - add a **test endpoint** at `https://<your-deploy>/api/webhooks/stripe` with the 5
+     events (Step 5 below) → use its `whsec_…`, **or**
+   - run locally: `stripe listen --forward-to localhost:3000/api/webhooks/stripe` →
+     use the `whsec_…` it prints.
+   Set `STRIPE_WEBHOOK_SECRET`.
+5. `BOOKINGS_ENABLED=true` + `NEXT_PUBLIC_BOOKINGS_ENABLED=true` → redeploy.
+6. **Test** with card `4242 4242 4242 4242` (any future expiry / any CVC):
+   - book a lesson · subscribe a tutor to Pro/School · invite a parent → subscribe ·
+     set a recurring slot → save card. Connect onboarding has a test flow too.
+
+When the bank clears → **Live swap only**: `sk_live_…`, recreate the 3 prices in Live,
+add the Live webhook, update the env vars. Nothing in code changes.
+
+The rest of this doc is the **Live** procedure.
+
+---
+
 ## What the app charges (so you know what to build in Stripe)
 
 | Charge | How | Needs a Product/Price? |
