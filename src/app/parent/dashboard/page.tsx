@@ -67,6 +67,13 @@ export default async function ParentDashboard() {
     id: m.id, body: m.body, senderClerkId: m.senderClerkId, createdAt: m.createdAt.toISOString(),
   }))
 
+  // Tutor's credentials — only if the tutor opted to show them.
+  const tutor = await prisma.teacher.findUnique({
+    where: { id: link.teacherId },
+    select: { firstName: true, lastName: true, qualificationBody: true, credentialVerified: true, credentialDocUrl: true, showCredentialToParents: true },
+  })
+  const showTutorCred = tutor?.showCredentialToParents && !!tutor.qualificationBody
+
   return (
     <main className="min-h-screen bg-sand-50">
       <nav className="border-b border-sand-200 bg-white/80 backdrop-blur px-5 sm:px-8 h-16 flex items-center justify-between sticky top-0 z-40">
@@ -77,6 +84,24 @@ export default async function ParentDashboard() {
       <div className="max-w-3xl mx-auto px-4 sm:px-6 py-8 sm:py-12">
         <h1 className="font-display text-3xl font-semibold text-brand-900 mb-1">{student.firstName}&rsquo;s lessons</h1>
         <p className="text-sand-500 mb-8 text-sm">Parent portal</p>
+
+        {showTutorCred && tutor && (
+          <section className="mb-8">
+            <div className="bg-white rounded-2xl border border-sand-200 p-5">
+              <p className="text-xs text-sand-500 mb-1">Your tutor</p>
+              <p className="font-medium text-sand-900">{tutor.firstName} {tutor.lastName}</p>
+              <p className="text-sm text-sand-700 mt-1">
+                {tutor.qualificationBody}
+                {tutor.credentialVerified && <span className="text-brand-700"> · Verified ✓</span>}
+              </p>
+              {tutor.credentialDocUrl && (
+                <a href={tutor.credentialDocUrl} target="_blank" rel="noopener noreferrer" className="inline-block mt-2 text-sm text-brand-600 hover:text-brand-700 font-medium">
+                  View teaching certificate ↗
+                </a>
+              )}
+            </div>
+          </section>
+        )}
 
         {/* Upcoming */}
         <section className="mb-8">

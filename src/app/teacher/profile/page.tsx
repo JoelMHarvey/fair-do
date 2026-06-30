@@ -6,6 +6,7 @@ import { PageHeader, HelpHint } from '@/components/Guidance'
 import ProfileForm from './ProfileForm'
 import BrandingCard from './BrandingCard'
 import { CancellationPolicyCard } from '@/components/CancellationPolicyCard'
+import { CredentialVisibilityCard } from '@/components/CredentialVisibilityCard'
 
 const PAID_TIERS = new Set(['pro', 'school', 'practice', 'clinic'])
 const ACTIVE_STATUSES = new Set(['active', 'trialing'])
@@ -62,6 +63,15 @@ export default async function TeacherProfilePage() {
 
         <div className="mt-5">
           <CancellationPolicyCard windowHours={t.cancellationWindowHours} lateRefundPercent={t.lateCancelRefundPercent} />
+        </div>
+
+        <div className="mt-5">
+          <CredentialVisibilityCard
+            initial={t.showCredentialToParents}
+            qualificationBody={t.qualificationBody}
+            verified={t.credentialVerified}
+            hasCertificate={!!t.credentialDocUrl}
+          />
         </div>
 
         <div className="mt-5">

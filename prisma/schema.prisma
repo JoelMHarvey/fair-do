@@ -125,6 +125,8 @@ model Teacher {
   photoStyle          String? // original | blurred | illustrated
   credentialVerified  Boolean       @default(false)
   credentialDocUrl    String?
+  // Teacher opts in to show their teaching credentials (+ certificate) on the parent portal.
+  showCredentialToParents Boolean   @default(false)
   // Agreement + DPA acceptance evidence
   agreementAcceptedAt DateTime?
   agreementVersion    String?
