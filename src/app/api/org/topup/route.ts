@@ -26,7 +26,7 @@ export async function POST(req: Request) {
   try {
     checkout = await stripe.checkout.sessions.create({
       mode: 'payment',
-      payment_method_types: ['card'],
+      payment_method_types: ['card', 'paypal', 'bacs_debit'],
       customer_email: mine.org.contactEmail,
       line_items: [{
         price_data: {
@@ -36,7 +36,7 @@ export async function POST(req: Request) {
         },
         quantity: 1,
       }],
-      success_url: `${appUrl}/org?topup=success`,
+      success_url: `${appUrl}/org?topup=success&session_id={CHECKOUT_SESSION_ID}`,
       cancel_url: `${appUrl}/org`,
       metadata: { type: 'org_topup', orgId: mine.org.id, amountPence: String(parsed.data.amountPence) },
     })

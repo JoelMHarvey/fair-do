@@ -243,16 +243,20 @@ export async function POST(req: Request) {
       return new Response('OK', { status: 200 })
     }
 
-    // Corporate credit-pool top-up
+    // Corporate credit-pool top-up — only credit immediately for synchronous methods
+    // (card, PayPal). BACS arrives with payment_status 'unpaid'; the pool is credited
+    // later when checkout.session.async_payment_succeeded fires.
     if (meta.type === 'org_topup') {
-      const amountPence = Number(meta.amountPence) || (checkout.amount_total ?? 0)
-      try {
-        await prisma.organisation.update({
-          where: { id: meta.orgId },
-          data: { creditPoolPence: { increment: amountPence } },
-        })
-      } catch (e) {
-        return rollbackAndRetry(event.id, 'org topup', e)
+      if (checkout.payment_status === 'paid') {
+        const amountPence = Number(meta.amountPence) || (checkout.amount_total ?? 0)
+        try {
+          await prisma.organisation.update({
+            where: { id: meta.orgId },
+            data: { creditPoolPence: { increment: amountPence } },
+          })
+        } catch (e) {
+          return rollbackAndRetry(event.id, 'org topup', e)
+        }
       }
       return new Response('OK', { status: 200 })
     }
@@ -337,6 +341,34 @@ export async function POST(req: Request) {
         ratePence: teacher.sessionRatePence,
       }).catch(e => console.error('[stripe webhook] booking email failed:', e))
     }
+  }
+
+  // BACS Direct Debit clears 3–5 business days after mandate setup. Credit the org pool
+  // only once the payment has actually settled, not at checkout.session.completed.
+  if (event.type === 'checkout.session.async_payment_succeeded') {
+    const session = event.data.object as Stripe.Checkout.Session
+    const meta = session.metadata ?? {}
+    if (meta.type === 'org_topup') {
+      const amountPence = Number(meta.amountPence) || (session.amount_total ?? 0)
+      try {
+        await prisma.organisation.update({
+          where: { id: meta.orgId },
+          data: { creditPoolPence: { increment: amountPence } },
+        })
+      } catch (e) {
+        return rollbackAndRetry(event.id, 'org topup async payment succeeded', e)
+      }
+    }
+    return new Response('OK', { status: 200 })
+  }
+
+  if (event.type === 'checkout.session.async_payment_failed') {
+    const session = event.data.object as Stripe.Checkout.Session
+    const meta = session.metadata ?? {}
+    if (meta.type === 'org_topup') {
+      console.error(`[stripe webhook] BACS payment failed for org top-up — orgId: ${meta.orgId}, amount: ${meta.amountPence}p, customer: ${session.customer_email}`)
+    }
+    return new Response('OK', { status: 200 })
   }
 
   return new Response('OK', { status: 200 })
