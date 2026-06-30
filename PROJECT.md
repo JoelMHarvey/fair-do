@@ -281,6 +281,71 @@ NEXT_PUBLIC_APP_URL                   # https://fair-do.com (or localhost:3000)
 
 ---
 
+## Phase 16 — AI Tutor Toolkit (differentiator — no competitor has this)
+
+*Goal: eliminate 60–90% of tutor prep time; give students and parents proof of learning.*
+
+| # | Task | Status | Notes |
+|---|------|--------|-------|
+| 16.1 | AI lesson plan generator | ⬜ | `/teacher/lesson-plan` — tutor inputs subject, level, exam board (AQA/Edexcel/OCR), target grade, exam date, topics to avoid. Claude generates a 6–10 session plan with objectives, activities, and timing. Stored per student engagement. Uses `@anthropic-ai/sdk` already in stack. |
+| 16.2 | Teaching materials library | ⬜ | Tutors upload worksheets/PDFs to Cloudinary (already integrated). Searchable by subject + level + exam board. Rated by other tutors. Best materials surface to top. Creates network effect. |
+| 16.3 | AI post-session summary + homework | ⬜ | Tutor adds brief session notes on `/session/[id]/complete`. Claude generates: 3 bullets on what was covered, 2 homework tasks, 1 area to revisit. Auto-emailed to student + parent (if parent email set) via Resend within 5 min of completion. Stored on the session record. |
+| 16.4 | Between-lesson AI study assistant | ⬜ | `/study` — Claude-powered chat scoped to the student's booked subjects/level. Can answer questions, explain concepts, set practice problems. NOT a replacement for the tutor — framed as "between-lesson support." Gated to Pro/School tiers or as a usage-capped free feature. |
+| 16.5 | Tutor lesson notes (persistent) | ⬜ | `SessionNote` model — tutor writes freeform notes per session, visible to tutor only (not student). Feeds into 16.3 AI summary and 18.4 progress view. Simple textarea on `/session/[id]/complete`. |
+
+---
+
+## Phase 17 — Collaborative Lesson Environment
+
+*Goal: match Spires's BitPaper + recording; surpass MyTutor's basic whiteboard.*
+
+| # | Task | Status | Notes |
+|---|------|--------|-------|
+| 17.1 | Collaborative whiteboard in video sessions | ⬜ | Embed Excalidraw (MIT licence, self-hostable) as a persistent iframe alongside the Daily.co room on `/session/[id]`. Board state synced via Excalidraw's own WS or stored as JSON on the session record and restored on rejoin. Essential for maths and sciences. |
+| 17.2 | Lesson recording | ⬜ | Enable Daily.co cloud recording API. Recording starts automatically when both participants join. Stored in Daily.co (or transferred to Cloudinary/S3 post-session). Accessible from student dashboard + tutor dashboard for 30 days. Key GDPR note: explicit consent banner before joining required — add to `/session/[id]` pre-join screen. |
+| 17.3 | In-session file sharing | ⬜ | Allow tutor to upload a PDF/image during a session. Stored to Cloudinary; link surfaced in the session thread so student can access post-lesson. Eliminates "can you send me that worksheet?" follow-up messages. |
+
+---
+
+## Phase 18 — Parent Portal + Progress Tracking
+
+*Goal: answer the question every parent has — "Is my child actually learning?" No competitor does this.*
+
+| # | Task | Status | Notes |
+|---|------|--------|-------|
+| 18.1 | Parent account model | ⬜ | `ParentStudent` join table — parent links to one or more student accounts. Parent onboarding: "I'm buying lessons for my child" path, enters child's email to link. Invitation email to child. Parent role in Clerk metadata. |
+| 18.2 | Parent dashboard `/parent/dashboard` | ⬜ | Read-only view: upcoming lessons, past lesson history, spend summary (month + all-time), AI session summaries from 16.3. No access to student messages. Privacy-safe — shows aggregate, not full transcript. |
+| 18.3 | Goal setting | ⬜ | Tutor sets a goal per student engagement: target grade, exam board, exam date. Stored on `Match` record. Surfaced on parent dashboard ("Target: A in GCSE Chemistry — Edexcel — June 2027") and tutor dashboard. |
+| 18.4 | Progress graph | ⬜ | Simple per-student chart: sessions completed vs sessions planned, topics covered (from 16.5 notes tagged to spec), tutor's subjective progress rating (1–5, set per session). Visible to tutor, student, and parent. Exportable as PDF for parent records. |
+
+---
+
+## Phase 19 — Curriculum Alignment
+
+*Goal: deep switching costs; no competitor has spec-level lesson tracking.*
+
+| # | Task | Status | Notes |
+|---|------|--------|-------|
+| 19.1 | UK curriculum spec data | ⬜ | Seed DB with topic lists for common GCSE/A-level subjects across AQA, Edexcel, OCR (publicly available from exam board websites). `CurriculumSpec` + `SpecTopic` models. Start with top 10 subjects (Maths, English, Biology, Chemistry, Physics, History, Geography, French, Spanish, Computer Science). |
+| 19.2 | Topic tagging on lesson notes | ⬜ | When tutor completes a session (16.5), they tag 1–5 spec topics covered. Autocomplete from `SpecTopic` for the student's exam board. Takes < 30 seconds. |
+| 19.3 | Syllabus coverage heatmap | ⬜ | Student and parent see a heatmap of the full spec: green = covered, amber = mentioned, grey = not yet. Shows coverage % and estimated sessions remaining to full coverage before exam date. Makes the "value of tutoring" tangible and creates urgency to book ahead. |
+
+---
+
+## Phase 20 — Retention, Conversion & Mobile
+
+*Goal: close the remaining gaps vs GoStudent (mobile), Spires (trust), and the market generally.*
+
+| # | Task | Status | Notes |
+|---|------|--------|-------|
+| 20.1 | Lesson packages / bundles | ⬜ | Students buy a 5- or 10-lesson pack at 5–10% off the per-lesson rate. Tutor opts in per profile. Credits issued immediately; applied automatically at booking. Improves retention and smooths tutor cash flow. Stripe Checkout supports payment for bundles. |
+| 20.2 | Trial lesson money-back guarantee | ⬜ | Policy + UI change: "Not happy with your first lesson? Full refund, no questions." Surfaced on homepage, tutor profile, and booking confirmation. Refund via existing cancel API (mark as trial-refund). Requires admin flag to ensure the policy is honoured, not abused. Biggest single conversion lever for first-time students. |
+| 20.3 | Tutors' Association accreditation | ⬜ | Apply for platform partnership/accreditation with The Tutors' Association (already in Phase 8.6 — fast-track). Accreditation badge on homepage, tutor cards, and onboarding. Equivalent trust signal to Spires's selective vetting. |
+| 20.4 | Mobile app (iOS + Android) | ⬜ | Already specced in `NATIVE-APP-SPEC.md`. React Native. Core flows: browse tutors, book, join lesson, message, view summaries. Push notifications for lesson reminders and AI summaries. This is GoStudent's main UX advantage — close it. |
+| 20.5 | Push notifications (web) | ⬜ | Web push already scaffolded (`web-push` in package.json). Wire up: lesson reminder 1h before, new message, AI summary ready, booking confirmed/cancelled. Works on mobile web ahead of the native app. |
+
+---
+
 ## Phase 15 — US expansion (foundation in parallel with UK legal)
 
 | # | Task | Status | Notes |
