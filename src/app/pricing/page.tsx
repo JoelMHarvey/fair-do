@@ -4,6 +4,7 @@ import Link from 'next/link'
 import { SiteNav } from '@/components/SiteNav'
 import { SiteFooter } from '@/components/SiteFooter'
 import { PRACTICE_PORTAL_ENABLED } from '@/lib/practice'
+import { PARENT_PORTAL_ENABLED } from '@/lib/parent'
 import { LocalPrice } from '@/components/LocalPrice'
 import { localeAlternates } from '@/lib/i18n-seo'
 import { getDictionary, getLocaleFromHeaders } from '@/lib/dictionaries'
@@ -83,6 +84,11 @@ export default async function PricingPage() {
             <Link href="/compare" className="inline-flex items-center gap-2 text-brand-700 font-medium hover:text-brand-800 underline underline-offset-4">
               {pricing.link_compare}
             </Link>
+            {PARENT_PORTAL_ENABLED && (
+              <Link href="/pricing/parents" className="inline-flex items-center gap-2 text-brand-700 font-medium hover:text-brand-800 underline underline-offset-4">
+                {pricing.link_parents}
+              </Link>
+            )}
           </div>
 
           <div className="max-w-2xl mx-auto mt-16">
