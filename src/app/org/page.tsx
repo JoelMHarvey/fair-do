@@ -1,12 +1,14 @@
 import Link from 'next/link'
 import { prisma } from '@/lib/prisma'
 import { getMyOrg } from '@/lib/org'
+import { getStripe } from '@/lib/stripe'
 import { Logo } from '@/components/Logo'
 import OrgTopUp from './OrgTopUp'
 
 export const metadata = { title: 'Your organisation — fair-do' }
 
-export default async function OrgPortalPage() {
+export default async function OrgPortalPage({ searchParams }: { searchParams: Promise<{ topup?: string; session_id?: string }> }) {
+  const { topup, session_id } = await searchParams
   const mine = await getMyOrg()
 
   if (!mine) {
@@ -46,6 +48,18 @@ export default async function OrgPortalPage() {
   const fmt = (p: number) => `£${(p / 100).toFixed(2)}`
   const discountActive = org.discountPercent > 0 && (!org.discountExpiry || org.discountExpiry > now)
 
+  // Resolve top-up confirmation state for the success banner.
+  // BACS payments are async — check Stripe to know if credit has landed or is still processing.
+  let topupBanner: 'confirmed' | 'processing' | null = null
+  if (topup === 'success' && session_id) {
+    try {
+      const stripeSession = await getStripe().checkout.sessions.retrieve(session_id)
+      topupBanner = stripeSession.payment_status === 'paid' ? 'confirmed' : 'processing'
+    } catch {
+      topupBanner = 'confirmed' // safe fallback — webhook will have credited the pool
+    }
+  }
+
   // Month-by-month utilisation (last 6 months that have activity).
   const byMonth = new Map<string, { count: number; pence: number }>()
   for (const p of payments) {
@@ -67,6 +81,16 @@ export default async function OrgPortalPage() {
       <div className="max-w-3xl mx-auto px-5 sm:px-6 py-10">
         <h1 className="font-display text-3xl font-semibold text-brand-900 mb-1">{org.name}</h1>
         <p className="text-sand-600 mb-2">Your students&apos; tuition.</p>
+        {topupBanner === 'confirmed' && (
+          <p className="inline-block text-sm bg-brand-50 text-brand-700 border border-brand-200 px-3 py-1 rounded-full mb-3">
+            Top-up confirmed — credit has been added to your pool.
+          </p>
+        )}
+        {topupBanner === 'processing' && (
+          <p className="inline-block text-sm bg-sand-100 text-sand-700 border border-sand-200 px-3 py-1 rounded-full mb-3">
+            Your top-up is being processed — funds will appear in your pool within 3–5 working days.
+          </p>
+        )}
         {discountActive && (
           <p className="inline-block text-sm bg-coral-50 text-coral-600 border border-coral-200 px-3 py-1 rounded-full mb-6">
             🎉 {org.discountPercent}% off active{org.discountExpiry ? ` until ${org.discountExpiry.toLocaleDateString('en-GB')}` : ''}

@@ -248,7 +248,7 @@ export async function POST(req: Request) {
   try {
     checkout = await stripe.checkout.sessions.create({
       mode: 'payment',
-      payment_method_types: ['card'],
+      payment_method_types: ['card', 'paypal'],
       line_items: [
         {
           price_data: {

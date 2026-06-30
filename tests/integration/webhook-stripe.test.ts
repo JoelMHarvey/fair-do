@@ -343,8 +343,28 @@ describe('Stripe webhook — org_topup branch', () => {
     mockOrgUpdate.mockResolvedValue({})
   })
 
-  it('increments org credit pool', async () => {
-    const event = makeCheckout({ type: 'org_topup', orgId: 'org_1', amountPence: '20000' })
+  it('increments org credit pool for synchronous payment (card/PayPal)', async () => {
+    const event = makeCheckout({ type: 'org_topup', orgId: 'org_1', amountPence: '20000' }, { payment_status: 'paid' })
+    const res = await POST(webhookReq(event))
+    expect(res.status).toBe(200)
+    expect(mockOrgUpdate).toHaveBeenCalledWith({
+      where: { id: 'org_1' },
+      data: { creditPoolPence: { increment: 20000 } },
+    })
+  })
+
+  it('does not credit pool when BACS payment is still processing (payment_status unpaid)', async () => {
+    const event = makeCheckout({ type: 'org_topup', orgId: 'org_1', amountPence: '20000' }, { payment_status: 'unpaid' })
+    const res = await POST(webhookReq(event))
+    expect(res.status).toBe(200)
+    expect(mockOrgUpdate).not.toHaveBeenCalled()
+  })
+
+  it('credits pool when BACS clears (async_payment_succeeded)', async () => {
+    const event = makeEvent('checkout.session.async_payment_succeeded', {
+      amount_total: 20000,
+      metadata: { type: 'org_topup', orgId: 'org_1', amountPence: '20000' },
+    })
     const res = await POST(webhookReq(event))
     expect(res.status).toBe(200)
     expect(mockOrgUpdate).toHaveBeenCalledWith({
@@ -356,7 +376,7 @@ describe('Stripe webhook — org_topup branch', () => {
   it('on org update failure → deletes marker, returns 500', async () => {
     mockOrgUpdate.mockRejectedValue(new Error('DB error'))
     mockProcessedDelete.mockResolvedValue({})
-    const event = makeCheckout({ type: 'org_topup', orgId: 'org_1', amountPence: '20000' })
+    const event = makeCheckout({ type: 'org_topup', orgId: 'org_1', amountPence: '20000' }, { payment_status: 'paid' })
     const res = await POST(webhookReq(event))
     expect(res.status).toBe(500)
     expect(mockProcessedDelete).toHaveBeenCalled()

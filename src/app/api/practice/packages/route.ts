@@ -63,7 +63,7 @@ export async function POST(req: Request) {
       const { bps, feePence } = commissionForSource(pricePence, match.source)
       const checkout = await getStripe().checkout.sessions.create({
         mode: 'payment',
-        payment_method_types: ['card'],
+        payment_method_types: ['card', 'paypal'],
         line_items: [{
           price_data: {
             currency: teacher.country === 'US' ? 'usd' : 'gbp',
