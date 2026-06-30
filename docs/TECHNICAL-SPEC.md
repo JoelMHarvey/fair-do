@@ -8,7 +8,7 @@
 
 fair-do is a **UK B2B SaaS practice-management tool that tutors subscribe to**. They manage their own students, take secure video lessons, get paid, and stay compliant.
 
-- **Business model:** a monthly **subscription** + a **small card commission** — **not** a marketplace fee. Commission by tier: **Starter 2.5% · Practice 1% · Clinic 0%** (non-subscriber falls back to 2.5%). Everything else is paid straight out to the tutor.
+- **Business model:** a monthly **subscription** (**Free £0 · Pro £29 · School £79**) + a **source-based commission**. Commission is **0% on a tutor's own students** (invited/added) and **10% only on marketplace (directory-sourced) bookings** — `MARKETPLACE_COMMISSION_BPS` / `commissionForSource` in `src/lib/billing.ts`, independent of tier. Everything else is paid straight out to the tutor.
 - **Data roles:** the **tutor is the data controller**; **fair-do is the processor**. Students/records belong to the tutor.
 - **Status:** pre-launch / onboarding first tutors. Public student booking is gated off; the tutor portal is the active path.
 
@@ -84,10 +84,10 @@ Hub-and-spoke around **`Match`** (a tutor↔student relationship).
 
 Two money layers:
 
-**A. Subscription (tutor → fair-do).** Stripe subscription per tutor; tier sets `commissionBps`. Synced via the Stripe webhook (`customer.subscription.*`, `checkout.session.completed type=practice_subscription`).
+**A. Subscription (tutor → fair-do).** Stripe subscription per tutor; tier (Free/Pro/School) sets feature access. Synced via the Stripe webhook (`customer.subscription.*`, `checkout.session.completed type=practice_subscription`).
 
 **B. Lesson payments (student → tutor).**
-- **Card:** Stripe Checkout **destination charge** — `application_fee_amount` = commission, `transfer_data.destination` = tutor's Connect account. The webhook (`checkout.session.completed`) creates the `Payment` + Daily room + emails. `Payment.transferred` records whether the charge actually transferred.
+- **Card:** Stripe Checkout **destination charge** — `application_fee_amount` = commission (0% own students, 10% marketplace), `transfer_data.destination` = tutor's Connect account. The webhook (`checkout.session.completed`) creates the `Payment` + Daily room + emails. `Payment.transferred` records whether the charge actually transferred.
 - **Internal:** corporate **org credit pool** or personal **credit balance** — atomic conditional decrement, no Stripe.
 - **Double-book guard:** `Session.slotKey` (`teacherId:ISO`, unique, nulled on cancel) — concurrent bookings lose with a clean 409.
 - **Refunds (`src/lib/refund.ts`):** card → Stripe refund with `reverse_transfer`/`refund_application_fee` **only when `transferred`**; internal → restore the org pool / personal credit.
@@ -168,7 +168,7 @@ Hosted on **Vercel** (Node 20); DB on **Neon**. Key env vars by service:
 
 - **Core:** `NEXT_PUBLIC_APP_URL`, `DATABASE_URL`, `NODE_ENV`
 - **Clerk:** `CLERK_SECRET_KEY`, `NEXT_PUBLIC_CLERK_PUBLISHABLE_KEY`, `CLERK_WEBHOOK_SECRET`
-- **Stripe:** `STRIPE_SECRET_KEY`, `STRIPE_WEBHOOK_SECRET`, `STRIPE_PRICE_PRACTICE`, `STRIPE_PRICE_CLINIC`
+- **Stripe:** `STRIPE_SECRET_KEY`, `STRIPE_WEBHOOK_SECRET`, `STRIPE_PRICE_PRO`, `STRIPE_PRICE_SCHOOL`, `STRIPE_PRICE_PARENT_PORTAL`
 - **Daily:** `DAILY_API_KEY`, `DAILY_WEBHOOK_SECRET`
 - **Email/SMS/push:** `RESEND_API_KEY`, `RESEND_FROM`, `ALERT_EMAIL`, `COMPLAINTS_EMAIL`, `TWILIO_ACCOUNT_SID`, `TWILIO_AUTH_TOKEN`, `TWILIO_FROM`/`TWILIO_MESSAGING_SERVICE_SID`, `VAPID_PUBLIC_KEY`/`VAPID_PRIVATE_KEY`/`VAPID_SUBJECT`
 - **Inbox agent:** `ANTHROPIC_API_KEY`, `IMAP_HOST/PORT/USER/PASSWORD/MAILBOX`

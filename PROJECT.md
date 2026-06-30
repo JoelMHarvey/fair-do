@@ -1,6 +1,6 @@
 # fair-do — Project Roadmap
 
-Affordable UK tutoring marketplace. 15% platform fee (vs BetterHelp's ~65%).
+Affordable UK tutoring platform for independent tutors. Tutors keep **100% on their own students**; **10% commission only on marketplace (directory-sourced) bookings**. Subscription tiers: **Free £0 · Pro £29 · School £79**. *(Current model — earlier phases below describe a superseded flat 15% platform fee.)*
 Students pay less. Tutors earn more. Everyone wins.
 
 **Domains:** fair-do.com · fair-do.co.uk (Cloudflare, 3yr, WHOIS private)
@@ -25,7 +25,7 @@ Students pay less. Tutors earn more. Everyone wins.
 | 1.2 | Lawyer email sent (Harper James) | ✅ | GDPR + lawful basis consultation |
 | 1.3 | Lawyer consultation completed | ⬜ | Article 6 basis, DPIA scope, DPAs |
 | 1.4 | UKIPO class 41 trademark search — "fair-do" | ⬜ | Free at trademarks.ipo.gov.uk |
-| 1.5 | Companies House — register fair-do Ltd | ⬜ | £50, SIC code TBD with lawyer |
+| 1.5 | Companies House — Faresay Ltd exists; register the fair-do trading name | ⬜ | £50, SIC code TBD with lawyer |
 | 1.6 | ICO registration (data controller) | ⬜ | ~£60/yr, Tier 2 |
 | 1.7 | Data Processing Agreements with all vendors | ⬜ | Clerk, Stripe, Daily.co, Neon, Resend |
 | 1.8 | Platform T&Cs drafted (lawyer) | ⬜ | ~£1,500–3,000 fixed fee |
@@ -185,7 +185,7 @@ Students pay less. Tutors earn more. Everyone wins.
 
 | # | Task | Status | Notes |
 |---|------|--------|-------|
-| 13.1 | Per-tutor commission + founder rate | ✅ | Teacher.platformFeePercent (default 15); founders keep 90% (10% fee). Booking + webhook use it. |
+| 13.1 | Per-tutor commission + founder rate | ✅ | Teacher.platformFeePercent (default 15); founders keep 90% (10% fee). Booking + webhook use it. *(Model since updated: commission is now source-based — 0% on own students, 10% on marketplace bookings — via `commissionForSource` in billing.ts.)* |
 | 13.2 | Auto-enrol founders during promo | ✅ | While FOUNDING_OFFER active, new tutors get founder rate + badge |
 | 13.3 | Front-and-centre messaging | ✅ | Site-wide top bar + homepage + /for-tutors: "we're new, join early, share for more" |
 | 13.4 | Founding-tutor badge | ✅ | Trust signal on profile/cards |
@@ -253,11 +253,14 @@ NEXT_PUBLIC_APP_URL                   # https://fair-do.com (or localhost:3000)
 
 ## Economics summary
 
-| | BetterHelp | fair-do |
+*(Updated to current model: subscription + source-based commission, replacing the earlier flat 15% platform fee.)*
+
+| | Commission-heavy incumbents | fair-do |
 |---|---|---|
 | Student pays / week | £55–80 | £40–55 |
-| Tutor gets / lesson | ~£24 (~35%) | ~£42–47 (85%) |
-| Platform fee | ~65% | 15% |
+| Tutor gets / lesson | ~£24 (~35%) | 100% on own students; ~90% on marketplace bookings |
+| Platform fee | ~25–65% on every lesson | 0% on own students · 10% on marketplace only |
+| Subscription | n/a | Free £0 · Pro £29 · School £79 |
 
 ---
 
@@ -267,7 +270,7 @@ NEXT_PUBLIC_APP_URL                   # https://fair-do.com (or localhost:3000)
 |------|----------|-----------|
 | Jun 2026 | Name: fair-do | British English for "a fair deal"; encodes fair pricing for tutors + students |
 | Jun 2026 | Domains: Cloudflare, 3yr, WHOIS private | Cost price, privacy from day 1 |
-| Jun 2026 | Platform fee: 15% | Sustainable at scale, 4× fairer than BetterHelp |
+| Jun 2026 | Platform fee: 15% | Sustainable at scale, 4× fairer than BetterHelp — *superseded: now 0% on own students, 10% on marketplace bookings, plus Free/Pro/School subscriptions* |
 | Jun 2026 | UK-only launch | UK data protection, known regulatory environment |
 | Jun 2026 | Tutors: independent contractors | Standard model, requires own PI insurance |
 | Jun 2026 | Stripe Connect Express | Fastest tutor onboarding, Stripe handles KYC |

@@ -1,6 +1,6 @@
 # fair-do Scale & Expansion
 
-> fair-do Ltd trading as fair-do.com — internal strategy document  
+> Faresay Ltd (trading as fair-do) trading as fair-do.com — internal strategy document  
 > Date: June 2026
 
 ---
@@ -29,6 +29,8 @@ At 90% tutor retention on a 10% platform fee, fair-do's revenue per pound of gro
 
 At £35–40/hr average session rates, 20 hours per month per active tutor, a platform of 1,000 active tutors would generate approximately £8.4–9.6 million in gross session value annually. At 10% commission, that is £840,000–£960,000 in platform fee revenue before subscriptions and parent portal ARR. The maths scales cleanly.
 
+**Commission model note (current):** fair-do takes **0% on a tutor's own students** (invited/added by hand) and **10% only on marketplace (directory-sourced) bookings** — it is not a flat fee on all session value. The platform-fee projections below therefore assume directory-sourced session volume; own-student volume contributes via subscriptions, not commission. *(updated to current model)*
+
 **Scenario modelling — platform fee revenue at scale:**
 
 | Active tutors | Avg hours/mo | Avg rate | Annual GTV | Platform fee (10%) |
@@ -38,7 +40,7 @@ At £35–40/hr average session rates, 20 hours per month per active tutor, a pl
 | 1,000 | 20 | £40 | £9,600,000 | £960,000 |
 | 5,000 | 20 | £42 | £50,400,000 | £5,040,000 |
 
-Subscriptions (Pro at £15/mo, Studio at £45/mo) and parent portal (£4.99/mo) compound materially on top of this at scale.
+Subscriptions (Pro at £29/mo, School at £79/mo) and parent portal (£4.99/mo, paid by the parent) compound materially on top of this at scale.
 
 ---
 
@@ -54,7 +56,7 @@ Prove the model. Establish that tutors choose fair-do because it genuinely pays 
 
 **Handpick early cohort.** Aim for subject diversity and geographic spread across the UK (Maths, English, Sciences, French/Spanish for GCSE/A-level; tutors in London, Manchester, Birmingham, Edinburgh). Quality signal matters more than volume in this phase.
 
-**Free tier as on-ramp.** The Free tier (up to 8 students) allows tutors to try fair-do with zero upfront cost and no friction. This is the right acquisition mechanic at this stage. Upgrade conversion to Pro or Studio should be a secondary KPI, not a primary pressure.
+**Free tier as on-ramp.** The Free tier (up to 8 students) allows tutors to try fair-do with zero upfront cost and no friction. This is the right acquisition mechanic at this stage. Upgrade conversion to Pro or School should be a secondary KPI, not a primary pressure.
 
 **Zero-to-one student acquisition.** Support tutors in getting their first fair-do student by: (a) SEO-optimised tutor profile pages indexed by Google; (b) direct outreach to parent Facebook groups and Mumsnet tutoring threads; (c) encouraging tutors to bring their existing clients onto the platform for scheduling and payment benefits.
 
@@ -65,7 +67,7 @@ Prove the model. Establish that tutors choose fair-do because it genuinely pays 
 | Listed tutors | 100 |
 | Active tutors (≥1 session in last 30 days) | 60 |
 | Booked sessions/month | 300 |
-| Free-to-Pro/Studio conversion rate | 15% |
+| Free-to-Pro/School conversion rate | 15% |
 | Tutor NPS | ≥55 |
 | Parent portal subscribers | 100 |
 | Session completion rate | ≥90% |
@@ -81,10 +83,12 @@ Support load at 100 tutors is manageable by the founding team. No dedicated supp
 
 | Revenue stream | Monthly (Month 6) |
 |---|---|
-| Platform fee (300 sessions × £37 avg × 10%) | £1,110 |
-| Tutor subscriptions (15 Pro × £15 + 3 Studio × £45) | £360 |
+| Platform fee (marketplace bookings × £37 avg × 10%) | £1,110 |
+| Tutor subscriptions (15 Pro × £29 + 3 School × £79) | £672 |
 | Parent portal (100 × £4.99) | £499 |
-| **Total MRR** | **~£1,969** |
+| **Total MRR** | **~£2,281** |
+
+*(updated to current model: subscription prices £29/£79 and the 0%-own / 10%-marketplace commission; platform-fee line assumes marketplace-sourced sessions.)*
 
 Phase 1 is pre-profitability by design. The objective is evidence of product-market fit, not revenue. A 10% platform fee at this scale covers less than infrastructure costs. The investment is in proof-of-concept and tutor satisfaction.
 
@@ -124,7 +128,7 @@ Build growth loops that reduce the marginal cost of acquiring each subsequent tu
 | Active tutors (≥1 session in last 30 days) | 600 |
 | Sessions/month | 3,000 |
 | Tutor referral activation rate | 20% |
-| Free-to-Pro/Studio conversion rate | 22% |
+| Free-to-Pro/School conversion rate | 22% |
 | Parent portal subscribers | 1,500 |
 | Tutor NPS | ≥60 |
 | Parent NPS | ≥50 |
@@ -134,11 +138,13 @@ Build growth loops that reduce the marginal cost of acquiring each subsequent tu
 
 | Revenue stream | Monthly |
 |---|---|
-| Platform fee (3,000 sessions × £38 avg × 10%) | £11,400 |
-| Tutor subscriptions (180 Pro × £15 + 60 Studio × £45) | £5,400 |
+| Platform fee (marketplace bookings × £38 avg × 10%) | £11,400 |
+| Tutor subscriptions (180 Pro × £29 + 60 School × £79) | £9,960 |
 | Parent portal (1,500 × £4.99) | £7,485 |
-| **Total MRR** | **~£24,285** |
-| **ARR run-rate** | **~£291,420** |
+| **Total MRR** | **~£28,845** |
+| **ARR run-rate** | **~£346,140** |
+
+*(updated to current model: subscription prices £29/£79; platform-fee line assumes marketplace-sourced sessions under the 0%-own / 10%-marketplace model.)*
 
 ---
 
@@ -260,7 +266,7 @@ At 1,000–10,000 tutors, the most significant variable cost is video infrastruc
 
 ### Group lessons
 
-One tutor, two to six students sharing a session and splitting the cost. This increases tutor hourly effective yield (a tutor charging £12/student × 4 students earns £48 while offering a savings vs. £35–40 for a 1:1 session). For parents, group sessions reduce per-session cost, making tutoring accessible to lower-income households. The parent portal and tutor subscription tiers provide natural mechanics to gate this feature (Studio tier for tutors; parent portal for discovery).
+One tutor, two to six students sharing a session and splitting the cost. This increases tutor hourly effective yield (a tutor charging £12/student × 4 students earns £48 while offering a savings vs. £35–40 for a 1:1 session). For parents, group sessions reduce per-session cost, making tutoring accessible to lower-income households. The parent portal and tutor subscription tiers provide natural mechanics to gate this feature (School tier for tutors; parent portal for discovery).
 
 Group lesson infrastructure requires: multi-participant scheduling, split billing across multiple student accounts, a fair attribution model for the platform fee, and group-aware video sessions. Timeline: Phase 3.
 
@@ -270,7 +276,7 @@ Tutors often want to upskill — in pedagogy, in subject content, in online teac
 
 ### Subject-specialist curriculum tools
 
-At-platform curriculum resources: topic checklists aligned to AQA/Edexcel/OCR specifications, editable lesson plan templates, flashcard builders, mock exam question banks. These reduce tutor session-prep time and create a reason to stay within the fair-do ecosystem rather than using Google Classroom or Notion alongside. Potential to monetise as a Studio-tier exclusive or bolt-on. Timeline: Year 2–3.
+At-platform curriculum resources: topic checklists aligned to AQA/Edexcel/OCR specifications, editable lesson plan templates, flashcard builders, mock exam question banks. These reduce tutor session-prep time and create a reason to stay within the fair-do ecosystem rather than using Google Classroom or Notion alongside. Potential to monetise as a School-tier exclusive or bolt-on. Timeline: Year 2–3.
 
 ### School reporting dashboard
 
@@ -288,21 +294,23 @@ Using session notes, tutor-submitted progress updates, and (if recorded) session
 
 - 1,000 active tutors averaging 20 hours of platform sessions per month
 - Average session rate: £40/hr
-- Subscription mix: 40% Free (no sub revenue), 40% Pro (£15/mo), 20% Studio (£45/mo)
-- Parent portal: 3,000 subscribers at £4.99/mo (3:1 student-to-tutor ratio)
+- Subscription mix: 40% Free (no sub revenue), 40% Pro (£29/mo), 20% School (£79/mo)
+- Parent portal: 3,000 subscribers at £4.99/mo (3:1 student-to-tutor ratio), paid by the parent
 - B2B school partnerships: 10 schools at average £1,000/year contract value
-- Platform fee: 10% on all sessions booked through the platform
+- Platform fee: 0% on a tutor's own students; 10% only on marketplace (directory-sourced) bookings. The platform-fee line below assumes directory-sourced session volume *(updated to current model)*
 
 ### Annual revenue breakdown at 1,000 active tutors
 
 | Stream | Calculation | Annual |
 |---|---|---|
-| Platform fee | 1,000 tutors × 20 hrs × £40 × 10% × 12 months | £960,000 |
-| Pro subscriptions | 400 tutors × £15 × 12 months | £72,000 |
-| Studio subscriptions | 200 tutors × £45 × 12 months | £108,000 |
+| Platform fee (marketplace bookings) | 1,000 tutors × 20 hrs × £40 × 10% × 12 months | £960,000 |
+| Pro subscriptions | 400 tutors × £29 × 12 months | £139,200 |
+| School (top tier) subscriptions | 200 tutors × £79 × 12 months | £189,600 |
 | Parent portal | 3,000 × £4.99 × 12 months | £179,640 |
-| School partnerships | 10 schools × £1,000 avg | £10,000 |
-| **Total ARR** | | **~£1,329,640** |
+| School partnerships (B2B) | 10 schools × £1,000 avg | £10,000 |
+| **Total ARR** | | **~£1,478,440** |
+
+*(updated to current model: Pro £29 / School £79 subscription prices; platform-fee line assumes marketplace-sourced sessions under the 0%-own / 10%-marketplace commission.)*
 
 ### Cost structure at this scale (annual estimate)
 
@@ -317,11 +325,11 @@ Using session notes, tutor-submitted progress updates, and (if recorded) session
 | Other operating costs | £20,000–30,000 |
 | **Total operating cost** | **~£435,000–520,000** |
 
-**Operating profit at 1,000 active tutors: approximately £810,000–895,000 before founder salaries and tax.** At this scale, fair-do is profitable on an operating basis and self-funding, with room for reinvestment into Phase 3 growth.
+**Operating profit at 1,000 active tutors: approximately £960,000–1,045,000 before founder salaries and tax.** *(updated to current model — higher subscription prices lift the ARR base.)* At this scale, fair-do is profitable on an operating basis and self-funding, with room for reinvestment into Phase 3 growth.
 
 ### Path to £5M ARR
 
-5,000 active tutors, following the same model, generates approximately £5.1–5.5M ARR inclusive of subscriptions and parent portal. At that scale, the B2B revenue streams (school partnerships, corporate L&D) should be contributing an additional £500,000–1,000,000. The business is generating meaningful free cash flow for international expansion or product investment without requiring external capital.
+5,000 active tutors, following the same model, generates approximately £7.0–7.5M ARR inclusive of subscriptions and parent portal *(updated to current model — at the £29/£79 subscription prices, subscription revenue scales materially above the earlier £5M estimate)*. At that scale, the B2B revenue streams (school partnerships, corporate L&D) should be contributing an additional £500,000–1,000,000. The business is generating meaningful free cash flow for international expansion or product investment without requiring external capital.
 
 ---
 
@@ -405,4 +413,4 @@ Referral activation rate: the proportion of active tutors who have sent at least
 
 ---
 
-*fair-do Ltd — Company number to be confirmed. Registered in England and Wales.*
+*Faresay Ltd (trading as fair-do) — Company number to be confirmed. Registered in England and Wales.*
