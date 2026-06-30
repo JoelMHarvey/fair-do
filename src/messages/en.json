@@ -233,16 +233,35 @@
       },
       "school": {
         "name": "School",
-        "price": "Coming soon",
-        "cadence": "",
-        "tagline": "For group practices & studios.",
+        "price": "£79",
+        "cadence": "/month",
+        "tagline": "For group practices & tutoring studios.",
         "features": [
-          "Multiple tutors, one studio",
-          "Shared team calendar",
-          "Studio admin & reporting"
+          "Everything in Pro",
+          "Multiple tutors on one account",
+          "Shared team calendar & admin",
+          "Studio-wide reporting & earnings",
+          "0% commission",
+          "Up to 2 tutors · 150 sessions/month"
         ],
-        "note": "In development — register your interest and we'll keep you posted.",
-        "cta": "Register interest"
+        "note": "Larger schools: Standard (£199 · 5 tutors) and Pro (£399 · 12 tutors) bands available on request.",
+        "cta": "Get started"
+      },
+      "enterprise": {
+        "name": "Enterprise",
+        "price": "Custom",
+        "cadence": "",
+        "tagline": "For large tutoring businesses & chains.",
+        "features": [
+          "Everything in School Pro",
+          "Unlimited tutors",
+          "Volume session pricing",
+          "Dedicated account manager",
+          "UK data residency SLA",
+          "Custom onboarding & training"
+        ],
+        "note": "Bespoke pricing based on tutor count and session volume. No surprises.",
+        "cta": "Contact sales"
       }
     },
     "prices_note": "Prices shown are launch pricing and may change. Founding tutors keep their rate.",

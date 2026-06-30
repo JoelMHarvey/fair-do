@@ -2,7 +2,7 @@
 // Stripe; their Price IDs are supplied via env so this stays config-driven. Commission is
 // the per-transaction fee (basis points) applied to payments the tutor processes —
 // lower on higher tiers (the "free + commission, paid buys it down" model).
-export type TierId = 'free' | 'pro' | 'school'
+export type TierId = 'free' | 'pro' | 'school' | 'enterprise'
 
 // Legacy → current id map (the tiers were starter/practice/clinic). Keeps existing
 // Subscription.tier values and old Stripe metadata resolving after the rename.
@@ -48,6 +48,15 @@ export const PRACTICE_TIERS: Tier[] = [
     priceEnv: 'STRIPE_PRICE_SCHOOL',
     blurb: 'For tutoring teams with multiple tutors.',
     features: ['Everything in Pro', 'Multiple tutors', 'Team-wide reporting', '0% commission'],
+  },
+  {
+    id: 'enterprise',
+    name: 'Enterprise',
+    pricePence: 0,
+    commissionBps: 0,
+    priceEnv: null,
+    blurb: 'Custom pricing for larger schools and tutoring businesses.',
+    features: ['Everything in School Pro', 'Unlimited tutors', 'Volume pricing', 'Dedicated support', 'UK data residency SLA'],
   },
 ]
 

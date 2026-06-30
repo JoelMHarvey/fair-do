@@ -233,16 +233,35 @@
       },
       "school": {
         "name": "School",
-        "price": "Coming soon",
-        "cadence": "",
-        "tagline": "For group practices & studios.",
+        "price": "£79",
+        "cadence": "/Monat",
+        "tagline": "Für Gruppenpraxen und Nachhilfe-Studios.",
         "features": [
-          "Multiple tutors, one studio",
-          "Shared team calendar",
-          "Studio admin & reporting"
+          "Alles aus Pro",
+          "Mehrere Lehrkräfte in einem Konto",
+          "Geteilter Team-Kalender und Verwaltung",
+          "Studio-weite Berichte und Einnahmen",
+          "0% Provision",
+          "Bis zu 2 Lehrkräfte · 150 Einheiten/Monat"
         ],
-        "note": "In development — register your interest and we'll keep you posted.",
-        "cta": "Register interest"
+        "note": "Größere Schulen: Standard (£199 · 5 Lehrkräfte) und Pro (£399 · 12 Lehrkräfte) auf Anfrage verfügbar.",
+        "cta": "Jetzt starten"
+      },
+      "enterprise": {
+        "name": "Enterprise",
+        "price": "Individuell",
+        "cadence": "",
+        "tagline": "Für große Nachhilfe-Unternehmen und -Ketten.",
+        "features": [
+          "Alles aus School Pro",
+          "Unbegrenzte Lehrkräfte",
+          "Volumenpreisgestaltung für Einheiten",
+          "Dedizierter Account-Manager",
+          "Datenhaltungs-SLA im Vereinigten Königreich",
+          "Individuelle Einführung und Schulung"
+        ],
+        "note": "Maßgeschneiderte Preise basierend auf Lehrkräfteanzahl und Einheitenvolumen. Keine Überraschungen.",
+        "cta": "Vertrieb kontaktieren"
       }
     },
     "prices_note": "Prices shown are launch pricing and may change. Founding tutors keep their rate.",

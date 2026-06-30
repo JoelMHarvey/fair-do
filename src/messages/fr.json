@@ -233,16 +233,35 @@
       },
       "school": {
         "name": "School",
-        "price": "Coming soon",
-        "cadence": "",
-        "tagline": "For group practices & studios.",
+        "price": "£79",
+        "cadence": "/mois",
+        "tagline": "Pour les cabinets de groupe et studios de tutorat.",
         "features": [
-          "Multiple tutors, one studio",
-          "Shared team calendar",
-          "Studio admin & reporting"
+          "Tout ce que comprend Pro",
+          "Plusieurs tuteurs sur un seul compte",
+          "Calendrier et gestion d'équipe partagés",
+          "Rapports et gains à l'échelle du studio",
+          "0% de commission",
+          "Jusqu'à 2 tuteurs · 150 séances/mois"
         ],
-        "note": "In development — register your interest and we'll keep you posted.",
-        "cta": "Register interest"
+        "note": "Écoles plus grandes : forfaits Standard (£199 · 5 tuteurs) et Pro (£399 · 12 tuteurs) disponibles sur demande.",
+        "cta": "Commencer"
+      },
+      "enterprise": {
+        "name": "Enterprise",
+        "price": "Sur mesure",
+        "cadence": "",
+        "tagline": "Pour les grandes entreprises et réseaux de tutorat.",
+        "features": [
+          "Tout ce que comprend School Pro",
+          "Tuteurs illimités",
+          "Tarification volumique des séances",
+          "Chargé de compte dédié",
+          "SLA résidence des données au Royaume-Uni",
+          "Intégration et formation personnalisées"
+        ],
+        "note": "Tarification sur mesure selon le nombre de tuteurs et le volume de séances. Sans surprises.",
+        "cta": "Contacter les ventes"
       }
     },
     "prices_note": "Prices shown are launch pricing and may change. Founding tutors keep their rate.",

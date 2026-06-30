@@ -10,7 +10,7 @@ export const PARENT_PORTAL_PRICE_PENCE = 499
 // Paid teacher tiers allowed to offer the parent portal (free-tier teachers can't —
 // the platform can't sustain the £4.99 price against free users). Forward-compatible
 // with the upcoming free/pro/studio rename.
-const PARENT_PORTAL_TEACHER_TIERS = new Set(['pro', 'school', 'practice', 'clinic'])
+const PARENT_PORTAL_TEACHER_TIERS = new Set(['pro', 'school', 'enterprise', 'practice', 'clinic'])
 
 export async function teacherCanOfferParentPortal(teacherId: string): Promise<boolean> {
   const sub = await prisma.subscription.findUnique({

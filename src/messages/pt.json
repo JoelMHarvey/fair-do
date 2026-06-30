@@ -233,16 +233,35 @@
       },
       "school": {
         "name": "School",
-        "price": "Coming soon",
-        "cadence": "",
-        "tagline": "For group practices & studios.",
+        "price": "£79",
+        "cadence": "/mês",
+        "tagline": "Para grupos e estúdios de explicação.",
         "features": [
-          "Multiple tutors, one studio",
-          "Shared team calendar",
-          "Studio admin & reporting"
+          "Tudo no Pro",
+          "Vários professores numa única conta",
+          "Calendário e administração da equipa partilhados",
+          "Relatórios e ganhos de todo o estúdio",
+          "0% de comissão",
+          "Até 2 professores · 150 sessões/mês"
         ],
-        "note": "In development — register your interest and we'll keep you posted.",
-        "cta": "Register interest"
+        "note": "Escolas maiores: faixas Standard (£199 · 5 professores) e Pro (£399 · 12 professores) disponíveis a pedido.",
+        "cta": "Começar"
+      },
+      "enterprise": {
+        "name": "Enterprise",
+        "price": "Personalizado",
+        "cadence": "",
+        "tagline": "Para grandes empresas e redes de explicação.",
+        "features": [
+          "Tudo no School Pro",
+          "Professores ilimitados",
+          "Preços por volume de sessões",
+          "Gestor de conta dedicado",
+          "SLA de residência de dados no Reino Unido",
+          "Integração e formação personalizadas"
+        ],
+        "note": "Preços personalizados com base no número de professores e no volume de sessões. Sem surpresas.",
+        "cta": "Contactar vendas"
       }
     },
     "prices_note": "Prices shown are launch pricing and may change. Founding tutors keep their rate.",

@@ -15,11 +15,12 @@ export async function generateMetadata(): Promise<Metadata> {
 }
 
 // Structural tier config — copy lives in the dictionary (pricing.tiers[id]).
-// id drives logic (School → mailto); pricePence drives LocalPrice; highlight styling.
+// pricePence drives LocalPrice; enterprise has no pricePence so c.price ("Custom") is shown.
 const TIERS = [
   { id: 'free', highlight: false },
   { id: 'pro', pricePence: 2900, highlight: true },
-  { id: 'school', highlight: false },
+  { id: 'school', pricePence: 7900, highlight: false },
+  { id: 'enterprise', highlight: false },
 ] as const
 
 export default async function PricingPage() {
@@ -41,7 +42,7 @@ export default async function PricingPage() {
             </span>
           </div>
 
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-5 items-start">
+          <div className="grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-4 gap-5 items-start">
             {TIERS.map(t => {
               const c = pricing.tiers[t.id]
               return (
@@ -65,7 +66,7 @@ export default async function PricingPage() {
                   </ul>
                   <p className="text-xs text-sand-500 mb-5">{c.note}</p>
                   <Link
-                    href={t.id === 'school' ? 'mailto:support@fair-do.com' : '/sign-up?role=teacher'}
+                    href={t.id === 'enterprise' ? 'mailto:support@fair-do.com' : '/sign-up?role=teacher'}
                     className={`text-center py-3 rounded-full font-medium transition ${t.highlight ? 'bg-brand-600 text-white hover:bg-brand-700 shadow-sm' : 'border border-brand-200 text-brand-700 hover:bg-brand-50'}`}
                   >
                     {c.cta}
