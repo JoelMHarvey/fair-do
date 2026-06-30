@@ -1,6 +1,6 @@
 # fair-do Scale & Expansion
 
-> Faresay Ltd (trading as fair-do) trading as fair-do.com — internal strategy document  
+> Faresay Ltd (trading as fair-do.com) — internal strategy document  
 > Date: June 2026
 
 ---
