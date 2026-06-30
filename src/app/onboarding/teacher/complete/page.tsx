@@ -2,8 +2,10 @@ import Link from 'next/link'
 import { auth } from '@clerk/nextjs/server'
 import { prisma } from '@/lib/prisma'
 import { redirect } from 'next/navigation'
+import { getDictionary, getLocaleFromHeaders } from '@/lib/dictionaries'
 
 export default async function TeacherComplete() {
+  const { onboarding_complete } = await getDictionary(await getLocaleFromHeaders())
   const { userId } = await auth()
   if (!userId) redirect('/sign-in')
 
@@ -30,15 +32,15 @@ export default async function TeacherComplete() {
             <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
           </svg>
         </div>
-        <h1 className="text-2xl font-semibold text-brand-900 mb-3">Application submitted</h1>
+        <h1 className="text-2xl font-semibold text-brand-900 mb-3">{onboarding_complete.heading}</h1>
         <p className="text-sand-500 mb-8">
-          Your profile is under review. We&apos;ll email you within 2 business days once your {user.teacher.qualificationBody} credentials are verified.
+          {onboarding_complete.review_pre}{user.teacher.qualificationBody}{onboarding_complete.review_post}
         </p>
         <Link
           href="/teacher/dashboard"
           className="inline-block bg-brand-600 text-white px-6 py-3 rounded-xl font-medium hover:bg-brand-700 transition"
         >
-          Go to dashboard
+          {onboarding_complete.cta}
         </Link>
       </div>
     </main>

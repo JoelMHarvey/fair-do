@@ -14,3 +14,9 @@ export type NonEnLocale = typeof NON_EN_LOCALES[number]
 export function isValidLocale(value: string): value is Locale {
   return (LOCALES as readonly string[]).includes(value)
 }
+
+// Shape of a loaded dictionary (en.json is the source of truth). Type-only —
+// erased at build, so it's safe to import in client components for `t` props
+// (e.g. `t: Messages['gift']`) without bundling the JSON or tripping the
+// server-only guard on dictionaries.ts.
+export type Messages = typeof import('../messages/en.json')
