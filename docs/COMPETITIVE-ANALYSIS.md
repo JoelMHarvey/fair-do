@@ -152,14 +152,14 @@ The global online tutoring market is projected to reach **$427.6 billion by 2029
 | Student subscription required | No | No | £39/mo | No | No | Yes | **No** |
 | Tutor subscription | No | No | ~$99/yr optional | No | No | n/a | **Free £0 · Pro £29 · School £79** |
 | Integrated video classroom | Basic | Yes | No | No | Yes | Yes | **Yes (Daily.co)** |
-| Collaborative whiteboard | Basic | Yes | No | No | Yes (BitPaper) | Yes | **⬜ Planned (Phase 17)** |
-| Lesson recording | No | No | No | No | Yes | Yes | **⬜ Planned (Phase 17)** |
-| AI lesson plan generation | No | No | No | No | No | No | **⬜ Planned (Phase 16)** |
-| AI post-session summary | No | No | No | No | No | No | **⬜ Planned (Phase 16)** |
-| AI study assistant (between lessons) | No | No | No | No | No | No | **⬜ Planned (Phase 16)** |
-| Lesson materials library | No | No | No | No | No | No | **⬜ Planned (Phase 16)** |
-| Parent portal | No | No | No | No | No | No | **⬜ Planned (Phase 18)** |
-| Progress tracking / goal setting | No | No | No | No | No | Basic (ops-set) | **⬜ Planned (Phase 18)** |
+| Collaborative whiteboard | Basic | Yes | No | No | Yes (BitPaper) | Yes | **Yes ✅ (Excalidraw, behind flag)** |
+| Lesson recording | No | No | No | No | Yes | Yes | **⬜ Planned (Phase 17.2)** |
+| AI lesson plan generation | No | No | No | No | No | No | **⬜ Planned (Phase 16.1) — biggest gap** |
+| AI post-session summary | No | No | No | No | No | No | **Yes ✅ (Claude Haiku, behind flag)** |
+| AI study assistant (between lessons) | No | No | No | No | No | No | **⬜ Planned (Phase 16.4)** |
+| Lesson materials library | No | No | No | No | No | No | **Yes ✅ (ResourceLibrary, behind flag)** |
+| Parent portal | No | No | No | No | No | No | **Yes ✅ (behind flag, £4.99/mo)** |
+| Progress tracking / goal setting | No | No | No | No | No | Basic (ops-set) | **⬜ Planned (Phase 18.3–18.4)** |
 | Curriculum spec alignment | No | No | No | No | No | No | **⬜ Planned (Phase 19)** |
 | Group lessons | No | No | No | No | No | No | **Yes ✅** |
 | Gift vouchers | No | No | No | No | No | No | **Yes ✅** |
@@ -235,21 +235,29 @@ fair-do has `@anthropic-ai/sdk` already in the stack. Using Claude, fair-do can:
 
 See PROJECT.md Phases 16–20 for the full implementation plan.
 
+**Already built, needs enabling (flip env var):**
+
+| Feature | Env var to enable | Tier gate |
+|---|---|---|
+| AI post-session summary (Claude Haiku) | `AI_NOTES_ENABLED=true` + `ANTHROPIC_API_KEY` | Pro / School |
+| Excalidraw collaborative whiteboard | `WHITEBOARD_ENABLED=true` | None (all) |
+| Worksheet / file sharing per student | `RESOURCES_ENABLED=true` | None (all) |
+| Parent portal (£4.99/mo) | `PARENT_PORTAL_ENABLED=true` | Pro / School teacher |
+| Recurring weekly lessons | `RECURRING_ENABLED=true` | None (all) |
+
+**Still to build (true gaps):**
+
 | Priority | Feature | Beats | Effort |
 |---|---|---|---|
-| 1 | AI lesson plan generator (Phase 16.1) | All platforms — nobody has this | Low (SDK in stack) |
-| 2 | AI post-session summary → student + parent email (Phase 16.3) | All platforms | Low |
-| 3 | Collaborative whiteboard in video (Phase 17.1) | Tutorful, MyTutor basic, GoStudent | Medium |
-| 4 | Lesson recording (Phase 17.2) | Tutorful, MyTutor, Superprof, Tutor Hunt | Medium |
-| 5 | Parent portal (Phase 18) | All platforms | Medium |
-| 6 | Goal setting + progress tracking (Phase 18.3–18.4) | All platforms | Medium |
-| 7 | AI study assistant between lessons (Phase 16.4) | All platforms | Medium |
-| 8 | Teaching materials library (Phase 16.2) | All platforms | Medium |
-| 9 | Curriculum spec alignment / syllabus heatmap (Phase 19) | All platforms | High |
-| 10 | Trial lesson money-back guarantee (Phase 20.2) | Most platforms | None (policy only) |
-| 11 | Lesson packages / bundles (Phase 20.1) | Tutorful, MyTutor, Spires, Tutor Hunt | Low |
-| 12 | Tutors' Association accreditation (Phase 20.3) | Tutorful, GoStudent | None (partnership) |
-| 13 | Mobile app (Phase 20.4) | Tutorful, MyTutor, Superprof, Spires | High |
+| 1 | **AI lesson plan generator** (Phase 16.1) | All platforms — nobody has this | Low (SDK in stack) |
+| 2 | Lesson recording via Daily.co API (Phase 17.2) | Tutorful, MyTutor, Superprof, Tutor Hunt | Medium |
+| 3 | Goal setting per student (Phase 18.3) | All platforms | Low |
+| 4 | Progress graph (Phase 18.4) | All platforms | Medium |
+| 5 | AI study assistant between lessons (Phase 16.4) | All platforms | Medium |
+| 6 | Curriculum spec alignment / syllabus heatmap (Phase 19) | All platforms | High |
+| 7 | Trial lesson money-back guarantee (Phase 20.2) | Most platforms | None (policy only) |
+| 8 | Tutors' Association accreditation (Phase 20.3) | Tutorful, GoStudent | None (partnership) |
+| 9 | Mobile app (Phase 20.4) | Tutorful, MyTutor, Superprof, Spires | High |
 
 ---
 

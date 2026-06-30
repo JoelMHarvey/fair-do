@@ -287,11 +287,11 @@ NEXT_PUBLIC_APP_URL                   # https://fair-do.com (or localhost:3000)
 
 | # | Task | Status | Notes |
 |---|------|--------|-------|
-| 16.1 | AI lesson plan generator | ⬜ | `/teacher/lesson-plan` — tutor inputs subject, level, exam board (AQA/Edexcel/OCR), target grade, exam date, topics to avoid. Claude generates a 6–10 session plan with objectives, activities, and timing. Stored per student engagement. Uses `@anthropic-ai/sdk` already in stack. |
-| 16.2 | Teaching materials library | ⬜ | Tutors upload worksheets/PDFs to Cloudinary (already integrated). Searchable by subject + level + exam board. Rated by other tutors. Best materials surface to top. Creates network effect. |
-| 16.3 | AI post-session summary + homework | ⬜ | Tutor adds brief session notes on `/session/[id]/complete`. Claude generates: 3 bullets on what was covered, 2 homework tasks, 1 area to revisit. Auto-emailed to student + parent (if parent email set) via Resend within 5 min of completion. Stored on the session record. |
-| 16.4 | Between-lesson AI study assistant | ⬜ | `/study` — Claude-powered chat scoped to the student's booked subjects/level. Can answer questions, explain concepts, set practice problems. NOT a replacement for the tutor — framed as "between-lesson support." Gated to Pro/School tiers or as a usage-capped free feature. |
-| 16.5 | Tutor lesson notes (persistent) | ⬜ | `SessionNote` model — tutor writes freeform notes per session, visible to tutor only (not student). Feeds into 16.3 AI summary and 18.4 progress view. Simple textarea on `/session/[id]/complete`. |
+| 16.1 | AI lesson plan generator | ⬜ | `/teacher/lesson-plan` — tutor inputs subject, level, exam board (AQA/Edexcel/OCR), target grade, exam date, topics to avoid. Claude generates a 6–10 session plan with objectives, activities, and timing. Stored per student engagement. Uses `@anthropic-ai/sdk` already in stack. The single biggest gap vs every competitor — nobody has this. |
+| 16.2 | Teaching materials library (per-student) | ✅ | `ResourceLibrary` component + `/api/resources` — tutors upload worksheets/past papers (25 MB max); students can submit work back. Visibility toggle per file. Behind `RESOURCES_ENABLED=true`. External link manager (`ClientDocuments`) also covers Google Drive / OneDrive links. |
+| 16.3 | AI post-session summary | ✅ | `lib/lesson-notes.ts` + `LessonNoteEditor` — Claude Haiku generates topics covered, difficulty areas, and homework from session transcript. Tutor reviews/edits then shares with student. `/api/teacher/lesson-notes`. Behind `AI_NOTES_ENABLED=true` + Pro/School tier. |
+| 16.4 | Between-lesson AI study assistant | ⬜ | `/study` — Claude-powered chat scoped to the student's booked subjects/level. Can answer questions, explain concepts, set practice problems. NOT a replacement for the tutor — framed as "between-lesson support." Gated to Pro/School tiers. |
+| 16.5 | Tutor private notes per student | ✅ | `NotesEditor` component + `/api/practice/students/[matchId]` PATCH — freeform private notes visible only to the tutor. Already live (not feature-flagged). |
 
 ---
 
@@ -301,9 +301,9 @@ NEXT_PUBLIC_APP_URL                   # https://fair-do.com (or localhost:3000)
 
 | # | Task | Status | Notes |
 |---|------|--------|-------|
-| 17.1 | Collaborative whiteboard in video sessions | ⬜ | Embed Excalidraw (MIT licence, self-hostable) as a persistent iframe alongside the Daily.co room on `/session/[id]`. Board state synced via Excalidraw's own WS or stored as JSON on the session record and restored on rejoin. Essential for maths and sciences. |
-| 17.2 | Lesson recording | ⬜ | Enable Daily.co cloud recording API. Recording starts automatically when both participants join. Stored in Daily.co (or transferred to Cloudinary/S3 post-session). Accessible from student dashboard + tutor dashboard for 30 days. Key GDPR note: explicit consent banner before joining required — add to `/session/[id]` pre-join screen. |
-| 17.3 | In-session file sharing | ⬜ | Allow tutor to upload a PDF/image during a session. Stored to Cloudinary; link surfaced in the session thread so student can access post-lesson. Eliminates "can you send me that worksheet?" follow-up messages. |
+| 17.1 | Collaborative whiteboard in video sessions | ✅ | `lib/whiteboard.ts` + `WhiteboardButton` — Excalidraw room with deterministic room ID + E2E key derived from session ID + server secret. Both participants open the same board with no stored state. Self-hosted `EXCALIDRAW_SERVER_URL` enables embedded iframe; otherwise opens in a new tab. Behind `WHITEBOARD_ENABLED=true`. |
+| 17.2 | Lesson recording | ⬜ | Enable Daily.co cloud recording API. Recording starts automatically when both participants join. Stored in Daily.co (or transferred to Cloudinary/S3 post-session). Accessible from student dashboard + tutor dashboard for 30 days. Key GDPR note: explicit consent banner before joining required. |
+| 17.3 | In-session file sharing | ✅ | Covered by `ResourceLibrary` (16.2) — tutor uploads post-session; file is student-visible. For in-session drag-and-drop, the Excalidraw whiteboard supports image paste. |
 
 ---
 
@@ -313,10 +313,10 @@ NEXT_PUBLIC_APP_URL                   # https://fair-do.com (or localhost:3000)
 
 | # | Task | Status | Notes |
 |---|------|--------|-------|
-| 18.1 | Parent account model | ⬜ | `ParentStudent` join table — parent links to one or more student accounts. Parent onboarding: "I'm buying lessons for my child" path, enters child's email to link. Invitation email to child. Parent role in Clerk metadata. |
-| 18.2 | Parent dashboard `/parent/dashboard` | ⬜ | Read-only view: upcoming lessons, past lesson history, spend summary (month + all-time), AI session summaries from 16.3. No access to student messages. Privacy-safe — shows aggregate, not full transcript. |
-| 18.3 | Goal setting | ⬜ | Tutor sets a goal per student engagement: target grade, exam board, exam date. Stored on `Match` record. Surfaced on parent dashboard ("Target: A in GCSE Chemistry — Edexcel — June 2027") and tutor dashboard. |
-| 18.4 | Progress graph | ⬜ | Simple per-student chart: sessions completed vs sessions planned, topics covered (from 16.5 notes tagged to spec), tutor's subjective progress rating (1–5, set per session). Visible to tutor, student, and parent. Exportable as PDF for parent records. |
+| 18.1 | Parent account model | ✅ | `ParentLink` model — teacher invites parent per student via `/api/teacher/parent/invite`. Parent accepts via `/parent/accept/[token]`. Multi-child supported (`groupLinksByChild`). Parent role in Clerk metadata. Behind `PARENT_PORTAL_ENABLED=true`. |
+| 18.2 | Parent dashboard `/parent/dashboard` | ✅ | `/parent/dashboard` page — per-child tabs, lesson history, parent↔tutor messaging thread, subscription status. £4.99/mo via Stripe (`/parent/subscribe`). Behind `PARENT_PORTAL_ENABLED=true` + Pro/School teacher tier. |
+| 18.3 | Goal setting per student | ⬜ | Tutor sets: target grade, exam board, exam date on the `Match` record. Surfaced on parent dashboard and student detail page. Not yet built. |
+| 18.4 | Progress graph | ⬜ | Per-student chart: sessions completed, topics covered (from AI notes), tutor's session rating. Visible to tutor, student, and parent. Exportable as PDF. |
 
 ---
 
