@@ -36,6 +36,10 @@ const {
   mockRewardTherapistReferral,
   mockParentLinkUpdate,
   mockParentLinkUpdateMany,
+  mockParentSubFind,
+  mockParentSubUpsert,
+  mockParentSubUpdate,
+  mockSyncFamily,
 } = vi.hoisted(() => ({
   mockConstructEvent: vi.fn(),
   mockProcessedCreate: vi.fn(),
@@ -61,6 +65,10 @@ const {
   mockRewardTherapistReferral: vi.fn(),
   mockParentLinkUpdate: vi.fn(),
   mockParentLinkUpdateMany: vi.fn(),
+  mockParentSubFind: vi.fn(),
+  mockParentSubUpsert: vi.fn(),
+  mockParentSubUpdate: vi.fn(),
+  mockSyncFamily: vi.fn(),
 }))
 
 vi.mock('@/lib/prisma', () => ({
@@ -75,8 +83,11 @@ vi.mock('@/lib/prisma', () => ({
     subscription: { upsert: mockSubscriptionUpsert, updateMany: mockSubscriptionUpdateMany },
     package: { update: mockPackageUpdate },
     parentLink: { update: mockParentLinkUpdate, updateMany: mockParentLinkUpdateMany },
+    parentSubscription: { findUnique: mockParentSubFind, upsert: mockParentSubUpsert, update: mockParentSubUpdate },
   },
 }))
+
+vi.mock('@/lib/parent', () => ({ syncFamilyPortalAccess: mockSyncFamily }))
 
 vi.mock('@/lib/stripe', () => ({
   getStripe: () => ({
@@ -394,29 +405,33 @@ describe('Stripe webhook — practice_subscription branch', () => {
   })
 })
 
-describe('parent portal subscription', () => {
-  it('parent_portal checkout → activates the parent link', async () => {
+describe('parent portal subscription (per-family)', () => {
+  it('parent_portal checkout → activates the family sub + fans access to children', async () => {
     mockProcessedCreate.mockResolvedValue({})
-    mockParentLinkUpdate.mockResolvedValue({})
-    const event = makeCheckout({ type: 'parent_portal', parentLinkId: 'pl1' }, { subscription: 'sub_pp', customer: 'cus_pp' })
+    mockParentSubUpsert.mockResolvedValue({})
+    mockSubscriptionsRetrieve.mockResolvedValue({ id: 'sub_pp', status: 'active', items: { data: [] } })
+    const event = makeCheckout({ type: 'parent_portal', parentUserId: 'u_parent' }, { subscription: 'sub_pp', customer: 'cus_pp' })
     const res = await POST(webhookReq(event))
     expect(res.status).toBe(200)
-    expect(mockParentLinkUpdate).toHaveBeenCalledWith(expect.objectContaining({
-      where: { id: 'pl1' },
-      data: expect.objectContaining({ portalActive: true, stripeSubscriptionId: 'sub_pp' }),
+    expect(mockParentSubUpsert).toHaveBeenCalledWith(expect.objectContaining({
+      where: { parentUserId: 'u_parent' },
+      update: expect.objectContaining({ status: 'active', stripeSubscriptionId: 'sub_pp' }),
     }))
+    expect(mockSyncFamily).toHaveBeenCalledWith('u_parent', true)
   })
 
-  it('customer.subscription.deleted → pauses the parent portal', async () => {
+  it('customer.subscription.deleted → cancels the family sub + revokes access', async () => {
     mockProcessedCreate.mockResolvedValue({})
     mockSubscriptionUpdateMany.mockResolvedValue({})
-    mockParentLinkUpdateMany.mockResolvedValue({})
+    mockParentSubFind.mockResolvedValue({ parentUserId: 'u_parent' })
+    mockParentSubUpdate.mockResolvedValue({})
     const event = makeEvent('customer.subscription.deleted', { id: 'sub_pp', status: 'canceled', items: { data: [] } })
     const res = await POST(webhookReq(event))
     expect(res.status).toBe(200)
-    expect(mockParentLinkUpdateMany).toHaveBeenCalledWith(expect.objectContaining({
+    expect(mockParentSubUpdate).toHaveBeenCalledWith(expect.objectContaining({
       where: { stripeSubscriptionId: 'sub_pp' },
-      data: { portalActive: false },
+      data: expect.objectContaining({ status: 'canceled' }),
     }))
+    expect(mockSyncFamily).toHaveBeenCalledWith('u_parent', false)
   })
 })

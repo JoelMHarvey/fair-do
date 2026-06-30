@@ -21,6 +21,12 @@ const m = vi.hoisted(() => ({
   linkFindUnique: vi.fn(),
   linkCreate: vi.fn(),
   linkUpdate: vi.fn(),
+  linkCount: vi.fn(),
+  linkUpdateMany: vi.fn(),
+  psubFind: vi.fn(),
+  psubUpsert: vi.fn(),
+  hasActive: vi.fn(),
+  syncFamily: vi.fn(),
   threadUpsert: vi.fn(),
   threadCreate: vi.fn(),
   threadUpdate: vi.fn(),
@@ -35,14 +41,18 @@ vi.mock('@clerk/nextjs/server', () => ({ auth: m.auth, currentUser: m.currentUse
 vi.mock('@/lib/parent', () => ({
   PARENT_PORTAL_ENABLED: true,
   PARENT_PORTAL_PRICE_PENCE: 499,
+  FAMILY_SOFT_CAP: 6,
   teacherCanOfferParentPortal: m.canOffer,
   generateParentToken: () => 'tok_test',
+  parentHasActivePortal: m.hasActive,
+  syncFamilyPortalAccess: m.syncFamily,
 }))
 vi.mock('@/lib/prisma', () => ({
   prisma: {
     user: { findUnique: m.userFind, upsert: m.userUpsert, update: m.userUpdate },
     match: { findFirst: m.matchFind },
-    parentLink: { findFirst: m.linkFindFirst, findUnique: m.linkFindUnique, create: m.linkCreate, update: m.linkUpdate },
+    parentLink: { findFirst: m.linkFindFirst, findUnique: m.linkFindUnique, create: m.linkCreate, update: m.linkUpdate, count: m.linkCount, updateMany: m.linkUpdateMany },
+    parentSubscription: { findUnique: m.psubFind, upsert: m.psubUpsert },
     parentMessageThread: { upsert: m.threadUpsert, create: m.threadCreate, update: m.threadUpdate },
     parentMessage: { create: m.msgCreate },
     $transaction: m.transaction,
@@ -138,10 +148,25 @@ describe('parent accept', () => {
     m.userUpdate.mockResolvedValue({})
     m.linkUpdate.mockResolvedValue({})
     m.threadUpsert.mockResolvedValue({})
+    m.hasActive.mockResolvedValue(false) // family not subscribed → no access sync
     const res = await accept(req({ token: 'tok_test' }))
     expect(res.status).toBe(200)
     expect(m.transaction).toHaveBeenCalled()
     expect(m.userUpdate).toHaveBeenCalledWith(expect.objectContaining({ data: { role: 'PARENT' } }))
+    expect(m.syncFamily).not.toHaveBeenCalled()
+  })
+
+  it('covers a new child immediately when the family already pays', async () => {
+    m.linkFindUnique.mockResolvedValue({ id: 'pl2', studentId: 's2', teacherId: 't2', status: 'pending', parentUserId: null })
+    m.userFind.mockResolvedValue({ id: 'u1', teacher: null, student: null })
+    m.linkFindFirst.mockResolvedValue(null)
+    m.userUpdate.mockResolvedValue({})
+    m.linkUpdate.mockResolvedValue({})
+    m.threadUpsert.mockResolvedValue({})
+    m.hasActive.mockResolvedValue(true) // family already subscribed
+    const res = await accept(req({ token: 'tok_test' }))
+    expect(res.status).toBe(200)
+    expect(m.syncFamily).toHaveBeenCalledWith('u1', true)
   })
 })
 
@@ -155,24 +180,48 @@ describe('parent subscribe', () => {
   it('503 when the parent-portal price isn’t configured', async () => {
     delete process.env.STRIPE_PRICE_PARENT_PORTAL
     m.userFind.mockResolvedValue({ id: 'u1', role: 'PARENT', email: 'p@x.com' })
-    m.linkFindFirst.mockResolvedValue({ id: 'pl1', portalActive: false, stripeCustomerId: null, student: { firstName: 'Kid' } })
-    const res = await subscribe(req({ parentLinkId: 'pl1' }))
+    m.linkCount.mockResolvedValue(1)
+    m.hasActive.mockResolvedValue(false)
+    const res = await subscribe(req({}))
     expect(res.status).toBe(503)
   })
 
-  it('201 + returns a checkout URL on success', async () => {
+  it('404 when the parent has no children linked yet', async () => {
     process.env.STRIPE_PRICE_PARENT_PORTAL = 'price_pp'
     m.userFind.mockResolvedValue({ id: 'u1', role: 'PARENT', email: 'p@x.com' })
-    m.linkFindFirst.mockResolvedValue({ id: 'pl1', portalActive: false, stripeCustomerId: null, student: { firstName: 'Kid' } })
+    m.linkCount.mockResolvedValue(0)
+    const res = await subscribe(req({}))
+    expect(res.status).toBe(404)
+    delete process.env.STRIPE_PRICE_PARENT_PORTAL
+  })
+
+  it('returns already=true when the family is already subscribed', async () => {
+    process.env.STRIPE_PRICE_PARENT_PORTAL = 'price_pp'
+    m.userFind.mockResolvedValue({ id: 'u1', role: 'PARENT', email: 'p@x.com' })
+    m.linkCount.mockResolvedValue(2)
+    m.hasActive.mockResolvedValue(true)
+    const res = await subscribe(req({}))
+    expect(res.status).toBe(200)
+    expect(await res.json()).toEqual({ ok: true, already: true })
+    expect(m.checkoutCreate).not.toHaveBeenCalled()
+    delete process.env.STRIPE_PRICE_PARENT_PORTAL
+  })
+
+  it('201 + one family checkout URL on success (keyed by parentUserId)', async () => {
+    process.env.STRIPE_PRICE_PARENT_PORTAL = 'price_pp'
+    m.userFind.mockResolvedValue({ id: 'u1', role: 'PARENT', email: 'p@x.com' })
+    m.linkCount.mockResolvedValue(2)
+    m.hasActive.mockResolvedValue(false)
+    m.psubFind.mockResolvedValue(null)
     m.customerCreate.mockResolvedValue({ id: 'cus_1' })
-    m.linkUpdate.mockResolvedValue({})
+    m.psubUpsert.mockResolvedValue({})
     m.checkoutCreate.mockResolvedValue({ url: 'https://checkout.stripe/x' })
-    const res = await subscribe(req({ parentLinkId: 'pl1' }))
+    const res = await subscribe(req({}))
     expect(res.status).toBe(201)
     expect(await res.json()).toEqual({ checkoutUrl: 'https://checkout.stripe/x' })
     expect(m.checkoutCreate).toHaveBeenCalledWith(expect.objectContaining({
       mode: 'subscription',
-      metadata: expect.objectContaining({ type: 'parent_portal', parentLinkId: 'pl1' }),
+      metadata: expect.objectContaining({ type: 'parent_portal', parentUserId: 'u1' }),
     }))
     delete process.env.STRIPE_PRICE_PARENT_PORTAL
   })

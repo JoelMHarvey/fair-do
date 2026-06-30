@@ -2,7 +2,7 @@
 
 import { useState } from 'react'
 
-export default function SubscribeButton({ parentLinkId }: { parentLinkId: string }) {
+export default function SubscribeButton({ label = 'Subscribe' }: { label?: string }) {
   const [busy, setBusy] = useState(false)
   const [error, setError] = useState('')
 
@@ -12,7 +12,7 @@ export default function SubscribeButton({ parentLinkId }: { parentLinkId: string
     const res = await fetch('/api/parent/subscribe', {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ parentLinkId }),
+      body: JSON.stringify({}),
     })
     const d = await res.json().catch(() => ({}))
     if (res.ok && d.checkoutUrl) {
@@ -26,15 +26,15 @@ export default function SubscribeButton({ parentLinkId }: { parentLinkId: string
   }
 
   return (
-    <div className="text-right">
+    <div className="text-center">
       <button
         onClick={go}
         disabled={busy}
-        className="bg-brand-600 text-white text-sm font-medium px-4 py-2 rounded-lg hover:bg-brand-700 transition disabled:opacity-60"
+        className="w-full bg-brand-600 text-white font-medium px-4 py-3 rounded-xl hover:bg-brand-700 transition disabled:opacity-60"
       >
-        {busy ? '…' : 'Subscribe'}
+        {busy ? '…' : label}
       </button>
-      {error && <p className="text-xs text-red-600 mt-1">{error}</p>}
+      {error && <p className="text-xs text-red-600 mt-2">{error}</p>}
     </div>
   )
 }

@@ -1,7 +1,7 @@
 import { auth, currentUser } from '@clerk/nextjs/server'
 import { z } from 'zod'
 import { prisma } from '@/lib/prisma'
-import { PARENT_PORTAL_ENABLED } from '@/lib/parent'
+import { PARENT_PORTAL_ENABLED, parentHasActivePortal, syncFamilyPortalAccess } from '@/lib/parent'
 
 const schema = z.object({ token: z.string().min(1) })
 
@@ -63,6 +63,12 @@ export async function POST(req: Request) {
       create: { parentLinkId: link.id, teacherId: link.teacherId },
     }),
   ])
+
+  // If this family already pays, the new child is covered immediately — no extra
+  // charge. This also refreshes the soft-abuse flag for the larger family.
+  if (await parentHasActivePortal(user.id)) {
+    await syncFamilyPortalAccess(user.id, true)
+  }
 
   return Response.json({ ok: true }, { status: 200 })
 }
