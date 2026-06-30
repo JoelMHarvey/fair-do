@@ -4,7 +4,7 @@ export const SessionSummarySchema = z.object({
   id: z.string(),
   clientFirstName: z.string(),
   clientLastName: z.string(),
-  clientId: z.string(),
+  studentId: z.string(),
   scheduledAt: z.string(),
   durationMins: z.number(),
   status: z.string(),

@@ -13,7 +13,7 @@ import { promptBiometric } from '@/lib/biometric'
 
 // Query keys that contain special-category clinical data.
 // These are cleared from memory when the app backgrounds.
-const CLINICAL_QUERY_PREFIXES = ['client']
+const CLINICAL_QUERY_PREFIXES = ['student']
 
 type LockContextValue = {
   locked: boolean

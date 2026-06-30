@@ -152,7 +152,7 @@ export default function ProfileScreen() {
               </>
             )}
             <View style={styles.divider} />
-            <InfoRow label="Accepting clients" value={data.availableForNew ? 'Yes' : 'No'} />
+            <InfoRow label="Accepting students" value={data.availableForNew ? 'Yes' : 'No'} />
             <View style={styles.divider} />
             <InfoRow label="Languages" value={data.languages.join(', ')} />
           </View>

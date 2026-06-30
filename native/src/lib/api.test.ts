@@ -181,10 +181,10 @@ describe('apiFetch — success', () => {
 // test.todo('renders critical AlertBanner when alerts array is non-empty')
 // test.todo('renders empty state when todaySessions and upcomingSessions are empty')
 //
-// ─── Clients screen ──
-// test.todo('renders client list from ClientsResponseSchema data')
+// ─── Students screen ──
+// test.todo('renders student list from StudentsResponseSchema data')
 // test.todo('renders unread-message badge when unreadMessages > 0')
-// test.todo('renders empty state when clients array is empty')
+// test.todo('renders empty state when students array is empty')
 //
 // ─── Session room screen ──
 // test.todo('renders Daily room iframe when isJoinable is true')

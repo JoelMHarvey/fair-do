@@ -11,15 +11,15 @@ import {
 import { SafeAreaView } from 'react-native-safe-area-context'
 import { useRouter } from 'expo-router'
 import { useApiFetch } from '@/lib/api'
-import { ClientsResponseSchema } from '@/dtos/clients'
-import type { ClientSummary } from '@/dtos/clients'
+import { StudentsResponseSchema } from '@/dtos/students'
+import type { StudentSummary } from '@/dtos/students'
 
-function ClientRow({ client }: { client: ClientSummary }) {
+function StudentRow({ student }: { student: StudentSummary }) {
   const router = useRouter()
-  const initials = `${client.firstName[0]}${client.lastName[0]}`.toUpperCase()
-  const hasNextSession = client.nextSession != null
+  const initials = `${student.firstName[0]}${student.lastName[0]}`.toUpperCase()
+  const hasNextSession = student.nextSession != null
   const nextDate = hasNextSession
-    ? new Date(client.nextSession!.scheduledAt).toLocaleDateString('en-GB', {
+    ? new Date(student.nextSession!.scheduledAt).toLocaleDateString('en-GB', {
         weekday: 'short',
         day: 'numeric',
         month: 'short',
@@ -27,16 +27,16 @@ function ClientRow({ client }: { client: ClientSummary }) {
     : null
 
   const a11yLabel = [
-    `${client.firstName} ${client.lastName}`,
+    `${student.firstName} ${student.lastName}`,
     hasNextSession ? `Next session ${nextDate}` : 'No upcoming sessions',
-    client.unreadMessages > 0 ? `${client.unreadMessages} unread messages` : '',
-    client.pendingForms > 0 ? `${client.pendingForms} forms pending` : '',
+    student.unreadMessages > 0 ? `${student.unreadMessages} unread messages` : '',
+    student.pendingForms > 0 ? `${student.pendingForms} forms pending` : '',
   ].filter(Boolean).join(', ')
 
   return (
     <TouchableOpacity
       style={styles.row}
-      onPress={() => router.push(`/(tabs)/clients/${client.matchId}`)}
+      onPress={() => router.push(`/(tabs)/students/${student.matchId}`)}
       activeOpacity={0.7}
       accessibilityRole="button"
       accessibilityLabel={a11yLabel}
@@ -47,17 +47,17 @@ function ClientRow({ client }: { client: ClientSummary }) {
       <View style={styles.rowMeta}>
         <View style={styles.rowTop}>
           <Text style={styles.clientName}>
-            {client.firstName} {client.lastName}
+            {student.firstName} {student.lastName}
           </Text>
-          {client.unreadMessages > 0 && (
+          {student.unreadMessages > 0 && (
             <View style={styles.unreadBadge}>
-              <Text style={styles.unreadBadgeText}>{client.unreadMessages}</Text>
+              <Text style={styles.unreadBadgeText}>{student.unreadMessages}</Text>
             </View>
           )}
         </View>
         <Text style={styles.clientSub}>
           {hasNextSession ? `Next: ${nextDate}` : 'No upcoming sessions'}
-          {client.pendingForms > 0 ? ` · ${client.pendingForms} form${client.pendingForms > 1 ? 's' : ''} pending` : ''}
+          {student.pendingForms > 0 ? ` · ${student.pendingForms} form${student.pendingForms > 1 ? 's' : ''} pending` : ''}
         </Text>
       </View>
       <Text style={styles.chevron}>›</Text>
@@ -65,12 +65,12 @@ function ClientRow({ client }: { client: ClientSummary }) {
   )
 }
 
-export default function ClientsScreen() {
+export default function StudentsScreen() {
   const apiFetch = useApiFetch()
 
   const { data, isLoading, isError, refetch, isRefetching } = useQuery({
-    queryKey: ['clients'],
-    queryFn: () => apiFetch('/api/mobile/v1/clients', ClientsResponseSchema),
+    queryKey: ['students'],
+    queryFn: () => apiFetch('/api/mobile/v1/students', StudentsResponseSchema),
   })
 
   if (isLoading) {
@@ -84,12 +84,12 @@ export default function ClientsScreen() {
   if (isError || !data) {
     return (
       <SafeAreaView style={styles.centered}>
-        <Text style={styles.errorText}>Could not load clients.</Text>
+        <Text style={styles.errorText}>Could not load students.</Text>
         <TouchableOpacity
           onPress={() => refetch()}
           style={styles.retryButton}
           accessibilityRole="button"
-          accessibilityLabel="Retry loading clients"
+          accessibilityLabel="Retry loading students"
         >
           <Text style={styles.retryText}>Try again</Text>
         </TouchableOpacity>
@@ -100,17 +100,17 @@ export default function ClientsScreen() {
   return (
     <SafeAreaView style={styles.safe}>
       <View style={styles.header}>
-        <Text style={styles.title}>Clients</Text>
-        <Text style={styles.count}>{data.clients.length} active</Text>
+        <Text style={styles.title}>Students</Text>
+        <Text style={styles.count}>{data.students.length} active</Text>
       </View>
       <FlatList
-        data={data.clients}
+        data={data.students}
         keyExtractor={c => c.matchId}
-        renderItem={({ item }) => <ClientRow client={item} />}
+        renderItem={({ item }) => <StudentRow student={item} />}
         refreshControl={<RefreshControl refreshing={isRefetching} onRefresh={refetch} tintColor="#1A3A2A" />}
         ListEmptyComponent={
           <View style={styles.emptyCard}>
-            <Text style={styles.emptyText}>No active clients yet</Text>
+            <Text style={styles.emptyText}>No active students yet</Text>
           </View>
         }
         contentContainerStyle={styles.listContent}

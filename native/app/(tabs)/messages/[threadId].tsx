@@ -149,7 +149,7 @@ export default function ThreadScreen() {
         </TouchableOpacity>
         <View style={styles.headerCenter}>
           <Text style={styles.headerName}>
-            {data.client.firstName} {data.client.lastName}
+            {data.student.firstName} {data.student.lastName}
           </Text>
         </View>
         <View style={{ width: 32 }} />

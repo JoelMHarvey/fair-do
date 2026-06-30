@@ -30,10 +30,10 @@ export default function TabsLayout() {
         }}
       />
       <Tabs.Screen
-        name="clients"
+        name="students"
         options={{
           tabBarIcon: ({ focused }) => (
-            <TabIcon focused={focused} label="Clients" icon="👥" />
+            <TabIcon focused={focused} label="Students" icon="👥" />
           ),
         }}
       />

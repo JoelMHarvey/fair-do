@@ -8,14 +8,14 @@ const SessionRefSchema = z.object({
   dailyRoomUrl: z.string().nullable(),
 })
 
-export const ClientDetailSchema = z.object({
+export const StudentDetailSchema = z.object({
   matchId: z.string(),
   customRatePence: z.number().nullable(),
   source: z.string(),
   notes: z.string().nullable(),
   startedAt: z.string(),
   active: z.boolean(),
-  client: z.object({
+  student: z.object({
     id: z.string(),
     firstName: z.string(),
     lastName: z.string(),
@@ -68,4 +68,4 @@ export const ClientDetailSchema = z.object({
   ),
 })
 
-export type ClientDetail = z.infer<typeof ClientDetailSchema>
+export type StudentDetail = z.infer<typeof StudentDetailSchema>
