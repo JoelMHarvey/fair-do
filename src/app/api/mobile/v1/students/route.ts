@@ -45,7 +45,7 @@ export async function GET() {
     .filter(m => m.messageThread != null)
     .map(m => m.messageThread!.id)
 
-  let unreadByThread: Record<string, number> = {}
+  const unreadByThread: Record<string, number> = {}
   if (threadIds.length > 0) {
     const unreadCounts = await prisma.message.groupBy({
       by: ['threadId'],

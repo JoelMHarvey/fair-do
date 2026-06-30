@@ -647,6 +647,14 @@ model Session {
   review       Review?
   transcript   LessonTranscript?
   lessonNote   LessonNote?
+
+  // FK + hot-path indexes (Postgres doesn't auto-index FKs). teacher/student
+  // dashboards filter by those ids; the reminder/no-show crons scan scheduledAt+status.
+  @@index([teacherId])
+  @@index([studentId])
+  @@index([matchId])
+  @@index([scheduledAt])
+  @@index([status, scheduledAt])
 }
 
 // Raw lesson transcript fetched from Daily after a call ends (P2-4). Always stored
@@ -693,6 +701,9 @@ model MessageThread {
   updatedAt DateTime @updatedAt
 
   messages Message[]
+
+  @@index([teacherId])
+  @@index([studentId])
 }
 
 model Message {
@@ -727,6 +738,8 @@ model Payment {
   fundingOrgId          String?
   createdAt             DateTime @default(now())
   updatedAt             DateTime @updatedAt
+
+  @@index([studentId])
 }
 
 model PushSubscription {
