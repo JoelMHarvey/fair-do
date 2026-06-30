@@ -1,14 +1,8 @@
 import { describe, it, expect } from 'vitest'
+import { splitLocalePath, NON_EN_LOCALES } from '@/lib/locale-config'
 
-// Internal helpers extracted for testing — they match what's in proxy.ts
-const NON_EN_LOCALES = ['fr', 'de', 'it', 'es', 'pt'] as const
-type NonEnLocale = typeof NON_EN_LOCALES[number]
-type Locale = 'en' | NonEnLocale
-
-function getPathLocale(pathname: string): NonEnLocale | null {
-  const seg = pathname.split('/')[1] as string
-  return (NON_EN_LOCALES as readonly string[]).includes(seg) ? (seg as NonEnLocale) : null
-}
+// negotiateLocale isn't exported from proxy.ts; this mirrors it for coverage.
+type Locale = 'en' | 'fr' | 'de' | 'it' | 'es' | 'pt'
 
 function negotiateLocale(acceptLanguage: string | null): Locale {
   if (!acceptLanguage) return 'en'
@@ -30,36 +24,38 @@ function negotiateLocale(acceptLanguage: string | null): Locale {
   return 'en'
 }
 
-// ── getPathLocale ────────────────────────────────────────────────────────────
+// ── splitLocalePath (locale-prefix rewrite logic) ────────────────────────────
 
-describe('getPathLocale', () => {
-  it('returns null for root path', () => {
-    expect(getPathLocale('/')).toBeNull()
+describe('splitLocalePath', () => {
+  it('treats root as English, unprefixed', () => {
+    expect(splitLocalePath('/')).toEqual({ locale: 'en', basePath: '/', prefixed: false })
   })
 
-  it('returns locale for /fr', () => {
-    expect(getPathLocale('/fr')).toBe('fr')
+  it('maps a bare locale prefix to that locale at the home base path', () => {
+    expect(splitLocalePath('/es')).toEqual({ locale: 'es', basePath: '/', prefixed: true })
   })
 
-  it('returns locale for /de/some/path', () => {
-    expect(getPathLocale('/de/some/path')).toBe('de')
+  it('strips the locale prefix from a nested path', () => {
+    expect(splitLocalePath('/es/pricing')).toEqual({ locale: 'es', basePath: '/pricing', prefixed: true })
+    expect(splitLocalePath('/de/some/path')).toEqual({ locale: 'de', basePath: '/some/path', prefixed: true })
   })
 
-  it('returns null for /en (English is root)', () => {
-    expect(getPathLocale('/en')).toBeNull()
+  it('leaves English (root) paths unprefixed', () => {
+    expect(splitLocalePath('/pricing')).toEqual({ locale: 'en', basePath: '/pricing', prefixed: false })
   })
 
-  it('returns null for unrecognised segment', () => {
-    expect(getPathLocale('/xyz')).toBeNull()
+  it('does not treat /en as a prefix (English is root)', () => {
+    expect(splitLocalePath('/en')).toEqual({ locale: 'en', basePath: '/en', prefixed: false })
   })
 
-  it('returns null for /api/foo', () => {
-    expect(getPathLocale('/api/foo')).toBeNull()
+  it('ignores unrecognised first segments', () => {
+    expect(splitLocalePath('/xyz')).toEqual({ locale: 'en', basePath: '/xyz', prefixed: false })
+    expect(splitLocalePath('/api/foo')).toEqual({ locale: 'en', basePath: '/api/foo', prefixed: false })
   })
 
-  it('handles all supported locales', () => {
+  it('handles every supported non-en locale', () => {
     for (const l of NON_EN_LOCALES) {
-      expect(getPathLocale(`/${l}`)).toBe(l)
+      expect(splitLocalePath(`/${l}/about`)).toEqual({ locale: l, basePath: '/about', prefixed: true })
     }
   })
 })
