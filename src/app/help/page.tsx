@@ -1,10 +1,16 @@
+import type { Metadata } from 'next'
 import Link from 'next/link'
 import { Logo } from '@/components/Logo'
 import { getDictionary, getLocaleFromHeaders } from '@/lib/dictionaries'
+import { localeAlternates } from '@/lib/i18n-seo'
 
-export const metadata = {
+const baseMetadata: Metadata = {
   title: 'Help & FAQs — fair-do',
   description: 'Find your way around fair-do — how tutoring works, pricing, finding a tutor, and how to get in touch.',
+}
+
+export async function generateMetadata(): Promise<Metadata> {
+  return { ...baseMetadata, alternates: await localeAlternates('/help') }
 }
 
 export default async function HelpPage() {

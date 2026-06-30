@@ -1,14 +1,20 @@
+import type { Metadata } from 'next'
 import { notFound } from 'next/navigation'
 import Link from 'next/link'
 import { SiteNav } from '@/components/SiteNav'
 import { SiteFooter } from '@/components/SiteFooter'
 import { PRACTICE_PORTAL_ENABLED } from '@/lib/practice'
 import { LocalPrice } from '@/components/LocalPrice'
+import { localeAlternates } from '@/lib/i18n-seo'
 import { getDictionary, getLocaleFromHeaders } from '@/lib/dictionaries'
 
-export const metadata = {
+const baseMetadata: Metadata = {
   title: 'Pricing — fair-do',
   description: 'Simple, fair pricing for your tutoring practice. Start free, pay as you grow. Founding pricing locked for early tutors.',
+}
+
+export async function generateMetadata(): Promise<Metadata> {
+  return { ...baseMetadata, alternates: await localeAlternates('/pricing') }
 }
 
 // Structural tier config — copy lives in the dictionary (pricing.tiers[id]).

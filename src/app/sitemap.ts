@@ -1,7 +1,7 @@
 import type { MetadataRoute } from 'next'
 import { POSTS } from '@/lib/blog'
-
-const BASE = 'https://fair-do.com'
+import { NON_EN_LOCALES, I18N_ENABLED } from '@/lib/locale-config'
+import { localeUrl, hreflangLanguages } from '@/lib/i18n-seo'
 
 export default function sitemap(): MetadataRoute.Sitemap {
   const staticPaths = [
@@ -9,23 +9,39 @@ export default function sitemap(): MetadataRoute.Sitemap {
     '/ai-tutoring', '/styles', '/help', '/blog', '/gift', '/privacy', '/terms',
   ]
   const now = new Date()
-  const pages = staticPaths.map((p) => ({
-    url: `${BASE}${p}`,
-    lastModified: now,
-    changeFrequency: 'weekly' as const,
-    priority: p === '' ? 1 : 0.7,
-  }))
-  const localePages = ['/fr', '/de', '/it', '/es', '/pt'].map((p) => ({
-    url: `${BASE}${p}`,
-    lastModified: now,
-    changeFrequency: 'weekly' as const,
-    priority: 0.9,
-  }))
+
+  // For each path emit the English URL plus, when i18n is on, every locale
+  // version — each entry carrying the full hreflang alternates set.
+  const pages: MetadataRoute.Sitemap = []
+  for (const p of staticPaths) {
+    const languages = hreflangLanguages(p)
+    const priority = p === '' ? 1 : 0.7
+    pages.push({
+      url: localeUrl(p, 'en'),
+      lastModified: now,
+      changeFrequency: 'weekly',
+      priority,
+      ...(languages ? { alternates: { languages } } : {}),
+    })
+    if (I18N_ENABLED) {
+      for (const l of NON_EN_LOCALES) {
+        pages.push({
+          url: localeUrl(p, l),
+          lastModified: now,
+          changeFrequency: 'weekly',
+          priority: p === '' ? 0.9 : 0.6,
+          alternates: { languages },
+        })
+      }
+    }
+  }
+
   const posts = POSTS.map((post) => ({
-    url: `${BASE}/blog/${post.slug}`,
+    url: localeUrl(`/blog/${post.slug}`, 'en'),
     lastModified: now,
     changeFrequency: 'monthly' as const,
     priority: 0.6,
   }))
-  return [...pages, ...localePages, ...posts]
+
+  return [...pages, ...posts]
 }

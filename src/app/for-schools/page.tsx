@@ -1,11 +1,17 @@
+import type { Metadata } from 'next'
 import Link from 'next/link'
 import { SiteNav } from '@/components/SiteNav'
 import { SiteFooter } from '@/components/SiteFooter'
 import { getDictionary, getLocaleFromHeaders } from '@/lib/dictionaries'
+import { localeAlternates } from '@/lib/i18n-seo'
 
-export const metadata = {
+const baseMetadata: Metadata = {
   title: 'fair-do for Schools — managed tutoring for your students',
   description: 'Give your pupils access to verified UK tutors. Transparent per-lesson pricing, no per-seat lock-in, simple invoicing.',
+}
+
+export async function generateMetadata(): Promise<Metadata> {
+  return { ...baseMetadata, alternates: await localeAlternates('/for-schools') }
 }
 
 export default async function ForSchoolsPage() {
