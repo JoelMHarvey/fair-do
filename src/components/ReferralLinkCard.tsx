@@ -1,10 +1,12 @@
 'use client'
 
 import { useState } from 'react'
+import { useDict } from '@/components/DictProvider'
 
 export function ReferralLinkCard({
   title, subtitle, code, link, footnote,
 }: { title: string; subtitle: string; code: string; link: string; footnote?: string }) {
+  const { referral_card } = useDict()
   const [copied, setCopied] = useState(false)
   function copy() {
     navigator.clipboard.writeText(link).then(() => {
@@ -19,10 +21,10 @@ export function ReferralLinkCard({
       <div className="flex items-center gap-2 mt-4">
         <code className="flex-1 bg-brand-800/60 rounded-lg px-4 py-2.5 text-sm font-mono truncate">{link}</code>
         <button onClick={copy} className="bg-white text-brand-800 px-4 py-2.5 rounded-lg text-sm font-medium hover:bg-brand-50 transition shrink-0">
-          {copied ? 'Copied ✓' : 'Copy'}
+          {copied ? referral_card.copied : referral_card.copy}
         </button>
       </div>
-      <p className="text-brand-200 text-xs mt-2">Your code: <span className="font-mono">{code}</span></p>
+      <p className="text-brand-200 text-xs mt-2">{referral_card.your_code} <span className="font-mono">{code}</span></p>
       {footnote && <p className="text-brand-100 text-xs mt-3">{footnote}</p>}
     </div>
   )

@@ -1,8 +1,10 @@
 'use client'
 
 import { useState } from 'react'
+import { useDict } from '@/components/DictProvider'
 
 export function RecurringCardPrompt() {
+  const { recurring_card_prompt } = useDict()
   const [busy, setBusy] = useState(false)
   const [error, setError] = useState('')
 
@@ -13,20 +15,19 @@ export function RecurringCardPrompt() {
     if (res.ok && d.checkoutUrl) {
       window.location.href = d.checkoutUrl
     } else {
-      setError(d.error ?? 'Could not start card setup.')
+      setError(d.error ?? recurring_card_prompt.default_error)
       setBusy(false)
     }
   }
 
   return (
     <div className="rounded-2xl border border-amber-200 bg-amber-50 p-5">
-      <p className="text-sm font-medium text-amber-900">Keep your regular lessons running</p>
+      <p className="text-sm font-medium text-amber-900">{recurring_card_prompt.title}</p>
       <p className="text-sm text-amber-800 mt-1">
-        Your tutor set up a standing lesson. Authorise a card and each one is booked and
-        paid automatically — cancel any time.
+        {recurring_card_prompt.description}
       </p>
       <button onClick={go} disabled={busy} className="mt-3 bg-brand-600 text-white text-sm font-medium px-5 py-2 rounded-lg hover:bg-brand-700 transition disabled:opacity-60">
-        {busy ? 'Opening…' : 'Save a card'}
+        {busy ? recurring_card_prompt.button_busy : recurring_card_prompt.button_idle}
       </button>
       {error && <p className="text-sm text-red-600 mt-2">{error}</p>}
     </div>

@@ -1,11 +1,13 @@
 import Link from 'next/link'
+import { getDictionary, getLocaleFromHeaders } from '@/lib/dictionaries'
 
 export type GuideStep = { label: string; href: string; done: boolean; hint?: string }
 
 // First-run checklist for the therapist dashboard. Shows the exact next steps to a
 // brand-new (non-technical) therapist, with a tick as each is completed. Hides itself
 // once everything's done so it doesn't nag established users.
-export function GettingStarted({ steps }: { steps: GuideStep[] }) {
+export async function GettingStarted({ steps }: { steps: GuideStep[] }) {
+  const { getting_started } = await getDictionary(await getLocaleFromHeaders())
   const done = steps.filter(s => s.done).length
   if (done === steps.length) return null
   const pct = Math.round((done / steps.length) * 100)
@@ -14,10 +16,10 @@ export function GettingStarted({ steps }: { steps: GuideStep[] }) {
   return (
     <section className="bg-white rounded-3xl border border-sand-200 shadow-sm p-6 mb-8">
       <div className="flex items-center justify-between gap-3 mb-1">
-        <h2 className="font-display text-lg font-semibold text-brand-900">Getting started</h2>
-        <span className="text-sm text-sand-500">{done} of {steps.length} done</span>
+        <h2 className="font-display text-lg font-semibold text-brand-900">{getting_started.heading}</h2>
+        <span className="text-sm text-sand-500">{done} {getting_started.progress_of} {steps.length} {getting_started.progress_done}</span>
       </div>
-      <p className="text-sand-600 text-sm mb-4">A few quick steps and you&apos;re ready to see students. We&apos;ll guide you through each one.</p>
+      <p className="text-sand-600 text-sm mb-4">{getting_started.intro}</p>
 
       <div className="h-2 rounded-full bg-sand-100 overflow-hidden mb-5">
         <div className="h-full bg-brand-500 transition-all" style={{ width: `${pct}%` }} />
@@ -48,7 +50,7 @@ export function GettingStarted({ steps }: { steps: GuideStep[] }) {
                   <span className={`font-medium ${s.done ? 'text-sand-500 line-through' : 'text-sand-800'}`}>{s.label}</span>
                   {s.hint && !s.done && <span className="block text-xs text-sand-500 mt-0.5">{s.hint}</span>}
                 </span>
-                {isNext && <span className="ml-auto shrink-0 text-sm font-medium text-brand-700 self-center">Start →</span>}
+                {isNext && <span className="ml-auto shrink-0 text-sm font-medium text-brand-700 self-center">{getting_started.start}</span>}
               </Link>
             </li>
           )

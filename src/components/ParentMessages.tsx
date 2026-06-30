@@ -1,6 +1,7 @@
 'use client'
 
 import { useState } from 'react'
+import { useDict } from '@/components/DictProvider'
 
 type Msg = { id: string; body: string; senderClerkId: string; createdAt: string }
 
@@ -13,6 +14,7 @@ export function ParentMessages({
   viewerClerkId: string
   initial: Msg[]
 }) {
+  const { parent_messages } = useDict()
   const [messages, setMessages] = useState<Msg[]>(initial)
   const [body, setBody] = useState('')
   const [busy, setBusy] = useState(false)
@@ -35,7 +37,7 @@ export function ParentMessages({
       setBody('')
     } else {
       const d = await res.json().catch(() => ({}))
-      setError(d.error ?? 'Could not send.')
+      setError(d.error ?? parent_messages.send_error)
     }
     setBusy(false)
   }
@@ -43,7 +45,7 @@ export function ParentMessages({
   return (
     <div>
       <div className="space-y-2 max-h-80 overflow-y-auto mb-3">
-        {messages.length === 0 && <p className="text-sm text-sand-400">No messages yet.</p>}
+        {messages.length === 0 && <p className="text-sm text-sand-400">{parent_messages.empty}</p>}
         {messages.map(m => {
           const mine = m.senderClerkId === viewerClerkId
           return (
@@ -59,11 +61,11 @@ export function ParentMessages({
         <input
           value={body}
           onChange={e => setBody(e.target.value)}
-          placeholder="Write a message…"
+          placeholder={parent_messages.composer_placeholder}
           className="flex-1 rounded-xl border border-sand-200 px-3 py-2.5 text-sm focus:border-brand-400 focus:outline-none"
         />
         <button type="submit" disabled={busy} className="bg-brand-600 text-white text-sm font-medium px-4 py-2.5 rounded-xl hover:bg-brand-700 transition disabled:opacity-60">
-          Send
+          {busy ? parent_messages.sending : parent_messages.send}
         </button>
       </form>
       {error && <p className="text-sm text-red-600 mt-2">{error}</p>}
