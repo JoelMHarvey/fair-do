@@ -1,6 +1,21 @@
 import { Resend } from 'resend'
 import { buildSessionICS } from './ics'
 import type { EmailBrand } from './email-brand'
+import { getDictionary } from './dictionaries'
+import { isValidLocale, type Locale } from './locale-config'
+
+// Emails localise to the RECIPIENT's locale (User.locale), not the request.
+// Pass `locale` in opts where known; it may be a full tag like "en-GB", so we
+// take the language subtag and fall back to English.
+export function emailLocale(locale?: string): Locale {
+  const lang = (locale ?? 'en').slice(0, 2).toLowerCase()
+  return isValidLocale(lang) ? lang : 'en'
+}
+
+// Fill {placeholders} in a dictionary template with dynamic values.
+export function interpolate(template: string, vars: Record<string, string | number>): string {
+  return template.replace(/\{(\w+)\}/g, (_, k) => String(vars[k] ?? ''))
+}
 
 function getResend() {
   return new Resend(process.env.RESEND_API_KEY)
@@ -81,17 +96,18 @@ const link = (t: string, url: string) => `<a href="${url}" style="color:#4f46e5;
 
 // ── fair-do-to-teacher emails (never branded) ─────────────────────────────────
 
-export async function sendTeacherApproved(opts: { email: string; firstName: string; qualificationBody: string }) {
+export async function sendTeacherApproved(opts: { email: string; firstName: string; qualificationBody: string; locale?: string }) {
+  const t = (await getDictionary(emailLocale(opts.locale))).email.teacher_approved
   await sendEmail({
     from: FROM,
     to: opts.email,
-    subject: 'You\'re approved — welcome to fair-do',
+    subject: t.subject,
     html: layout({
-      heading: `Welcome to fair-do, ${opts.firstName}`,
-      preheader: 'Your profile is live — students can book you now.',
-      body: `<p style="margin:0 0 10px">Your ${opts.qualificationBody} credentials have been verified, and your profile is now live. Students can book lessons with you.</p>
-        <p style="margin:0;color:#645f54;font-size:14px">You keep <strong style="color:#4f46e5">what you charge</strong> — we take no commission on your own students. Payouts reach your bank 2 business days after each completed lesson.</p>`,
-      cta: { label: 'Go to your dashboard', url: `${APP()}/teacher/dashboard` },
+      heading: interpolate(t.heading, { firstName: opts.firstName }),
+      preheader: t.preheader,
+      body: `<p style="margin:0 0 10px">${interpolate(t.body_p1, { qualificationBody: opts.qualificationBody })}</p>
+        <p style="margin:0;color:#645f54;font-size:14px">${t.body_p2}</p>`,
+      cta: { label: t.cta, url: `${APP()}/teacher/dashboard` },
     }),
   })
 }
@@ -195,25 +211,24 @@ export async function sendOpsAlert(opts: { to: string; firing: string[]; resolve
 }
 
 // Gift vouchers — platform-issued, not studio-branded.
-export async function sendGiftVoucher(opts: { to: string; code: string; amountPence: number; message?: string; fromPurchaser: boolean }) {
+export async function sendGiftVoucher(opts: { to: string; code: string; amountPence: number; message?: string; fromPurchaser: boolean; locale?: string }) {
   const amount = `£${(opts.amountPence / 100).toFixed(2)}`
+  const t = (await getDictionary(emailLocale(opts.locale))).email.gift_voucher
   await sendEmail({
     from: FROM,
     to: opts.to,
-    subject: opts.fromPurchaser ? `Your fair-do gift receipt — ${amount}` : `You've been gifted ${amount} of tuition`,
+    subject: interpolate(opts.fromPurchaser ? t.subject_receipt : t.subject_gift, { amount }),
     html: layout({
-      heading: opts.fromPurchaser ? 'Thank you for your gift' : 'A gift for you',
-      preheader: opts.fromPurchaser ? 'Your voucher code is inside.' : `${amount} of tuition, on someone who cares.`,
+      heading: opts.fromPurchaser ? t.heading_receipt : t.heading_gift,
+      preheader: interpolate(opts.fromPurchaser ? t.preheader_receipt : t.preheader_gift, { amount }),
       body: `
-        <p style="margin:0 0 16px">${opts.fromPurchaser
-          ? `Your ${amount} tuition voucher is ready. Share this code with your recipient:`
-          : `Someone wants to help you learn. Here's ${amount} of tuition credit, on them.`}</p>
+        <p style="margin:0 0 16px">${interpolate(opts.fromPurchaser ? t.intro_receipt : t.intro_gift, { amount })}</p>
         ${opts.message ? `<blockquote style="border-left:3px solid #4f46e5;padding-left:14px;color:#4b4740;font-style:italic;margin:0 0 16px">${opts.message}</blockquote>` : ''}
         <div style="background:#eef2ff;border:1px solid #c7d2fe;border-radius:14px;padding:20px;text-align:center;margin:0 0 4px">
-          <p style="font-size:13px;color:#645f54;margin:0 0 6px">Voucher code</p>
+          <p style="font-size:13px;color:#645f54;margin:0 0 6px">${t.code_label}</p>
           <p style="font-size:24px;font-weight:bold;letter-spacing:2px;color:#4338ca;margin:0;font-family:'Courier New',monospace">${opts.code}</p>
         </div>`,
-      cta: { label: 'Redeem now', url: `${APP()}/redeem` },
+      cta: { label: t.cta, url: `${APP()}/redeem` },
     }),
   })
 }
@@ -312,18 +327,19 @@ export async function sendSessionReminder(opts: {
   const dateStr = opts.scheduledAt.toLocaleString(clientLocale, { dateStyle: 'full', timeStyle: 'short', timeZone: 'Europe/London' })
   const sessionUrl = `${APP()}/session/${opts.sessionId}`
   const displayName = opts.brand?.practiceName ?? `${opts.teacherFirstName} ${opts.teacherLastName}`
+  const t = (await getDictionary(emailLocale(opts.locale))).email.session_reminder
   await sendEmail({
     from: senderFrom(opts.brand),
     to: opts.clientEmail,
     replyTo: opts.brand?.replyTo,
-    subject: `Reminder: your lesson tomorrow — ${dateStr}`,
+    subject: interpolate(t.subject, { date: dateStr }),
     html: layout({
-      heading: `See you soon, ${opts.clientFirstName}`,
-      preheader: `Your lesson with ${displayName} is coming up.`,
-      body: `<p style="margin:0 0 4px">Your lesson with ${strong(displayName)} is on ${strong(dateStr)}.</p>
-        <p style="margin:0 0 14px;color:#645f54;font-size:14px">The room opens 10 minutes before.</p>
-        <p style="margin:0;color:#645f54;font-size:14px">Can't make it? ${link('Cancel here', sessionUrl)} — cancellations within 24 hours are non-refundable.</p>`,
-      cta: { label: 'View lesson', url: sessionUrl },
+      heading: interpolate(t.heading, { firstName: opts.clientFirstName }),
+      preheader: interpolate(t.preheader, { displayName }),
+      body: `<p style="margin:0 0 4px">${interpolate(t.body_p1, { displayName, date: dateStr })}</p>
+        <p style="margin:0 0 14px;color:#645f54;font-size:14px">${t.body_p2}</p>
+        <p style="margin:0;color:#645f54;font-size:14px">${interpolate(t.body_p3, { cancelLink: link(t.cancel_link_text, sessionUrl) })}</p>`,
+      cta: { label: t.cta, url: sessionUrl },
     }, opts.brand),
   })
 }
