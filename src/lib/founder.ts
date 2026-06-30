@@ -24,70 +24,72 @@ export type DocCategory = 'current' | 'archive'
 export type DocGroup = { title: string; category: DocCategory; docs: DocMeta[] }
 
 export const DOC_GROUPS: DocGroup[] = [
-  // ── CURRENT — practice portal (B2B SaaS, subscription + small commission) ──
   {
     title: 'Strategy & build',
     category: 'current',
     docs: [
-      { slug: 'technical-spec', title: '★ Technical Specification (architecture, stack, data model)' },
-      { slug: 'model-comparison', title: '★ Marketplace vs Practice Portal — Comparison' },
-      { slug: 'pivot-project-plan', title: '◷ Project Plan & Tracker (living)' },
-      { slug: 'practice-portal-golive', title: '▸ Go-Live Runbook (design partner)' },
-      { slug: 'pp-validation-plan', title: '✓ Design-Partner Validation Plan' },
-      { slug: 'pp-recruitment-assets', title: 'Design-Partner Recruitment Assets' },
-      { slug: 'pp-native-app-plan', title: 'Native App Plan (Capacitor)' },
-      { slug: 'pp-calendar-sync-plan', title: 'Two-Way Calendar Sync — Plan' },
-      { slug: 'pp-competitive-features', title: '★ Competitor Features — What to Adopt' },
-      { slug: 'therapist-portal-pivot', title: 'Pivot Plan — Therapist Practice Portal' },
-      { slug: 'pp-business-plan', title: 'Business Plan' },
-      { slug: 'pp-gtm-strategy', title: 'Go-To-Market (B2B SaaS)' },
-      { slug: 'pp-customer-persona', title: 'Customer Personas' },
-      { slug: 'pp-business-model-canvas', title: 'Business Model Canvas' },
-      { slug: 'pp-product-requirements-document', title: 'Product Requirements' },
-      { slug: 'pp-market-research-synthesis', title: 'Market Research' },
-      { slug: 'pp-risk-register', title: 'Risk Register' },
-      { slug: 'pp-financial-model', title: 'Financial Model' },
+      { slug: 'project', title: '★ Project Roadmap' },
+      { slug: 'teacher-app-plan', title: '★ Teacher App — Dev Plan (Phase 1 + Phase 2)' },
+      { slug: 'technical-spec', title: 'Technical Specification' },
+      { slug: 'future-plans', title: 'Future Plans Review' },
+      { slug: 'scale', title: 'Scale & Expansion' },
+      { slug: 'us-expansion', title: 'US Expansion Plan' },
     ],
   },
   {
-    title: 'UK legal — solicitor pack',
+    title: 'Launch & ops',
     category: 'current',
     docs: [
-      { slug: 'pp-uk-business-overview', title: 'UK Business Overview' },
-      { slug: 'pp-uk-legal-brief', title: '⚖ UK Legal Brief & Questions' },
+      { slug: 'launch-tracker', title: '◷ Launch Tracker (UK + US)' },
+      { slug: 'launch', title: 'Launch Checklist' },
+      { slug: 'phase-2-launch', title: '▸ Phase 2 Launch Checklist' },
+      { slug: 'stripe-vercel', title: '▸ Stripe → Vercel Setup' },
+      { slug: 'stripe-golive', title: 'Stripe Go-Live (Connect)' },
+      { slug: 'uat', title: 'UAT' },
+      { slug: 'observability', title: 'Observability' },
+      { slug: 'security', title: 'Security' },
     ],
   },
   {
-    title: 'UK policies — practice portal (draft for sign-off)',
+    title: 'Go-to-market & legal',
     category: 'current',
     docs: [
-      { slug: 'pp-terms-of-service', title: 'Terms of Service (SaaS subscription)' },
-      { slug: 'pp-privacy-policy', title: 'Privacy Policy' },
-      { slug: 'pp-dpa', title: '⚖ Data Processing Agreement (Art 28)' },
-      { slug: 'pp-toms', title: 'Technical & Organisational Measures (Annex 2)' },
-      { slug: 'pp-sub-processors', title: 'Sub-processor List (Annex 3)' },
-      { slug: 'pp-ropa', title: 'Record of Processing Activities (Art 30)' },
-      { slug: 'pp-dpia', title: '⚖ Data Protection Impact Assessment (Art 35)' },
-      { slug: 'pp-security-data-protection-policy', title: 'Security & Data Protection' },
-      { slug: 'pp-clinical-governance-policy', title: 'Clinical Governance' },
-      { slug: 'pp-crisis-safeguarding-policy', title: 'Crisis & Safeguarding' },
-    ],
-  },
-  {
-    title: 'Internal context',
-    category: 'current',
-    docs: [
-      { slug: 'weekly-summary', title: '◷ Weekly Build Summary' },
-      { slug: 'context', title: 'Context Primer' },
-      { slug: 'handoff', title: 'Handoff Notes' },
+      { slug: 'marketing', title: 'Marketing' },
+      { slug: 'recruitment', title: 'Recruitment' },
+      { slug: 'referral', title: 'Referral — Free Month Plan' },
+      { slug: 'legal-brief', title: '⚖ Legal Brief' },
+      { slug: 'us-legal-ny', title: '⚖ US Legal — New York' },
+      { slug: 'credential-verification', title: 'Credential Verification' },
+      { slug: 'i18n-plan', title: 'i18n Plan' },
+      { slug: 'inbox-agent', title: 'Inbox Agent Spec' },
     ],
   },
 ]
 
-// Slug → source filename (some files are upper-case on disk).
+// Slug → source file path (relative to the repo root).
 const FILE_BY_SLUG: Record<string, string> = {
-  context: 'CONTEXT.md',
-  handoff: 'HANDOFF.md',
+  project: 'PROJECT.md',
+  'teacher-app-plan': 'docs/teacher-app-plan.md',
+  'technical-spec': 'docs/TECHNICAL-SPEC.md',
+  'future-plans': 'docs/FUTURE-PLANS-REVIEW.md',
+  scale: 'docs/SCALE-AND-EXPANSION.md',
+  'us-expansion': 'docs/US-EXPANSION-PLAN.md',
+  'launch-tracker': 'docs/LAUNCH-TRACKER.md',
+  launch: 'docs/LAUNCH.md',
+  'phase-2-launch': 'docs/PHASE-2-LAUNCH.md',
+  'stripe-vercel': 'docs/STRIPE-VERCEL-SETUP.md',
+  'stripe-golive': 'docs/STRIPE-GOLIVE.md',
+  uat: 'docs/UAT.md',
+  observability: 'docs/OBSERVABILITY.md',
+  security: 'docs/SECURITY.md',
+  marketing: 'docs/MARKETING.md',
+  recruitment: 'docs/RECRUITMENT.md',
+  referral: 'docs/REFERRAL-FREE-MONTH-PLAN.md',
+  'legal-brief': 'docs/LEGAL-BRIEF.md',
+  'us-legal-ny': 'docs/US-LEGAL-NY.md',
+  'credential-verification': 'docs/CREDENTIAL-VERIFICATION.md',
+  'i18n-plan': 'docs/I18N-PLAN.md',
+  'inbox-agent': 'docs/INBOX-AGENT-SPEC.md',
 }
 
 const ALL_SLUGS = new Set(DOC_GROUPS.flatMap(g => g.docs.map(d => d.slug)))
@@ -126,10 +128,10 @@ export async function buildSearchIndex(): Promise<SearchDoc[]> {
 
 export async function readDoc(slug: string): Promise<string | null> {
   if (!ALL_SLUGS.has(slug)) return null
-  const file = FILE_BY_SLUG[slug] ?? `${slug}.md`
+  const file = FILE_BY_SLUG[slug]
+  if (!file) return null
   try {
-    const full = path.join(process.cwd(), 'src/content/founder-docs', file)
-    return await fs.readFile(full, 'utf8')
+    return await fs.readFile(path.join(process.cwd(), file), 'utf8')
   } catch {
     return null
   }

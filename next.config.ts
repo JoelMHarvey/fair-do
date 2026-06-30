@@ -24,10 +24,10 @@ const securityHeaders = [
 ]
 
 const nextConfig: NextConfig = {
-  // Bundle the founder business-docs markdown into the serverless function (read via fs at runtime).
+  // Bundle the business-docs markdown into the serverless function (read via fs at runtime).
   outputFileTracingIncludes: {
-    '/founder/[slug]': ['./src/content/founder-docs/**'],
-    '/founder': ['./src/content/founder-docs/**'],
+    '/founder/[slug]': ['./docs/**', './PROJECT.md'],
+    '/founder': ['./docs/**', './PROJECT.md'],
   },
   async headers() {
     return [
