@@ -1,29 +1,29 @@
 /**
  * P2 E2E — Self-booking public page (double-opt-in flow)
  *
- * Verifies that a guest can open a therapist's public booking page (/p/{slug}),
+ * Verifies that a guest can open a teacher's public booking page (/p/{slug}),
  * select a date and time, fill in their details, and reach the success state.
  *
  * Runs in the chromium-public project (unauthenticated).
  *
  * Required env vars:
- *   E2E_THERAPIST_SLUG — practiceSlug of a seeded test therapist with future
+ *   E2E_TEACHER_SLUG — practiceSlug of a seeded test teacher with future
  *                        availability configured in staging
  *
  * If the var is absent all tests are skipped.
  *
- * The test seeds no data — it relies on the therapist having at least one
+ * The test seeds no data — it relies on the teacher having at least one
  * available slot in the next 28 days. If none are found, "No times are
  * available right now" renders and the booking sub-tests skip gracefully.
  */
 import { test, expect } from '@playwright/test'
 
-const SLUG = process.env.E2E_THERAPIST_SLUG
+const SLUG = process.env.E2E_TEACHER_SLUG
 
 test.describe('self-booking public page', () => {
   test.beforeEach(({ }, testInfo) => {
     if (!SLUG) {
-      testInfo.skip(true, 'Skipped — E2E_THERAPIST_SLUG not set')
+      testInfo.skip(true, 'Skipped — E2E_TEACHER_SLUG not set')
     }
   })
 
@@ -34,9 +34,9 @@ test.describe('self-booking public page', () => {
     await expect(page).toHaveURL(new RegExp(`/p/${SLUG}`))
   })
 
-  test('shows therapist name in page heading', async ({ page }) => {
+  test('shows teacher name in page heading', async ({ page }) => {
     await page.goto(`/p/${SLUG}`)
-    // The profile page always renders the therapist's name as a heading.
+    // The profile page always renders the teacher's name as a heading.
     const heading = page.locator('h1').first()
     await expect(heading).toBeVisible({ timeout: 10_000 })
     const text = await heading.textContent()

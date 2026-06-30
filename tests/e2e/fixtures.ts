@@ -14,11 +14,11 @@ export function requireEnvOrSkip(test: typeof base, ...names: string[]): void {
   )
 }
 
-// Extend base test with a 'clientPage' fixture that loads client auth state.
-export const test = base.extend<{ clientPage: Page }>({
-  clientPage: async ({ browser }, use) => {
-    const clientFile = path.join(__dirname, '.auth', 'client.json')
-    const context = await browser.newContext({ storageState: clientFile })
+// Extend base test with a 'studentPage' fixture that loads student auth state.
+export const test = base.extend<{ studentPage: Page }>({
+  studentPage: async ({ browser }, use) => {
+    const studentFile = path.join(__dirname, '.auth', 'student.json')
+    const context = await browser.newContext({ storageState: studentFile })
     const page = await context.newPage()
     await use(page)
     await context.close()

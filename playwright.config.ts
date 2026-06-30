@@ -4,16 +4,16 @@ import { defineConfig, devices } from '@playwright/test'
  * E2E tests run against a live staging deployment.
  * Required env vars:
  *   BASE_URL                  — staging app URL (e.g. https://staging.faresay.com)
- *   E2E_THERAPIST_EMAIL       — test therapist Clerk account
- *   E2E_THERAPIST_PASSWORD
- *   E2E_CLIENT_EMAIL          — test client Clerk account
- *   E2E_CLIENT_PASSWORD
- *   E2E_THERAPIST_SLUG        — practiceSlug of seeded test therapist (for self-book tests)
+ *   E2E_TEACHER_EMAIL       — test teacher Clerk account
+ *   E2E_TEACHER_PASSWORD
+ *   E2E_STUDENT_EMAIL          — test student Clerk account
+ *   E2E_STUDENT_PASSWORD
+ *   E2E_TEACHER_SLUG        — practiceSlug of seeded test teacher (for self-book tests)
  *   E2E_TEST_SESSION_ID       — seeded session ID for room-access test
  *   E2E_TEST_GUEST_TOKEN      — guestToken for that session
  *   E2E_TEST_MATCH_ID         — seeded match ID for message-thread test
- *   E2E_THERAPIST_FIRST_NAME  — therapist first name for dashboard name assertion
- *   E2E_THERAPIST_LAST_NAME   — therapist last name (optional)
+ *   E2E_TEACHER_FIRST_NAME  — teacher first name for dashboard name assertion
+ *   E2E_TEACHER_LAST_NAME   — teacher last name (optional)
  *
  * Browser binaries: run `npx playwright install --with-deps chromium` once per machine/CI runner.
  * CI job: nightly / pre-deploy (see TEST-PLAN.md §5).
@@ -34,7 +34,7 @@ export default defineConfig({
     ignoreHTTPSErrors: true,
   },
   projects: [
-    // Auth setup runs first — saves session state for therapist + client roles
+    // Auth setup runs first — saves session state for teacher + student roles
     {
       name: 'setup',
       testMatch: /auth\.setup\.ts/,
@@ -44,7 +44,7 @@ export default defineConfig({
       use: {
         ...devices['Desktop Chrome'],
         // Reuse auth state saved by setup project
-        storageState: 'tests/e2e/.auth/therapist.json',
+        storageState: 'tests/e2e/.auth/teacher.json',
       },
       dependencies: ['setup'],
       // Exclude setup file and public-only specs (those run unauthenticated in chromium-public)

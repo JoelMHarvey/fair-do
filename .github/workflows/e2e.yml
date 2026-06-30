@@ -47,24 +47,24 @@ jobs:
         env:
           DATABASE_URL: ${{ secrets.DATABASE_URL }}
           CLERK_SECRET_KEY: ${{ secrets.CLERK_SECRET_KEY }}
-          E2E_THERAPIST_EMAIL: ${{ secrets.E2E_THERAPIST_EMAIL }}
-          E2E_CLIENT_EMAIL: ${{ secrets.E2E_CLIENT_EMAIL }}
-          E2E_THERAPIST_FIRST_NAME: ${{ secrets.E2E_THERAPIST_FIRST_NAME }}
-          E2E_THERAPIST_LAST_NAME: ${{ secrets.E2E_THERAPIST_LAST_NAME }}
+          E2E_TEACHER_EMAIL: ${{ secrets.E2E_THERAPIST_EMAIL }}
+          E2E_STUDENT_EMAIL: ${{ secrets.E2E_CLIENT_EMAIL }}
+          E2E_TEACHER_FIRST_NAME: ${{ secrets.E2E_THERAPIST_FIRST_NAME }}
+          E2E_TEACHER_LAST_NAME: ${{ secrets.E2E_THERAPIST_LAST_NAME }}
 
       - name: Run E2E tests
         run: npm run test:e2e
         env:
           BASE_URL: ${{ inputs.base_url || secrets.E2E_BASE_URL }}
           # Clerk test accounts (seeded in the staging environment)
-          E2E_THERAPIST_EMAIL: ${{ secrets.E2E_THERAPIST_EMAIL }}
-          E2E_THERAPIST_PASSWORD: ${{ secrets.E2E_THERAPIST_PASSWORD }}
-          E2E_CLIENT_EMAIL: ${{ secrets.E2E_CLIENT_EMAIL }}
-          E2E_CLIENT_PASSWORD: ${{ secrets.E2E_CLIENT_PASSWORD }}
+          E2E_TEACHER_EMAIL: ${{ secrets.E2E_THERAPIST_EMAIL }}
+          E2E_TEACHER_PASSWORD: ${{ secrets.E2E_THERAPIST_PASSWORD }}
+          E2E_STUDENT_EMAIL: ${{ secrets.E2E_CLIENT_EMAIL }}
+          E2E_STUDENT_PASSWORD: ${{ secrets.E2E_CLIENT_PASSWORD }}
           # Seeded data IDs for deterministic assertions
-          E2E_THERAPIST_SLUG: ${{ secrets.E2E_THERAPIST_SLUG }}
-          E2E_THERAPIST_FIRST_NAME: ${{ secrets.E2E_THERAPIST_FIRST_NAME }}
-          E2E_THERAPIST_LAST_NAME: ${{ secrets.E2E_THERAPIST_LAST_NAME }}
+          E2E_TEACHER_SLUG: ${{ secrets.E2E_THERAPIST_SLUG }}
+          E2E_TEACHER_FIRST_NAME: ${{ secrets.E2E_THERAPIST_FIRST_NAME }}
+          E2E_TEACHER_LAST_NAME: ${{ secrets.E2E_THERAPIST_LAST_NAME }}
           E2E_TEST_SESSION_ID: ${{ secrets.E2E_TEST_SESSION_ID }}
           E2E_TEST_GUEST_TOKEN: ${{ secrets.E2E_TEST_GUEST_TOKEN }}
           E2E_TEST_MATCH_ID: ${{ secrets.E2E_TEST_MATCH_ID }}

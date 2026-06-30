@@ -14,8 +14,8 @@ import fs from 'fs'
 
 setup.setTimeout(90_000)
 
-const THERAPIST_FILE = path.join(__dirname, '.auth', 'therapist.json')
-const CLIENT_FILE = path.join(__dirname, '.auth', 'client.json')
+const TEACHER_FILE = path.join(__dirname, '.auth', 'teacher.json')
+const STUDENT_FILE = path.join(__dirname, '.auth', 'student.json')
 
 function emptyState(file: string) {
   fs.mkdirSync(path.dirname(file), { recursive: true })
@@ -133,33 +133,33 @@ async function signInViaUI(
 
 // ── Setup tasks ────────────────────────────────────────────────────────────
 
-setup('sign in as therapist', async ({ page }) => {
-  const email = process.env.E2E_THERAPIST_EMAIL
-  const password = process.env.E2E_THERAPIST_PASSWORD
+setup('sign in as teacher', async ({ page }) => {
+  const email = process.env.E2E_TEACHER_EMAIL
+  const password = process.env.E2E_TEACHER_PASSWORD
 
   if (!email || !password) {
-    console.warn('[e2e] Skipping therapist auth — E2E_THERAPIST_EMAIL/PASSWORD not set')
-    emptyState(THERAPIST_FILE)
+    console.warn('[e2e] Skipping teacher auth — E2E_TEACHER_EMAIL/PASSWORD not set')
+    emptyState(TEACHER_FILE)
     return
   }
 
   const ok = process.env.CLERK_SECRET_KEY
-    ? await signInViaToken(page, email, '/therapist/dashboard')
-    : await signInViaUI(page, email, password, '/therapist/dashboard')
+    ? await signInViaToken(page, email, '/teacher/dashboard')
+    : await signInViaUI(page, email, password, '/teacher/dashboard')
 
-  if (!ok) throw new Error('Therapist sign-in failed — check Clerk secrets and logs')
+  if (!ok) throw new Error('Teacher sign-in failed — check Clerk secrets and logs')
 
-  await page.context().storageState({ path: THERAPIST_FILE })
-  console.log('[e2e] Therapist auth saved →', THERAPIST_FILE)
+  await page.context().storageState({ path: TEACHER_FILE })
+  console.log('[e2e] Teacher auth saved →', TEACHER_FILE)
 })
 
-setup('sign in as client', async ({ page }) => {
-  const email = process.env.E2E_CLIENT_EMAIL
-  const password = process.env.E2E_CLIENT_PASSWORD
+setup('sign in as student', async ({ page }) => {
+  const email = process.env.E2E_STUDENT_EMAIL
+  const password = process.env.E2E_STUDENT_PASSWORD
 
   if (!email || !password) {
-    console.warn('[e2e] Skipping client auth — E2E_CLIENT_EMAIL/PASSWORD not set')
-    emptyState(CLIENT_FILE)
+    console.warn('[e2e] Skipping student auth — E2E_STUDENT_EMAIL/PASSWORD not set')
+    emptyState(STUDENT_FILE)
     return
   }
 
@@ -167,8 +167,8 @@ setup('sign in as client', async ({ page }) => {
     ? await signInViaToken(page, email, '/dashboard')
     : await signInViaUI(page, email, password, '/dashboard')
 
-  if (!ok) throw new Error('Client sign-in failed — check Clerk secrets and logs')
+  if (!ok) throw new Error('Student sign-in failed — check Clerk secrets and logs')
 
-  await page.context().storageState({ path: CLIENT_FILE })
-  console.log('[e2e] Client auth saved →', CLIENT_FILE)
+  await page.context().storageState({ path: STUDENT_FILE })
+  console.log('[e2e] Student auth saved →', STUDENT_FILE)
 })

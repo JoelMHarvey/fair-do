@@ -2,8 +2,8 @@
  * Seed E2E test accounts in the staging database.
  *
  * Idempotent — safe to re-run. Creates:
- *   • User + Therapist record for E2E_THERAPIST_EMAIL
- *   • User + Client record  for E2E_CLIENT_EMAIL
+ *   • User + Teacher record for E2E_TEACHER_EMAIL
+ *   • User + Student record for E2E_STUDENT_EMAIL
  *   • Match between them
  *
  * Prints the Match ID on success so you can store it as E2E_TEST_MATCH_ID.
@@ -11,18 +11,18 @@
  * Required env vars:
  *   DATABASE_URL        — staging Postgres URL
  *   CLERK_SECRET_KEY    — to resolve email → Clerk user ID
- *   E2E_THERAPIST_EMAIL
- *   E2E_CLIENT_EMAIL
+ *   E2E_TEACHER_EMAIL
+ *   E2E_STUDENT_EMAIL
  *
  * Optional:
- *   E2E_THERAPIST_FIRST_NAME  (default: "E2E")
- *   E2E_THERAPIST_LAST_NAME   (default: "Therapist")
- *   E2E_CLIENT_FIRST_NAME     (default: "E2E")
- *   E2E_CLIENT_LAST_NAME      (default: "Client")
+ *   E2E_TEACHER_FIRST_NAME  (default: "E2E")
+ *   E2E_TEACHER_LAST_NAME   (default: "Teacher")
+ *   E2E_STUDENT_FIRST_NAME  (default: "E2E")
+ *   E2E_STUDENT_LAST_NAME   (default: "Student")
  *
  * Run:
  *   DATABASE_URL=<staging> CLERK_SECRET_KEY=<sk_...> \
- *   E2E_THERAPIST_EMAIL=... E2E_CLIENT_EMAIL=... \
+ *   E2E_TEACHER_EMAIL=... E2E_STUDENT_EMAIL=... \
  *   node prisma/seed-e2e.mjs
  */
 
@@ -43,94 +43,93 @@ async function clerkUserIdByEmail(email, secretKey) {
 
 async function main() {
   const secretKey = process.env.CLERK_SECRET_KEY
-  const teacherEmail = process.env.E2E_THERAPIST_EMAIL
-  const clientEmail = process.env.E2E_CLIENT_EMAIL
+  const teacherEmail = process.env.E2E_TEACHER_EMAIL
+  const studentEmail = process.env.E2E_STUDENT_EMAIL
 
-  if (!secretKey || !teacherEmail || !clientEmail) {
-    console.error('Missing required env vars: CLERK_SECRET_KEY, E2E_THERAPIST_EMAIL, E2E_CLIENT_EMAIL')
+  if (!secretKey || !teacherEmail || !studentEmail) {
+    console.error('Missing required env vars: CLERK_SECRET_KEY, E2E_TEACHER_EMAIL, E2E_STUDENT_EMAIL')
     process.exit(1)
   }
 
-  const teacherFirstName = process.env.E2E_THERAPIST_FIRST_NAME ?? 'E2E'
-  const teacherLastName = process.env.E2E_THERAPIST_LAST_NAME ?? 'Therapist'
-  const clientFirstName = process.env.E2E_CLIENT_FIRST_NAME ?? 'E2E'
-  const clientLastName = process.env.E2E_CLIENT_LAST_NAME ?? 'Client'
+  const teacherFirstName = process.env.E2E_TEACHER_FIRST_NAME ?? 'E2E'
+  const teacherLastName = process.env.E2E_TEACHER_LAST_NAME ?? 'Teacher'
+  const studentFirstName = process.env.E2E_STUDENT_FIRST_NAME ?? 'E2E'
+  const studentLastName = process.env.E2E_STUDENT_LAST_NAME ?? 'Student'
 
   // ── Resolve Clerk user IDs ─────────────────────────────────────────────────
   console.log(`Looking up Clerk users…`)
-  const [therapistClerkId, clientClerkId] = await Promise.all([
+  const [teacherClerkId, studentClerkId] = await Promise.all([
     clerkUserIdByEmail(teacherEmail, secretKey),
-    clerkUserIdByEmail(clientEmail, secretKey),
+    clerkUserIdByEmail(studentEmail, secretKey),
   ])
-  console.log(`  therapist Clerk ID: ${therapistClerkId}`)
-  console.log(`  client    Clerk ID: ${clientClerkId}`)
+  console.log(`  teacher Clerk ID: ${teacherClerkId}`)
+  console.log(`  student Clerk ID: ${studentClerkId}`)
 
-  // ── Therapist: User + Therapist record ────────────────────────────────────
-  const therapistUser = await prisma.user.upsert({
-    where: { clerkId: therapistClerkId },
+  // ── Teacher: User + Teacher record ─────────────────────────────────────────
+  const teacherUser = await prisma.user.upsert({
+    where: { clerkId: teacherClerkId },
     update: { email: teacherEmail },
-    create: { clerkId: therapistClerkId, email: teacherEmail, role: 'THERAPIST' },
+    create: { clerkId: teacherClerkId, email: teacherEmail, role: 'TEACHER' },
   })
 
-  const therapistData = {
-    userId: therapistUser.id,
+  const teacherData = {
+    userId: teacherUser.id,
     firstName: teacherFirstName,
     lastName: teacherLastName,
     bio: 'E2E test account — do not contact.',
-    registrationBody: 'BACP',
-    registrationNumber: 'BACP-E2ETEST',
-    registrationExpiry: new Date('2099-12-31'),
+    qualificationBody: 'QTS',
+    qualificationRef: 'QTS-E2ETEST',
+    qualificationExpiry: new Date('2099-12-31'),
     credentialVerified: true,
     status: 'ACTIVE',
     sessionRatePence: 5000,
-    specialisms: ['Anxiety'],
-    approachTags: ['CBT'],
+    subjects: ['Maths'],
+    levels: ['GCSE'],
     languages: ['English'],
     availableForNew: true,
   }
-  const therapist = await prisma.therapist.upsert({
-    where: { userId: therapistUser.id },
+  const teacher = await prisma.teacher.upsert({
+    where: { userId: teacherUser.id },
     update: { firstName: teacherFirstName, lastName: teacherLastName, status: 'ACTIVE' },
-    create: therapistData,
+    create: teacherData,
   })
-  console.log(`  therapist DB ID: ${therapist.id}`)
+  console.log(`  teacher DB ID: ${teacher.id}`)
 
-  // ── Client: User + Client record ──────────────────────────────────────────
-  const clientUser = await prisma.user.upsert({
-    where: { clerkId: clientClerkId },
-    update: { email: clientEmail },
-    create: { clerkId: clientClerkId, email: clientEmail, role: 'CLIENT' },
+  // ── Student: User + Student record ─────────────────────────────────────────
+  const studentUser = await prisma.user.upsert({
+    where: { clerkId: studentClerkId },
+    update: { email: studentEmail },
+    create: { clerkId: studentClerkId, email: studentEmail, role: 'STUDENT' },
   })
 
-  const existingClient = await prisma.client.findUnique({ where: { userId: clientUser.id } })
-  const client = existingClient ?? await prisma.client.create({
+  const existingStudent = await prisma.student.findUnique({ where: { userId: studentUser.id } })
+  const student = existingStudent ?? await prisma.student.create({
     data: {
-      userId: clientUser.id,
-      firstName: clientFirstName,
-      lastName: clientLastName,
+      userId: studentUser.id,
+      firstName: studentFirstName,
+      lastName: studentLastName,
       consentGiven: true,
       consentDate: new Date(),
-      consentVersion: '1.0',
     },
   })
-  console.log(`  client    DB ID: ${client.id}`)
+  console.log(`  student DB ID: ${student.id}`)
 
   // ── Match ─────────────────────────────────────────────────────────────────
   const match = await prisma.match.upsert({
-    where: { teacherId_clientId: { teacherId: therapist.id, clientId: client.id } },
+    where: { teacherId_studentId: { teacherId: teacher.id, studentId: student.id } },
     update: { active: true },
     create: {
-      teacherId: therapist.id,
-      clientId: client.id,
+      teacherId: teacher.id,
+      studentId: student.id,
       source: 'marketplace',
       active: true,
     },
   })
-  console.log(`  match     DB ID: ${match.id}`)
+  console.log(`  match   DB ID: ${match.id}`)
 
   console.log('\n✓ E2E seed complete.')
   console.log(`\nSet GitHub secret  E2E_TEST_MATCH_ID = ${match.id}`)
-  console.log(`(therapist slug may be unset — set E2E_THERAPIST_SLUG if you need profile tests)`)
+  console.log(`(teacher slug may be unset — set E2E_TEACHER_SLUG if you need profile tests)`)
 }
 
 main()
