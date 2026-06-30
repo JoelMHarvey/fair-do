@@ -1,7 +1,7 @@
 import * as Notifications from 'expo-notifications'
 import { Platform } from 'react-native'
 
-const API_URL = process.env.EXPO_PUBLIC_API_URL ?? 'https://faresay.com'
+const API_URL = process.env.EXPO_PUBLIC_API_URL ?? 'https://fair-do.com'
 
 Notifications.setNotificationHandler({
   handleNotification: async () => ({

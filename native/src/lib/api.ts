@@ -5,7 +5,7 @@ import { z } from 'zod'
 
 const API_URL = (Constants.expoConfig?.extra?.apiUrl as string | undefined)
   ?? process.env.EXPO_PUBLIC_API_URL
-  ?? 'https://faresay.com'
+  ?? 'https://fair-do.com'
 
 class ApiError extends Error {
   constructor(

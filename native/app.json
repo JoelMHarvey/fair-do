@@ -1,10 +1,10 @@
 {
   "expo": {
-    "name": "Faresay",
-    "slug": "faresay",
+    "name": "fair-do",
+    "slug": "fair-do",
     "version": "1.0.0",
     "owner": "faresay-ltd",
-    "scheme": "faresay",
+    "scheme": "fairdo",
     "orientation": "portrait",
     "userInterfaceStyle": "automatic",
     "platforms": [
@@ -19,11 +19,11 @@
     },
     "ios": {
       "supportsTablet": false,
-      "bundleIdentifier": "com.faresay.app",
+      "bundleIdentifier": "com.fairdo.app",
       "infoPlist": {
-        "NSCameraUsageDescription": "Camera is needed for video therapy sessions.",
-        "NSMicrophoneUsageDescription": "Microphone is needed for video therapy sessions.",
-        "NSFaceIDUsageDescription": "Face ID is used to protect sensitive client data."
+        "NSCameraUsageDescription": "Camera is needed for video tutoring lessons.",
+        "NSMicrophoneUsageDescription": "Microphone is needed for video tutoring lessons.",
+        "NSFaceIDUsageDescription": "Face ID is used to protect sensitive student data."
       },
       "privacyManifests": {
         "NSPrivacyTracking": false,
@@ -67,7 +67,7 @@
       }
     },
     "android": {
-      "package": "com.faresay.app",
+      "package": "com.fairdo.app",
       "adaptiveIcon": {
         "foregroundImage": "./assets/adaptive-icon.png",
         "backgroundColor": "#F5F0E8"

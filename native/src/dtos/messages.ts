@@ -13,7 +13,7 @@ export const ThreadSummarySchema = z.object({
       id: z.string(),
       body: z.string(),
       senderClerkId: z.string(),
-      isFromTherapist: z.boolean(),
+      isFromTeacher: z.boolean(),
       createdAt: z.string(),
     })
     .nullable(),
@@ -28,7 +28,7 @@ export const MessageSchema = z.object({
   body: z.string(),
   fileUrl: z.string().nullable(),
   senderClerkId: z.string(),
-  isFromTherapist: z.boolean(),
+  isFromTeacher: z.boolean(),
   createdAt: z.string(),
 })
 

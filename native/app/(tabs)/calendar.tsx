@@ -186,7 +186,7 @@ export default function CalendarScreen() {
               ListEmptyComponent={
                 <View style={styles.centered}>
                   <Text style={styles.emptyText}>No availability set</Text>
-                  <Text style={styles.emptyHint}>Edit your availability at faresay.com</Text>
+                  <Text style={styles.emptyHint}>Edit your availability at fair-do.com</Text>
                 </View>
               }
               contentContainerStyle={styles.listContent}

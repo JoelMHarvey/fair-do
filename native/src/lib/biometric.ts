@@ -1,7 +1,7 @@
 import * as LocalAuthentication from 'expo-local-authentication'
 import * as SecureStore from 'expo-secure-store'
 
-const PREF_KEY = 'faresay_biometric_enabled'
+const PREF_KEY = 'fairdo_biometric_enabled'
 
 export async function isBiometricEnabled(): Promise<boolean> {
   const val = await SecureStore.getItemAsync(PREF_KEY).catch(() => null)
@@ -30,7 +30,7 @@ export async function promptBiometric(): Promise<AuthResult> {
   if (!enabled) return 'success'
 
   const result = await LocalAuthentication.authenticateAsync({
-    promptMessage: 'Unlock Faresay',
+    promptMessage: 'Unlock fair-do',
     cancelLabel: 'Cancel',
     disableDeviceFallback: false,
     fallbackLabel: 'Use passcode',

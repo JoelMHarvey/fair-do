@@ -123,7 +123,7 @@ export default function SettingsScreen() {
             style={styles.row}
             onPress={confirmSignOut}
             accessibilityRole="button"
-            accessibilityLabel="Sign out of Faresay"
+            accessibilityLabel="Sign out of fair-do"
           >
             <Text style={styles.destructive}>Sign out</Text>
           </TouchableOpacity>

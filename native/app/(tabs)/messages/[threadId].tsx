@@ -19,7 +19,7 @@ import { useApiFetch } from '@/lib/api'
 import { ThreadDetailSchema } from '@/dtos/messages'
 import type { Message } from '@/dtos/messages'
 
-const API_URL = process.env.EXPO_PUBLIC_API_URL ?? 'https://faresay.com'
+const API_URL = process.env.EXPO_PUBLIC_API_URL ?? 'https://fair-do.com'
 
 function fmtTime(iso: string) {
   return new Date(iso).toLocaleTimeString('en-GB', { hour: '2-digit', minute: '2-digit' })
@@ -30,7 +30,7 @@ function fmtDay(iso: string) {
 }
 
 function MessageBubble({ msg }: { msg: Message }) {
-  const mine = msg.isFromTherapist
+  const mine = msg.isFromTeacher
   return (
     <View style={[styles.bubbleWrap, mine ? styles.bubbleWrapRight : styles.bubbleWrapLeft]}>
       <View style={[styles.bubble, mine ? styles.bubbleMine : styles.bubbleTheirs]}>

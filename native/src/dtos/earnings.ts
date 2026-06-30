@@ -8,7 +8,7 @@ export const EarningsResponseSchema = z.object({
     z.object({
       id: z.string(),
       amountTotalPence: z.number(),
-      therapistPayoutPence: z.number(),
+      teacherPayoutPence: z.number(),
       platformFeePence: z.number(),
       currency: z.string(),
       createdAt: z.string(),

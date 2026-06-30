@@ -36,7 +36,7 @@ const SESSION_SUMMARY = {
   scheduledAt: '2025-09-01T10:00:00.000Z',
   durationMins: 50,
   status: 'SCHEDULED',
-  dailyRoomUrl: 'https://faresay.daily.co/room-abc',
+  dailyRoomUrl: 'https://fair-do.daily.co/room-abc',
   isJoinable: false,
 }
 
@@ -75,7 +75,7 @@ describe('AlertSchema', () => {
 // ── Dashboard ─────────────────────────────────────────────────────────────────
 
 const DASHBOARD_PAYLOAD = {
-  therapist: {
+  teacher: {
     id: 'ther_1',
     firstName: 'Bob',
     lastName: 'Smith',
@@ -96,7 +96,7 @@ const DASHBOARD_PAYLOAD = {
 describe('DashboardSchema', () => {
   it('parses full payload', () => {
     const d = DashboardSchema.parse(DASHBOARD_PAYLOAD)
-    expect(d.therapist.firstName).toBe('Bob')
+    expect(d.teacher.firstName).toBe('Bob')
     expect(d.earnings.monthTotalPence).toBe(16000)
   })
   it('parses with alerts array', () => {
@@ -106,8 +106,8 @@ describe('DashboardSchema', () => {
     })
     expect(d.alerts).toHaveLength(1)
   })
-  it('rejects invalid therapist status', () => {
-    const bad = { ...DASHBOARD_PAYLOAD, therapist: { ...DASHBOARD_PAYLOAD.therapist, status: 'DISABLED' } }
+  it('rejects invalid teacher status', () => {
+    const bad = { ...DASHBOARD_PAYLOAD, teacher: { ...DASHBOARD_PAYLOAD.teacher, status: 'DISABLED' } }
     expect(rejects(DashboardSchema, bad)).toBe(true)
   })
   it('rejects missing earnings field', () => {
@@ -205,7 +205,7 @@ describe('ClientDetailSchema', () => {
       durationMins: 50,
       status: 'COMPLETED',
       dailyRoomUrl: null,
-      payment: { amountTotalPence: 8000, therapistPayoutPence: 7800, status: 'paid' },
+      payment: { amountTotalPence: 8000, teacherPayoutPence: 7800, status: 'paid' },
     }
     const d = ClientDetailSchema.parse({ ...CLIENT_DETAIL, pastSessions: [pastSession] })
     expect(d.pastSessions[0].payment?.amountTotalPence).toBe(8000)
@@ -276,7 +276,7 @@ const EARNINGS_PAYLOAD = {
     {
       id: 'pay_1',
       amountTotalPence: 8000,
-      therapistPayoutPence: 7800,
+      teacherPayoutPence: 7800,
       platformFeePence: 200,
       currency: 'gbp',
       createdAt: '2025-09-01T12:00:00.000Z',
@@ -290,7 +290,7 @@ const EARNINGS_PAYLOAD = {
 describe('EarningsResponseSchema', () => {
   it('parses full payload', () => {
     const e = EarningsResponseSchema.parse(EARNINGS_PAYLOAD)
-    expect(e.payments[0].therapistPayoutPence).toBe(7800)
+    expect(e.payments[0].teacherPayoutPence).toBe(7800)
   })
   it('parses payment with null sessionScheduledAt', () => {
     const payment = { ...EARNINGS_PAYLOAD.payments[0], sessionScheduledAt: null }
@@ -314,7 +314,7 @@ const MESSAGE = {
   body: 'Hello',
   fileUrl: null,
   senderClerkId: 'clerk_123',
-  isFromTherapist: true,
+  isFromTeacher: true,
   createdAt: '2025-09-01T11:00:00.000Z',
 }
 
@@ -335,8 +335,8 @@ describe('MessageSchema', () => {
     const m = MessageSchema.parse({ ...MESSAGE, fileUrl: 'https://cdn.example.com/file.pdf' })
     expect(m.fileUrl).toBe('https://cdn.example.com/file.pdf')
   })
-  it('rejects missing isFromTherapist', () => {
-    const { isFromTherapist: _, ...rest } = MESSAGE
+  it('rejects missing isFromTeacher', () => {
+    const { isFromTeacher: _, ...rest } = MESSAGE
     expect(rejects(MessageSchema, rest)).toBe(true)
   })
 })
@@ -407,7 +407,7 @@ describe('AvailabilityResponseSchema', () => {
 
 const SESSION_ROOM = {
   sessionId: 'sess_4',
-  roomUrl: 'https://faresay.daily.co/room-xyz',
+  roomUrl: 'https://fair-do.daily.co/room-xyz',
   meetingToken: 'eyJ...',
   clientFirstName: 'Eve',
   clientLastName: 'Taylor',
@@ -435,8 +435,8 @@ const PROFILE = {
   id: 'ther_1',
   firstName: 'Bob',
   lastName: 'Smith',
-  professionalTitle: 'Psychotherapist',
-  bio: 'I am a therapist.',
+  professionalTitle: 'Psychoteacher',
+  bio: 'I am a teacher.',
   tagline: null,
   profileImageUrl: null,
   registrationBody: 'BACP',

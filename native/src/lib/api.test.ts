@@ -18,7 +18,7 @@ import { z } from 'zod'
 // Mock expo-constants before importing api.ts (it reads apiUrl at module level).
 vi.mock('expo-constants', () => ({
   default: {
-    expoConfig: { extra: { apiUrl: 'https://test.faresay.com' } },
+    expoConfig: { extra: { apiUrl: 'https://test.fair-do.com' } },
   },
 }))
 
@@ -69,7 +69,7 @@ describe('apiFetch — bearer token', () => {
     const spy = mockFetch({ ok: true })
     await apiFetch('/api/test', 'my-token', SimpleSchema)
     const [url, init] = spy.mock.calls[0]
-    expect(url).toBe('https://test.faresay.com/api/test')
+    expect(url).toBe('https://test.fair-do.com/api/test')
     expect((init?.headers as Record<string, string>)['Authorization']).toBe('Bearer my-token')
   })
 
@@ -90,7 +90,7 @@ describe('apiFetch — bearer token', () => {
   it('prepends API_URL to path', async () => {
     const spy = mockFetch({ ok: true })
     await apiFetch('/api/mobile/v1/dashboard', 'tok', SimpleSchema)
-    expect((spy.mock.calls[0][0] as string)).toBe('https://test.faresay.com/api/mobile/v1/dashboard')
+    expect((spy.mock.calls[0][0] as string)).toBe('https://test.fair-do.com/api/mobile/v1/dashboard')
   })
 })
 
@@ -176,7 +176,7 @@ describe('apiFetch — success', () => {
 //
 // ─── Dashboard screen ──
 // test.todo('renders loading spinner while query is fetching')
-// test.todo('renders therapist name in header once data resolves')
+// test.todo('renders teacher name in header once data resolves')
 // test.todo('renders each session card from todaySessions')
 // test.todo('renders critical AlertBanner when alerts array is non-empty')
 // test.todo('renders empty state when todaySessions and upcomingSessions are empty')
