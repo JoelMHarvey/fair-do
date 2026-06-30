@@ -7,8 +7,6 @@ import type en from '@/messages/en.json'
 
 type HomeT = typeof en['home']
 
-const BENEFIT_ICONS = ['🤝', '🪶', '🔒', '💷', '⚡', '📱'] as const
-
 export function TeacherHome({ t }: { t: HomeT }) {
   return (
     <>
@@ -35,10 +33,16 @@ export function TeacherHome({ t }: { t: HomeT }) {
             {t.hero_body}
           </p>
           <div className="flex flex-col sm:flex-row gap-3 justify-center mt-9">
-            <Link href="/sign-up?role=teacher" className="bg-brand-600 text-white px-7 py-3.5 rounded-full font-medium hover:bg-brand-700 transition shadow-lg shadow-brand-600/20">
+            <Link
+              href="/sign-up?role=teacher"
+              className="bg-brand-600 text-white px-7 py-3.5 rounded-full font-medium hover:bg-brand-700 transition shadow-lg shadow-brand-600/20"
+            >
               {t.hero_cta_primary}
             </Link>
-            <Link href="/for-tutors" className="px-7 py-3.5 rounded-full font-medium text-brand-700 border border-brand-200 hover:bg-brand-50 transition">
+            <Link
+              href="/for-tutors"
+              className="px-7 py-3.5 rounded-full font-medium text-brand-700 border border-brand-200 hover:bg-brand-50 transition"
+            >
               {t.hero_cta_secondary}
             </Link>
           </div>
@@ -46,39 +50,60 @@ export function TeacherHome({ t }: { t: HomeT }) {
         </div>
       </section>
 
-      {/* Ethos */}
-      <section className="bg-brand-900 text-white">
-        <div className="max-w-3xl mx-auto px-5 sm:px-8 py-16 text-center">
-          <p className="text-brand-200 text-sm font-medium uppercase tracking-wide mb-3">{t.ethos_eyebrow}</p>
-          <p className="font-display text-2xl sm:text-3xl font-medium leading-snug">
-            {t.ethos_body}
-          </p>
+      {/* Feature grid */}
+      <section className="max-w-6xl mx-auto px-5 sm:px-8 py-20">
+        <h2 className="font-display text-3xl font-semibold text-brand-900 text-center mb-3">
+          {t.features_heading}
+        </h2>
+        <p className="text-sand-600 text-center max-w-xl mx-auto mb-12">{t.features_sub}</p>
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5">
+          {t.features.map(f => (
+            <div key={f.title} className="bg-white rounded-3xl border border-sand-200 p-6 shadow-sm">
+              <div className="text-3xl mb-3" aria-hidden>{f.icon}</div>
+              <h3 className="font-display text-lg font-semibold text-brand-900 mb-1.5">{f.title}</h3>
+              <p className="text-sm text-sand-600 leading-relaxed">{f.body}</p>
+            </div>
+          ))}
         </div>
       </section>
 
-      {/* Benefits */}
-      <section className="max-w-5xl mx-auto px-5 sm:px-8 py-20">
-        <h2 className="font-display text-3xl font-semibold text-brand-900 text-center mb-3">{t.benefits_heading}</h2>
-        <p className="text-sand-600 text-center max-w-xl mx-auto mb-12">{t.benefits_sub}</p>
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5">
-          {t.benefits.map((b, i) => (
-            <div key={b.title} className="bg-white rounded-3xl border border-sand-200 p-6 shadow-sm">
-              <div className="text-3xl mb-3" aria-hidden>{BENEFIT_ICONS[i]}</div>
-              <h3 className="font-display text-lg font-semibold text-brand-900 mb-1.5">{b.title}</h3>
-              <p className="text-sm text-sand-600 leading-relaxed">{b.body}</p>
+      {/* Savings band */}
+      <section className="bg-brand-900 text-white">
+        <div className="max-w-5xl mx-auto px-5 sm:px-8 py-16 sm:py-20">
+          <div className="max-w-3xl">
+            <h2 className="font-display text-3xl sm:text-4xl font-semibold mb-5">
+              {t.savings_heading}
+            </h2>
+            <p className="text-brand-200 text-lg leading-relaxed mb-10">{t.savings_body}</p>
+            <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+              <div className="bg-white/10 rounded-2xl p-6">
+                <p className="text-brand-300 text-sm font-medium mb-2">{t.savings_before_label}</p>
+                <p className="font-display text-4xl font-semibold">£1,575</p>
+                <p className="text-brand-400 text-sm mt-1">per month · after 25% taken</p>
+              </div>
+              <div className="bg-coral-500/20 border border-coral-400/30 rounded-2xl p-6">
+                <p className="text-coral-200 text-sm font-medium mb-2">{t.savings_after_label}</p>
+                <p className="font-display text-4xl font-semibold">£2,071</p>
+                <p className="text-coral-200 text-sm mt-1">per month · after £29 plan fee</p>
+              </div>
             </div>
-          ))}
+            <p className="text-brand-500 text-xs mt-5">{t.savings_note}</p>
+          </div>
         </div>
       </section>
 
       {/* How it works */}
       <section className="bg-sand-100/60">
         <div className="max-w-4xl mx-auto px-5 sm:px-8 py-20">
-          <h2 className="font-display text-3xl font-semibold text-brand-900 text-center mb-12">{t.how_heading}</h2>
+          <h2 className="font-display text-3xl font-semibold text-brand-900 text-center mb-12">
+            {t.how_heading}
+          </h2>
           <div className="grid grid-cols-1 sm:grid-cols-3 gap-6">
             {t.steps.map((s, i) => (
               <div key={s.title} className="text-center">
-                <div className="w-12 h-12 rounded-full bg-brand-600 text-white font-display font-semibold text-lg flex items-center justify-center mx-auto mb-4">{i + 1}</div>
+                <div className="w-12 h-12 rounded-full bg-brand-600 text-white font-display font-semibold text-lg flex items-center justify-center mx-auto mb-4">
+                  {i + 1}
+                </div>
                 <h3 className="font-display text-lg font-semibold text-brand-900 mb-1.5">{s.title}</h3>
                 <p className="text-sm text-sand-600 leading-relaxed">{s.body}</p>
               </div>
@@ -91,7 +116,9 @@ export function TeacherHome({ t }: { t: HomeT }) {
       <section className="max-w-4xl mx-auto px-5 sm:px-8 py-20">
         <div className="bg-white rounded-3xl border border-sand-200 shadow-sm p-8 sm:p-10 text-center">
           <div className="text-3xl mb-3" aria-hidden>🔒</div>
-          <h2 className="font-display text-2xl font-semibold text-brand-900 mb-2">{t.privacy_heading}</h2>
+          <h2 className="font-display text-2xl font-semibold text-brand-900 mb-2">
+            {t.privacy_heading}
+          </h2>
           <p className="text-sand-600 max-w-2xl mx-auto leading-relaxed">{t.privacy_body}</p>
         </div>
       </section>
@@ -99,15 +126,22 @@ export function TeacherHome({ t }: { t: HomeT }) {
       {/* Final CTA */}
       <section className="bg-gradient-to-b from-sand-50 to-brand-50">
         <div className="max-w-2xl mx-auto px-5 sm:px-8 py-20 text-center">
-          <h2 className="font-display text-3xl sm:text-4xl font-semibold text-brand-900 mb-3">{t.cta_heading}</h2>
+          <h2 className="font-display text-3xl sm:text-4xl font-semibold text-brand-900 mb-3">
+            {t.cta_heading}
+          </h2>
           <p className="text-sand-700 mb-8">{t.cta_sub}</p>
-          <Link href="/sign-up?role=teacher" className="inline-block bg-brand-600 text-white px-8 py-4 rounded-full font-medium hover:bg-brand-700 transition shadow-lg shadow-brand-600/20">
+          <Link
+            href="/sign-up?role=teacher"
+            className="inline-block bg-brand-600 text-white px-8 py-4 rounded-full font-medium hover:bg-brand-700 transition shadow-lg shadow-brand-600/20"
+          >
             {t.cta_button}
           </Link>
           {DIRECTORY_ENABLED && (
             <p className="text-sm text-sand-500 mt-6">
               {t.cta_footer_pre}{' '}
-              <Link href="/tutors" className="text-brand-700 underline hover:text-brand-800">{t.cta_footer_link}</Link>.
+              <Link href="/tutors" className="text-brand-700 underline hover:text-brand-800">
+                {t.cta_footer_link}
+              </Link>.
             </p>
           )}
         </div>

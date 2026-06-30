@@ -1,42 +1,66 @@
 {
   "home": {
-    "hero_badge": "The calm studio tool for tutors",
-    "hero_h1_line1": "Your whole tutoring,",
-    "hero_h1_line2": "in one calm place.",
-    "hero_body": "fair-do brings your students, scheduling, secure video and payments together — simple enough to run from your phone, organised enough for the work you do.",
+    "hero_badge": "Built for working tutors",
+    "hero_h1_line1": "Stop juggling tools.",
+    "hero_h1_line2": "Run everything from here.",
+    "hero_body": "AI lesson notes, whiteboard, resource library, parent portal, and payments — all in one place. Free to start, 0% commission.",
     "hero_cta_primary": "Start free",
     "hero_cta_secondary": "See how it works",
-    "hero_footnote": "Free to start · set up in ~15 minutes · keep your own students",
-    "ethos_eyebrow": "Made by people who care",
-    "ethos_body": "We think tutors deserve better tools — and fairer terms. fair-do grows when you grow. No lock-in, no games, and no agency taking a cut of every lesson.",
-    "benefits_heading": "Everything your tutoring needs",
-    "benefits_sub": "No more juggling a calendar, a payment app, a video tool and a spreadsheet. It's all here — and it's built to stay out of your way.",
-    "benefits": [
+    "hero_footnote": "No commission · set up in 15 minutes · your students stay yours",
+    "features_heading": "Everything your practice needs. Nothing it doesn't.",
+    "features_sub": "Replace the calendar app, the payment tool, the video room, the notes folder, and the parent email thread — all at once, for free.",
+    "features": [
       {
-        "title": "Your students stay yours",
-        "body": "You own the relationship and the record. fair-do is your tool — never a middleman between you and the people you teach."
+        "icon": "🤖",
+        "title": "AI lesson notes",
+        "body": "After each session, AI drafts your notes — topics covered, difficulty, homework. Review, edit, and share with students in seconds."
       },
       {
-        "title": "Genuinely simple",
-        "body": "Set up in about 15 minutes — no tech skills needed. Import your student list, book a lesson, done. Plain-language help on every page."
+        "icon": "🖊",
+        "title": "Collaborative whiteboard",
+        "body": "A shared digital canvas built into every lesson. Sketch, annotate, and work through problems side by side in real time."
       },
       {
-        "title": "Private by design",
-        "body": "Encrypted, with UK/EU data residency and appropriate safeguards. You stay the data controller — in control of your students' information."
+        "icon": "📁",
+        "title": "Resource library",
+        "body": "Upload worksheets, past papers, and notes once. Share them with individual students or your whole practice — no email attachments."
       },
       {
-        "title": "Set your own prices",
-        "body": "Your rate, your hours, even a different price per student. You keep what you charge — fair-do is a simple monthly subscription, not a cut of every lesson."
+        "icon": "👨‍👩‍👧",
+        "title": "Parent portal",
+        "body": "Parents see their child's lesson notes, homework, and progress. They subscribe directly — extra visibility that runs itself."
       },
       {
-        "title": "Get paid automatically",
-        "body": "Students pay by card; the money lands in your bank about two business days after each lesson. No chasing, no spreadsheets."
+        "icon": "💷",
+        "title": "0% commission",
+        "body": "fair-do is a flat monthly subscription. We take nothing from your lesson fees — ever. Not 10%, not 25%, zero."
       },
       {
-        "title": "Runs from your phone",
-        "body": "Add fair-do to your home screen and run your whole tutoring from a phone — no computer required."
+        "icon": "👥",
+        "title": "Group lessons",
+        "body": "Run up to 10 students in one session. One video room, one set of AI notes, individual invoices per student."
+      },
+      {
+        "icon": "🎁",
+        "title": "Gift vouchers",
+        "body": "Students can gift your lessons to others. New business that finds you without ads or marketplace fees."
+      },
+      {
+        "icon": "📅",
+        "title": "Smart scheduling",
+        "body": "Your calendar, private video rooms, and reminder emails — all set up from the moment you book a lesson."
+      },
+      {
+        "icon": "💳",
+        "title": "Automatic payments",
+        "body": "Students pay by card; money lands in your bank two days after each lesson. No chasing, no invoices, no spreadsheets."
       }
     ],
+    "savings_heading": "Keep what you earn.",
+    "savings_body": "Tutoring platforms take 10–25% of every lesson. On a typical £35/hr practice with 15 students doing one lesson a week, that's over £500 a month leaving your pocket. fair-do charges a flat £29/month — and nothing from your lessons.",
+    "savings_note": "Example: 15 students · £35/hr · 1 lesson/week · 4 weeks",
+    "savings_before_label": "Marketplace at 25% commission",
+    "savings_after_label": "fair-do Pro at £29/month",
     "how_heading": "Up and running this week",
     "steps": [
       {
@@ -664,62 +688,65 @@
   },
   "compare": {
     "h1": "How fair-do compares",
-    "lead": "An honest look at fair-do next to the booking and admin software UK tutors usually weigh up. The others are mature and feature-rich; fair-do is the calm, UK-first, free-to-start option where the essentials are built in and your students stay yours.",
+    "lead": "An honest look at fair-do next to the platforms UK tutors typically consider. The marketplaces find you students — but they take 10–25% of every lesson. fair-do is the tool that lets you run your own practice, keep your own students, and earn what you actually charge.",
     "edges": [
       {
-        "icon": "🪶",
-        "title": "Free to start",
-        "body": "Run your whole tutoring business on the free plan. Most UK alternatives are paid-only from day one."
-      },
-      {
-        "icon": "🇬🇧",
-        "title": "Built UK-first, for tutors",
-        "body": "Tutoring-shaped, not a generic admin tool. UK/EU data residency, UK GDPR, you as the data controller."
-      },
-      {
-        "icon": "📦",
-        "title": "The essentials, all included",
-        "body": "Secure video, GBP payments, email + SMS reminders, intake forms, self-booking — no per-feature add-ons or SMS credit packs."
+        "icon": "💷",
+        "title": "0% commission on your lessons",
+        "body": "Tutorful takes 25%. MyTutor takes ~20%. Tutor Hunt takes 10–12.5%. fair-do takes nothing from your lessons — just a flat monthly plan."
       },
       {
         "icon": "🤝",
-        "title": "You own everything",
-        "body": "Your students, your records. Export and leave any time. fair-do is your tool, never a middleman."
+        "title": "Your students stay yours",
+        "body": "On a marketplace, the platform owns the relationship. On fair-do, your students are yours — you hold the records, set the terms, and take them with you if you ever leave."
+      },
+      {
+        "icon": "🤖",
+        "title": "Tools no marketplace offers",
+        "body": "AI lesson notes, interactive whiteboard, resource library, parent portal, group lessons, gift vouchers — all built in. No UK tutoring marketplace comes close."
+      },
+      {
+        "icon": "🪶",
+        "title": "Free to start — no lock-in",
+        "body": "The Free plan runs your whole practice with no commission and no time limit. Upgrade to Pro for AI tools and analytics whenever you're ready."
       }
     ],
     "matrix_heading": "Feature by feature",
-    "legend_included": "included",
-    "legend_partial": "partial / add-on / paid",
+    "legend_included": "included / yes",
+    "legend_partial": "partial / limited",
     "legend_no": "no",
     "table_feature": "Feature",
     "rows": [
-      "Built for UK tutors",
-      "Free plan to start",
-      "UK / EU data residency",
-      "GBP card payments & payouts",
-      "Built-in secure video",
-      "Email + SMS reminders included",
-      "Student self-booking page",
+      "0% commission on lessons",
       "You own your students & records",
-      "Designed just for tutoring"
+      "Free to get started",
+      "Built-in secure video",
+      "Interactive whiteboard",
+      "AI lesson notes",
+      "Parent portal",
+      "Resource library",
+      "Group lessons",
+      "Lesson packages & bundles",
+      "Gift vouchers",
+      "UK / EU data residency"
     ],
     "marks": {
       "yes": "Yes / included",
-      "partial": "Partial / add-on / paid",
+      "partial": "Partial / limited",
       "no": "No"
     },
     "growing_heading": "Where we're still growing",
     "growing_intro": "We believe in being straight with you:",
     "growing_newer_strong": "We're newer.",
-    "growing_newer_body": " The established names have years of features — deep reporting, large multi-tutor academies, and more. We’re focused and growing.",
+    "growing_newer_body": " The marketplaces have years of tutor reviews and student reach. fair-do won't find you new students — it gives you far better tools to run the students you already have.",
     "growing_webapp_strong": "We're a web app today",
-    "growing_webapp_body": " (it installs to your phone's home screen). A native app is on the way.",
-    "growing_fees_strong": "Card payments carry a small commission",
-    "growing_fees_body": " (0–2.5%, and 0% on Academy) on top of Stripe’s fee — the trade for a genuinely free entry plan. ",
+    "growing_webapp_body": " (it installs to your phone's home screen). A native iOS/Android app is in development.",
+    "growing_fees_strong": "Stripe's card processing fee applies",
+    "growing_fees_body": " on payments — the trade for a genuinely free entry plan with no lesson commission. ",
     "growing_fees_link": "See exactly what you keep →",
-    "disclaimer": "Comparison researched and fact-checked in June 2026 from each provider's own website and reputable reviews. Competitors' pricing and features change — please check their sites for the latest. This is a factual comparison, not a criticism of any other product; they're good tools, built for different needs.",
+    "disclaimer": "Comparison researched and fact-checked in June 2026 from each provider's own website and public reviews. Competitors' pricing and features change — please check their sites for the latest. This is an honest factual comparison.",
     "cta": "Start free",
-    "cta_sub": "Free to start · UK-first · keep your own students"
+    "cta_sub": "No commission · UK-first · your students stay yours"
   },
   "ai_tutoring": {
     "eyebrow": "The honest version",

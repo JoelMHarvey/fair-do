@@ -1,42 +1,66 @@
 {
   "home": {
-    "hero_badge": "La herramienta de estudio tranquila para profesores particulares",
-    "hero_h1_line1": "Toda tu enseñanza,",
-    "hero_h1_line2": "en un único lugar tranquilo.",
-    "hero_body": "fair-do reúne a tus alumnos, tu agenda, el vídeo seguro y los pagos en un solo sitio: lo bastante sencillo para gestionarlo desde el móvil y lo bastante organizado para el trabajo que haces.",
+    "hero_badge": "Built for working tutors",
+    "hero_h1_line1": "Stop juggling tools.",
+    "hero_h1_line2": "Run everything from here.",
+    "hero_body": "AI lesson notes, whiteboard, resource library, parent portal, and payments — all in one place. Free to start, 0% commission.",
     "hero_cta_primary": "Empieza gratis",
     "hero_cta_secondary": "Mira cómo funciona",
-    "hero_footnote": "Gratis para empezar · configúralo en unos 15 minutos · conserva a tus propios alumnos",
-    "ethos_eyebrow": "Hecho por gente que se preocupa",
-    "ethos_body": "Creemos que los profesores particulares merecen mejores herramientas y condiciones más justas. fair-do crece cuando tú creces. Sin ataduras, sin trucos y sin ninguna agencia llevándose una parte de cada clase.",
-    "benefits_heading": "Todo lo que tu enseñanza necesita",
-    "benefits_sub": "Se acabó hacer malabares con un calendario, una app de pagos, una herramienta de vídeo y una hoja de cálculo. Está todo aquí, y está pensado para no estorbar.",
-    "benefits": [
+    "hero_footnote": "No commission · set up in 15 minutes · your students stay yours",
+    "features_heading": "Everything your practice needs. Nothing it doesn't.",
+    "features_sub": "Replace the calendar app, the payment tool, the video room, the notes folder, and the parent email thread — all at once, for free.",
+    "features": [
       {
-        "title": "Tus alumnos siguen siendo tuyos",
-        "body": "La relación y el registro son tuyos. fair-do es tu herramienta, nunca un intermediario entre tú y las personas a las que enseñas."
+        "icon": "🤖",
+        "title": "AI lesson notes",
+        "body": "After each session, AI drafts your notes — topics covered, difficulty, homework. Review, edit, and share with students in seconds."
       },
       {
-        "title": "Sencillo de verdad",
-        "body": "Configúralo en unos 15 minutos, sin conocimientos técnicos. Importa tu lista de alumnos, reserva una clase y listo. Ayuda en lenguaje claro en cada página."
+        "icon": "🖊",
+        "title": "Collaborative whiteboard",
+        "body": "A shared digital canvas built into every lesson. Sketch, annotate, and work through problems side by side in real time."
       },
       {
-        "title": "Privado por diseño",
-        "body": "Cifrado, con residencia de datos en el Reino Unido y la UE y las salvaguardas adecuadas. Tú sigues siendo el responsable de los datos, con el control de la información de tus alumnos."
+        "icon": "📁",
+        "title": "Resource library",
+        "body": "Upload worksheets, past papers, and notes once. Share them with individual students or your whole practice — no email attachments."
       },
       {
-        "title": "Pon tus propios precios",
-        "body": "Tu tarifa, tus horas, incluso un precio distinto por alumno. Te quedas con lo que cobras: fair-do es una sencilla suscripción mensual, no una parte de cada clase."
+        "icon": "👨‍👩‍👧",
+        "title": "Parent portal",
+        "body": "Parents see their child's lesson notes, homework, and progress. They subscribe directly — extra visibility that runs itself."
       },
       {
-        "title": "Cobra automáticamente",
-        "body": "Los alumnos pagan con tarjeta; el dinero llega a tu banco unos dos días hábiles después de cada clase. Sin perseguir pagos ni hojas de cálculo."
+        "icon": "💷",
+        "title": "0% commission",
+        "body": "fair-do is a flat monthly subscription. We take nothing from your lesson fees — ever. Not 10%, not 25%, zero."
       },
       {
-        "title": "Funciona desde tu móvil",
-        "body": "Añade fair-do a la pantalla de inicio y gestiona toda tu enseñanza desde el móvil, sin necesidad de ordenador."
+        "icon": "👥",
+        "title": "Group lessons",
+        "body": "Run up to 10 students in one session. One video room, one set of AI notes, individual invoices per student."
+      },
+      {
+        "icon": "🎁",
+        "title": "Gift vouchers",
+        "body": "Students can gift your lessons to others. New business that finds you without ads or marketplace fees."
+      },
+      {
+        "icon": "📅",
+        "title": "Smart scheduling",
+        "body": "Your calendar, private video rooms, and reminder emails — all set up from the moment you book a lesson."
+      },
+      {
+        "icon": "💳",
+        "title": "Automatic payments",
+        "body": "Students pay by card; money lands in your bank two days after each lesson. No chasing, no invoices, no spreadsheets."
       }
     ],
+    "savings_heading": "Keep what you earn.",
+    "savings_body": "Tutoring platforms take 10–25% of every lesson. On a typical £35/hr practice with 15 students doing one lesson a week, that's over £500 a month leaving your pocket. fair-do charges a flat £29/month — and nothing from your lessons.",
+    "savings_note": "Example: 15 students · £35/hr · 1 lesson/week · 4 weeks",
+    "savings_before_label": "Marketplace at 25% commission",
+    "savings_after_label": "fair-do Pro at £29/month",
     "how_heading": "En marcha esta misma semana",
     "steps": [
       {
@@ -663,63 +687,66 @@
     "cta_secondary": "Encuentra un tutor"
   },
   "compare": {
-    "h1": "Cómo se compara fair-do",
-    "lead": "Una mirada honesta a fair-do frente al software de reservas y administración que los tutores del Reino Unido suelen sopesar. Los demás son maduros y están llenos de funciones; fair-do es la opción tranquila, pensada primero para el Reino Unido y gratuita para empezar, donde lo esencial viene incluido y tus alumnos siguen siendo tuyos.",
+    "h1": "How fair-do compares",
+    "lead": "An honest look at fair-do next to the platforms UK tutors typically consider. The marketplaces find you students — but they take 10–25% of every lesson. fair-do is the tool that lets you run your own practice, keep your own students, and earn what you actually charge.",
     "edges": [
       {
-        "icon": "🪶",
-        "title": "Gratis para empezar",
-        "body": "Gestiona todo tu negocio de tutorías con el plan gratuito. La mayoría de las alternativas del Reino Unido son de pago desde el primer día."
-      },
-      {
-        "icon": "🇬🇧",
-        "title": "Pensado primero para el Reino Unido, para tutores",
-        "body": "Hecho a la medida de las tutorías, no una herramienta administrativa genérica. Residencia de los datos en el Reino Unido/UE, RGPD del Reino Unido, y tú como responsable del tratamiento."
-      },
-      {
-        "icon": "📦",
-        "title": "Lo esencial, todo incluido",
-        "body": "Vídeo seguro, pagos en GBP, recordatorios por correo + SMS, formularios de admisión, autorreserva: sin complementos por función ni paquetes de créditos de SMS."
+        "icon": "💷",
+        "title": "0% commission on your lessons",
+        "body": "Tutorful takes 25%. MyTutor takes ~20%. Tutor Hunt takes 10–12.5%. fair-do takes nothing from your lessons — just a flat monthly plan."
       },
       {
         "icon": "🤝",
-        "title": "Todo es tuyo",
-        "body": "Tus alumnos, tus registros. Exporta y márchate cuando quieras. fair-do es tu herramienta, nunca un intermediario."
+        "title": "Your students stay yours",
+        "body": "On a marketplace, the platform owns the relationship. On fair-do, your students are yours — you hold the records, set the terms, and take them with you if you ever leave."
+      },
+      {
+        "icon": "🤖",
+        "title": "Tools no marketplace offers",
+        "body": "AI lesson notes, interactive whiteboard, resource library, parent portal, group lessons, gift vouchers — all built in. No UK tutoring marketplace comes close."
+      },
+      {
+        "icon": "🪶",
+        "title": "Free to start — no lock-in",
+        "body": "The Free plan runs your whole practice with no commission and no time limit. Upgrade to Pro for AI tools and analytics whenever you're ready."
       }
     ],
-    "matrix_heading": "Función por función",
-    "legend_included": "incluido",
-    "legend_partial": "parcial / complemento / de pago",
+    "matrix_heading": "Feature by feature",
+    "legend_included": "included / yes",
+    "legend_partial": "partial / limited",
     "legend_no": "no",
-    "table_feature": "Función",
+    "table_feature": "Feature",
     "rows": [
-      "Pensado para tutores del Reino Unido",
-      "Plan gratuito para empezar",
-      "Residencia de los datos en el Reino Unido / UE",
-      "Pagos y abonos con tarjeta en GBP",
-      "Vídeo seguro integrado",
-      "Recordatorios por correo + SMS incluidos",
-      "Página de autorreserva para alumnos",
-      "Tus alumnos y registros son tuyos",
-      "Diseñado solo para tutorías"
+      "0% commission on lessons",
+      "You own your students & records",
+      "Free to get started",
+      "Built-in secure video",
+      "Interactive whiteboard",
+      "AI lesson notes",
+      "Parent portal",
+      "Resource library",
+      "Group lessons",
+      "Lesson packages & bundles",
+      "Gift vouchers",
+      "UK / EU data residency"
     ],
     "marks": {
-      "yes": "Sí / incluido",
-      "partial": "Parcial / complemento / de pago",
+      "yes": "Yes / included",
+      "partial": "Partial / limited",
       "no": "No"
     },
-    "growing_heading": "En qué seguimos creciendo",
-    "growing_intro": "Creemos en ser sinceros contigo:",
-    "growing_newer_strong": "Somos más nuevos.",
-    "growing_newer_body": " Los nombres consolidados tienen años de funciones: informes detallados, grandes academias con varios tutores y más. Nosotros estamos centrados y creciendo.",
-    "growing_webapp_strong": "Hoy somos una aplicación web",
-    "growing_webapp_body": " (se instala en la pantalla de inicio de tu teléfono). Una app nativa está en camino.",
-    "growing_fees_strong": "Los pagos con tarjeta llevan una pequeña comisión",
-    "growing_fees_body": " (0–2,5 %, y 0 % en Academy) sobre la comisión de Stripe: el intercambio por un plan de entrada genuinamente gratuito. ",
-    "growing_fees_link": "Ve exactamente con cuánto te quedas →",
-    "disclaimer": "Comparación investigada y verificada en junio de 2026 a partir de la propia web de cada proveedor y de reseñas fiables. Los precios y las funciones de la competencia cambian; consulta sus webs para lo más reciente. Esta es una comparación factual, no una crítica a ningún otro producto; son buenas herramientas, hechas para necesidades distintas.",
-    "cta": "Empieza gratis",
-    "cta_sub": "Gratis para empezar · pensado primero para el Reino Unido · conserva tus propios alumnos"
+    "growing_heading": "Where we're still growing",
+    "growing_intro": "We believe in being straight with you:",
+    "growing_newer_strong": "We're newer.",
+    "growing_newer_body": " The marketplaces have years of tutor reviews and student reach. fair-do won't find you new students — it gives you far better tools to run the students you already have.",
+    "growing_webapp_strong": "We're a web app today",
+    "growing_webapp_body": " (it installs to your phone's home screen). A native iOS/Android app is in development.",
+    "growing_fees_strong": "Stripe's card processing fee applies",
+    "growing_fees_body": " on payments — the trade for a genuinely free entry plan with no lesson commission. ",
+    "growing_fees_link": "See exactly what you keep →",
+    "disclaimer": "Comparison researched and fact-checked in June 2026 from each provider's own website and public reviews. Competitors' pricing and features change — please check their sites for the latest. This is an honest factual comparison.",
+    "cta": "Start free",
+    "cta_sub": "No commission · UK-first · your students stay yours"
   },
   "ai_tutoring": {
     "eyebrow": "La versión honesta",
