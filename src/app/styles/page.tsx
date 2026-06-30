@@ -5,13 +5,9 @@ import { SiteFooter } from '@/components/SiteFooter'
 import { getDictionary, getLocaleFromHeaders } from '@/lib/dictionaries'
 import { localeAlternates } from '@/lib/i18n-seo'
 
-const baseMetadata: Metadata = {
-  title: 'Subjects & how tutoring works — fair-do',
-  description: 'Maths, English, the sciences, languages, music and exam prep explained — what you\'ll cover, how lessons work, the exams they map to, and where to read more.',
-}
-
 export async function generateMetadata(): Promise<Metadata> {
-  return { ...baseMetadata, alternates: await localeAlternates('/styles') }
+  const { meta } = await getDictionary(await getLocaleFromHeaders())
+  return { title: meta.styles.title, description: meta.styles.description, alternates: await localeAlternates('/styles') }
 }
 
 export default async function StylesPage() {

@@ -4,13 +4,9 @@ import { Logo } from '@/components/Logo'
 import { getDictionary, getLocaleFromHeaders } from '@/lib/dictionaries'
 import { localeAlternates } from '@/lib/i18n-seo'
 
-const baseMetadata: Metadata = {
-  title: 'Help & FAQs — fair-do',
-  description: 'Find your way around fair-do — how tutoring works, pricing, finding a tutor, and how to get in touch.',
-}
-
 export async function generateMetadata(): Promise<Metadata> {
-  return { ...baseMetadata, alternates: await localeAlternates('/help') }
+  const { meta } = await getDictionary(await getLocaleFromHeaders())
+  return { title: meta.help.title, description: meta.help.description, alternates: await localeAlternates('/help') }
 }
 
 export default async function HelpPage() {

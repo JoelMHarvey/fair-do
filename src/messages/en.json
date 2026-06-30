@@ -1250,5 +1250,51 @@
       "cancel_link_text": "Cancel here",
       "cta": "View lesson"
     }
+  },
+  "meta": {
+    "home": {
+      "title": "fair-do — your whole tutoring business, in one calm place",
+      "description": "The simple, private tool for independent tutors: your students, scheduling, secure video and payments in one place. Set up in minutes, run it from your phone."
+    },
+    "pricing": {
+      "title": "Pricing — fair-do",
+      "description": "Simple, fair pricing for your tutoring practice. Start free, pay as you grow. Founding pricing locked for early tutors."
+    },
+    "about": {
+      "title": "About — fair-do",
+      "description": "We are technologists with a heart. Tutors should earn enough to focus on teaching, good tuition should reach more people, and no company should get rich off the work tutors do."
+    },
+    "faq": {
+      "title": "FAQ — fair-do",
+      "description": "Common questions about fair-do: what it is, pricing, student ownership, data security, and getting set up as a tutor."
+    },
+    "for_tutors": {
+      "title": "How fair-do works — the calm tool for independent tutors",
+      "description": "See how fair-do helps you run your whole tutoring business — your own students, scheduling, secure video, payments and reminders, on web and phone. Private, simple, and fair. Start free."
+    },
+    "for_schools": {
+      "title": "fair-do for Schools — managed tutoring for your students",
+      "description": "Give your pupils access to verified UK tutors. Transparent per-lesson pricing, no per-seat lock-in, simple invoicing."
+    },
+    "compare": {
+      "title": "How fair-do compares — software for UK tutors",
+      "description": "An honest, factual comparison of fair-do with the booking and admin tools UK tutors usually weigh up — for independent private tutors."
+    },
+    "ai_tutoring": {
+      "title": "AI tutoring: an honest look — fair-do",
+      "description": "An impartial guide to AI tutors and learning chatbots — the benefits, the real risks, what the research says, the tools available, and where a human teacher still matters."
+    },
+    "values": {
+      "title": "Why we built fair-do — our values",
+      "description": "Tutoring that is fair — to the people who do the work, and the people who need it. Why fair-do exists, and what we promise tutors and students."
+    },
+    "styles": {
+      "title": "Subjects & how tutoring works — fair-do",
+      "description": "Maths, English, the sciences, languages, music and exam prep explained — what you'll cover, how lessons work, the exams they map to, and where to read more."
+    },
+    "help": {
+      "title": "Help & FAQs — fair-do",
+      "description": "Find your way around fair-do — how tutoring works, pricing, finding a tutor, and how to get in touch."
+    }
   }
 }

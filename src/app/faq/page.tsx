@@ -5,13 +5,9 @@ import { SiteFooter } from '@/components/SiteFooter'
 import { localeAlternates } from '@/lib/i18n-seo'
 import { getDictionary, getLocaleFromHeaders } from '@/lib/dictionaries'
 
-const baseMetadata: Metadata = {
-  title: 'FAQ — fair-do',
-  description: 'Common questions about fair-do: what it is, pricing, student ownership, data security, and getting set up as a tutor.',
-}
-
 export async function generateMetadata(): Promise<Metadata> {
-  return { ...baseMetadata, alternates: await localeAlternates('/faq') }
+  const { meta } = await getDictionary(await getLocaleFromHeaders())
+  return { title: meta.faq.title, description: meta.faq.description, alternates: await localeAlternates('/faq') }
 }
 
 export default async function FaqPage() {

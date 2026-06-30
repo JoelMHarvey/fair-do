@@ -7,13 +7,9 @@ import { PRACTICE_PORTAL_ENABLED } from '@/lib/practice'
 import { getDictionary, getLocaleFromHeaders } from '@/lib/dictionaries'
 import { localeAlternates } from '@/lib/i18n-seo'
 
-const baseMetadata: Metadata = {
-  title: 'How fair-do compares — software for UK tutors',
-  description: 'An honest, factual comparison of fair-do with the booking and admin tools UK tutors usually weigh up — for independent private tutors.',
-}
-
 export async function generateMetadata(): Promise<Metadata> {
-  return { ...baseMetadata, alternates: await localeAlternates('/compare') }
+  const { meta } = await getDictionary(await getLocaleFromHeaders())
+  return { title: meta.compare.title, description: meta.compare.description, alternates: await localeAlternates('/compare') }
 }
 
 // Providers in column order. fair-do first.

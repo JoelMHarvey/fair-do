@@ -1250,5 +1250,51 @@
       "cancel_link_text": "Cancela aquí",
       "cta": "Ver clase"
     }
+  },
+  "meta": {
+    "home": {
+      "title": "fair-do — toda tu actividad de clases particulares, en un solo lugar tranquilo",
+      "description": "La herramienta sencilla y privada para profesores particulares independientes: tus alumnos, la agenda, videollamadas seguras y los pagos en un solo lugar. Configúrala en minutos y gestiónala desde el móvil."
+    },
+    "pricing": {
+      "title": "Precios — fair-do",
+      "description": "Precios sencillos y justos para tu actividad docente. Empieza gratis y paga a medida que creces. Precio fundador bloqueado para los primeros profesores."
+    },
+    "about": {
+      "title": "Quiénes somos — fair-do",
+      "description": "Somos tecnólogos con corazón. Los profesores deberían ganar lo suficiente para centrarse en enseñar, las buenas clases deberían llegar a más gente, y ninguna empresa debería enriquecerse a costa del trabajo de los profesores."
+    },
+    "faq": {
+      "title": "Preguntas frecuentes — fair-do",
+      "description": "Preguntas habituales sobre fair-do: qué es, precios, propiedad de los alumnos, seguridad de los datos y cómo empezar como profesor."
+    },
+    "for_tutors": {
+      "title": "Cómo funciona fair-do — la herramienta tranquila para profesores particulares independientes",
+      "description": "Descubre cómo fair-do te ayuda a gestionar toda tu actividad docente: tus propios alumnos, la agenda, videollamadas seguras, pagos y recordatorios, en web y móvil. Privado, sencillo y justo. Empieza gratis."
+    },
+    "for_schools": {
+      "title": "fair-do para centros educativos — clases particulares gestionadas para tus alumnos",
+      "description": "Ofrece a tus alumnos acceso a profesores del Reino Unido verificados. Precios transparentes por clase, sin permanencia por plaza y facturación sencilla."
+    },
+    "compare": {
+      "title": "Comparativa de fair-do — software para profesores del Reino Unido",
+      "description": "Una comparación honesta y objetiva de fair-do con las herramientas de reservas y gestión que los profesores del Reino Unido suelen considerar, pensada para profesores particulares independientes."
+    },
+    "ai_tutoring": {
+      "title": "Tutoría con IA: una mirada honesta — fair-do",
+      "description": "Una guía imparcial sobre los tutores de IA y los chatbots de aprendizaje: las ventajas, los riesgos reales, lo que dice la investigación, las herramientas disponibles y dónde un profesor humano sigue siendo importante."
+    },
+    "values": {
+      "title": "Por qué creamos fair-do — nuestros valores",
+      "description": "Clases particulares justas, para quienes hacen el trabajo y para quienes las necesitan. Por qué existe fair-do y qué les prometemos a profesores y alumnos."
+    },
+    "styles": {
+      "title": "Asignaturas y cómo funcionan las clases — fair-do",
+      "description": "Matemáticas, inglés, ciencias, idiomas, música y preparación de exámenes explicados: qué cubrirás, cómo funcionan las clases, los exámenes con los que se corresponden y dónde leer más."
+    },
+    "help": {
+      "title": "Ayuda y preguntas frecuentes — fair-do",
+      "description": "Orientación para moverte por fair-do: cómo funcionan las clases, precios, encontrar profesor y cómo ponerte en contacto."
+    }
   }
 }
