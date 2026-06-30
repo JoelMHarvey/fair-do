@@ -1,6 +1,7 @@
 'use client'
 
 import { useState, useRef } from 'react'
+import { useDict } from '@/components/DictProvider'
 
 export type Resource = {
   id: string
@@ -17,22 +18,15 @@ const MAX = 25 * 1024 * 1024
 const CLOUD = process.env.NEXT_PUBLIC_CLOUDINARY_CLOUD_NAME
 const PRESET = process.env.NEXT_PUBLIC_CLOUDINARY_UPLOAD_PRESET
 
-const CATS = [
-  { v: 'worksheet', l: 'Worksheet' },
-  { v: 'homework', l: 'Homework' },
-  { v: 'past-paper', l: 'Past paper' },
-  { v: 'notes', l: 'Notes' },
-  { v: 'submission', l: 'Submitted work' },
-  { v: 'other', l: 'Other' },
-]
-const CAT_LABEL = Object.fromEntries(CATS.map(c => [c.v, c.l]))
-
 function fmtSize(b: number | null) {
   if (!b) return ''
   return b > 1_048_576 ? `${(b / 1_048_576).toFixed(1)} MB` : `${Math.max(1, Math.round(b / 1024))} KB`
 }
 
 export function ResourceLibrary({ matchId, role, initial }: { matchId: string; role: 'teacher' | 'student'; initial: Resource[] }) {
+  const { resource_library } = useDict()
+  const CATS = resource_library.categories
+  const CAT_LABEL = Object.fromEntries(CATS.map(c => [c.value, c.label]))
   const [items, setItems] = useState<Resource[]>(initial)
   const [category, setCategory] = useState(role === 'student' ? 'submission' : 'worksheet')
   const [busy, setBusy] = useState(false)
@@ -42,7 +36,7 @@ export function ResourceLibrary({ matchId, role, initial }: { matchId: string; r
 
   async function upload(file: File) {
     setError('')
-    if (file.size > MAX) { setError('File is larger than 25 MB.'); return }
+    if (file.size > MAX) { setError(resource_library.error_too_large); return }
     setBusy(true)
     try {
       const fd = new FormData()
@@ -56,12 +50,12 @@ export function ResourceLibrary({ matchId, role, initial }: { matchId: string; r
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ matchId, label: file.name, url: c.secure_url, category, fileName: file.name, fileSizeBytes: c.bytes }),
       })
-      if (!res.ok) { const d = await res.json().catch(() => ({})); throw new Error(d.error ?? 'save failed') }
+      if (!res.ok) { const d = await res.json().catch(() => ({})); throw new Error(d.error ?? resource_library.error_save_failed) }
       const { document } = await res.json()
       setItems(prev => [...prev, document])
       if (fileRef.current) fileRef.current.value = ''
     } catch (e) {
-      setError(e instanceof Error && e.message !== 'upload failed' ? e.message : 'Upload failed — try again.')
+      setError(e instanceof Error && e.message !== 'upload failed' ? e.message : resource_library.error_upload_failed)
     }
     setBusy(false)
   }
@@ -90,17 +84,17 @@ export function ResourceLibrary({ matchId, role, initial }: { matchId: string; r
                 <span className="text-xs text-sand-400">
                   {CAT_LABEL[r.category] ?? r.category}
                   {r.fileSizeBytes ? ` · ${fmtSize(r.fileSizeBytes)}` : ''}
-                  {r.uploadedBy === 'student' ? ' · from student' : ''}
+                  {r.uploadedBy === 'student' ? ` · ${resource_library.from_student}` : ''}
                 </span>
               </div>
               <div className="flex items-center gap-3 shrink-0">
                 {role === 'teacher' && (
                   <button onClick={() => toggleVisible(r)} className={`text-xs px-2 py-0.5 rounded-full ${r.studentVisible ? 'bg-brand-50 text-brand-700 border border-brand-200' : 'bg-sand-100 text-sand-500'}`}>
-                    {r.studentVisible ? 'Visible to student' : 'Hidden'}
+                    {r.studentVisible ? resource_library.visible_to_student : resource_library.hidden}
                   </button>
                 )}
                 {(role === 'teacher' || r.uploadedBy === 'student') && (
-                  <button onClick={() => remove(r.id)} className="text-sand-400 hover:text-red-500 text-sm">Remove</button>
+                  <button onClick={() => remove(r.id)} className="text-sand-400 hover:text-red-500 text-sm">{resource_library.remove}</button>
                 )}
               </div>
             </div>
@@ -111,14 +105,14 @@ export function ResourceLibrary({ matchId, role, initial }: { matchId: string; r
       {configured ? (
         <div className="flex flex-wrap items-center gap-2">
           <select value={category} onChange={e => setCategory(e.target.value)} className="rounded-xl border border-sand-200 px-3 py-2 text-sm">
-            {CATS.map(c => <option key={c.v} value={c.v}>{c.l}</option>)}
+            {CATS.map(c => <option key={c.value} value={c.value}>{c.label}</option>)}
           </select>
           <input ref={fileRef} type="file" disabled={busy} onChange={e => { const f = e.target.files?.[0]; if (f) upload(f) }}
             className="text-sm text-sand-600 file:mr-3 file:rounded-lg file:border-0 file:bg-brand-600 file:text-white file:px-4 file:py-2 file:text-sm file:font-medium hover:file:bg-brand-700" />
-          {busy && <span className="text-sm text-sand-500">Uploading…</span>}
+          {busy && <span className="text-sm text-sand-500">{resource_library.uploading}</span>}
         </div>
       ) : (
-        <p className="text-sm text-sand-400">File uploads aren&rsquo;t configured yet.</p>
+        <p className="text-sm text-sand-400">{resource_library.not_configured}</p>
       )}
       {error && <p className="text-sm text-red-600 mt-2">{error}</p>}
     </div>

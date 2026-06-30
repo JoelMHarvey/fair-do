@@ -1,9 +1,10 @@
 import type { Metadata, Viewport } from "next";
 import { Inter, Bricolage_Grotesque } from "next/font/google";
 import { ClerkProvider } from "@clerk/nextjs";
-import { headers } from "next/headers";
 import Script from "next/script";
 import { PWARegister } from "@/components/PWARegister";
+import { DictProvider } from "@/components/DictProvider";
+import { getDictionary, getLocaleFromHeaders } from "@/lib/dictionaries";
 import "./globals.css";
 
 const inter = Inter({
@@ -58,10 +59,11 @@ export default async function RootLayout({
 }: Readonly<{
   children: React.ReactNode;
 }>) {
-  const lang = (await headers()).get("x-locale") ?? "en";
+  const locale = await getLocaleFromHeaders();
+  const dict = await getDictionary(locale);
   return (
     <html
-      lang={lang}
+      lang={locale}
       className={`${inter.variable} ${bricolage.variable} h-full antialiased`}
     >
       <body className="min-h-full flex flex-col">
@@ -70,7 +72,9 @@ export default async function RootLayout({
             UAT / demo environment — sample data, not a live service. Don&apos;t enter real personal information.
           </div>
         )}
-        <ClerkProvider>{children}</ClerkProvider>
+        <ClerkProvider>
+          <DictProvider dict={dict}>{children}</DictProvider>
+        </ClerkProvider>
         <PWARegister />
         {/* Privacy-friendly analytics by Plausible */}
         <Script

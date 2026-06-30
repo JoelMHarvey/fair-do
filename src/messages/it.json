@@ -1054,5 +1054,169 @@
     "invoices_empty": "No payments yet.",
     "lesson_package": "Lesson package",
     "message_heading": "Message the tutor"
+  },
+  "teacher_nav": {
+    "dashboard": "Dashboard",
+    "calendar": "Calendar",
+    "students": "Students",
+    "billing": "Billing",
+    "earnings": "Earnings",
+    "edit_profile": "Edit profile",
+    "admin": "Admin",
+    "help": "Help",
+    "sign_out": "Sign out"
+  },
+  "getting_started": {
+    "heading": "Getting started",
+    "progress_of": "of",
+    "progress_done": "done",
+    "intro": "A few quick steps and you're ready to see students. We'll guide you through each one.",
+    "start": "Start →"
+  },
+  "referral_card": {
+    "copied": "Copied ✓",
+    "copy": "Copy",
+    "your_code": "Your code:"
+  },
+  "recurring_card_prompt": {
+    "title": "Keep your regular lessons running",
+    "description": "Your tutor set up a standing lesson. Authorise a card and each one is booked and paid automatically — cancel any time.",
+    "button_idle": "Save a card",
+    "button_busy": "Opening…",
+    "default_error": "Could not start card setup."
+  },
+  "booking_link_card": {
+    "heading": "🔗 Your booking link",
+    "description": "Share this so students can book you directly — add it to your website, email signature or social bio.",
+    "copy": "Copy",
+    "copied": "Copied"
+  },
+  "calendar_sync": {
+    "heading": "📅 Sync your calendar",
+    "subtitle": "See your fair-do lessons in Google, Apple or Outlook — they update automatically.",
+    "hide": "Hide",
+    "set_up": "Set up",
+    "copied": "Copied",
+    "copy": "Copy",
+    "apple_label": "Apple Calendar:",
+    "apple_link": "tap to add",
+    "apple_instructions": ", or Settings → Calendar → Add Account → Subscribed Calendar → paste the link.",
+    "google_label": "Google Calendar:",
+    "google_instructions": "Other calendars → + → From URL → paste the link.",
+    "outlook_label": "Outlook:",
+    "outlook_instructions": "Add calendar → Subscribe from web → paste the link.",
+    "privacy_note": "Keep this link private — anyone with it can see your lesson times."
+  },
+  "install_hint": {
+    "heading": "Add fair-do to your phone",
+    "ios_prefix": "Tap the ",
+    "ios_share": "Share",
+    "ios_middle": " button, then ",
+    "ios_add_to_home": "Add to Home Screen",
+    "ios_suffix": " — fair-do opens like an app, no browser needed.",
+    "android_body": "Install it as an app for one-tap access — no app store needed.",
+    "install_button": "Install app",
+    "dismiss": "Not now"
+  },
+  "push_toggle": {
+    "title": "🔔 Notifications",
+    "status_on": "On — we'll alert you to new messages and bookings.",
+    "status_off": "Get alerted when a student messages or books, even when fair-do is closed.",
+    "button_busy": "…",
+    "button_off": "Turn off",
+    "button_on": "Turn on"
+  },
+  "welcome_modal": {
+    "greeting": "Welcome",
+    "intro": "fair-do is your whole practice in one place. Here's the gist — it takes a few minutes to set up.",
+    "steps": [
+      {
+        "title": "Add your students.",
+        "body": "Invite them by email, or import your whole list. They're yours — no one else sees them."
+      },
+      {
+        "title": "Book lessons.",
+        "body": "Pick a time; we create a private video room and email your student automatically."
+      },
+      {
+        "title": "Get paid.",
+        "body": "Connect payments when you're ready and the money lands in your bank automatically."
+      }
+    ],
+    "help_before": "Stuck at any point? There's a ",
+    "help_link": "Help",
+    "help_after": " link at the top of every page — and no question is too small.",
+    "cta": "Let's get started →"
+  },
+  "parent_messages": {
+    "empty": "No messages yet.",
+    "composer_placeholder": "Write a message…",
+    "send": "Send",
+    "sending": "Sending…",
+    "send_error": "Could not send."
+  },
+  "resource_library": {
+    "categories": [
+      {
+        "value": "worksheet",
+        "label": "Worksheet"
+      },
+      {
+        "value": "homework",
+        "label": "Homework"
+      },
+      {
+        "value": "past-paper",
+        "label": "Past paper"
+      },
+      {
+        "value": "notes",
+        "label": "Notes"
+      },
+      {
+        "value": "submission",
+        "label": "Submitted work"
+      },
+      {
+        "value": "other",
+        "label": "Other"
+      }
+    ],
+    "error_too_large": "File is larger than 25 MB.",
+    "error_save_failed": "save failed",
+    "error_upload_failed": "Upload failed — try again.",
+    "from_student": "from student",
+    "visible_to_student": "Visible to student",
+    "hidden": "Hidden",
+    "remove": "Remove",
+    "uploading": "Uploading…",
+    "not_configured": "File uploads aren’t configured yet."
+  },
+  "recurring_booking_card": {
+    "days": [
+      "Sunday",
+      "Monday",
+      "Tuesday",
+      "Wednesday",
+      "Thursday",
+      "Friday",
+      "Saturday"
+    ],
+    "every_prefix": "Every",
+    "at": "at",
+    "min": "min",
+    "status_waiting": "waiting for student to add a card",
+    "status_active": "active",
+    "status_paused": "paused",
+    "pause": "Pause",
+    "resume": "Resume",
+    "cancel": "Cancel",
+    "day_label": "Day",
+    "time_label": "Time",
+    "minutes_label": "Minutes",
+    "setting_up": "Setting up…",
+    "set_up": "Set up",
+    "error_default": "Could not set up.",
+    "footer_note": "The student gets a prompt to authorise a card. We then create and charge each lesson automatically."
   }
 }

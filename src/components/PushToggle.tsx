@@ -1,6 +1,7 @@
 'use client'
 
 import { useEffect, useState } from 'react'
+import { useDict } from '@/components/DictProvider'
 
 function urlBase64ToUint8Array(base64: string): Uint8Array {
   const padding = '='.repeat((4 - (base64.length % 4)) % 4)
@@ -15,6 +16,7 @@ function urlBase64ToUint8Array(base64: string): Uint8Array {
 // books, even when fair-do isn't open. Hides itself if the browser can't do push or
 // the app isn't configured with a VAPID key.
 export function PushToggle() {
+  const { push_toggle } = useDict()
   const [supported, setSupported] = useState(false)
   const [on, setOn] = useState(false)
   const [busy, setBusy] = useState(false)
@@ -74,8 +76,8 @@ export function PushToggle() {
   return (
     <div className="flex items-center justify-between gap-3 bg-white border border-sand-200 rounded-2xl px-4 py-3 mb-6">
       <div className="min-w-0">
-        <p className="text-sm font-medium text-sand-900">🔔 Notifications</p>
-        <p className="text-xs text-sand-500">{on ? 'On — we\'ll alert you to new messages and bookings.' : 'Get alerted when a student messages or books, even when fair-do is closed.'}</p>
+        <p className="text-sm font-medium text-sand-900">{push_toggle.title}</p>
+        <p className="text-xs text-sand-500">{on ? push_toggle.status_on : push_toggle.status_off}</p>
       </div>
       <button
         onClick={on ? disable : enable}
@@ -84,7 +86,7 @@ export function PushToggle() {
           on ? 'border border-sand-200 text-sand-600 hover:bg-sand-50' : 'bg-brand-600 text-white hover:bg-brand-700'
         }`}
       >
-        {busy ? '…' : on ? 'Turn off' : 'Turn on'}
+        {busy ? push_toggle.button_busy : on ? push_toggle.button_off : push_toggle.button_on}
       </button>
     </div>
   )

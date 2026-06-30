@@ -1,9 +1,11 @@
 'use client'
 
 import { useState } from 'react'
+import { useDict } from '@/components/DictProvider'
 
 // Shows the therapist's private calendar-subscribe URL + how to add it to Google/Apple/Outlook.
 export function CalendarSync({ url }: { url: string }) {
+  const { calendar_sync } = useDict()
   const [copied, setCopied] = useState(false)
   const [open, setOpen] = useState(false)
   const webcal = url.replace(/^https?:\/\//, 'webcal://')
@@ -19,11 +21,11 @@ export function CalendarSync({ url }: { url: string }) {
     <section className="bg-white rounded-2xl border border-sand-200 shadow-sm p-5 mb-6">
       <div className="flex items-start justify-between gap-3">
         <div>
-          <h2 className="font-display text-base font-semibold text-brand-900">📅 Sync your calendar</h2>
-          <p className="text-sand-500 text-sm mt-0.5">See your fair-do lessons in Google, Apple or Outlook — they update automatically.</p>
+          <h2 className="font-display text-base font-semibold text-brand-900">{calendar_sync.heading}</h2>
+          <p className="text-sand-500 text-sm mt-0.5">{calendar_sync.subtitle}</p>
         </div>
         <button onClick={() => setOpen(v => !v)} className="text-sm font-medium text-brand-700 hover:text-brand-800 shrink-0">
-          {open ? 'Hide' : 'Set up'}
+          {open ? calendar_sync.hide : calendar_sync.set_up}
         </button>
       </div>
 
@@ -37,15 +39,15 @@ export function CalendarSync({ url }: { url: string }) {
               className="flex-1 min-w-0 rounded-lg border border-sand-200 bg-sand-50 px-3 py-2 text-xs text-sand-700"
             />
             <button onClick={copy} className="shrink-0 bg-brand-600 text-white text-sm font-medium px-3 py-2 rounded-lg hover:bg-brand-700 transition">
-              {copied ? 'Copied' : 'Copy'}
+              {copied ? calendar_sync.copied : calendar_sync.copy}
             </button>
           </div>
           <div className="mt-3 text-xs text-sand-600 space-y-1.5 leading-relaxed">
-            <p><strong>Apple Calendar:</strong> <a href={webcal} className="text-brand-700 underline">tap to add</a>, or Settings → Calendar → Add Account → Subscribed Calendar → paste the link.</p>
-            <p><strong>Google Calendar:</strong> Other calendars → <em>+</em> → From URL → paste the link.</p>
-            <p><strong>Outlook:</strong> Add calendar → Subscribe from web → paste the link.</p>
+            <p><strong>{calendar_sync.apple_label}</strong> <a href={webcal} className="text-brand-700 underline">{calendar_sync.apple_link}</a>{calendar_sync.apple_instructions}</p>
+            <p><strong>{calendar_sync.google_label}</strong> {calendar_sync.google_instructions}</p>
+            <p><strong>{calendar_sync.outlook_label}</strong> {calendar_sync.outlook_instructions}</p>
           </div>
-          <p className="mt-3 text-xs text-sand-400">Keep this link private — anyone with it can see your lesson times.</p>
+          <p className="mt-3 text-xs text-sand-400">{calendar_sync.privacy_note}</p>
         </div>
       )}
     </section>

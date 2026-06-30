@@ -4,11 +4,13 @@ import { prisma } from '@/lib/prisma'
 import { Logo } from './Logo'
 import { PRACTICE_PORTAL_ENABLED } from '@/lib/practice'
 import { isFounder } from '@/lib/founder'
+import { getDictionary, getLocaleFromHeaders } from '@/lib/dictionaries'
 import { TeacherMobileMenu } from './TeacherMobileMenu'
 
 // Shared therapist navigation — consistent across every therapist page, with a
 // compact hamburger on mobile so the links never crowd a small screen.
 export async function TeacherNav() {
+  const { teacher_nav } = await getDictionary(await getLocaleFromHeaders())
   // Admin/founder accounts (the full-access allowlist) get an Admin link so the
   // console is reachable from where they work (Docs lives in the admin sub-nav).
   const { userId } = await auth()
@@ -22,17 +24,17 @@ export async function TeacherNav() {
   }
 
   const links = [
-    { href: '/teacher/dashboard', label: 'Dashboard' },
+    { href: '/teacher/dashboard', label: teacher_nav.dashboard },
     ...(PRACTICE_PORTAL_ENABLED ? [
-      { href: '/teacher/calendar', label: 'Calendar' },
-      { href: '/teacher/students', label: 'Students' },
-      { href: '/teacher/billing', label: 'Billing' },
+      { href: '/teacher/calendar', label: teacher_nav.calendar },
+      { href: '/teacher/students', label: teacher_nav.students },
+      { href: '/teacher/billing', label: teacher_nav.billing },
     ] : []),
-    { href: '/teacher/earnings', label: 'Earnings' },
-    { href: '/teacher/profile', label: 'Edit profile' },
+    { href: '/teacher/earnings', label: teacher_nav.earnings },
+    { href: '/teacher/profile', label: teacher_nav.edit_profile },
     // Docs lives in the admin sub-nav now, so the top nav just has the Admin entry.
     ...(admin ? [
-      { href: '/admin', label: 'Admin' },
+      { href: '/admin', label: teacher_nav.admin },
     ] : []),
   ]
 
@@ -43,8 +45,8 @@ export async function TeacherNav() {
         {links.map(l => (
           <Link key={l.href} href={l.href} className={`text-sm transition ${l.href === '/admin' ? 'font-medium text-coral-600 hover:text-coral-700' : 'text-sand-500 hover:text-brand-700'}`}>{l.label}</Link>
         ))}
-        <Link href="/teacher/help" className="text-sm font-medium text-brand-700 hover:text-brand-800 transition">Help</Link>
-        <Link href="/sign-out" className="text-sm text-sand-500 hover:text-brand-700 transition">Sign out</Link>
+        <Link href="/teacher/help" className="text-sm font-medium text-brand-700 hover:text-brand-800 transition">{teacher_nav.help}</Link>
+        <Link href="/sign-out" className="text-sm text-sand-500 hover:text-brand-700 transition">{teacher_nav.sign_out}</Link>
       </div>
       <TeacherMobileMenu links={links} />
     </nav>
