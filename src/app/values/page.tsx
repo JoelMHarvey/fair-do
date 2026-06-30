@@ -5,13 +5,9 @@ import { SiteFooter } from '@/components/SiteFooter'
 import { getDictionary, getLocaleFromHeaders } from '@/lib/dictionaries'
 import { localeAlternates } from '@/lib/i18n-seo'
 
-const baseMetadata: Metadata = {
-  title: 'Why we built fair-do — our values',
-  description: 'Tutoring that is fair — to the people who do the work, and the people who need it. Why fair-do exists, and what we promise tutors and students.',
-}
-
 export async function generateMetadata(): Promise<Metadata> {
-  return { ...baseMetadata, alternates: await localeAlternates('/values') }
+  const { meta } = await getDictionary(await getLocaleFromHeaders())
+  return { title: meta.values.title, description: meta.values.description, alternates: await localeAlternates('/values') }
 }
 
 function H({ children }: { children: React.ReactNode }) {

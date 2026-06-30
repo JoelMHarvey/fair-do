@@ -5,14 +5,9 @@ import { SiteFooter } from '@/components/SiteFooter'
 import { getDictionary, getLocaleFromHeaders } from '@/lib/dictionaries'
 import { localeAlternates } from '@/lib/i18n-seo'
 
-const baseMetadata: Metadata = {
-  title: 'How fair-do works — the calm tool for independent tutors',
-  description:
-    'See how fair-do helps you run your whole tutoring business — your own students, scheduling, secure video, payments and reminders, on web and phone. Private, simple, and fair. Start free.',
-}
-
 export async function generateMetadata(): Promise<Metadata> {
-  return { ...baseMetadata, alternates: await localeAlternates('/for-tutors') }
+  const { meta } = await getDictionary(await getLocaleFromHeaders())
+  return { title: meta.for_tutors.title, description: meta.for_tutors.description, alternates: await localeAlternates('/for-tutors') }
 }
 
 export default async function ForTutorsPage() {
