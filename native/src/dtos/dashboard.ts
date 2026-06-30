@@ -20,7 +20,7 @@ export const AlertSchema = z.object({
 })
 
 export const DashboardSchema = z.object({
-  therapist: z.object({
+  teacher: z.object({
     id: z.string(),
     firstName: z.string(),
     lastName: z.string(),

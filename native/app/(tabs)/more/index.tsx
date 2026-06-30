@@ -3,7 +3,7 @@ import { SafeAreaView } from 'react-native-safe-area-context'
 import { useAuth } from '@clerk/clerk-expo'
 import { useRouter } from 'expo-router'
 
-const API_URL = process.env.EXPO_PUBLIC_API_URL ?? 'https://faresay.com'
+const API_URL = process.env.EXPO_PUBLIC_API_URL ?? 'https://fair-do.com'
 
 type RowProps = { label: string; sub?: string; onPress: () => void; destructive?: boolean }
 

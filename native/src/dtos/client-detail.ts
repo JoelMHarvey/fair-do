@@ -32,7 +32,7 @@ export const ClientDetailSchema = z.object({
       payment: z
         .object({
           amountTotalPence: z.number(),
-          therapistPayoutPence: z.number(),
+          teacherPayoutPence: z.number(),
           status: z.string(),
         })
         .nullable(),

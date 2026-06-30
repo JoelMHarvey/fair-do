@@ -14,7 +14,7 @@ import { useRouter } from 'expo-router'
 import { useApiFetch } from '@/lib/api'
 import { ProfileResponseSchema } from '@/dtos/profile'
 
-const API_URL = process.env.EXPO_PUBLIC_API_URL ?? 'https://faresay.com'
+const API_URL = process.env.EXPO_PUBLIC_API_URL ?? 'https://fair-do.com'
 
 function pence(p: number) {
   return `£${(p / 100).toFixed(0)}`
@@ -148,7 +148,7 @@ export default function ProfileScreen() {
             {data.practiceSlug && (
               <>
                 <View style={styles.divider} />
-                <InfoRow label="URL" value={`faresay.com/p/${data.practiceSlug}`} />
+                <InfoRow label="URL" value={`fair-do.com/p/${data.practiceSlug}`} />
               </>
             )}
             <View style={styles.divider} />
@@ -188,7 +188,7 @@ export default function ProfileScreen() {
           style={styles.editButton}
           onPress={() => Linking.openURL(`${API_URL}/teacher/profile`)}
         >
-          <Text style={styles.editButtonText}>Edit profile on Faresay →</Text>
+          <Text style={styles.editButtonText}>Edit profile on fair-do →</Text>
         </TouchableOpacity>
       </ScrollView>
     </SafeAreaView>

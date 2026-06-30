@@ -31,7 +31,7 @@ function ThreadRow({ thread }: { thread: ThreadSummary }) {
   const a11yLabel = [
     `${thread.clientFirstName} ${thread.clientLastName}`,
     thread.unreadCount > 0 ? `${thread.unreadCount} unread` : '',
-    thread.lastMessage ? (thread.lastMessage.isFromTherapist ? `You: ${thread.lastMessage.body}` : thread.lastMessage.body) : '',
+    thread.lastMessage ? (thread.lastMessage.isFromTeacher ? `You: ${thread.lastMessage.body}` : thread.lastMessage.body) : '',
   ].filter(Boolean).join(', ')
 
   return (
@@ -64,7 +64,7 @@ function ThreadRow({ thread }: { thread: ThreadSummary }) {
             style={[styles.preview, thread.unreadCount > 0 && styles.previewBold]}
             numberOfLines={1}
           >
-            {thread.lastMessage.isFromTherapist ? 'You: ' : ''}
+            {thread.lastMessage.isFromTeacher ? 'You: ' : ''}
             {thread.lastMessage.body}
           </Text>
         )}

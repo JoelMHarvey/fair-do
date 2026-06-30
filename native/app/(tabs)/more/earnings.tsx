@@ -36,7 +36,7 @@ function PaymentRow({ payment, sym }: { payment: Payment; sym: string }) {
         </Text>
       </View>
       <View style={{ alignItems: 'flex-end' }}>
-        <Text style={styles.amount}>{fmt(payment.therapistPayoutPence, sym)}</Text>
+        <Text style={styles.amount}>{fmt(payment.teacherPayoutPence, sym)}</Text>
         <Text style={styles.fee}>fee {fmt(payment.platformFeePence, sym)}</Text>
       </View>
     </View>

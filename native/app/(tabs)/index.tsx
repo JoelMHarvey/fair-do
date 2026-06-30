@@ -102,7 +102,7 @@ export default function DashboardScreen() {
     )
   }
 
-  const { therapist, todaySessions, upcomingSessions, earnings, activeClientCount, unreadMessageCount, alerts } = data
+  const { teacher, todaySessions, upcomingSessions, earnings, activeClientCount, unreadMessageCount, alerts } = data
 
   return (
     <SafeAreaView style={styles.safe}>
@@ -115,10 +115,10 @@ export default function DashboardScreen() {
         <View style={styles.header}>
           <View>
             <Text style={styles.greeting}>
-              {therapist.firstName} {therapist.lastName}
+              {teacher.firstName} {teacher.lastName}
             </Text>
             <Text style={styles.subGreeting}>
-              {therapist.registrationBody} · {pence(therapist.sessionRatePence)}/session
+              {teacher.registrationBody} · {pence(teacher.sessionRatePence)}/session
             </Text>
           </View>
           <TouchableOpacity

@@ -18,7 +18,7 @@ import { useAuth } from '@clerk/clerk-expo'
 import { useApiFetch } from '@/lib/api'
 import { ClientDetailSchema } from '@/dtos/client-detail'
 
-const API_URL = process.env.EXPO_PUBLIC_API_URL ?? 'https://faresay.com'
+const API_URL = process.env.EXPO_PUBLIC_API_URL ?? 'https://fair-do.com'
 
 const STATUS_LABEL: Record<string, string> = {
   SCHEDULED: 'Scheduled',
@@ -263,7 +263,7 @@ export default function ClientDetailScreen() {
                     <Text style={styles.rowLabel}>{fmtDateTime(s.scheduledAt)}</Text>
                     {s.payment && (
                       <Text style={styles.rowSub}>
-                        {pence(s.payment.therapistPayoutPence)} earned
+                        {pence(s.payment.teacherPayoutPence)} earned
                       </Text>
                     )}
                   </View>

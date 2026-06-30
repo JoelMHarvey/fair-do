@@ -18,12 +18,12 @@ export function LockScreen() {
       <View
         style={styles.body}
         accessible
-        accessibilityLabel="Faresay is locked. Authenticate to continue."
+        accessibilityLabel="fair-do is locked. Authenticate to continue."
       >
         <View style={styles.logoMark}>
           <Text style={styles.logoText}>F</Text>
         </View>
-        <Text style={styles.title}>Faresay</Text>
+        <Text style={styles.title}>fair-do</Text>
         <Text style={styles.subtitle}>Authenticate to continue</Text>
 
         <TouchableOpacity

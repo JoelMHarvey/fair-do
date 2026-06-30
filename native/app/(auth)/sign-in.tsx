@@ -49,8 +49,8 @@ export default function SignInScreen() {
         behavior={Platform.OS === 'ios' ? 'padding' : undefined}
       >
         <View style={styles.header}>
-          <Text style={styles.wordmark}>Faresay</Text>
-          <Text style={styles.subtitle}>Practice management for therapists</Text>
+          <Text style={styles.wordmark}>fair-do</Text>
+          <Text style={styles.subtitle}>Practice management for teachers</Text>
         </View>
 
         <View style={styles.form}>
@@ -96,7 +96,7 @@ export default function SignInScreen() {
           </TouchableOpacity>
 
           <Text style={styles.footer}>
-            Forgotten your password? Visit faresay.com to reset it.
+            Forgotten your password? Visit fair-do.com to reset it.
           </Text>
         </View>
       </KeyboardAvoidingView>

@@ -101,7 +101,7 @@ export default function SessionJoinScreen() {
             </TouchableOpacity>
 
             <Text style={styles.joinNote}>
-              Opens in your browser. Return to Faresay when done.
+              Opens in your browser. Return to fair-do when done.
             </Text>
           </>
         )}
