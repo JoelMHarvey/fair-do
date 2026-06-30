@@ -4,13 +4,13 @@
 
 ## The vision (the crux of everything)
 
-We built fair-do because we think tutors — people who trained for years, who know their subject, who genuinely change outcomes for families — should keep what they earn. We think quality tutoring should reach more families, not fewer, and that the only thing standing in the way is a pricing model that extracts 25–40% from every lesson for no good reason. We don't take a cut of a tutor's livelihood; we charge a small, fixed monthly fee to keep the lights on and nothing more.
+We built fair-do because we think tutors — people who trained for years, who know their subject, who genuinely change outcomes for families — should keep what they earn. We think quality tutoring should reach more families, not fewer, and that the only thing standing in the way is a pricing model that extracts 25–40% from every lesson for no good reason. We don't take a cut of the students a tutor brings with them; we charge a small, fixed monthly subscription to keep the lights on, and a 10% fee only when our own directory finds them a new student.
 
 **Three pillars:**
 
-1. **Fair pay** — tutors keep 90% of every lesson fee, always
+1. **Fair pay** — tutors keep 100% of every lesson with their own students; we never take a percentage of work they brought in
 2. **Access** — transparent pricing means more families can afford consistent tutoring, not just occasional panic sessions before exams
-3. **No extraction** — the platform makes money from subscriptions, not from taking a percentage of a teacher's work
+3. **No extraction** — the platform makes money from subscriptions, not from taking a percentage of a teacher's own clients; the only commission is 10% on students our directory finds them, half what incumbents charge on everything
 
 **Tone:** warm, direct, ambitious. Never clinical, never salesy. We don't bash competitors — we just do it differently.
 
@@ -22,15 +22,15 @@ We built fair-do because we think tutors — people who trained for years, who k
 Tutors are skilled professionals. They should be paid like it. A platform that takes 30% of a tutor's income doesn't work *with* tutors — it works *on* them. We built the alternative.
 
 ### Level 2 — Human benefit (what this means for real people)
-For tutors: the same 20-hour week earns you £200–£400 more each month. Your clients are yours. Your schedule is yours. You get professional tools without paying professional commission.
+For tutors: the same 20-hour week earns you £200–£400 more each month. Your clients are yours — and you keep 100% of what you earn from them. Your schedule is yours. You get professional tools without paying professional commission.
 
 For parents and students: you pay what the tutor charges. No service fees added at checkout. No opaque pricing. The tutor you chose gets paid fairly, so they stay, they care, and they show up.
 
 ### Level 3 — Proof (the numbers that back the claim)
-- Tutors keep 90% on fair-do. The UK average on competing platforms: 60–75%.
-- A tutor charging £40/hour, 20 sessions a week, earns £640/week on a 20%-commission platform. On fair-do: £720. Difference: £4,160/year — for the same work.
+- Tutors keep 100% of what they earn from their own students on fair-do, and pay just 10% on students our directory finds them. The UK average on competing platforms: 60–75% kept on *every* lesson.
+- A tutor charging £40/hour, 20 sessions a week, earns £640/week on a 20%-commission platform. On fair-do, the same week with their own students is the full £800 — and even a directory-sourced booking nets £720. Difference: £4,160–£8,320/year — for the same work.
 - Competitors charge parents an additional 35% service fee on top of the tutor's rate. fair-do doesn't.
-- Free tier for up to 8 students. No credit card required to start.
+- Free tier for up to 8 students, 0% commission on your own. No credit card required to start.
 
 ### Level 4 — CTA (what to do next)
 **Tutors:** Set up your profile in under 10 minutes. Your first 8 students are free.
@@ -40,10 +40,10 @@ For parents and students: you pay what the tutor charges. No service fees added 
 
 ## Taglines (5–7 options for different channels)
 
-1. **"Tutors keep 90%."** *(direct, numerical — for tutor acquisition ads and social)*
+1. **"Your students. Your 100%."** *(direct, numerical — for tutor acquisition ads and social)*
 2. **"The tutoring platform that works for tutors."** *(positioning — for the homepage header)*
 3. **"Fair for tutors. Transparent for families."** *(two-sided — for general brand use)*
-4. **"Your expertise. Your rates. Your 90%."** *(tutor-specific — email, LinkedIn)*
+4. **"Your expertise. Your rates. Your 100%."** *(tutor-specific — email, LinkedIn)*
 5. **"What if your tutoring platform didn't take 30%?"** *(provocation — for organic social, TikTok, YouTube pre-roll)*
 6. **"Quality tutoring, honestly priced."** *(parent-facing — trust-first)*
 7. **"Built for tutors. Not built on them."** *(mission — About page, press kit, investor materials)*
@@ -98,11 +98,11 @@ Three primary profiles:
 
 ### Hooks
 
-1. **The maths hook:** "You charge £40/hour. On a 20%-commission platform, you net £32. On fair-do, you net £36. That's £960/year extra for the same 20 sessions — without finding a single new student."
+1. **The maths hook:** "You charge £40/hour. On a 20%-commission platform, you net £32 — on every lesson, including the students you brought yourself. On fair-do, your own students are 0% commission: you keep the full £40. We only take 10% when our directory finds you a new student. That's thousands a year back in your pocket for the same work."
 
 2. **The ownership hook:** "Your reviews are yours. Your client relationships are yours. Your profile URL is yours. When you build a reputation on fair-do, it doesn't disappear if you ever leave."
 
-3. **The free tier hook:** "Start free. No commission. No monthly fee. Up to 8 students, full platform tools, your own booking page. Because you should test a platform before you commit your livelihood to it."
+3. **The free tier hook:** "Start free. 0% commission on your own students. No monthly fee. Up to 8 students, full platform tools, your own booking page. Because you should test a platform before you commit your livelihood to it."
 
 4. **The admin-relief hook:** "Invoices go out automatically. Payments arrive within 2 business days. Scheduling happens on the platform. The four hours a week you're losing to admin right now — get them back."
 
@@ -130,7 +130,7 @@ We built fair-do because we couldn't find a good reason for that number.
 
 The infrastructure a tutoring platform provides — a booking system, a video room, a payment processor, a client-facing profile page — is not expensive to build or maintain. It certainly isn't worth 30% of a tutor's income, indefinitely, on every session, for students the tutor sourced themselves and has retained for years through their own quality of work.
 
-So we priced it differently. Tutors on fair-do keep 90% of every session fee. We charge a small monthly subscription — free for up to 8 students, £15 per month for unlimited students and advanced tools — and nothing more. No commission on sessions. No service fee added to the parent's invoice at checkout. No percentage that climbs as the tutor's reputation grows and makes them more valuable.
+So we priced it differently. Tutors on fair-do keep 100% of what they earn from their own students. We charge a small monthly subscription — free for up to 8 students, £29 per month (Pro) for unlimited students and advanced tools — and a 10% fee only when our own directory finds a tutor a new student. No commission on the students a tutor brings themselves. No service fee added to the parent's invoice at checkout. No percentage that climbs as the tutor's reputation grows and makes them more valuable.
 
 For parents, this has a direct effect. When tutors earn fairly, they can charge sustainably. They don't need to inflate their rates to compensate for the cut taken before they see a penny. The economics of fair tutoring and affordable tutoring are not in tension — they are the same thing.
 
@@ -172,11 +172,11 @@ That's the whole model. We think it's enough.
 
 **[Pause]** "After 30% commission — which is standard on most UK tutoring platforms — they take home five hundred and sixty pounds."
 
-**[Beat]** "For the same twenty sessions, the same forty quid an hour, on fair-do — they take home seven hundred and twenty."
+**[Beat]** "The students they brought themselves? On fair-do, they keep every penny. Eight hundred pounds."
 
-**[Direct to camera]** "We take ten percent. That's it. Because a platform that runs booking and payments doesn't need thirty percent of a teacher's salary."
+**[Direct to camera]** "And when our directory finds them a new student, we take ten percent — not thirty. Because a platform that runs booking and payments doesn't need a third of a teacher's salary."
 
-**[End card: fair-do.com — tutors keep 90%]**
+**[End card: fair-do.com — keep 100% of your own students]**
 
 ---
 
@@ -191,7 +191,7 @@ That's the whole model. We think it's enough.
 
 **[VO or direct to cam]** "If you're tutoring on any of the big UK platforms right now, you're probably keeping somewhere between sixty and seventy pence of every pound you earn."
 
-**[Pause]** "fair-do is different. You keep ninety percent. We charge a flat monthly fee — fifteen pounds — and we don't take anything from your sessions."
+**[Pause]** "fair-do is different. You keep one hundred percent of what you earn from your own students. We charge a flat monthly fee — twenty-nine pounds for Pro — and take ten percent only on students our directory finds you."
 
 **[B-roll: tutor profile page, booking calendar, payout screen]**
 
@@ -241,9 +241,9 @@ That's the whole model. We think it's enough.
 
 **[Lean in slightly]** "We thought: the infrastructure isn't worth thirty percent of someone's career. Booking software, a video room, a payment processor — these are not worth a third of a teacher's salary, indefinitely."
 
-**[Pause]** "So we built a version that costs ten percent. And charges a flat monthly fee for the rest."
+**[Pause]** "So we built a version that takes nothing from the students a tutor brings — and just ten percent on the ones we find them. A flat monthly fee for the rest."
 
-**[Settle back]** "Tutors keep ninety percent of what they earn. Parents see exactly what they're paying. No service fees at checkout. No commission creep."
+**[Settle back]** "Tutors keep one hundred percent of what they earn from their own students. Parents see exactly what they're paying. No service fees at checkout. No commission creep."
 
 **[Simple close]** "That's fair-do. Fair-do.com."
 

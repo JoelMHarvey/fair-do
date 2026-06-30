@@ -8,27 +8,26 @@ Reviews the `fair-do_future/` strategy docs (master plan, scale/reinvestment, mi
 
 ## 🔴 Critical — money model contradicts itself
 
-**1. The build takes a lesson commission; the brand says it doesn't.**
-- **Build** (`src/lib/billing.ts`): Starter £0/mo **+ 2.5%**, Practice £39/mo **+ 1%**, Clinic £79/mo **+ 0%**. The commission is a real Stripe **application fee** fair-do keeps.
+> **RESOLVED — updated to current model.** The per-tier 2.5%/1%/0% commission buy-down has been removed. The build now takes **0% on a tutor's own students** and **10% only on marketplace (directory-sourced) bookings**, with tiers **Free £0/mo · Pro £29/mo · School £79/mo**. Item 1's "keep 100%" contradiction no longer applies to a tutor's own students; items 2 and 4 below are likewise mooted by the source-based commission. The notes are retained for historical context.
+
+**1. The build takes a lesson commission; the brand says it doesn't.** *(historical — see RESOLVED note)*
+- **Build** (`src/lib/billing.ts`): **Free £0/mo, Pro £29/mo, School £79/mo.** Commission is **0% on own students** and **10% only on marketplace bookings** (`MARKETPLACE_COMMISSION_BPS`, `commissionForSource`) — independent of tier. The marketplace fee is a real Stripe **application fee** fair-do keeps.
 - **Values copy (11)** and the live pricing/marketing: *"keep 100% of every lesson. We don't take a percentage."*
-- These **directly contradict**. Only the £79 Clinic tier is actually 0%. In a regulated, trust-sensitive space this is a **claims/false-advertising risk** (your own master plan's "claims discipline" section warns about exactly this).
-- **Decision required — pick one, then make build + copy + docs all say the same thing:**
-  - **(A) True "keep 100%":** set every tier's `commissionBps` to **0**; revenue is the subscription only. This is what the milestone-pricing, starter-tier, free→paid, and values docs all assume. **Recommended** — it's the brand.
-  - **(B) Keep a small commission:** then the values/marketing must stop saying "keep 100% / no percentage" and instead say "a small X% per lesson," everywhere.
-- **The `/values` page in this PR uses (A)'s wording — do not deploy it until the build is set to 0% commission**, or the page makes a claim the code contradicts.
+- Under the current model this holds for a tutor's **own** students (0%); the only fee is **10% on directory-sourced (marketplace) bookings**, where the messaging is "a small fee only when we find you the student." Make sure every surface carries that nuance so "keep 100%" is never naked.
+- *(Original critique, now historical: previously every tier carried a commission and only the top tier was 0%, which contradicted "keep 100%". The recommended fix — go to 0% on own students — has shipped.)*
 
 **2. Pricing architecture is a different model entirely.**
 - **Docs (07 / 09 / 12):** one **flat fee** (£30 → £15 floor), **lock-in for life**, **milestone step-downs** (250/500/1,000…), **free starter** until ~**3 active students**, convert on cap with grace.
-- **Build:** three fixed tiers (£0 / £39 / £79) differentiated by commission + features; Starter cap is **10 active students**, not 3; **no lock-in**, **no milestone schedule**.
+- **Build:** three fixed tiers (Free £0 / Pro £29 / School £79) differentiated by features (commission is now source-based, not tier-based); Free cap is **10 active students**, not 3; **no lock-in**, **no milestone schedule**.
 - Gaps to build for the documented model:
   - `Subscription.lockedRatePence` + `lockedAt` (07 Rule 5 — store the rate at signup, bill it for life).
   - A **milestone table** (tutor-count → new-joiner rate) + logic that reads the *current* milestone rate for new signups only.
   - **Free-starter active-student cap** as a *feature boundary* (12) — currently a flat "up to 10" feature bullet, not an enforced, grace-handled cap.
   - Reconcile the **cap number**: docs say ~3, build says 10.
 
-**3. Stale "keep 90%" in a live email.** `src/lib/email.ts` (`sendTeacherApproved`) still tells approved tutors *"you keep 90% of every lesson"* — pre-pivot, and contradicts **both** "keep 100%" **and** the 2.5%/1% commission. Fix the copy whichever model you pick.
+**3. Stale "keep 90%" in a live email.** `src/lib/email.ts` (`sendTeacherApproved`) still tells approved tutors *"you keep 90% of every lesson"* — pre-pivot, and contradicts the current **0% on own students / 10% on marketplace** model. Fix the copy to match (keep 100% on own students; a 10% fee only on directory-sourced bookings).
 
-**4. Schema default drift.** `Subscription.commissionBps` defaults to **200 (2%)** in the schema, but the Starter tier in `billing.ts` is **250 (2.5%)**. Align (or moot it by going to 0%).
+**4. Schema default drift.** *(Mooted under the current model.)* `Subscription.commissionBps` is no longer the live commission lever — commission is now computed by booking **source** (`commissionForSource`: 0% own, 10% marketplace), not from a per-tier basis-points field. Any residual `commissionBps` default in the schema is inert.
 
 ---
 
@@ -55,7 +54,7 @@ Reviews the `fair-do_future/` strategy docs (master plan, scale/reinvestment, mi
 ## ✅ Already aligned with the plans
 
 - Directory gated until later (`DIRECTORY_ENABLED`) — matches ">100 tutors first."
-- Free Starter tier exists (free to start) — matches "remove the join barrier."
+- Free tier exists (free to start) — matches "remove the join barrier."
 - Full verification at every tier (credential workflow) — matches the "free never means unvetted" guardrail.
 - Tutor owns students / can leave with them — matches the values promise.
 - Students pay the tutor directly, no student-side platform fee — matches monetisation default.

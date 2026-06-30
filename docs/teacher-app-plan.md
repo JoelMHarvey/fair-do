@@ -646,7 +646,7 @@ The following work exactly as-is for a teacher app. Do not modify them:
 
 - Daily.co video integration (rooms, tokens, webhook, join tracking)
 - Stripe Connect payouts
-- Stripe Billing subscription tiers (Starter / Practice / Clinic still make sense)
+- Stripe Billing subscription tiers (now shipped as **Free / Pro / School** — see Phase 2 pricing below)
 - Package bundles ("6 lessons for £X")
 - Gift vouchers
 - Credit system
@@ -700,7 +700,7 @@ To get to market fastest:
 - GCSE and A-Level focus initially (highest demand, clearest credential path)
 - Manual credential verification (QTS check via TRA, DBS document upload reviewed by admin)
 - No automated Onfido checks — add in v2 once volume justifies it
-- Keep subscription tiers identical to Faresay — no pricing decisions needed at launch
+- Subscription tiers (shipped as Free £0 / Pro £29 / School £79 — see Phase 2 pricing) — no further pricing decisions needed at launch
 - Skip outcome/progress tracking for v1 — teachers can use the freeform Match notes field
 
 Everything else in the codebase is ready to go.
@@ -758,16 +758,19 @@ Replace the Faresay Starter/Practice/Clinic tiers with tutor-specific tiers:
 | Tier | Price | Limits & features |
 |---|---|---|
 | **Free** | £0/mo | Up to 8 own students, 0% commission on own, marketplace listing, video, scheduling, messaging |
-| **Pro** | £15/mo | Unlimited own students, recurring bookings, parent portal, AI lesson notes, resource sharing, branded emails, configurable cancellation policy |
-| **Studio** | £45/mo | Multiple teachers under one account, school/agency B2B features, bulk invoicing, white-label branding |
+| **Pro** | £29/mo | Unlimited own students, recurring bookings, parent portal, AI lesson notes, resource sharing, branded emails, configurable cancellation policy |
+| **School** | £79/mo | Multiple teachers under one account, school/agency B2B features, bulk invoicing, white-label branding |
 
 **Rationale:** TutorBird's paid tier is ~£30+/month for scheduling and invoicing only —
-no marketplace, no video, no payments. At £15/month this platform offers considerably
-more. The free tier is generous enough to acquire tutors without friction; marketplace
-commission on directory-sourced students covers the cost of free-tier users.
+no marketplace, no video, no payments. At £29/month (Pro) this platform offers considerably
+more — full marketplace, video, and integrated payments. The free tier is generous enough
+to acquire tutors without friction; marketplace commission on directory-sourced students
+covers the cost of free-tier users.
 
-Update `Subscription.tier` values (`starter | practice | clinic` → `free | pro | studio`)
-and the feature-gate checks throughout the codebase. Update Stripe Price IDs in env vars.
+**Shipped:** `Subscription.tier` values are `free | pro | school` (a legacy
+`starter | practice | clinic` → current map lives in `billing.ts` `normalizeTierId`).
+Stripe Price IDs are supplied via `STRIPE_PRICE_PRO` and `STRIPE_PRICE_SCHOOL` env vars
+(parent portal uses `STRIPE_PRICE_PARENT_PORTAL`).
 
 ---
 
@@ -845,7 +848,7 @@ Session, and charges the saved payment method via Stripe PaymentIntents with
 The student must save a payment method at setup time (Stripe SetupIntent flow). Add a
 "Set up recurring lesson" UI in the Match/Enrolment detail page.
 
-**Gating:** Pro and Studio tiers only.
+**Gating:** Pro and School tiers only.
 
 ---
 
@@ -987,7 +990,7 @@ parent subscription.
 **Schema changes:** `ParentLink` (extended), `ParentMessageThread`, `ParentMessage`,
 `LessonTranscript`, `PARENT` role in `UserRole` enum.
 
-**Gating:** Teacher must be on Pro or Studio to offer parent portal to their students.
+**Gating:** Teacher must be on Pro or School to offer parent portal to their students.
 The parent then pays separately — this prevents free-tier teachers from offering a
 premium feature the platform can't sustain at that price point.
 
@@ -1045,7 +1048,7 @@ model LessonNote {
 this is negligible per lesson. Use `claude-haiku-4-5-20251001` for cost efficiency;
 the structured output task doesn't need a more powerful model.
 
-**Gating:** Pro and Studio tiers only.
+**Gating:** Pro and School tiers only.
 
 ---
 

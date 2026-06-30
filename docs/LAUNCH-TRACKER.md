@@ -9,7 +9,7 @@ Legend: 🔴 blocking · 🟠 do soon · 🟢 parallel/anytime · ✅ done
 ## UK — go-live path (primary market)
 
 ### 1. Legal (the gate) — `docs/LEGAL-BRIEF.md`
-- [ ] 🔴 Companies House — register **fair-do Ltd** + business bank account
+- [ ] 🔴 Companies House — **Faresay Ltd already exists** (the old Faresay entity); register the **fair-do** trading name + open/confirm the business bank account
 - [ ] 🔴 Solicitor: lawful basis (Art 6) confirmed · **DPIA** · sign-off on /privacy
 - [ ] 🔴 **ICO** registration (data controller, ~£60/yr)
 - [ ] 🔴 **DPAs** signed — Clerk, Neon, Stripe, Daily, Resend, Cloudinary
@@ -66,7 +66,7 @@ Legend: 🔴 blocking · 🟠 do soon · 🟢 parallel/anytime · ✅ done
 ---
 
 ## Single most important next action per market
-- **UK:** finish solicitor conversation + register fair-do Ltd.
+- **UK:** finish solicitor conversation + confirm Faresay Ltd trading as fair-do (no new incorporation).
 - **US:** engage a NY education/tutoring attorney (decides structure, unlocks everything else).
 
 Everything else flows from those two engagements. The code is ready for both.
