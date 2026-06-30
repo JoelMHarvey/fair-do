@@ -41,7 +41,7 @@ vi.mock('@/lib/prisma', () => ({
 }))
 
 import { GET as getDashboard } from '@/app/api/mobile/v1/dashboard/route'
-import { GET as getClients } from '@/app/api/mobile/v1/clients/route'
+import { GET as getClients } from '@/app/api/mobile/v1/students/route'
 import { GET as getCalendar } from '@/app/api/mobile/v1/calendar/route'
 import { GET as getEarnings } from '@/app/api/mobile/v1/earnings/route'
 
@@ -75,7 +75,7 @@ describe('mobile API — 401 when not authenticated', () => {
     expect(res.status).toBe(401)
   })
 
-  it('GET /mobile/v1/clients → 401', async () => {
+  it('GET /mobile/v1/students → 401', async () => {
     const res = await getClients()
     expect(res.status).toBe(401)
   })
@@ -137,7 +137,7 @@ describe('mobile API — data isolation', () => {
     expect(call.where.senderClerkId).toEqual({ not: 'clerk_A' })
   })
 
-  it('clients: match query scoped to therapist A', async () => {
+  it('students: match query scoped to teacher A', async () => {
     const res = await getClients()
     expect(res.status).toBe(200)
     const call = mockMatchFindMany.mock.calls[0][0]

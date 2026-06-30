@@ -3,7 +3,7 @@ import { z } from 'zod'
 export const ThreadSummarySchema = z.object({
   id: z.string(),
   matchId: z.string(),
-  clientId: z.string(),
+  studentId: z.string(),
   clientFirstName: z.string(),
   clientLastName: z.string(),
   updatedAt: z.string(),
@@ -35,7 +35,7 @@ export const MessageSchema = z.object({
 export const ThreadDetailSchema = z.object({
   id: z.string(),
   matchId: z.string(),
-  client: z.object({
+  student: z.object({
     id: z.string(),
     firstName: z.string(),
     lastName: z.string(),

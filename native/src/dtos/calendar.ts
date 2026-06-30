@@ -2,7 +2,7 @@ import { z } from 'zod'
 
 export const CalendarSessionSchema = z.object({
   id: z.string(),
-  clientId: z.string(),
+  studentId: z.string(),
   clientFirstName: z.string(),
   clientLastName: z.string(),
   matchId: z.string(),

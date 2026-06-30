@@ -16,7 +16,7 @@ import { SafeAreaView } from 'react-native-safe-area-context'
 import { useLocalSearchParams, useRouter } from 'expo-router'
 import { useAuth } from '@clerk/clerk-expo'
 import { useApiFetch } from '@/lib/api'
-import { ClientDetailSchema } from '@/dtos/client-detail'
+import { StudentDetailSchema } from '@/dtos/student-detail'
 
 const API_URL = process.env.EXPO_PUBLIC_API_URL ?? 'https://fair-do.com'
 
@@ -59,7 +59,7 @@ function fmtDateTime(iso: string) {
   })
 }
 
-export default function ClientDetailScreen() {
+export default function StudentDetailScreen() {
   const { matchId } = useLocalSearchParams<{ matchId: string }>()
   const router = useRouter()
   const apiFetch = useApiFetch()
@@ -77,8 +77,8 @@ export default function ClientDetailScreen() {
   const [showTimePicker, setShowTimePicker] = useState(false)
 
   const { data, isLoading, isError, refetch } = useQuery({
-    queryKey: ['client', matchId],
-    queryFn: () => apiFetch(`/api/mobile/v1/clients/${matchId}`, ClientDetailSchema),
+    queryKey: ['student', matchId],
+    queryFn: () => apiFetch(`/api/mobile/v1/students/${matchId}`, StudentDetailSchema),
     enabled: !!matchId,
   })
 
@@ -101,9 +101,9 @@ export default function ClientDetailScreen() {
     },
     onSuccess: () => {
       setShowBooking(false)
-      qc.invalidateQueries({ queryKey: ['client', matchId] })
+      qc.invalidateQueries({ queryKey: ['student', matchId] })
       qc.invalidateQueries({ queryKey: ['dashboard'] })
-      Alert.alert('Booked', 'Session scheduled. Your client will receive an email confirmation.')
+      Alert.alert('Booked', 'Session scheduled. Your student will receive an email confirmation.')
     },
     onError: (e: Error) => {
       Alert.alert('Could not book', e.message)
@@ -121,7 +121,7 @@ export default function ClientDetailScreen() {
   if (isError || !data) {
     return (
       <SafeAreaView style={styles.centered}>
-        <Text style={styles.errorText}>Could not load client.</Text>
+        <Text style={styles.errorText}>Could not load student.</Text>
         <TouchableOpacity onPress={() => refetch()} style={styles.retryButton}>
           <Text style={styles.retryText}>Try again</Text>
         </TouchableOpacity>
@@ -129,7 +129,7 @@ export default function ClientDetailScreen() {
     )
   }
 
-  const { client, upcomingSessions, pastSessions, documents, outcomeScores, forms, notes } = data
+  const { student, upcomingSessions, pastSessions, documents, outcomeScores, forms, notes } = data
 
   return (
     <SafeAreaView style={styles.safe}>
@@ -148,13 +148,13 @@ export default function ClientDetailScreen() {
         <View style={styles.identityRow}>
           <View style={styles.avatar}>
             <Text style={styles.avatarText}>
-              {client.firstName[0]}{client.lastName[0]}
+              {student.firstName[0]}{student.lastName[0]}
             </Text>
           </View>
           <View>
-            <Text style={styles.name}>{client.firstName} {client.lastName}</Text>
-            {client.contactEmail && <Text style={styles.email}>{client.contactEmail}</Text>}
-            {client.phone && <Text style={styles.email}>{client.phone}</Text>}
+            <Text style={styles.name}>{student.firstName} {student.lastName}</Text>
+            {student.contactEmail && <Text style={styles.email}>{student.contactEmail}</Text>}
+            {student.phone && <Text style={styles.email}>{student.phone}</Text>}
           </View>
         </View>
 

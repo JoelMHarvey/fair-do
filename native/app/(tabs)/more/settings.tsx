@@ -43,7 +43,7 @@ export default function SettingsScreen() {
   function confirmSignOut() {
     Alert.alert(
       'Sign out',
-      'You will need to authenticate again to access client records.',
+      'You will need to authenticate again to access student records.',
       [
         { text: 'Cancel', style: 'cancel' },
         { text: 'Sign out', style: 'destructive', onPress: () => signOut() },

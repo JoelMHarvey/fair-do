@@ -144,7 +144,7 @@ export default function DashboardScreen() {
           </View>
           <View style={styles.statCard}>
             <Text style={styles.statValue}>{activeClientCount}</Text>
-            <Text style={styles.statLabel}>Clients</Text>
+            <Text style={styles.statLabel}>Students</Text>
           </View>
           <View style={styles.statCard}>
             <Text style={styles.statValue}>{pence(earnings.monthTotalPence)}</Text>

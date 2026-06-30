@@ -11,8 +11,8 @@
 import { describe, it, expect } from 'vitest'
 
 import { DashboardSchema, SessionSummarySchema, AlertSchema } from './dashboard'
-import { ClientsResponseSchema, ClientSummarySchema } from './clients'
-import { ClientDetailSchema } from './client-detail'
+import { StudentsResponseSchema, StudentSummarySchema } from './students'
+import { StudentDetailSchema } from './student-detail'
 import { CalendarResponseSchema, CalendarSessionSchema } from './calendar'
 import { EarningsResponseSchema } from './earnings'
 import { ThreadsResponseSchema, ThreadDetailSchema, MessageSchema } from './messages'
@@ -32,7 +32,7 @@ const SESSION_SUMMARY = {
   id: 'sess_1',
   clientFirstName: 'Alice',
   clientLastName: 'Jones',
-  clientId: 'client_1',
+  studentId: 'client_1',
   scheduledAt: '2025-09-01T10:00:00.000Z',
   durationMins: 50,
   status: 'SCHEDULED',
@@ -116,11 +116,11 @@ describe('DashboardSchema', () => {
   })
 })
 
-// ── Clients ───────────────────────────────────────────────────────────────────
+// ── Students ───────────────────────────────────────────────────────────────────
 
 const CLIENT_SUMMARY = {
   matchId: 'match_1',
-  clientId: 'client_1',
+  studentId: 'client_1',
   firstName: 'Carol',
   lastName: 'White',
   contactEmail: 'carol@example.com',
@@ -137,36 +137,36 @@ const CLIENT_SUMMARY = {
   unreadMessages: 2,
 }
 
-describe('ClientSummarySchema', () => {
+describe('StudentSummarySchema', () => {
   it('parses with nextSession', () => {
-    const c = ClientSummarySchema.parse(CLIENT_SUMMARY)
+    const c = StudentSummarySchema.parse(CLIENT_SUMMARY)
     expect(c.matchId).toBe('match_1')
     expect(c.nextSession?.id).toBe('sess_2')
   })
   it('parses with null nextSession', () => {
-    const c = ClientSummarySchema.parse({ ...CLIENT_SUMMARY, nextSession: null })
+    const c = StudentSummarySchema.parse({ ...CLIENT_SUMMARY, nextSession: null })
     expect(c.nextSession).toBeNull()
   })
   it('rejects non-number unreadMessages', () => {
-    expect(rejects(ClientSummarySchema, { ...CLIENT_SUMMARY, unreadMessages: '2' })).toBe(true)
+    expect(rejects(StudentSummarySchema, { ...CLIENT_SUMMARY, unreadMessages: '2' })).toBe(true)
   })
 })
 
-describe('ClientsResponseSchema', () => {
+describe('StudentsResponseSchema', () => {
   it('parses empty list', () => {
-    const r = ClientsResponseSchema.parse({ clients: [] })
-    expect(r.clients).toHaveLength(0)
+    const r = StudentsResponseSchema.parse({ students: [] })
+    expect(r.students).toHaveLength(0)
   })
   it('parses populated list', () => {
-    const r = ClientsResponseSchema.parse({ clients: [CLIENT_SUMMARY] })
-    expect(r.clients[0].firstName).toBe('Carol')
+    const r = StudentsResponseSchema.parse({ students: [CLIENT_SUMMARY] })
+    expect(r.students[0].firstName).toBe('Carol')
   })
-  it('rejects missing clients key', () => {
-    expect(rejects(ClientsResponseSchema, {})).toBe(true)
+  it('rejects missing students key', () => {
+    expect(rejects(StudentsResponseSchema, {})).toBe(true)
   })
 })
 
-// ── ClientDetail ──────────────────────────────────────────────────────────────
+// ── StudentDetail ──────────────────────────────────────────────────────────────
 
 const CLIENT_DETAIL = {
   matchId: 'match_1',
@@ -175,7 +175,7 @@ const CLIENT_DETAIL = {
   notes: null,
   startedAt: '2025-01-01T00:00:00.000Z',
   active: true,
-  client: {
+  student: {
     id: 'client_1',
     firstName: 'Carol',
     lastName: 'White',
@@ -193,10 +193,10 @@ const CLIENT_DETAIL = {
   forms: [],
 }
 
-describe('ClientDetailSchema', () => {
+describe('StudentDetailSchema', () => {
   it('parses minimal valid payload', () => {
-    const d = ClientDetailSchema.parse(CLIENT_DETAIL)
-    expect(d.client.firstName).toBe('Carol')
+    const d = StudentDetailSchema.parse(CLIENT_DETAIL)
+    expect(d.student.firstName).toBe('Carol')
   })
   it('parses past session with payment', () => {
     const pastSession = {
@@ -207,7 +207,7 @@ describe('ClientDetailSchema', () => {
       dailyRoomUrl: null,
       payment: { amountTotalPence: 8000, teacherPayoutPence: 7800, status: 'paid' },
     }
-    const d = ClientDetailSchema.parse({ ...CLIENT_DETAIL, pastSessions: [pastSession] })
+    const d = StudentDetailSchema.parse({ ...CLIENT_DETAIL, pastSessions: [pastSession] })
     expect(d.pastSessions[0].payment?.amountTotalPence).toBe(8000)
   })
   it('parses past session with null payment', () => {
@@ -219,12 +219,12 @@ describe('ClientDetailSchema', () => {
       dailyRoomUrl: null,
       payment: null,
     }
-    const d = ClientDetailSchema.parse({ ...CLIENT_DETAIL, pastSessions: [pastSession] })
+    const d = StudentDetailSchema.parse({ ...CLIENT_DETAIL, pastSessions: [pastSession] })
     expect(d.pastSessions[0].payment).toBeNull()
   })
   it('rejects missing active field', () => {
     const { active: _, ...rest } = CLIENT_DETAIL
-    expect(rejects(ClientDetailSchema, rest)).toBe(true)
+    expect(rejects(StudentDetailSchema, rest)).toBe(true)
   })
 })
 
@@ -232,7 +232,7 @@ describe('ClientDetailSchema', () => {
 
 const CALENDAR_SESSION = {
   id: 'sess_3',
-  clientId: 'client_1',
+  studentId: 'client_1',
   clientFirstName: 'Dave',
   clientLastName: 'Brown',
   matchId: 'match_2',
@@ -321,7 +321,7 @@ const MESSAGE = {
 const THREAD_DETAIL = {
   id: 'thread_1',
   matchId: 'match_1',
-  client: { id: 'client_1', firstName: 'Carol', lastName: 'White' },
+  student: { id: 'client_1', firstName: 'Carol', lastName: 'White' },
   currentClerkId: 'clerk_456',
   messages: [MESSAGE],
 }
@@ -351,8 +351,8 @@ describe('ThreadDetailSchema', () => {
     const t = ThreadDetailSchema.parse({ ...THREAD_DETAIL, messages: [] })
     expect(t.messages).toHaveLength(0)
   })
-  it('rejects missing client', () => {
-    const { client: _, ...rest } = THREAD_DETAIL
+  it('rejects missing student', () => {
+    const { student: _, ...rest } = THREAD_DETAIL
     expect(rejects(ThreadDetailSchema, rest)).toBe(true)
   })
 })

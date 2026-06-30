@@ -1,8 +1,8 @@
 import { z } from 'zod'
 
-export const ClientSummarySchema = z.object({
+export const StudentSummarySchema = z.object({
   matchId: z.string(),
-  clientId: z.string(),
+  studentId: z.string(),
   firstName: z.string(),
   lastName: z.string(),
   contactEmail: z.string().nullable(),
@@ -21,8 +21,8 @@ export const ClientSummarySchema = z.object({
   unreadMessages: z.number(),
 })
 
-export const ClientsResponseSchema = z.object({
-  clients: z.array(ClientSummarySchema),
+export const StudentsResponseSchema = z.object({
+  students: z.array(StudentSummarySchema),
 })
 
-export type ClientSummary = z.infer<typeof ClientSummarySchema>
+export type StudentSummary = z.infer<typeof StudentSummarySchema>
