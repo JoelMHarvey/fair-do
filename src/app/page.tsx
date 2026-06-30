@@ -1,5 +1,5 @@
 import type { Metadata } from 'next'
-import { getDictionary } from '@/lib/dictionaries'
+import { getDictionary, getLocaleFromHeaders } from '@/lib/dictionaries'
 import { TeacherHome } from '@/components/TeacherHome'
 
 export const metadata: Metadata = {
@@ -20,6 +20,8 @@ export const metadata: Metadata = {
 }
 
 export default async function Home() {
-  const { home } = await getDictionary('en')
+  // /es etc. are rewritten to / by the middleware with x-locale set, so the
+  // home page renders in the requested locale at real /es URLs.
+  const { home } = await getDictionary(await getLocaleFromHeaders())
   return <TeacherHome t={home} />
 }

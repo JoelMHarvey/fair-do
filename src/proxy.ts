@@ -1,13 +1,8 @@
 import { clerkMiddleware, createRouteMatcher } from '@clerk/nextjs/server'
-import { NextResponse, type NextRequest, type NextFetchEvent } from 'next/server'
-import { NON_EN_LOCALES, LOCALES, I18N_ENABLED, type Locale, type NonEnLocale } from '@/lib/locale-config'
+import { NextResponse, NextRequest, type NextFetchEvent } from 'next/server'
+import { LOCALES, I18N_ENABLED, splitLocalePath, isValidLocale, type Locale } from '@/lib/locale-config'
 
 // ── Locale helpers ───────────────────────────────────────────────────────────
-
-function getPathLocale(pathname: string): NonEnLocale | null {
-  const seg = pathname.split('/')[1] as string
-  return (NON_EN_LOCALES as readonly string[]).includes(seg) ? (seg as NonEnLocale) : null
-}
 
 // Negotiate locale from Accept-Language header (no external deps).
 function negotiateLocale(acceptLanguage: string | null): Locale {
@@ -70,8 +65,6 @@ const isPublicRoute = createRouteMatcher([
   '/session/(.+)',
   '/api/practice/self-book',
   '/api/practice/self-book/confirm',
-  // Locale-prefixed public roots — only matched when i18n is enabled.
-  ...(I18N_ENABLED ? NON_EN_LOCALES.map(l => `/${l}`) : []),
 ])
 
 // ── Middleware ───────────────────────────────────────────────────────────────
@@ -86,27 +79,31 @@ const clerkAuth = clerkMiddleware(async (auth, request) => {
   }
 
   const { pathname } = request.nextUrl
-  const pathLocale = getPathLocale(pathname)
-  const locale: Locale = pathLocale ?? 'en'
+  const { locale, basePath, prefixed } = splitLocalePath(pathname)
+  const cookieOpts = { path: '/', maxAge: 31_536_000, sameSite: 'lax' as const, secure: true }
 
-  // Auto-redirect / to the visitor's preferred locale on first visit.
-  // If the user has already chosen a locale (cookie present), honour that choice.
-  // Clicking the LocaleSwitcher to EN sets NEXT_LOCALE=en, stopping future redirects.
+  // At the root, send the visitor to their locale's prefixed home.
+  // - saved non-English choice (NEXT_LOCALE cookie) → honour it on return visits
+  // - no saved choice → negotiate from Accept-Language
+  // - explicit English (cookie 'en', set by the LocaleSwitcher) → stay at root
   if (pathname === '/') {
     const cookieLocale = request.cookies.get('NEXT_LOCALE')?.value
-    if (!cookieLocale) {
-      // No preference saved — negotiate from Accept-Language
-      const preferred = negotiateLocale(request.headers.get('accept-language'))
-      if (preferred !== 'en') {
-        const res = NextResponse.redirect(new URL(`/${preferred}`, request.url))
-        res.cookies.set('NEXT_LOCALE', preferred, { path: '/', maxAge: 31_536_000, sameSite: 'lax', secure: true })
-        return res
-      }
+    const target = cookieLocale
+      ? (isValidLocale(cookieLocale) ? cookieLocale : 'en')
+      : negotiateLocale(request.headers.get('accept-language'))
+    if (target !== 'en') {
+      const res = NextResponse.redirect(new URL(`/${target}`, request.url))
+      res.cookies.set('NEXT_LOCALE', target, cookieOpts)
+      return res
     }
   }
 
-  // Protect non-public routes with Clerk auth
-  if (!isPublicRoute(request)) {
+  // Auth is checked against the locale-stripped path so /es/dashboard gates the
+  // same as /dashboard (and /es/pricing stays public like /pricing).
+  const baseReq = prefixed
+    ? new NextRequest(new URL(basePath + request.nextUrl.search, request.url), request)
+    : request
+  if (!isPublicRoute(baseReq)) {
     await auth.protect()
   }
 
@@ -114,15 +111,19 @@ const clerkAuth = clerkMiddleware(async (auth, request) => {
   // Server components read this via: (await headers()).get('x-locale')
   const requestHeaders = new Headers(request.headers)
   requestHeaders.set('x-locale', locale)
-  const response = NextResponse.next({ request: { headers: requestHeaders } })
 
-  // Persist locale cookie:
-  // - visiting /fr|/de|/it → sets that locale
-  // - visiting / → sets 'en' (user chose English, stops Accept-Language redirect loop)
-  if (pathLocale) {
-    response.cookies.set('NEXT_LOCALE', pathLocale, { path: '/', maxAge: 31_536_000, sameSite: 'lax', secure: true })
-  } else if (pathname === '/') {
-    response.cookies.set('NEXT_LOCALE', 'en', { path: '/', maxAge: 31_536_000, sameSite: 'lax', secure: true })
+  // Prefixed locale paths (/es/pricing) are rewritten to the base route
+  // (/pricing) so the existing root pages render in that locale — the browser
+  // URL stays /es/pricing. English paths pass through unchanged.
+  let response: NextResponse
+  if (prefixed) {
+    const url = request.nextUrl.clone()
+    url.pathname = basePath
+    response = NextResponse.rewrite(url, { request: { headers: requestHeaders } })
+    response.cookies.set('NEXT_LOCALE', locale, cookieOpts)
+  } else {
+    response = NextResponse.next({ request: { headers: requestHeaders } })
+    if (pathname === '/') response.cookies.set('NEXT_LOCALE', 'en', cookieOpts)
   }
 
   return response
