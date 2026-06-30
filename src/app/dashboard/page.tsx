@@ -10,6 +10,7 @@ import { ResourceLibrary } from '@/components/ResourceLibrary'
 import { RECURRING_ENABLED } from '@/lib/recurring'
 import { RecurringCardPrompt } from '@/components/RecurringCardPrompt'
 import ReferralCard from './ReferralCard'
+import { getDictionary, getLocaleFromHeaders } from '@/lib/dictionaries'
 
 export default async function Dashboard() {
   const { userId } = await auth()
@@ -93,14 +94,16 @@ export default async function Dashboard() {
       })
     : []
 
+  const { student_dashboard } = await getDictionary(await getLocaleFromHeaders())
+
   return (
     <main className="min-h-screen bg-sand-50">
       <nav className="border-b border-sand-200 bg-white/80 backdrop-blur px-5 sm:px-8 h-16 flex items-center justify-between sticky top-0 z-40">
         <Logo />
         <div className="flex items-center gap-4">
-          <Link href="/" className="text-sm text-sand-500 hover:text-brand-700">Home</Link>
-          <Link href="/tutors" className="text-sm text-sand-500 hover:text-brand-700">Find a tutor</Link>
-          <Link href="/sign-out" className="text-sm text-sand-500 hover:text-brand-700">Sign out</Link>
+          <Link href="/" className="text-sm text-sand-500 hover:text-brand-700">{student_dashboard.nav_home}</Link>
+          <Link href="/tutors" className="text-sm text-sand-500 hover:text-brand-700">{student_dashboard.nav_find_tutor}</Link>
+          <Link href="/sign-out" className="text-sm text-sand-500 hover:text-brand-700">{student_dashboard.nav_sign_out}</Link>
         </div>
       </nav>
 
@@ -108,7 +111,7 @@ export default async function Dashboard() {
         <h1 className="font-display text-3xl font-semibold text-brand-900 mb-1">
           Welcome back, {student.firstName}
         </h1>
-        <p className="text-sand-500 mb-8 text-sm">Your learning dashboard</p>
+        <p className="text-sand-500 mb-8 text-sm">{student_dashboard.subtitle}</p>
 
         {RECURRING_ENABLED && needsRecurringCard > 0 && (
           <div className="mb-8">
@@ -119,26 +122,26 @@ export default async function Dashboard() {
         {/* Quick stats */}
         <div className="grid grid-cols-2 sm:grid-cols-3 gap-3 mb-8">
           <div className="bg-white rounded-2xl border border-sand-200 p-5">
-            <p className="text-xs text-sand-500 mb-1">Upcoming lessons</p>
+            <p className="text-xs text-sand-500 mb-1">{student_dashboard.stat_upcoming}</p>
             <p className="text-3xl font-semibold text-sand-900">{upcomingSessions.length}</p>
           </div>
           <div className="bg-white rounded-2xl border border-sand-200 p-5">
-            <p className="text-xs text-sand-500 mb-1">My tutors</p>
+            <p className="text-xs text-sand-500 mb-1">{student_dashboard.stat_tutors}</p>
             <p className="text-3xl font-semibold text-sand-900">{matches.length}</p>
           </div>
           <div className="bg-white rounded-2xl border border-sand-200 p-5">
-            <p className="text-xs text-sand-500 mb-1">Unread messages</p>
+            <p className="text-xs text-sand-500 mb-1">{student_dashboard.stat_unread}</p>
             <p className="text-3xl font-semibold text-sand-900">{unreadCount}</p>
           </div>
           <div className="bg-white rounded-2xl border border-sand-200 p-5 col-span-2 sm:col-span-3">
             <div className="flex items-center justify-between">
               <div>
-                <p className="text-xs text-sand-500 mb-1">Credit balance</p>
+                <p className="text-xs text-sand-500 mb-1">{student_dashboard.stat_credit}</p>
                 <p className="text-3xl font-semibold text-brand-700">£{(student.creditBalancePence / 100).toFixed(2)}</p>
               </div>
               <div className="flex gap-2">
-                <Link href="/redeem" className="text-sm border border-sand-200 px-4 py-2 rounded-lg text-sand-700 hover:border-brand-300 transition">Redeem voucher</Link>
-                <Link href="/gift" className="text-sm bg-sand-100 px-4 py-2 rounded-lg text-sand-700 hover:bg-sand-200 transition">Gift a lesson</Link>
+                <Link href="/redeem" className="text-sm border border-sand-200 px-4 py-2 rounded-lg text-sand-700 hover:border-brand-300 transition">{student_dashboard.redeem_voucher}</Link>
+                <Link href="/gift" className="text-sm bg-sand-100 px-4 py-2 rounded-lg text-sand-700 hover:bg-sand-200 transition">{student_dashboard.gift_lesson}</Link>
               </div>
             </div>
           </div>
@@ -156,19 +159,19 @@ export default async function Dashboard() {
         {/* Upcoming sessions */}
         <section className="mb-8">
           <div className="flex items-center justify-between mb-3">
-            <h2 className="font-medium text-sand-900">Upcoming lessons</h2>
+            <h2 className="font-medium text-sand-900">{student_dashboard.upcoming_heading}</h2>
             <Link href="/tutors" className="text-sm text-brand-600 hover:text-brand-700">
-              + Book new
+              {student_dashboard.book_new}
             </Link>
           </div>
           {upcomingSessions.length === 0 ? (
             <div className="bg-white rounded-2xl border border-sand-200 p-8 text-center">
-              <p className="text-sand-400 text-sm mb-3">No lessons booked yet</p>
+              <p className="text-sand-400 text-sm mb-3">{student_dashboard.no_lessons}</p>
               <Link
                 href="/tutors"
                 className="inline-block bg-brand-600 text-white text-sm font-medium px-5 py-2.5 rounded-lg hover:bg-brand-700 transition"
               >
-                Find a tutor
+                {student_dashboard.find_tutor_cta}
               </Link>
             </div>
           ) : (
@@ -187,7 +190,7 @@ export default async function Dashboard() {
                       </p>
                       {isLive && (
                         <span className="inline-block mt-1 text-xs font-medium text-brand-700 bg-brand-50 px-2 py-0.5 rounded-full">
-                          Live now
+                          {student_dashboard.live_now}
                         </span>
                       )}
                     </div>
@@ -199,7 +202,7 @@ export default async function Dashboard() {
                           : 'bg-sand-100 text-sand-700 hover:bg-sand-200'
                       }`}
                     >
-                      {isLive ? 'Join' : 'View'}
+                      {isLive ? student_dashboard.join : student_dashboard.view}
                     </Link>
                   </div>
                 )
@@ -211,7 +214,7 @@ export default async function Dashboard() {
         {/* Resources (P2-5) */}
         {RESOURCES_ENABLED && primaryMatch && (
           <section className="mb-8">
-            <h2 className="font-medium text-sand-900 mb-3">Resources</h2>
+            <h2 className="font-medium text-sand-900 mb-3">{student_dashboard.resources_heading}</h2>
             <ResourceLibrary
               matchId={primaryMatch.id}
               role="student"
@@ -223,7 +226,7 @@ export default async function Dashboard() {
         {/* Lesson notes (P2-4) */}
         {AI_NOTES_ENABLED && lessonNotes.length > 0 && (
           <section className="mb-8">
-            <h2 className="font-medium text-sand-900 mb-3">Lesson notes</h2>
+            <h2 className="font-medium text-sand-900 mb-3">{student_dashboard.notes_heading}</h2>
             <div className="space-y-3">
               {lessonNotes.map(n => (
                 <div key={n.id} className="bg-white rounded-2xl border border-sand-200 p-4">
@@ -231,8 +234,8 @@ export default async function Dashboard() {
                     {new Date(n.session.scheduledAt).toLocaleDateString('en-GB', { day: 'numeric', month: 'short', year: 'numeric' })}
                   </p>
                   <p className="text-sm text-sand-800">{n.topicsCovered}</p>
-                  {n.difficulty && <p className="text-sm text-sand-600 mt-1"><span className="text-sand-400">Found tricky:</span> {n.difficulty}</p>}
-                  {n.homework && <p className="text-sm text-sand-600 mt-1"><span className="text-sand-400">Homework:</span> {n.homework}</p>}
+                  {n.difficulty && <p className="text-sm text-sand-600 mt-1"><span className="text-sand-400">{student_dashboard.found_tricky}</span> {n.difficulty}</p>}
+                  {n.homework && <p className="text-sm text-sand-600 mt-1"><span className="text-sand-400">{student_dashboard.homework}</span> {n.homework}</p>}
                 </div>
               ))}
             </div>
@@ -242,7 +245,7 @@ export default async function Dashboard() {
         {/* Messages / therapist threads */}
         {matches.length > 0 && (
           <section>
-            <h2 className="font-medium text-sand-900 mb-3">Messages</h2>
+            <h2 className="font-medium text-sand-900 mb-3">{student_dashboard.messages_heading}</h2>
             <div className="space-y-3">
               {matches.map(m => {
                 const lastMsg = m.messageThread?.messages[0]
@@ -263,7 +266,7 @@ export default async function Dashboard() {
                             {lastMsg.body}
                           </p>
                         ) : (
-                          <p className="text-sm text-sand-400 mt-0.5">No messages yet</p>
+                          <p className="text-sm text-sand-400 mt-0.5">{student_dashboard.no_messages}</p>
                         )}
                       </div>
                       {isUnread && (
@@ -280,7 +283,7 @@ export default async function Dashboard() {
         {/* Payments & receipts */}
         {payments.length > 0 && (
           <section className="mt-8">
-            <h2 className="font-medium text-sand-900 mb-3">Payments &amp; receipts</h2>
+            <h2 className="font-medium text-sand-900 mb-3">{student_dashboard.payments_heading}</h2>
             <div className="bg-white rounded-2xl border border-sand-200 overflow-hidden">
               {payments.map((p, i) => {
                 const sym = p.currency === 'usd' ? '$' : '£'
@@ -289,15 +292,15 @@ export default async function Dashboard() {
                   <div key={p.id} className={`flex items-center justify-between px-5 py-4 ${i > 0 ? 'border-t border-sand-100' : ''}`}>
                     <div className="min-w-0">
                       <p className="text-sm font-medium text-sand-900 truncate">
-                        {p.session ? `${p.session.teacher.firstName} ${p.session.teacher.lastName}` : 'Lesson package'}
+                        {p.session ? `${p.session.teacher.firstName} ${p.session.teacher.lastName}` : student_dashboard.lesson_package}
                       </p>
                       <p className="text-xs text-sand-400 mt-0.5">
                         {p.createdAt.toLocaleDateString('en-GB', { day: 'numeric', month: 'short', year: 'numeric' })} · {sym}{(p.amountTotalPence / 100).toFixed(2)}
-                        {refunded && <span className="text-red-500"> · refunded</span>}
+                        {refunded && <span className="text-red-500"> · {student_dashboard.refunded}</span>}
                       </p>
                     </div>
                     <Link href={`/receipt/${p.id}`} className="text-sm text-brand-600 hover:text-brand-700 font-medium shrink-0">
-                      Receipt →
+                      {student_dashboard.receipt}
                     </Link>
                   </div>
                 )
