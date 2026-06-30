@@ -12,18 +12,45 @@
     "benefits_heading": "Everything your tutoring needs",
     "benefits_sub": "No more juggling a calendar, a payment app, a video tool and a spreadsheet. It's all here — and it's built to stay out of your way.",
     "benefits": [
-      { "title": "Your students stay yours", "body": "You own the relationship and the record. fair-do is your tool — never a middleman between you and the people you teach." },
-      { "title": "Genuinely simple", "body": "Set up in about 15 minutes — no tech skills needed. Import your student list, book a lesson, done. Plain-language help on every page." },
-      { "title": "Private by design", "body": "Encrypted, with UK/EU data residency and appropriate safeguards. You stay the data controller — in control of your students' information." },
-      { "title": "Set your own prices", "body": "Your rate, your hours, even a different price per student. You keep what you charge — fair-do is a simple monthly subscription, not a cut of every lesson." },
-      { "title": "Get paid automatically", "body": "Students pay by card; the money lands in your bank about two business days after each lesson. No chasing, no spreadsheets." },
-      { "title": "Runs from your phone", "body": "Add fair-do to your home screen and run your whole tutoring from a phone — no computer required." }
+      {
+        "title": "Your students stay yours",
+        "body": "You own the relationship and the record. fair-do is your tool — never a middleman between you and the people you teach."
+      },
+      {
+        "title": "Genuinely simple",
+        "body": "Set up in about 15 minutes — no tech skills needed. Import your student list, book a lesson, done. Plain-language help on every page."
+      },
+      {
+        "title": "Private by design",
+        "body": "Encrypted, with UK/EU data residency and appropriate safeguards. You stay the data controller — in control of your students' information."
+      },
+      {
+        "title": "Set your own prices",
+        "body": "Your rate, your hours, even a different price per student. You keep what you charge — fair-do is a simple monthly subscription, not a cut of every lesson."
+      },
+      {
+        "title": "Get paid automatically",
+        "body": "Students pay by card; the money lands in your bank about two business days after each lesson. No chasing, no spreadsheets."
+      },
+      {
+        "title": "Runs from your phone",
+        "body": "Add fair-do to your home screen and run your whole tutoring from a phone — no computer required."
+      }
     ],
     "how_heading": "Up and running this week",
     "steps": [
-      { "title": "Add your students", "body": "Invite them by email or import your whole list — set up in minutes." },
-      { "title": "Book lessons", "body": "Pick a time — we create a private video room and email your student automatically." },
-      { "title": "Get paid", "body": "Connect payments once; the money arrives in your bank after each lesson." }
+      {
+        "title": "Add your students",
+        "body": "Invite them by email or import your whole list — set up in minutes."
+      },
+      {
+        "title": "Book lessons",
+        "body": "Pick a time — we create a private video room and email your student automatically."
+      },
+      {
+        "title": "Get paid",
+        "body": "Connect payments once; the money arrives in your bank after each lesson."
+      }
     ],
     "privacy_heading": "Privacy you can stand behind",
     "privacy_body": "Your students trust you with their progress. We treat their information with care — encrypted, with UK/EU data residency, and never sold or shared. You remain the data controller, in control of your records, always.",
@@ -66,6 +93,76 @@
     "link_privacy": "Privacy",
     "link_terms": "Terms",
     "link_complaints": "Complaints",
-    "emergency": "Help & FAQs →"
+    "emergency": "Help & FAQs →",
+    "link_values": "Our values"
+  },
+  "faq": {
+    "heading": "Frequently asked questions",
+    "items": [
+      {
+        "q": "What is fair-do?",
+        "a": "fair-do is software for independent tutors. You bring your own students and run your tutoring your way — fair-do gives you scheduling, secure video lessons, and card payments in one place. It's a tool you subscribe to, not a marketplace that finds students for you."
+      },
+      {
+        "q": "How much does it cost?",
+        "a": "fair-do is a monthly subscription. Free is free, Pro is around £29/month, and School is for teams. On top of the plan, there's a small commission on card payments to cover processing. Full, current details are on our pricing page."
+      },
+      {
+        "q": "Are my students mine?",
+        "a": "Yes. The tutoring relationship and your student records belong to you. fair-do is the software and payment processor you use to run your tutoring — we don't own, route, or reassign your students."
+      },
+      {
+        "q": "Is my data secure?",
+        "a": "Yes. fair-do is built around UK GDPR. For your student data, you are the data controller and fair-do acts as your processor. We use trusted infrastructure providers to run the service, and some sub-processors are based in the US under Standard Contractual Clauses (SCCs). Our privacy notice sets out exactly who we use and why."
+      },
+      {
+        "q": "Are tutors qualified?",
+        "a": "fair-do is for qualified tutors. During onboarding we ask for teaching qualifications (such as QTS or a PGCE) and a current DBS check, and verify the details before a profile goes live."
+      },
+      {
+        "q": "How do I get set up?",
+        "a": "Create an account, choose \"I am a tutor\", and complete onboarding — your profile, qualification details, availability, and connecting your bank via Stripe so you can take card payments. Once your details are verified you're ready to schedule students and run lessons."
+      },
+      {
+        "q": "How do payments work?",
+        "a": "Students pay by card through Stripe. Money goes to your connected account and typically reaches your bank around 2 business days after a lesson. fair-do's own charge is your monthly plan plus a small card commission — see pricing for the details."
+      }
+    ],
+    "footer_pre": "See full plans on our",
+    "footer_link": "pricing page",
+    "footer_mid": ", or email"
+  },
+  "about": {
+    "eyebrow": "Our story",
+    "h1": "Technologists with a heart",
+    "lead": "We build software. But we built fair-do because something in this industry felt broken — and we couldn't look away.",
+    "p1": "Good tuition works. The evidence is overwhelming, and most of us have felt it ourselves or watched it change someone we love. We wanted to make it a little easier to reach — and a lot fairer for the people who provide it.",
+    "p2": "Tutors train for years and put real care into the work. We think they should be paid well enough to focus on it — not lose a slice of every lesson to a platform. So we built fair-do as fair, simple software tutors can afford: a flat monthly subscription, never a cut of your teaching fee.",
+    "believe_heading": "What we believe",
+    "beliefs": [
+      {
+        "title": "Tutors should earn enough to focus on teaching",
+        "body": "Not juggle three platforms, not burn out. fair-do is one affordable tool to run the whole thing — a flat monthly plan, not a cut of your lessons."
+      },
+      {
+        "title": "Good tuition should reach more people",
+        "body": "Lower fees aren't a marketing trick — they're the point. When lessons cost less, more families who need help can actually get it."
+      },
+      {
+        "title": "No company should get rich off the work tutors do",
+        "body": "We take a small, transparent, fixed fee to keep the lights on — and nothing more. A tutor's hard work is not a margin to be optimised."
+      }
+    ],
+    "trust_heading": "How we keep tutors trustworthy",
+    "trust_body_pre": "Every tutor on fair-do shares their ",
+    "trust_body_strong": "teaching qualifications (such as QTS or a PGCE) and a current DBS check",
+    "trust_body_post": ". We check these before a profile goes live, and keep a record of each check.",
+    "data_heading": "Your data, treated with care",
+    "data_body_pre": "Your details, and your child's, deserve real care. Lessons run over encrypted video. We store only what's necessary, never sell it, and never use your information to sell ads. See our ",
+    "privacy_link": "Privacy Policy",
+    "data_body_post": ".",
+    "hello_heading": "Say hello",
+    "hello_body": "We're a small team and we read everything. ",
+    "cta": "Find a tutor"
   }
 }

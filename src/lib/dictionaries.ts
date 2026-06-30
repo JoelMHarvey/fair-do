@@ -1,7 +1,16 @@
 import 'server-only'
+import { headers } from 'next/headers'
 
 export { LOCALES, NON_EN_LOCALES, isValidLocale, type Locale, type NonEnLocale } from './locale-config'
-import type { Locale } from './locale-config'
+import { isValidLocale, type Locale } from './locale-config'
+
+// Resolve the active locale from the x-locale header set by proxy.ts.
+// Falls back to 'en' when absent or invalid. Use in server components/pages
+// so they read the right dictionary without threading params everywhere.
+export async function getLocaleFromHeaders(): Promise<Locale> {
+  const raw = (await headers()).get('x-locale') ?? 'en'
+  return isValidLocale(raw) ? raw : 'en'
+}
 
 const dictionaries: Record<Locale, () => Promise<typeof import('../messages/en.json')>> = {
   en: () => import('../messages/en.json'),
