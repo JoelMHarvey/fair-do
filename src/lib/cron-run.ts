@@ -21,6 +21,8 @@ export const CRON_CADENCE_MINS: Record<string, number> = {
   credentials: 24 * 60,
   alerts: 15,
   fx: 24 * 60,
+  inbox: 5,
+  recurring: 24 * 60,
 }
 
 export async function getCronRuns() {
