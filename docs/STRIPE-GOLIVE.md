@@ -55,7 +55,7 @@ Env changes require a redeploy to take effect.
 
 ## 6. Re-onboard tutors in LIVE
 Test-mode connected accounts (`acct_...`) **do not carry to live**.
-- [ ] Run `node prisma/remove-demo-tutors.mjs` on the prod DB
+- [ ] Run `npm run seed:remove-demo` on the prod DB
 - [ ] Each real tutor re-runs Connect onboarding in live mode → Stripe KYC →
       `charges_enabled` + `payouts_enabled` → `account.updated` flips
       `stripeOnboarded = true`. The booking route refuses tutors without

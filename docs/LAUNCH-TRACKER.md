@@ -25,7 +25,7 @@ Legend: 🔴 blocking · 🟠 do soon · 🟢 parallel/anytime · ✅ done
 - [ ] 🟢 Sentry DSN · `COMPLAINTS_EMAIL` · confirm Vercel Cron (reminders)
 
 ### 3. Data
-- [ ] 🟠 `node prisma/remove-demo-tutors.mjs` before real students
+- [ ] 🟠 `npm run seed:remove-demo` before real students
 - [ ] 🔴 Set ADMIN account(s)
 
 ### 4. Supply & demand — `docs/RECRUITMENT.md` + `docs/MARKETING.md`
