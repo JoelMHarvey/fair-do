@@ -1218,5 +1218,37 @@
     "set_up": "Set up",
     "error_default": "Could not set up.",
     "footer_note": "The student gets a prompt to authorise a card. We then create and charge each lesson automatically."
+  },
+  "email": {
+    "teacher_approved": {
+      "subject": "You're approved — welcome to fair-do",
+      "heading": "Welcome to fair-do, {firstName}",
+      "preheader": "Your profile is live — students can book you now.",
+      "body_p1": "Your {qualificationBody} credentials have been verified, and your profile is now live. Students can book lessons with you.",
+      "body_p2": "You keep <strong style=\"color:#4f46e5\">what you charge</strong> — we take no commission on your own students. Payouts reach your bank 2 business days after each completed lesson.",
+      "cta": "Go to your dashboard"
+    },
+    "gift_voucher": {
+      "subject_receipt": "Your fair-do gift receipt — {amount}",
+      "subject_gift": "You've been gifted {amount} of tuition",
+      "heading_receipt": "Thank you for your gift",
+      "heading_gift": "A gift for you",
+      "preheader_receipt": "Your voucher code is inside.",
+      "preheader_gift": "{amount} of tuition, on someone who cares.",
+      "intro_receipt": "Your {amount} tuition voucher is ready. Share this code with your recipient:",
+      "intro_gift": "Someone wants to help you learn. Here's {amount} of tuition credit, on them.",
+      "code_label": "Voucher code",
+      "cta": "Redeem now"
+    },
+    "session_reminder": {
+      "subject": "Reminder: your lesson tomorrow — {date}",
+      "heading": "See you soon, {firstName}",
+      "preheader": "Your lesson with {displayName} is coming up.",
+      "body_p1": "Your lesson with <strong style=\"color:#1e1b2e\">{displayName}</strong> is on <strong style=\"color:#1e1b2e\">{date}</strong>.",
+      "body_p2": "The room opens 10 minutes before.",
+      "body_p3": "Can't make it? {cancelLink} — cancellations within 24 hours are non-refundable.",
+      "cancel_link_text": "Cancel here",
+      "cta": "View lesson"
+    }
   }
 }
