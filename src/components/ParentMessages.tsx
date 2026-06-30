@@ -3,15 +3,14 @@
 import { useState } from 'react'
 import { useDict } from '@/components/DictProvider'
 
-type Msg = { id: string; body: string; senderClerkId: string; createdAt: string }
+// `mine` is computed server-side; the other party's Clerk id is never sent to the client.
+type Msg = { id: string; body: string; mine: boolean; createdAt: string }
 
 export function ParentMessages({
   parentLinkId,
-  viewerClerkId,
   initial,
 }: {
   parentLinkId: string
-  viewerClerkId: string
   initial: Msg[]
 }) {
   const { parent_messages } = useDict()
@@ -33,7 +32,7 @@ export function ParentMessages({
     })
     if (res.ok) {
       const m = await res.json()
-      setMessages(prev => [...prev, { id: m.id, body: m.body, senderClerkId: viewerClerkId, createdAt: m.createdAt }])
+      setMessages(prev => [...prev, { id: m.id, body: m.body, mine: true, createdAt: m.createdAt }])
       setBody('')
     } else {
       const d = await res.json().catch(() => ({}))
@@ -46,16 +45,13 @@ export function ParentMessages({
     <div>
       <div className="space-y-2 max-h-80 overflow-y-auto mb-3">
         {messages.length === 0 && <p className="text-sm text-sand-400">{parent_messages.empty}</p>}
-        {messages.map(m => {
-          const mine = m.senderClerkId === viewerClerkId
-          return (
-            <div key={m.id} className={`flex ${mine ? 'justify-end' : 'justify-start'}`}>
-              <div className={`max-w-[80%] rounded-2xl px-3.5 py-2 text-sm ${mine ? 'bg-brand-600 text-white' : 'bg-sand-100 text-sand-800'}`}>
-                {m.body}
-              </div>
+        {messages.map(m => (
+          <div key={m.id} className={`flex ${m.mine ? 'justify-end' : 'justify-start'}`}>
+            <div className={`max-w-[80%] rounded-2xl px-3.5 py-2 text-sm ${m.mine ? 'bg-brand-600 text-white' : 'bg-sand-100 text-sand-800'}`}>
+              {m.body}
             </div>
-          )
-        })}
+          </div>
+        ))}
       </div>
       <form onSubmit={send} className="flex gap-2">
         <input

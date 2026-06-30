@@ -1,7 +1,9 @@
 import { auth, clerkClient } from '@clerk/nextjs/server'
+import { headers } from 'next/headers'
 import { prisma } from '@/lib/prisma'
 import { ensureReferralCode } from '@/lib/referral'
 import { PRACTICE_PORTAL_ENABLED } from '@/lib/practice'
+import { checkRateLimit, rateLimitResponse } from '@/lib/ratelimit'
 import { z } from 'zod'
 
 const schema = z.object({
@@ -15,6 +17,10 @@ export async function POST(req: Request, { params }: { params: Promise<{ token: 
   const { token } = await params
   const { userId } = await auth()
   if (!userId) return new Response('Unauthorized', { status: 401 })
+
+  const ip = (await headers()).get('x-forwarded-for')?.split(',')[0].trim() ?? 'unknown'
+  const rl = await checkRateLimit(`practice-join:${userId}:${ip}`, { limit: 20, windowMs: 60_000 })
+  if (!rl.allowed) return rateLimitResponse(rl.retryAfterMs)
 
   const body = await req.json().catch(() => ({}))
   const parsed = schema.safeParse(body)

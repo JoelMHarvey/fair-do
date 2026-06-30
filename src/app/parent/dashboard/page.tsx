@@ -220,7 +220,7 @@ export default async function ParentDashboard({
           <div className="space-y-4">
             {selected.links.map(l => {
               const messages = (l.parentThread?.messages ?? []).map(m => ({
-                id: m.id, body: m.body, senderClerkId: m.senderClerkId, createdAt: m.createdAt.toISOString(),
+                id: m.id, body: m.body, mine: m.senderClerkId === userId, createdAt: m.createdAt.toISOString(),
               }))
               const tutor = tutors.find(t => t.id === l.teacherId)
               return (
@@ -228,7 +228,7 @@ export default async function ParentDashboard({
                   {selected.links.length > 1 && tutor && (
                     <p className="text-xs text-sand-500 mb-2">{tutor.firstName} {tutor.lastName}</p>
                   )}
-                  <ParentMessages parentLinkId={l.id} viewerClerkId={userId} initial={messages} />
+                  <ParentMessages parentLinkId={l.id} initial={messages} />
                 </div>
               )
             })}

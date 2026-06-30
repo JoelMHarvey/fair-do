@@ -62,7 +62,9 @@ export default async function StudentDetailPage({ params }: { params: Promise<{ 
   const showParentPortal = PARENT_PORTAL_ENABLED && (await teacherCanOfferParentPortal(teacher.id))
   const parentLinks = showParentPortal
     ? await prisma.parentLink.findMany({
-        where: { studentId: match.studentId, status: { in: ['pending', 'active'] } },
+        // Scope to THIS teacher — a student may be linked to several tutors, and
+        // each parent thread is private to the inviting teacher.
+        where: { teacherId: teacher.id, studentId: match.studentId, status: { in: ['pending', 'active'] } },
         include: { parentThread: { include: { messages: { orderBy: { createdAt: 'asc' } } } } },
         orderBy: { createdAt: 'asc' },
       })
@@ -201,8 +203,7 @@ export default async function StudentDetailPage({ params }: { params: Promise<{ 
                 <p className="text-xs text-sand-500 mb-2">Messages with {p.inviteEmail}</p>
                 <ParentMessages
                   parentLinkId={p.id}
-                  viewerClerkId={userId}
-                  initial={(p.parentThread?.messages ?? []).map(m => ({ id: m.id, body: m.body, senderClerkId: m.senderClerkId, createdAt: m.createdAt.toISOString() }))}
+                  initial={(p.parentThread?.messages ?? []).map(m => ({ id: m.id, body: m.body, mine: m.senderClerkId === userId, createdAt: m.createdAt.toISOString() }))}
                 />
               </div>
             ))}
