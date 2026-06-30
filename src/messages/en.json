@@ -164,5 +164,649 @@
     "hello_heading": "Say hello",
     "hello_body": "We're a small team and we read everything. ",
     "cta": "Find a tutor"
+  },
+  "pricing": {
+    "h1": "Simple, fair pricing",
+    "lead": "Start free and pay as you grow. No lock-in, no surprises — and we grow only when you do.",
+    "founding_badge": "🚀 Founding pricing — locked for early tutors",
+    "most_popular": "Most popular",
+    "tiers": {
+      "free": {
+        "name": "Free",
+        "price": "Free",
+        "cadence": "",
+        "tagline": "Everything to run your practice.",
+        "features": [
+          "Unlimited students",
+          "Scheduling + secure video",
+          "Card payments & payouts",
+          "Reminders & messaging",
+          "Runs on your phone"
+        ],
+        "note": "No commission — you keep what you charge.",
+        "cta": "Start free"
+      },
+      "pro": {
+        "name": "Pro",
+        "price": "£29",
+        "cadence": "/month",
+        "tagline": "For an established solo practice.",
+        "features": [
+          "Everything in Free",
+          "No commission, ever",
+          "Per-student pricing & packages",
+          "Branded email & invite letterhead",
+          "Targeted student messaging & invites",
+          "Earnings insights & analytics",
+          "In-app AI assistant",
+          "Priority support",
+          "Your booking page"
+        ],
+        "note": "Founding tutors lock a lower rate — see below.",
+        "cta": "Start free"
+      },
+      "school": {
+        "name": "School",
+        "price": "Coming soon",
+        "cadence": "",
+        "tagline": "For group practices & studios.",
+        "features": [
+          "Multiple tutors, one studio",
+          "Shared team calendar",
+          "Studio admin & reporting"
+        ],
+        "note": "In development — register your interest and we'll keep you posted.",
+        "cta": "Register interest"
+      }
+    },
+    "prices_note": "Prices shown are launch pricing and may change. Founding tutors keep their rate.",
+    "link_explained": "See exactly what you'll keep →",
+    "link_compare": "How fair-do compares →",
+    "faq_heading": "Questions",
+    "faq_items": [
+      {
+        "q": "Do I have to pay to start?",
+        "a": "No. The Free plan runs your whole tutoring business. You only pay if you choose a plan with extra tools."
+      },
+      {
+        "q": "Do you take a commission?",
+        "a": "No. We take no commission on your lessons — you keep what you charge. You pay a flat monthly plan for the software; the only per-lesson cost is Stripe's standard card-processing fee, which we keep none of."
+      },
+      {
+        "q": "Can I cancel any time?",
+        "a": "Yes. No lock-in. If you cancel a paid plan it simply runs to the end of the period, then drops to Free — your students and records stay with you."
+      },
+      {
+        "q": "Are my students mine?",
+        "a": "Always. You own the relationship and the records. fair-do is your tool, never a middleman."
+      }
+    ],
+    "cta_button": "Start free →"
+  },
+  "styles": {
+    "eyebrow": "A plain-English guide",
+    "h1": "Subjects & how tutoring works",
+    "lead": "You don't need it all worked out before you start — a good tutor will guide you. Start with the simple version below, and open “Go deeper” on any subject to see what you'll cover and how lessons run.",
+    "good_for": "Good for",
+    "feels_label": "What a lesson feels like:",
+    "go_deeper": "Go deeper — what you'll cover & how lessons work",
+    "cover_label": "What you'll cover",
+    "exams_label": "Exams & curricula",
+    "how_label": "How lessons work",
+    "read_more": "Read more",
+    "find_tutor": "Find a tutor →",
+    "unsure_body": "Still unsure which subject or level you need? That's completely normal. Answer one short question and we'll match you with tutors who fit — you can always switch.",
+    "unsure_cta": "Get matched",
+    "help_pre": "Have a question first? See our ",
+    "help_link": "help & FAQs",
+    "help_post": ".",
+    "subjects": [
+      {
+        "key": "Maths",
+        "name": "Maths",
+        "icon": "🔢",
+        "what": "From times tables to A-level calculus — building confidence step by step, filling the gaps and making the reasoning click rather than just memorising rules.",
+        "goodFor": [
+          "KS2",
+          "GCSE",
+          "A-level",
+          "Exam confidence"
+        ],
+        "feels": "Active and worked-through. You'll tackle problems together, with the tutor spotting exactly where it breaks down and setting a little practice between lessons.",
+        "origin": "Number, algebra, geometry, ratio, statistics and probability — scaled to your stage, whether that's shoring up KS2 basics or stretching toward A-level.",
+        "history": "Lessons map to the national curriculum and the main exam boards (AQA, Edexcel, OCR), so what you practise lines up with what you'll actually be assessed on.",
+        "howItWorks": "The tutor checks where you are, targets the gaps, and works through past-paper-style questions until the method feels automatic — building toward steady, visible progress.",
+        "resources": [
+          {
+            "label": "BBC Bitesize — Maths",
+            "url": "https://www.bbc.co.uk/bitesize/subjects/z6vg9j6"
+          },
+          {
+            "label": "AQA — GCSE Maths",
+            "url": "https://www.aqa.org.uk/subjects/mathematics/gcse/mathematics-8300"
+          }
+        ]
+      },
+      {
+        "key": "English",
+        "name": "English",
+        "icon": "📖",
+        "what": "Reading, writing, grammar and analysis — for everything from early literacy to GCSE literature essays and university applications.",
+        "goodFor": [
+          "Literacy",
+          "GCSE English",
+          "Essay writing",
+          "Comprehension"
+        ],
+        "feels": "A mix of discussion and practice. You'll read together, plan and redraft writing, and learn to back up a point with evidence.",
+        "origin": "Reading comprehension, creative and persuasive writing, grammar and punctuation, and close analysis of set texts and unseen passages.",
+        "history": "Aligned to the national curriculum and the major boards (AQA, Edexcel, OCR), covering both the language and literature papers.",
+        "howItWorks": "The tutor builds from where your confidence is, models what good writing looks like, then hands the pen back to you with focused feedback each lesson.",
+        "resources": [
+          {
+            "label": "BBC Bitesize — English",
+            "url": "https://www.bbc.co.uk/bitesize/subjects/z3kw2hv"
+          },
+          {
+            "label": "AQA — GCSE English Language",
+            "url": "https://www.aqa.org.uk/subjects/english/gcse/english-language-8700"
+          }
+        ]
+      },
+      {
+        "key": "Science",
+        "name": "The sciences",
+        "icon": "🔬",
+        "what": "Biology, chemistry and physics made concrete — turning abstract ideas into things you can picture, explain and apply under exam conditions.",
+        "goodFor": [
+          "KS3",
+          "GCSE",
+          "A-level",
+          "Combined & Triple"
+        ],
+        "feels": "Explanatory and hands-on with examples. Expect diagrams, worked calculations and plenty of \"but why does that happen?\".",
+        "origin": "Cells, forces, reactions, energy, the required practicals, and the maths skills that sit underneath every science paper.",
+        "history": "Mapped to GCSE Combined and Triple Science and A-level specifications across AQA, Edexcel and OCR.",
+        "howItWorks": "The tutor pins down the misconceptions, links each topic to exam-style questions, and rehearses the mark-scheme language examiners are looking for.",
+        "resources": [
+          {
+            "label": "BBC Bitesize — Science",
+            "url": "https://www.bbc.co.uk/bitesize/subjects/zng4d2p"
+          },
+          {
+            "label": "AQA — GCSE Sciences",
+            "url": "https://www.aqa.org.uk/subjects/science"
+          }
+        ]
+      },
+      {
+        "key": "Languages",
+        "name": "Modern languages",
+        "icon": "🗣️",
+        "what": "French, Spanish, German and more — building real speaking confidence alongside the grammar and vocabulary that exams ask for.",
+        "goodFor": [
+          "GCSE",
+          "A-level",
+          "Speaking",
+          "Conversation"
+        ],
+        "feels": "Lots of talking. You'll practise out loud in a low-pressure setting, with grammar introduced as you need it rather than as dry rules.",
+        "origin": "Speaking, listening, reading and writing across familiar topics, plus the grammar and tenses each level expects.",
+        "history": "Aligned to GCSE and A-level modern-language specifications (AQA, Edexcel), including the speaking exam.",
+        "howItWorks": "The tutor blends real conversation with targeted drills, corrects gently in the moment, and builds steadily toward each paper of the exam.",
+        "resources": [
+          {
+            "label": "BBC Bitesize — Languages",
+            "url": "https://www.bbc.co.uk/bitesize/subjects/z9dqxnb"
+          },
+          {
+            "label": "AQA — GCSE French",
+            "url": "https://www.aqa.org.uk/subjects/languages/gcse/french-8652"
+          }
+        ]
+      },
+      {
+        "key": "Music",
+        "name": "Music",
+        "icon": "🎵",
+        "what": "Instrument lessons, theory and exam prep — for beginners finding their feet and graded students working toward the next certificate.",
+        "goodFor": [
+          "Beginners",
+          "Graded exams",
+          "Theory",
+          "Aural"
+        ],
+        "feels": "Practical and encouraging. You'll play, the tutor listens and guides, and practice goals are set for the week ahead.",
+        "origin": "Technique, sight-reading, aural, scales and repertoire — plus music theory for those who want it.",
+        "history": "Geared to the graded systems (ABRSM, Trinity), from absolute beginner through to the advanced grades.",
+        "howItWorks": "The tutor meets your level, breaks tricky passages down into manageable pieces, and shapes each lesson around your next goal or grade.",
+        "resources": [
+          {
+            "label": "ABRSM — exams & grades",
+            "url": "https://www.abrsm.org/en-gb/"
+          },
+          {
+            "label": "BBC Bitesize — Music",
+            "url": "https://www.bbc.co.uk/bitesize/subjects/zpf3cdm"
+          }
+        ]
+      },
+      {
+        "key": "Exam prep",
+        "name": "11+, entrance & exam prep",
+        "icon": "🎯",
+        "what": "Focused preparation for the high-stakes moments — 11+, independent-school entrance, GCSE and A-level finals — where technique and timing matter as much as content.",
+        "goodFor": [
+          "11+",
+          "Entrance exams",
+          "GCSE finals",
+          "A-level finals"
+        ],
+        "feels": "Structured and reassuring. Past papers under realistic conditions, then a careful review of what to do differently next time.",
+        "origin": "Verbal and non-verbal reasoning, subject content, timed practice, and the exam technique that turns knowledge into marks.",
+        "history": "Tailored to the specific exam — GL and CEM 11+ styles, individual school papers, and the main GCSE and A-level boards.",
+        "howItWorks": "The tutor builds a realistic plan back from the exam date, rehearses under timed conditions, and grows confidence so the day itself feels familiar.",
+        "resources": [
+          {
+            "label": "The Eleven Plus exams — overview",
+            "url": "https://www.elevenplusexams.co.uk/"
+          },
+          {
+            "label": "BBC Bitesize — exam revision",
+            "url": "https://www.bbc.co.uk/bitesize/articles/zhtdhcw"
+          }
+        ]
+      }
+    ]
+  },
+  "for_schools": {
+    "hero_badge": "🎉 10% off all lessons for your first month",
+    "hero_title_line1": "One-to-one tutoring",
+    "hero_title_line2": "your students will actually use",
+    "hero_subtitle": "Intervention and catch-up tutoring without the agency mark-up. fair-do gives your pupils verified tutors at a fair price — and you only pay for lessons taken.",
+    "hero_cta": "Talk to us",
+    "benefits": [
+      {
+        "icon": "💷",
+        "title": "Pay for what's used",
+        "body": "No fixed per-seat fees. Top up a shared credit pool and your students draw from it as they need lessons."
+      },
+      {
+        "icon": "🔒",
+        "title": "Safeguarding built in",
+        "body": "Every tutor is DBS-checked before they can teach under-18s. You see usage totals, never private lesson content."
+      },
+      {
+        "icon": "✓",
+        "title": "Verified tutors only",
+        "body": "Every tutor holds a current teaching qualification (QTS, PGCE or subject-specialist). Verified before they ever take a booking."
+      },
+      {
+        "icon": "📊",
+        "title": "Simple reporting",
+        "body": "Monthly invoice, utilisation summary, and spend — everything your finance office needs, nothing they don't."
+      }
+    ],
+    "how_heading": "How it works",
+    "steps": [
+      {
+        "title": "Fund a credit pool",
+        "body": "Top up an amount that suits your cohort. Credits never expire."
+      },
+      {
+        "title": "Invite your students",
+        "body": "Pupils join with their school email and book the tutor that fits them."
+      },
+      {
+        "title": "Lessons draw from the pool",
+        "body": "Each booking is covered automatically — no expense claims, no friction."
+      },
+      {
+        "title": "Monthly summary",
+        "body": "You get utilisation and spend. Always anonymised."
+      }
+    ],
+    "final_heading": "Ready to support your students?",
+    "final_body": "Tell us your cohort size and we'll size a plan. No sales theatre.",
+    "manage_link": "Already a customer? Manage your plan →",
+    "back_home": "← Back home"
+  },
+  "help": {
+    "nav_home": "← Home",
+    "heading": "Help & FAQs",
+    "intro": "Everything you need to get started with fair-do. Can't find an answer? Email us any time.",
+    "quick_links_heading": "Quick links",
+    "common_questions_heading": "Common questions",
+    "link_works_name": "How tutoring works",
+    "link_works_detail": "Subjects, levels and what a lesson looks like.",
+    "link_find_name": "Find a tutor",
+    "link_find_detail": "Answer one short question and get matched.",
+    "link_pricing_name": "Pricing",
+    "link_pricing_detail": "Simple, fair pricing — and exactly what you keep.",
+    "link_ai_name": "Thinking about an AI tutor?",
+    "link_ai_detail": "An honest look at what AI can and can't do.",
+    "link_concern_name": "Raise a concern",
+    "link_concern_detail": "Tell us if something has gone wrong.",
+    "link_terms_name": "Terms & privacy",
+    "link_terms_detail": "How fair-do works and how we handle your data.",
+    "faq": [
+      {
+        "q": "How do I find the right tutor?",
+        "a": "Tell us the subject and level you need and we'll match you with tutors who fit. You can read each tutor's profile, see their qualifications, and switch at any time if it isn't the right fit."
+      },
+      {
+        "q": "How do lessons happen?",
+        "a": "Lessons are booked and held through fair-do, including secure video for online tuition. Your tutor sets their own availability, and you'll get reminders before each lesson."
+      },
+      {
+        "q": "Are tutors qualified and checked?",
+        "a": "Tutors hold recognised teaching qualifications (such as QTS, PGCE or a relevant subject degree) and, where they work with children, an appropriate DBS check. Details are shown on each tutor's profile."
+      },
+      {
+        "q": "How much does it cost?",
+        "a": "Tutors set their own fees, which you'll see before you book. See our pricing page for how the platform itself works."
+      },
+      {
+        "q": "How do I get in touch?",
+        "a": "Email us at support@fair-do.com and we'll be glad to help."
+      }
+    ],
+    "still_heading": "Still need a hand?",
+    "still_body_pre": "Email us at ",
+    "still_body_mid": " and we'll get back to you. Looking for a tutor? ",
+    "still_body_link": "Get matched",
+    "still_body_post": "."
+  },
+  "for_tutors": {
+    "hero_badge": "How fair-do works",
+    "hero_title_line1": "Run your whole tutoring business,",
+    "hero_title_line2": "the gentle way.",
+    "hero_lead": "fair-do is the calm, private software you use to run your own tutoring — your students, scheduling, secure video, payments and reminders, together in one place. On your computer and on your phone. Built for you, not for shareholders.",
+    "hero_cta_primary": "Start free",
+    "hero_cta_secondary": "See pricing",
+    "hero_note": "Free to start · set up in ~15 minutes · keep your own students",
+    "features_heading": "Everything your tutoring needs",
+    "features_subheading": "A closer look at how fair-do takes the admin off your plate, so you can give your attention to the work that matters.",
+    "features": [
+      {
+        "icon": "🤝",
+        "title": "Your students stay yours",
+        "body": "You own the relationship and the record — full stop. fair-do is the software you run your tutoring with, never a middleman who owns your students or rents them back to you. If you ever leave, your student list and your notes go with you."
+      },
+      {
+        "icon": "🧰",
+        "title": "Everything in one place",
+        "body": "Your students, your schedule, secure video, payments and automatic reminders — all in a single calm place. No more stitching together a calendar, a video app, a card reader and a spreadsheet, and hoping they keep in step."
+      },
+      {
+        "icon": "🪶",
+        "title": "Genuinely simple",
+        "body": "Set up in about 15 minutes, with no tech skills needed. Every page is written in plain English, with help right where you are — no manuals, no jargon. And because it installs as an app on your phone, you can run the whole thing from your pocket."
+      },
+      {
+        "icon": "🔒",
+        "title": "Private and secure",
+        "body": "Everything is encrypted, with UK/EU data residency and appropriate safeguards for any services outside the UK. You stay in control: you are the data controller for your students' information, and fair-do is simply your processor. We never sell or share what your students trust you with."
+      },
+      {
+        "icon": "💷",
+        "title": "Set your own prices",
+        "body": "Your tutoring, your rates. Charge what you're worth, set a different price for a particular student if you like, or offer a package of lessons. You decide — we just make it easy to take the payment."
+      },
+      {
+        "icon": "⚡",
+        "title": "Get paid automatically",
+        "body": "Students pay by card and the money lands in your bank through Stripe, about two business days after each lesson. No invoices to chase, no end-of-month reconciling. You keep what you charge — fair-do is a flat monthly subscription, not a cut of your lessons."
+      }
+    ],
+    "ethos_eyebrow": "Made by people with heart",
+    "ethos_body": "We believe tutors deserve better tools and fairer terms. fair-do only grows when you grow — so there's no lock-in, no hidden games, and no company getting rich off your hard work. Keep your students, keep your records, and leave whenever you like.",
+    "steps_heading": "Up and running this week",
+    "steps_subheading": "Three small steps — that's the whole thing.",
+    "steps": [
+      {
+        "n": 1,
+        "title": "Add your students",
+        "body": "Invite them by email or bring your whole list across. You own the relationship and the records — your tutoring runs on your terms."
+      },
+      {
+        "n": 2,
+        "title": "Book lessons",
+        "body": "Pick a time and fair-do creates a private, secure video room and emails your student the details. Reminders go out on their own."
+      },
+      {
+        "n": 3,
+        "title": "Get paid",
+        "body": "Connect payments once. After each lesson the fee is taken and paid out to your bank — no chasing, no spreadsheets."
+      }
+    ],
+    "privacy_heading": "Privacy you can stand behind",
+    "privacy_body": "Your students trust you with their learning and their details. We treat their information with care — encrypted, with UK/EU data residency, and never sold or shared. You are the data controller; fair-do is your processor and nothing more. You stay in control of your records, always.",
+    "cta_heading": "Start tutoring on fair-do",
+    "cta_body": "Free to begin and fair as you grow. Set up in about 15 minutes, on web or phone — and we'll be here if you need a hand.",
+    "cta_button": "Start free →",
+    "cta_footer_pre": "Want the numbers first?",
+    "cta_footer_link": "See pricing",
+    "cta_footer_post": "."
+  },
+  "values": {
+    "eyebrow": "Our values",
+    "h1": "Why we built fair-do",
+    "intro": "We build software for a living. fair-do started because we kept noticing something about online tutoring that bothered us, and after a while we couldn't leave it alone.",
+    "bothered_heading": "What bothered us",
+    "bothered_p1": "Good tutoring works. That's not a hunch — the evidence is strong, and most of us have either felt it or watched it change someone close to us.",
+    "bothered_p2": "But the way it's sold online had drifted somewhere wrong. A lot of the big platforms take a huge share of every lesson — up to 65% in some cases. So the tutor, who trained for years and does the actual hard, human part of the work, ends up with maybe a third. The student pays full price, often when they're least able to afford it. And a company in the middle, who never meets either of them, takes the biggest cut.",
+    "bothered_p3": "We kept thinking someone would come along and fix it. Nobody did. So we had a go ourselves.",
+    "believe_heading": "What we actually believe",
+    "beliefs": [
+      {
+        "strong": "Tutors should keep what they earn.",
+        "body": "On fair-do they keep what they charge — we don't take a cut of your lessons. Tutors pay one flat monthly fee to use the platform, and that's the arrangement. The work is theirs."
+      },
+      {
+        "strong": "Cheaper isn't a gimmick — it's the point.",
+        "body": "Take out the middleman's cut and lessons can simply cost less. That's how good tutoring reaches families it currently prices out. We're not running a sale; this is the reason the company exists."
+      },
+      {
+        "strong": "Nobody should get rich off the work tutors do.",
+        "body": "We charge a small, flat fee to keep things running, and that's it. A tutor's hard work isn't a number to be squeezed for margin, and we're not going to build a business that treats it like one."
+      },
+      {
+        "strong": "We don't cut corners on trust.",
+        "body": "Every tutor here shares their teaching qualifications and a current DBS check. We check before anyone's approved, we keep a record of it, and we check again down the line. “Move fast and break things” is fine for a photo app. Not for this."
+      }
+    ],
+    "promise_tutors_heading": "What we promise tutors",
+    "promise_tutors_intro": "You've probably been burned by a platform before, so let's be specific.",
+    "promise_tutors_points": [
+      "You keep what you charge — we don't take a percentage of your lessons. You cover only the standard card-processing fee every business pays, and we keep none of it.",
+      "The price you join at is the price you keep — for good. It doesn't go up. And as we grow, the rate for new joiners actually comes down, because a bigger platform should be cheaper to run, not greedier.",
+      "If you're just getting started — a couple of students, finding your feet — you start free. You don't pay anything until your tutoring has grown enough that fair-do is clearly worth it. You're verified and visible from day one regardless.",
+      "And it's your tutoring, not ours. Your rates, your hours, your students. We take care of the booking, the payments, the video. You can walk away whenever you like and take your students with you."
+    ],
+    "promise_students_heading": "What we promise students",
+    "promise_students_intro": "If you're the one looking for help, here's where we stand.",
+    "promise_students_points": [
+      "Everyone you'll find here is a real, qualified tutor — we've checked.",
+      "You're not paying over the odds to cover someone's advertising budget, because there isn't a middleman taking a slice.",
+      "Your privacy matters more to us than almost anything. Lessons are encrypted. We keep only what we have to, we never sell your information, and we will never use your learning to sell you ads.",
+      "And you're a person to us. Not a conversion, not a number on a dashboard."
+    ],
+    "going_heading": "Where we're going",
+    "going_p1": "Right now fair-do is mostly built for tutors. But the bigger idea is this: a place where anyone can find the right tutor for them and book them directly — the way you'd choose anyone you're trusting with something that matters. Good tutoring, fairly priced, as ordinary as it should be.",
+    "going_p2": "We're building toward that slowly and in the right order. The verification, the safeguarding, the foundations — those come first, before we open things up. Some of it isn't here yet, and we'd rather say so than promise it early.",
+    "going_p3": "The one thing that won't move is the idea underneath: tutoring that's fair. Fair to the people who do the work, and fair to the people who need it.",
+    "hello_heading": "Say hello",
+    "hello_body": "We're a small team and we read everything — including the bits we've got wrong. Tell us.",
+    "cta_primary": "Become a founding tutor",
+    "cta_secondary": "Find a tutor"
+  },
+  "compare": {
+    "h1": "How fair-do compares",
+    "lead": "An honest look at fair-do next to the booking and admin software UK tutors usually weigh up. The others are mature and feature-rich; fair-do is the calm, UK-first, free-to-start option where the essentials are built in and your students stay yours.",
+    "edges": [
+      {
+        "icon": "🪶",
+        "title": "Free to start",
+        "body": "Run your whole tutoring business on the free plan. Most UK alternatives are paid-only from day one."
+      },
+      {
+        "icon": "🇬🇧",
+        "title": "Built UK-first, for tutors",
+        "body": "Tutoring-shaped, not a generic admin tool. UK/EU data residency, UK GDPR, you as the data controller."
+      },
+      {
+        "icon": "📦",
+        "title": "The essentials, all included",
+        "body": "Secure video, GBP payments, email + SMS reminders, intake forms, self-booking — no per-feature add-ons or SMS credit packs."
+      },
+      {
+        "icon": "🤝",
+        "title": "You own everything",
+        "body": "Your students, your records. Export and leave any time. fair-do is your tool, never a middleman."
+      }
+    ],
+    "matrix_heading": "Feature by feature",
+    "legend_included": "included",
+    "legend_partial": "partial / add-on / paid",
+    "legend_no": "no",
+    "table_feature": "Feature",
+    "rows": [
+      "Built for UK tutors",
+      "Free plan to start",
+      "UK / EU data residency",
+      "GBP card payments & payouts",
+      "Built-in secure video",
+      "Email + SMS reminders included",
+      "Student self-booking page",
+      "You own your students & records",
+      "Designed just for tutoring"
+    ],
+    "marks": {
+      "yes": "Yes / included",
+      "partial": "Partial / add-on / paid",
+      "no": "No"
+    },
+    "growing_heading": "Where we're still growing",
+    "growing_intro": "We believe in being straight with you:",
+    "growing_newer_strong": "We're newer.",
+    "growing_newer_body": " The established names have years of features — deep reporting, large multi-tutor academies, and more. We’re focused and growing.",
+    "growing_webapp_strong": "We're a web app today",
+    "growing_webapp_body": " (it installs to your phone's home screen). A native app is on the way.",
+    "growing_fees_strong": "Card payments carry a small commission",
+    "growing_fees_body": " (0–2.5%, and 0% on Academy) on top of Stripe’s fee — the trade for a genuinely free entry plan. ",
+    "growing_fees_link": "See exactly what you keep →",
+    "disclaimer": "Comparison researched and fact-checked in June 2026 from each provider's own website and reputable reviews. Competitors' pricing and features change — please check their sites for the latest. This is a factual comparison, not a criticism of any other product; they're good tools, built for different needs.",
+    "cta": "Start free",
+    "cta_sub": "Free to start · UK-first · keep your own students"
+  },
+  "ai_tutoring": {
+    "eyebrow": "The honest version",
+    "h1": "Why not just use an AI tutor?",
+    "lead": "It's a fair question — and the elephant in the room for a company like ours. We build software for human tutors, so we're not neutral. But you deserve a straight, impartial answer, not a sales pitch. Here's what AI can genuinely do, what it can't, and what the evidence actually says.",
+    "what_heading": "What “AI tutoring” actually is",
+    "what_body": "It usually means a chatbot or app that helps you learn — sometimes walking you through structured practice, sometimes just explaining a topic or checking your working. Some are purpose-built for education and curriculum-aware; others are general chatbots students use informally. They're available 24/7, usually free or cheap, and you can start instantly with no waiting list.",
+    "upsides_heading": "The genuine upsides",
+    "upsides": [
+      {
+        "t": "Access & cost",
+        "b": "Free or a few pounds a month versus an hourly rate. No travel, no waiting list, available at 11pm the night before a deadline."
+      },
+      {
+        "t": "Endlessly patient",
+        "b": "It never tires, never judges a \"silly\" question, and will re-explain the same thing ten different ways until it lands."
+      },
+      {
+        "t": "Good at drills & explanation",
+        "b": "Practice questions, instant feedback, step-by-step worked solutions, flashcards and recall — AI does these consistently and tirelessly."
+      },
+      {
+        "t": "A bridge, not a wall",
+        "b": "For a quick concept check, a homework nudge, or while waiting to start with a tutor, it can genuinely help a student take the first step."
+      }
+    ],
+    "risks_heading": "The real risks",
+    "risks": [
+      {
+        "t": "It doesn't actually know the student",
+        "b": "A good tutor reads a flicker of confusion on a face, remembers what clicked last week, and adapts in the moment. An AI guesses from text alone — it isn't really with the learner."
+      },
+      {
+        "t": "No accountability",
+        "b": "A real tutor builds a relationship with the family, can be asked how things are going, and is answerable for their work. A chatbot has none of that."
+      },
+      {
+        "t": "It can be confidently wrong",
+        "b": "AI can give plausible but incorrect answers or working (\"hallucinate\"). For a student who can't yet tell right from wrong, that's a real problem."
+      },
+      {
+        "t": "It can do the work for them",
+        "b": "The easiest path with a chatbot is to copy the answer. Real learning comes from struggling productively — something a good tutor protects and a chatbot can quietly undermine."
+      },
+      {
+        "t": "Privacy",
+        "b": "A child's schoolwork and details become data. Read the privacy policy carefully — some tools train on or share what you put in."
+      },
+      {
+        "t": "Patchy on the actual exam",
+        "b": "General AI doesn't reliably know your exact board, spec or mark scheme. A tutor who knows the exam can be the difference between knowing a topic and scoring the marks."
+      }
+    ],
+    "research_heading": "What the research says (so far)",
+    "research_body": "Honestly: it's early and mixed. AI tools can help with practice and feedback, and there's genuine promise in personalised drills. But the strongest evidence in education is still for structured, one-to-one teaching with a person who knows the learner. Long-term effects, accuracy at scale, and the impact on how children actually learn are still open questions, and professional bodies urge caution and human oversight.",
+    "research": [
+      {
+        "label": "Education Endowment Foundation — one-to-one tuition evidence",
+        "url": "https://educationendowmentfoundation.org.uk/education-evidence/teaching-learning-toolkit/one-to-one-tuition"
+      },
+      {
+        "label": "DfE — generative AI in education (policy paper)",
+        "url": "https://www.gov.uk/government/publications/generative-artificial-intelligence-in-education"
+      },
+      {
+        "label": "EEF — using digital technology to improve learning",
+        "url": "https://educationendowmentfoundation.org.uk/education-evidence/guidance-reports/digital"
+      },
+      {
+        "label": "Ofsted — approach to artificial intelligence",
+        "url": "https://www.gov.uk/government/publications/ofsteds-approach-to-artificial-intelligence-ai"
+      }
+    ],
+    "tools_heading": "Tools people are using",
+    "tools_note": "Shared for information, not endorsement. Check each one's privacy policy, and remember none of them replaces a teacher who knows your child.",
+    "tools": [
+      {
+        "name": "Khan Academy (Khanmigo)",
+        "url": "https://www.khanmigo.ai/",
+        "note": "An AI tutor built on Khan Academy's lessons; piloted in some schools for guided practice."
+      },
+      {
+        "name": "Photomath",
+        "url": "https://photomath.com/",
+        "note": "Scans a maths problem and shows step-by-step working; handy for checking method."
+      },
+      {
+        "name": "Duolingo",
+        "url": "https://www.duolingo.com/",
+        "note": "Gamified language practice with AI-driven exercises and feedback."
+      },
+      {
+        "name": "Century Tech",
+        "url": "https://www.century.tech/",
+        "note": "An AI learning platform used in some UK schools for personalised practice."
+      },
+      {
+        "name": "General LLMs (ChatGPT, Claude, Gemini)",
+        "url": "https://www.anthropic.com/claude",
+        "note": "Not built for teaching, but widely used to explain topics and check work. No guarantee of accuracy."
+      }
+    ],
+    "motivation_heading": "On motivation, and being known",
+    "motivation_body": "The heart of good tutoring isn't information — it's relationship. A tutor who believes in a student, notices the moment something clicks, and turns up week after week builds the confidence that makes learning stick. That encouragement, and the gentle accountability of someone who knows you, is where a lot of the progress happens. An AI can imitate the words. It can't choose to care, and it can't be proud of you. For drills and quick answers that's fine. For lasting confidence, it matters more than it sounds.",
+    "take_heading": "Our honest take",
+    "take_body": "Use the right tool for the job. For practice questions, explanations, flashcards, or an 11pm moment when no one's awake, a good AI tool can genuinely help — and we'd rather a student have that than nothing. For building real understanding, confidence and exam technique, we believe a real, qualified human tutor is worth it — and we've built fair-do so that's affordable, not a luxury. The two aren't enemies. But they're not the same.",
+    "cta_find": "Find a human tutor",
+    "cta_subjects": "Subjects & how tutoring works",
+    "disclaimer": "This article is general information, not formal academic advice. Links to third-party tools and research are for context, not endorsement."
   }
 }

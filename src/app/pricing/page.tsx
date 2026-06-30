@@ -4,55 +4,24 @@ import { SiteNav } from '@/components/SiteNav'
 import { SiteFooter } from '@/components/SiteFooter'
 import { PRACTICE_PORTAL_ENABLED } from '@/lib/practice'
 import { LocalPrice } from '@/components/LocalPrice'
+import { getDictionary, getLocaleFromHeaders } from '@/lib/dictionaries'
 
 export const metadata = {
   title: 'Pricing — fair-do',
   description: 'Simple, fair pricing for your tutoring practice. Start free, pay as you grow. Founding pricing locked for early tutors.',
 }
 
+// Structural tier config — copy lives in the dictionary (pricing.tiers[id]).
+// id drives logic (School → mailto); pricePence drives LocalPrice; highlight styling.
 const TIERS = [
-  {
-    name: 'Free',
-    price: 'Free',
-    cadence: '',
-    tagline: 'Everything to run your practice.',
-    features: ['Unlimited students', 'Scheduling + secure video', 'Card payments & payouts', 'Reminders & messaging', 'Runs on your phone'],
-    note: 'No commission — you keep what you charge.',
-    cta: 'Start free',
-    highlight: false,
-  },
-  {
-    name: 'Pro',
-    price: '£29',
-    pricePence: 2900,
-    cadence: '/month',
-    tagline: 'For an established solo practice.',
-    features: ['Everything in Free', 'No commission, ever', 'Per-student pricing & packages', 'Branded email & invite letterhead', 'Targeted student messaging & invites', 'Earnings insights & analytics', 'In-app AI assistant', 'Priority support', 'Your booking page'],
-    note: 'Founding tutors lock a lower rate — see below.',
-    cta: 'Start free',
-    highlight: true,
-  },
-  {
-    name: 'School',
-    price: 'Coming soon',
-    cadence: '',
-    tagline: 'For group practices & studios.',
-    features: ['Multiple tutors, one studio', 'Shared team calendar', 'Studio admin & reporting'],
-    note: 'In development — register your interest and we\'ll keep you posted.',
-    cta: 'Register interest',
-    highlight: false,
-  },
-]
+  { id: 'free', highlight: false },
+  { id: 'pro', pricePence: 2900, highlight: true },
+  { id: 'school', highlight: false },
+] as const
 
-const FAQ = [
-  { q: 'Do I have to pay to start?', a: 'No. The Free plan runs your whole tutoring business. You only pay if you choose a plan with extra tools.' },
-  { q: 'Do you take a commission?', a: 'No. We take no commission on your lessons — you keep what you charge. You pay a flat monthly plan for the software; the only per-lesson cost is Stripe\'s standard card-processing fee, which we keep none of.' },
-  { q: 'Can I cancel any time?', a: 'Yes. No lock-in. If you cancel a paid plan it simply runs to the end of the period, then drops to Free — your students and records stay with you.' },
-  { q: 'Are my students mine?', a: 'Always. You own the relationship and the records. fair-do is your tool, never a middleman.' },
-]
-
-export default function PricingPage() {
+export default async function PricingPage() {
   if (!PRACTICE_PORTAL_ENABLED) notFound()
+  const { pricing } = await getDictionary(await getLocaleFromHeaders())
 
   return (
     <>
@@ -60,61 +29,64 @@ export default function PricingPage() {
       <main className="bg-gradient-to-b from-brand-50 via-sand-50 to-sand-50">
         <div className="max-w-5xl mx-auto px-5 sm:px-8 py-16 sm:py-20">
           <div className="text-center max-w-2xl mx-auto mb-4">
-            <h1 className="font-display text-4xl sm:text-5xl font-semibold text-brand-900">Simple, fair pricing</h1>
-            <p className="text-sand-700 mt-4">Start free and pay as you grow. No lock-in, no surprises — and we grow only when you do.</p>
+            <h1 className="font-display text-4xl sm:text-5xl font-semibold text-brand-900">{pricing.h1}</h1>
+            <p className="text-sand-700 mt-4">{pricing.lead}</p>
           </div>
           <div className="text-center mb-12">
             <span className="inline-flex items-center gap-2 rounded-full bg-coral-50 border border-coral-200 text-coral-700 text-sm font-medium px-4 py-1.5">
-              🚀 Founding pricing — locked for early tutors
+              {pricing.founding_badge}
             </span>
           </div>
 
           <div className="grid grid-cols-1 md:grid-cols-3 gap-5 items-start">
-            {TIERS.map(t => (
-              <div
-                key={t.name}
-                className={`rounded-3xl border p-7 shadow-sm bg-white flex flex-col ${t.highlight ? 'border-brand-400 ring-1 ring-brand-200' : 'border-sand-200'}`}
-              >
-                {t.highlight && <span className="self-start text-xs font-semibold uppercase tracking-wide text-brand-700 bg-brand-50 px-2.5 py-1 rounded-full mb-3">Most popular</span>}
-                <h2 className="font-display text-xl font-semibold text-brand-900">{t.name}</h2>
-                <p className="text-sm text-sand-600 mt-1 mb-4">{t.tagline}</p>
-                <div className="mb-5">
-                  <span className="font-display text-4xl font-semibold text-brand-900">
-                    {'pricePence' in t && t.pricePence ? <LocalPrice minor={t.pricePence} base="GBP" whole approxClassName="text-lg font-normal text-sand-400" /> : t.price}
-                  </span>
-                  <span className="text-sand-500">{t.cadence}</span>
-                </div>
-                <ul className="space-y-2 mb-5 flex-1">
-                  {t.features.map(f => (
-                    <li key={f} className="flex gap-2 text-sm text-sand-700"><span className="text-brand-600" aria-hidden>✓</span>{f}</li>
-                  ))}
-                </ul>
-                <p className="text-xs text-sand-500 mb-5">{t.note}</p>
-                <Link
-                  href={t.name === 'School' ? 'mailto:support@fair-do.com' : '/sign-up?role=teacher'}
-                  className={`text-center py-3 rounded-full font-medium transition ${t.highlight ? 'bg-brand-600 text-white hover:bg-brand-700 shadow-sm' : 'border border-brand-200 text-brand-700 hover:bg-brand-50'}`}
+            {TIERS.map(t => {
+              const c = pricing.tiers[t.id]
+              return (
+                <div
+                  key={t.id}
+                  className={`rounded-3xl border p-7 shadow-sm bg-white flex flex-col ${t.highlight ? 'border-brand-400 ring-1 ring-brand-200' : 'border-sand-200'}`}
                 >
-                  {t.cta}
-                </Link>
-              </div>
-            ))}
+                  {t.highlight && <span className="self-start text-xs font-semibold uppercase tracking-wide text-brand-700 bg-brand-50 px-2.5 py-1 rounded-full mb-3">{pricing.most_popular}</span>}
+                  <h2 className="font-display text-xl font-semibold text-brand-900">{c.name}</h2>
+                  <p className="text-sm text-sand-600 mt-1 mb-4">{c.tagline}</p>
+                  <div className="mb-5">
+                    <span className="font-display text-4xl font-semibold text-brand-900">
+                      {'pricePence' in t && t.pricePence ? <LocalPrice minor={t.pricePence} base="GBP" whole approxClassName="text-lg font-normal text-sand-400" /> : c.price}
+                    </span>
+                    <span className="text-sand-500">{c.cadence}</span>
+                  </div>
+                  <ul className="space-y-2 mb-5 flex-1">
+                    {c.features.map(f => (
+                      <li key={f} className="flex gap-2 text-sm text-sand-700"><span className="text-brand-600" aria-hidden>✓</span>{f}</li>
+                    ))}
+                  </ul>
+                  <p className="text-xs text-sand-500 mb-5">{c.note}</p>
+                  <Link
+                    href={t.id === 'school' ? 'mailto:support@fair-do.com' : '/sign-up?role=teacher'}
+                    className={`text-center py-3 rounded-full font-medium transition ${t.highlight ? 'bg-brand-600 text-white hover:bg-brand-700 shadow-sm' : 'border border-brand-200 text-brand-700 hover:bg-brand-50'}`}
+                  >
+                    {c.cta}
+                  </Link>
+                </div>
+              )
+            })}
           </div>
 
-          <p className="text-center text-xs text-sand-400 mt-6">Prices shown are launch pricing and may change. Founding tutors keep their rate.</p>
+          <p className="text-center text-xs text-sand-400 mt-6">{pricing.prices_note}</p>
 
           <div className="text-center mt-8 flex flex-col sm:flex-row gap-x-8 gap-y-2 justify-center">
             <Link href="/pricing/explained" className="inline-flex items-center gap-2 text-brand-700 font-medium hover:text-brand-800 underline underline-offset-4">
-              See exactly what you&apos;ll keep →
+              {pricing.link_explained}
             </Link>
             <Link href="/compare" className="inline-flex items-center gap-2 text-brand-700 font-medium hover:text-brand-800 underline underline-offset-4">
-              How fair-do compares →
+              {pricing.link_compare}
             </Link>
           </div>
 
           <div className="max-w-2xl mx-auto mt-16">
-            <h2 className="font-display text-2xl font-semibold text-brand-900 text-center mb-6">Questions</h2>
+            <h2 className="font-display text-2xl font-semibold text-brand-900 text-center mb-6">{pricing.faq_heading}</h2>
             <div className="space-y-3">
-              {FAQ.map(f => (
+              {pricing.faq_items.map(f => (
                 <details key={f.q} className="group bg-white rounded-2xl border border-sand-200 shadow-sm">
                   <summary className="cursor-pointer list-none px-5 py-4 flex items-center justify-between gap-3 font-medium text-sand-800 hover:bg-sand-50">
                     {f.q}
@@ -128,7 +100,7 @@ export default function PricingPage() {
 
           <div className="text-center mt-16">
             <Link href="/sign-up?role=teacher" className="inline-block bg-brand-600 text-white px-8 py-4 rounded-full font-medium hover:bg-brand-700 transition shadow-lg shadow-brand-600/20">
-              Start free →
+              {pricing.cta_button}
             </Link>
           </div>
         </div>
