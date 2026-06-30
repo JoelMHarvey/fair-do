@@ -21,6 +21,13 @@ const dictionaries: Record<Locale, () => Promise<typeof import('../messages/en.j
   pt: () => import('../messages/pt.json') as Promise<typeof import('../messages/en.json')>,
 }
 
-export function getDictionary(locale: Locale) {
-  return dictionaries[locale]()
+export async function getDictionary(locale: Locale) {
+  // Return `.default` (the parsed JSON object) rather than the import Module
+  // namespace. A Module has a null prototype and cannot be serialized across
+  // the Server→Client Component boundary (DictProvider is 'use client').
+  // Spread the import Module namespace into a fresh plain object. The Module
+  // has a null prototype and cannot be serialized across the Server→Client
+  // boundary (DictProvider is 'use client'); a plain object can.
+  const mod = await dictionaries[locale]()
+  return { ...mod }
 }
