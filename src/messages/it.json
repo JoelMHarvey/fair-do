@@ -178,9 +178,10 @@
         "tagline": "Everything to run your practice.",
         "features": [
           "Unlimited students",
-          "Scheduling + secure video",
+          "Secure video & chat lessons",
+          "Shared whiteboard",
+          "Scheduling, reminders & messaging",
           "Card payments & payouts",
-          "Reminders & messaging",
           "Runs on your phone"
         ],
         "note": "No commission — you keep what you charge.",
@@ -199,6 +200,7 @@
           "Targeted student messaging & invites",
           "Earnings insights & analytics",
           "In-app AI assistant",
+          "AI meeting scribe — automatic lesson notes",
           "Priority support",
           "Your booking page"
         ],
@@ -241,7 +243,26 @@
         "a": "Always. You own the relationship and the records. fair-do is your tool, never a middleman."
       }
     ],
-    "cta_button": "Start free →"
+    "cta_button": "Start free →",
+    "link_parents": "For parents →",
+    "parents": {
+      "eyebrow": "For parents",
+      "h1": "Stay close to your child's learning",
+      "lead": "See every lesson, message your child's tutor, and keep all your invoices in one calm place.",
+      "cadence": "/month",
+      "price_note": "One subscription covers your whole family — every child, every tutor.",
+      "features": [
+        "Upcoming & past lessons with attendance",
+        "Lesson notes from your child's tutor",
+        "Message tutors directly",
+        "All invoices & receipts in one place",
+        "See your tutor's verified credentials",
+        "One price for all your children"
+      ],
+      "cta": "Ask your tutor for an invite",
+      "cta_note": "Your tutor sends you a secure invite link — you're set up in minutes.",
+      "back_link": "← Back to tutor pricing"
+    }
   },
   "styles": {
     "eyebrow": "A plain-English guide",
@@ -1296,6 +1317,10 @@
     "help": {
       "title": "Help & FAQs — fair-do",
       "description": "Find your way around fair-do — how tutoring works, pricing, finding a tutor, and how to get in touch."
+    },
+    "pricing_parents": {
+      "title": "Parent portal pricing — fair-do",
+      "description": "Follow your child's tutoring — lessons, notes, messages and invoices, all in one calm place. £4.99/month, one price for the whole family."
     }
   }
 }

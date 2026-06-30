@@ -178,9 +178,10 @@
         "tagline": "Todo lo necesario para llevar tu actividad.",
         "features": [
           "Estudiantes ilimitados",
-          "Agenda + vídeo seguro",
+          "Vídeo y chat seguros en las clases",
+          "Pizarra compartida",
+          "Agenda, recordatorios y mensajería",
           "Pagos con tarjeta y abonos",
-          "Recordatorios y mensajería",
           "Funciona en tu móvil"
         ],
         "note": "Sin comisión — te quedas con lo que cobras.",
@@ -199,6 +200,7 @@
           "Mensajes e invitaciones segmentados a estudiantes",
           "Información y analíticas de ingresos",
           "Asistente de IA integrado",
+          "Notas de clase automáticas con IA",
           "Soporte prioritario",
           "Tu página de reservas"
         ],
@@ -241,7 +243,26 @@
         "a": "Siempre. Tú eres dueño de la relación y de los registros. fair-do es tu herramienta, nunca un intermediario."
       }
     ],
-    "cta_button": "Empieza gratis →"
+    "cta_button": "Empieza gratis →",
+    "link_parents": "Para familias →",
+    "parents": {
+      "eyebrow": "Para familias",
+      "h1": "Acompaña el aprendizaje de tu hijo",
+      "lead": "Consulta cada clase, escribe al profesor de tu hijo y guarda todas tus facturas en un solo lugar.",
+      "cadence": "/mes",
+      "price_note": "Una sola suscripción cubre a toda tu familia: cada hijo, cada profesor.",
+      "features": [
+        "Clases próximas y pasadas con asistencia",
+        "Notas de clase del profesor de tu hijo",
+        "Escribe a los profesores directamente",
+        "Todas las facturas y recibos en un solo lugar",
+        "Consulta las credenciales verificadas del profesor",
+        "Un precio para todos tus hijos"
+      ],
+      "cta": "Pide a tu profesor una invitación",
+      "cta_note": "Tu profesor te envía un enlace de invitación seguro y te configuras en minutos.",
+      "back_link": "← Volver a precios para profesores"
+    }
   },
   "styles": {
     "eyebrow": "Una guía en lenguaje sencillo",
@@ -1296,6 +1317,10 @@
     "help": {
       "title": "Ayuda y preguntas frecuentes — fair-do",
       "description": "Orientación para moverte por fair-do: cómo funcionan las clases, precios, encontrar profesor y cómo ponerte en contacto."
+    },
+    "pricing_parents": {
+      "title": "Precios del portal para familias — fair-do",
+      "description": "Sigue las clases de tu hijo: lecciones, notas, mensajes y facturas en un solo lugar. 4,99 £/mes, un precio para toda la familia."
     }
   }
 }
