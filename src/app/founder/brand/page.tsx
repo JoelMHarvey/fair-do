@@ -5,7 +5,7 @@ import { isFounder } from '@/lib/founder'
 
 export const metadata = { title: 'Brand assets — fair-do', robots: { index: false, follow: false } }
 
-type Item = { file: string; name: string; type: string; image: boolean; pad?: boolean; wide?: boolean }
+type Item = { file: string; href?: string; name: string; type: string; image: boolean; pad?: boolean; wide?: boolean }
 type Group = { title: string; note?: string; items: Item[] }
 
 const GROUPS: Group[] = [
@@ -16,40 +16,7 @@ const GROUPS: Group[] = [
       { file: 'fair-do-icon-512.png', name: 'App icon (large)', type: 'PNG · 512', image: true, pad: true },
       { file: 'fair-do-icon-192.png', name: 'App icon', type: 'PNG · 192', image: true, pad: true },
       { file: 'fair-do-apple-touch-180.png', name: 'Apple touch icon', type: 'PNG · 180', image: true, pad: true },
-      { file: 'fair-do-social-card.png', name: 'Social / OG card', type: 'PNG · 1200×630', image: true },
-    ],
-  },
-  {
-    title: 'Social media kit',
-    note: 'Ready-to-post creative for each platform, at the right dimensions.',
-    items: [
-      { file: 'social/instagram-post.png', name: 'Instagram post', type: '1080×1080', image: true },
-      { file: 'social/instagram-story.png', name: 'Instagram story', type: '1080×1920', image: true },
-      { file: 'social/facebook-post.png', name: 'Facebook post', type: '1200×630', image: true },
-      { file: 'social/facebook-cover.png', name: 'Facebook cover', type: '1640×624', image: true, wide: true },
-      { file: 'social/linkedin-post.png', name: 'LinkedIn post', type: '1200×627', image: true },
-      { file: 'social/linkedin-banner.png', name: 'LinkedIn banner', type: '1584×396', image: true, wide: true },
-      { file: 'social/x-post.png', name: 'X post', type: '1600×900', image: true },
-      { file: 'social/x-header.png', name: 'X header', type: '1500×500', image: true, wide: true },
-      { file: 'social/youtube-thumbnail.png', name: 'YouTube thumbnail', type: '1280×720', image: true },
-      { file: 'social/youtube-banner.png', name: 'YouTube banner', type: '2560×1440', image: true, wide: true },
-    ],
-  },
-  {
-    title: 'Brand guidelines',
-    note: 'Reference cards — colours, type, spacing, logo, voice.',
-    items: [
-      { file: 'guidelines/color-brand.png', name: 'Brand colour scale', type: 'card', image: true, wide: true },
-      { file: 'guidelines/color-accent.png', name: 'Accent colour', type: 'card', image: true, wide: true },
-      { file: 'guidelines/color-sand.png', name: 'Sand scale', type: 'card', image: true, wide: true },
-      { file: 'guidelines/color-semantic.png', name: 'Semantic colours', type: 'card', image: true, wide: true },
-      { file: 'guidelines/type-display.png', name: 'Display type', type: 'card', image: true, wide: true },
-      { file: 'guidelines/type-text.png', name: 'Text type', type: 'card', image: true, wide: true },
-      { file: 'guidelines/spacing-scale.png', name: 'Spacing scale', type: 'card', image: true, wide: true },
-      { file: 'guidelines/spacing-radii.png', name: 'Radii', type: 'card', image: true, wide: true },
-      { file: 'guidelines/brand-logo.png', name: 'Logo usage', type: 'card', image: true, wide: true },
-      { file: 'guidelines/brand-lotus.png', name: 'Lotus motif', type: 'card', image: true, wide: true },
-      { file: 'guidelines/brand-voice.png', name: 'Voice', type: 'card', image: true, wide: true },
+      { file: 'opengraph-image', href: '/opengraph-image', name: 'Social / OG card', type: 'PNG · 1200×630 · live', image: true },
     ],
   },
   {
@@ -70,22 +37,23 @@ export default async function FounderBrandPage() {
           <p className="text-xs font-semibold uppercase tracking-wide text-coral-600 mb-2">Founder · private</p>
           <h1 className="font-display text-4xl font-semibold text-brand-900">Brand assets</h1>
           <p className="text-sand-700 mt-3 mb-6">
-            Logo, icons, the full social media kit, guideline cards, and the brand tokens — for partners, press, and ad creative. Click any to download.
+            Logo, app icons, and the brand tokens — for partners, press, and ad creative. Click any to download.
           </p>
-          <div className="flex flex-wrap gap-3 mb-12">
-            <a
-              href="/brand/fair-do-brand-kit.zip"
-              download
-              className="inline-flex items-center gap-2 bg-brand-600 text-white rounded-full px-5 py-2.5 text-sm font-medium hover:bg-brand-700 transition shadow-sm"
-            >
-              Download the full kit (.zip) ↓
-            </a>
+          <div className="flex flex-wrap gap-3 mb-6">
             <Link
               href="/founder"
               className="inline-flex items-center gap-2 bg-white border border-sand-200 hover:border-brand-300 rounded-full px-4 py-2 text-sm font-medium text-brand-800 transition"
             >
               ← Back to docs
             </Link>
+          </div>
+          <div className="rounded-2xl border border-coral-200 bg-coral-50/60 px-5 py-4 mb-12 text-sm text-sand-700">
+            <span className="font-medium text-coral-700">Not yet built:</span> a social media kit (LinkedIn/Instagram/X/YouTube templates
+            at native pixel sizes) and printable brand-guideline cards. The full spec for these lives in{' '}
+            <Link href="/founder/marketing-assets" className="text-brand-700 underline hover:text-brand-800">
+              Visual Asset Briefs
+            </Link>{' '}
+            — this is a design-production pass (Canva or a designer), not a code change.
           </div>
 
           <div className="space-y-12">
@@ -94,33 +62,36 @@ export default async function FounderBrandPage() {
                 <h2 className="font-display text-lg font-semibold text-brand-900">{g.title}</h2>
                 {g.note && <p className="text-sand-500 text-sm mb-4">{g.note}</p>}
                 <div className={`grid gap-4 ${g.note ? 'mt-2' : 'mt-4'} grid-cols-2 sm:grid-cols-3`}>
-                  {g.items.map((a) => (
-                    <a
-                      key={a.file}
-                      href={`/brand/${a.file}`}
-                      download
-                      className={`group bg-white rounded-2xl border border-sand-200 hover:border-brand-300 hover:shadow-sm transition p-4 flex flex-col ${a.wide ? 'sm:col-span-2' : ''}`}
-                    >
-                      <div className={`${a.wide ? 'h-28' : 'h-32'} rounded-xl bg-sand-50 border border-sand-100 flex items-center justify-center overflow-hidden ${a.pad ? 'p-4' : 'p-2'}`}>
-                        {a.image ? (
-                          // eslint-disable-next-line @next/next/no-img-element
-                          <img src={`/brand/${a.file}`} alt={a.name} className="max-h-full max-w-full object-contain" />
-                        ) : (
-                          <span className="font-mono text-xs text-sand-500">{'{ }'} tokens</span>
-                        )}
-                      </div>
-                      <p className="mt-3 text-sm font-medium text-brand-900">{a.name}</p>
-                      <p className="text-xs text-sand-500">{a.type}</p>
-                      <span className="mt-2 text-xs font-medium text-brand-600 group-hover:text-brand-700">Download ↓</span>
-                    </a>
-                  ))}
+                  {g.items.map((a) => {
+                    const href = a.href ?? `/brand/${a.file}`
+                    return (
+                      <a
+                        key={a.file}
+                        href={href}
+                        download
+                        className={`group bg-white rounded-2xl border border-sand-200 hover:border-brand-300 hover:shadow-sm transition p-4 flex flex-col ${a.wide ? 'sm:col-span-2' : ''}`}
+                      >
+                        <div className={`${a.wide ? 'h-28' : 'h-32'} rounded-xl bg-sand-50 border border-sand-100 flex items-center justify-center overflow-hidden ${a.pad ? 'p-4' : 'p-2'}`}>
+                          {a.image ? (
+                            // eslint-disable-next-line @next/next/no-img-element
+                            <img src={href} alt={a.name} className="max-h-full max-w-full object-contain" />
+                          ) : (
+                            <span className="font-mono text-xs text-sand-500">{'{ }'} tokens</span>
+                          )}
+                        </div>
+                        <p className="mt-3 text-sm font-medium text-brand-900">{a.name}</p>
+                        <p className="text-xs text-sand-500">{a.type}</p>
+                        <span className="mt-2 text-xs font-medium text-brand-600 group-hover:text-brand-700">Download ↓</span>
+                      </a>
+                    )
+                  })}
                 </div>
               </section>
             ))}
           </div>
 
           <p className="text-xs text-sand-400 mt-12">
-            Generated from the fair-do design system. Source of truth is the repo.
+            Generated from the fair-do codebase (globals.css tokens, app icons). Source of truth is the repo.
           </p>
         </div>
       </main>

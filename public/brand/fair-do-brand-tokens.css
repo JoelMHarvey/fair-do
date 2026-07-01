@@ -1,0 +1,49 @@
+/*
+  fair-do brand tokens
+  Source of truth: src/app/globals.css (@theme block). Do not hand-edit values
+  here without updating that file first — this is a generated export for
+  partners, press, and ad-creative use.
+*/
+
+:root {
+  /* Brand — confident indigo */
+  --fd-brand-50:  #eef2ff;
+  --fd-brand-100: #e0e7ff;
+  --fd-brand-200: #c7d2fe;
+  --fd-brand-300: #a5b4fc;
+  --fd-brand-400: #818cf8;
+  --fd-brand-500: #6366f1;
+  --fd-brand-600: #4f46e5; /* primary — buttons, links, logo mark */
+  --fd-brand-700: #4338ca;
+  --fd-brand-800: #3730a3;
+  --fd-brand-900: #312e81; /* headings, deep ink */
+
+  /* Sand — warm neutral (replaces cold greys) */
+  --fd-sand-50:  #f8f7f4; /* page background */
+  --fd-sand-100: #f1f0ec;
+  --fd-sand-200: #e6e4dd; /* hairline borders */
+  --fd-sand-300: #d4d1c8;
+  --fd-sand-400: #a9a59a;
+  --fd-sand-500: #837e72;
+  --fd-sand-600: #645f54;
+  --fd-sand-700: #4b4740; /* body text */
+  --fd-sand-800: #322f2a;
+  --fd-sand-900: #1e1b2e;
+
+  /* Accent — warm amber for highlights, ratings, "founding" badges */
+  --fd-coral-50:  #fffbeb;
+  --fd-coral-100: #fef3c7;
+  --fd-coral-200: #fde68a;
+  --fd-coral-300: #fcd34d;
+  --fd-coral-400: #fbbf24;
+  --fd-coral-500: #f59e0b;
+  --fd-coral-600: #d97706;
+
+  /* Type */
+  --fd-font-display: 'Bricolage Grotesque', sans-serif; /* headings, wordmark */
+  --fd-font-sans: 'Inter', sans-serif;                  /* body, UI */
+
+  /* Shape */
+  --fd-radius-pill: 9999px;
+  --fd-radius-card: 24px;
+}
