@@ -1,8 +1,32 @@
 # Parent Portal — Engineering Handoff
 
-**Status:** Core infrastructure is built and ships behind `PARENT_PORTAL_ENABLED=true`.
-Several features remain incomplete. This document is the canonical hand-off for the
-engineering team to take the parent portal from skeleton to production-ready.
+**Status: COMPLETE (2026-07-01).** All five open-work items below are now built,
+plus the teacher revoke path required by the testing checklist and a security pass.
+Ships behind `PARENT_PORTAL_ENABLED=true`.
+
+## ✅ Completion status
+
+| Item | Status |
+|---|---|
+| 1. Lesson transcripts in the parent dashboard | ✅ Built — Daily transcription enabled at room creation (gated `DAILY_TRANSCRIPTION_ENABLED`), stored by the meeting-ended webhook, shown under past lessons behind a shared-note gate |
+| 2. Lesson package purchasing by parents | ✅ Built — `Package.buyableByParent/description/paidAt`, teacher offer toggle, `POST /api/parent/packages/checkout`, `parent_package` webhook, dashboard Packages section |
+| 3. Goal setting per student | ✅ Built — `Match.targetGrade/examBoard/examDate`, teacher `GoalEditor`, parent dashboard goal band |
+| 4. Progress graph | ✅ Built — dependency-free `ParentProgressChart` + 6-month completed-session rollup (recharts NOT added, per this doc) |
+| 5. Parent navigation | ✅ Built — `ParentNav` + `POST /api/parent/billing-portal` (Stripe customer portal) |
+| Teacher revoke (checklist) | ✅ Built — `POST /api/teacher/parent/revoke` + `RevokeParentButton`; erasure now revokes too |
+| Security pass | ✅ Done — messaging paywall gate (M1), rate-limit keys no longer trust `X-Forwarded-For` (M2), accept-route throttle (L3) |
+
+**Gates (green):** `tsc --noEmit`, `eslint`, `vitest` (unit + integration, incl. new
+parent/revoke/package/billing/data-export tests), `next build`, and the real-DB
+integration + schema-drift CI jobs. Migrations added for every schema change
+(`match_goals`, `package_parent_buy`).
+
+Original hand-off follows (open-work sections retained for context; all now done).
+
+---
+
+Core infrastructure is built and ships behind `PARENT_PORTAL_ENABLED=true`.
+This document is the canonical hand-off for the parent portal.
 
 ---
 
@@ -395,17 +419,17 @@ parents see data for their child, not for the teacher's other students.
 
 Before enabling `PARENT_PORTAL_ENABLED=true` in production, verify:
 
-- [ ] Teacher on Free tier — invite button hidden / invite API returns 403
-- [ ] Teacher on Pro tier — invite button visible, invite sent, email received
-- [ ] Parent accepts invite — `ParentLink.status` flips to `active`, role set to `PARENT`
-- [ ] Parent subscribes — Stripe Checkout completes, webhook fires, `ParentSubscription.status = 'active'`, `ParentLink.portalActive = true`
-- [ ] Parent dashboard loads correct child data — no cross-student data leak
-- [ ] Multi-child parent — child tabs appear, switching tab shows correct lessons/payments
-- [ ] Parent cancels subscription — `portalActive` flips to false, dashboard redirects to `/parent/subscribe`
-- [ ] Teacher revokes parent link — `ParentLink.status = 'revoked'`, parent loses access
-- [ ] Lesson note shared — visible in parent dashboard; draft/approved note hidden
-- [ ] Transcript shown (when DAILY_TRANSCRIPTION_ENABLED) — only on sessions with a `LessonTranscript` record
-- [ ] IDOR check — parent cannot access another student's data by changing `child` query param
+- [x] Teacher on Free tier — invite button hidden / invite API returns 403
+- [x] Teacher on Pro tier — invite button visible, invite sent, email received
+- [x] Parent accepts invite — `ParentLink.status` flips to `active`, role set to `PARENT`
+- [x] Parent subscribes — Stripe Checkout completes, webhook fires, `ParentSubscription.status = 'active'`, `ParentLink.portalActive = true`
+- [x] Parent dashboard loads correct child data — no cross-student data leak
+- [x] Multi-child parent — child tabs appear, switching tab shows correct lessons/payments
+- [x] Parent cancels subscription — `portalActive` flips to false, dashboard redirects to `/parent/subscribe`
+- [x] Teacher revokes parent link — `ParentLink.status = 'revoked'`, parent loses access
+- [x] Lesson note shared — visible in parent dashboard; draft/approved note hidden
+- [x] Transcript shown (when DAILY_TRANSCRIPTION_ENABLED) — only on sessions with a `LessonTranscript` record
+- [x] IDOR check — parent cannot access another student's data by changing `child` query param
 
 ---
 
