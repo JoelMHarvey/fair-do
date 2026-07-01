@@ -16,6 +16,33 @@ export default async function AdminPage() {
   const user = await prisma.user.findUnique({ where: { clerkId: userId } })
   if (!isAdminUser(user) && !(await isFounder())) redirect('/')
 
+  // Load credential documents for pending teachers via raw SQL (new table, pre-migration safe).
+  type CredDoc = {
+    teacherId: string
+    extractedName: string | null
+    extractedBody: string | null
+    extractedRef: string | null
+    extractedExpiry: Date | null
+    confidenceScore: number | null
+    flags: string[]
+  }
+  let credDocsByTeacher: Record<string, CredDoc> = {}
+  try {
+    const docs = await prisma.$queryRaw<CredDoc[]>`
+      SELECT DISTINCT ON ("teacherId")
+        "teacherId", "extractedName", "extractedBody", "extractedRef",
+        "extractedExpiry", "confidenceScore", "flags"
+      FROM "CredentialDocument"
+      WHERE "teacherId" = ANY(
+        SELECT id FROM "Teacher" WHERE status = 'PENDING'
+      )
+      ORDER BY "teacherId", "uploadedAt" DESC
+    `
+    credDocsByTeacher = Object.fromEntries(docs.map(d => [d.teacherId, d]))
+  } catch {
+    // Table not yet created — silently skip
+  }
+
   const [pending, all, openComplaints, stats] = await Promise.all([
     prisma.teacher.findMany({
       where: { status: 'PENDING' },
@@ -121,6 +148,9 @@ export default async function AdminPage() {
               const register = registerFor(t.qualificationBody)
               const qualState = expiryState(daysUntil(t.qualificationExpiry))
               const stateCls = (s: string) => s === 'ok' ? 'text-sand-900' : s === 'expiring' ? 'text-amber-700' : 'text-red-600 font-medium'
+              const doc = credDocsByTeacher[t.id]
+              const docConfidence = doc?.confidenceScore != null ? Math.round(Number(doc.confidenceScore) * 100) : null
+              const docFlags: string[] = Array.isArray(doc?.flags) ? doc.flags : []
               return (
               <div key={t.id} className="bg-white rounded-2xl border border-amber-200 p-6">
                 <div className="flex items-center gap-3 mb-1">
@@ -129,22 +159,68 @@ export default async function AdminPage() {
                 </div>
                 <p className="text-sm text-sand-500 mb-3">{t.user.email}</p>
 
-                {/* Credential block — everything the verifier needs + one-click to the register */}
+                {/* Credential block — declared values + extraction comparison + register link */}
                 <div className="rounded-xl border border-sand-200 bg-sand-50/60 p-4 space-y-2 text-sm">
-                  <div className="flex items-center justify-between gap-3">
-                    <span className="text-sand-600">Qualification ref</span>
-                    <span className="font-mono font-medium text-sand-900 select-all">{t.qualificationRef}</span>
-                  </div>
-                  <div className="flex items-center justify-between gap-3">
-                    <span className="text-sand-600">Qualification expiry</span>
-                    <span className={stateCls(qualState)}>
-                      {t.qualificationExpiry ? new Date(t.qualificationExpiry).toLocaleDateString('en-GB') : '—'}{qualState !== 'ok' ? ` · ${qualState}` : ''}
-                    </span>
-                  </div>
-                  <div className="flex items-center justify-between gap-3 pt-1">
+                  {/* Declared vs extracted comparison table */}
+                  {doc ? (
+                    <div className="space-y-2">
+                      <div className="grid grid-cols-3 gap-2 text-xs font-medium text-sand-400 pb-1 border-b border-sand-200">
+                        <span>Field</span>
+                        <span>Declared</span>
+                        <span>On certificate</span>
+                      </div>
+                      {[
+                        { label: 'Name',   declared: `${t.firstName} ${t.lastName}`, extracted: doc.extractedName },
+                        { label: 'Body',   declared: t.qualificationBody,             extracted: doc.extractedBody },
+                        { label: 'Ref',    declared: t.qualificationRef,              extracted: doc.extractedRef },
+                        { label: 'Expiry', declared: t.qualificationExpiry ? new Date(t.qualificationExpiry).toLocaleDateString('en-GB') : '—', extracted: doc.extractedExpiry ? new Date(doc.extractedExpiry).toLocaleDateString('en-GB') : null },
+                      ].map(row => {
+                        const mismatch = row.extracted && row.declared &&
+                          row.extracted.toLowerCase().trim() !== row.declared.toLowerCase().trim()
+                        return (
+                          <div key={row.label} className={`grid grid-cols-3 gap-2 text-xs ${mismatch ? 'text-amber-700' : 'text-sand-700'}`}>
+                            <span className="text-sand-400">{row.label}</span>
+                            <span className="font-mono">{row.declared ?? '—'}</span>
+                            <span className={`font-mono ${mismatch ? 'font-semibold' : ''}`}>{row.extracted ?? <span className="text-sand-300">not read</span>}</span>
+                          </div>
+                        )
+                      })}
+                      <div className="flex items-center justify-between pt-1 border-t border-sand-200">
+                        <div className="flex gap-1 flex-wrap">
+                          {docFlags.map(f => (
+                            <span key={f} className="text-xs bg-amber-100 text-amber-700 px-1.5 py-0.5 rounded">{f.replace('_', ' ')}</span>
+                          ))}
+                          {docFlags.length === 0 && <span className="text-xs text-brand-600">✓ No flags</span>}
+                        </div>
+                        {docConfidence !== null && (
+                          <span className={`text-xs px-2 py-0.5 rounded-full font-medium ${
+                            docConfidence >= 80 ? 'bg-brand-100 text-brand-700' :
+                            docConfidence >= 50 ? 'bg-amber-100 text-amber-700' : 'bg-red-100 text-red-700'
+                          }`}>
+                            {docConfidence}% match
+                          </span>
+                        )}
+                      </div>
+                    </div>
+                  ) : (
+                    <>
+                      <div className="flex items-center justify-between gap-3">
+                        <span className="text-sand-600">Qualification ref</span>
+                        <span className="font-mono font-medium text-sand-900 select-all">{t.qualificationRef}</span>
+                      </div>
+                      <div className="flex items-center justify-between gap-3">
+                        <span className="text-sand-600">Qualification expiry</span>
+                        <span className={stateCls(qualState)}>
+                          {t.qualificationExpiry ? new Date(t.qualificationExpiry).toLocaleDateString('en-GB') : '—'}{qualState !== 'ok' ? ` · ${qualState}` : ''}
+                        </span>
+                      </div>
+                    </>
+                  )}
+
+                  <div className="flex items-center justify-between gap-3 pt-1 border-t border-sand-200">
                     {t.credentialDocUrl
-                      ? <a href={t.credentialDocUrl} target="_blank" rel="noopener noreferrer" className="text-brand-600 hover:text-brand-700 underline">View uploaded certificate ↗</a>
-                      : <span className="text-sand-400">No certificate uploaded</span>}
+                      ? <a href={t.credentialDocUrl} target="_blank" rel="noopener noreferrer" className="text-brand-600 hover:text-brand-700 underline text-xs">View certificate ↗</a>
+                      : <span className="text-sand-400 text-xs">No certificate uploaded</span>}
                     {register && (
                       <a href={register.url} target="_blank" rel="noopener noreferrer" className="inline-flex items-center gap-1 bg-brand-600 text-white px-3 py-1.5 rounded-lg text-xs font-medium hover:bg-brand-700 transition shrink-0">
                         Open {t.qualificationBody} register ↗
@@ -152,7 +228,7 @@ export default async function AdminPage() {
                     )}
                   </div>
                   {register && (
-                    <p className="text-xs text-sand-400 pt-1">
+                    <p className="text-xs text-sand-400">
                       Search by {register.checkBy}. Confirm: name matches · ref matches · status current · not expired.
                     </p>
                   )}

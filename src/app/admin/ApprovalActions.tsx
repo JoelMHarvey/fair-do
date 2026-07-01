@@ -3,12 +3,34 @@
 import { useState } from 'react'
 
 const CHECKS = [
-  { key: 'name', label: 'Name matches qualification records' },
+  { key: 'name',   label: 'Name matches qualification records' },
   { key: 'number', label: 'Qualification reference verified' },
   { key: 'inDate', label: 'Qualification is current (not expired/lapsed)' },
 ] as const
 
 type CheckKey = (typeof CHECKS)[number]['key']
+
+type ReviewResult = {
+  confidence: number
+  summary: string
+  recommendation: 'approve' | 'request_info' | 'manual' | 'reject'
+  flags: string[]
+  checklistState: { nameMatch: boolean; refVerified: boolean; inDate: boolean }
+}
+
+const REC_STYLE: Record<string, string> = {
+  approve:      'bg-brand-50 border-brand-200 text-brand-800',
+  request_info: 'bg-amber-50 border-amber-200 text-amber-800',
+  manual:       'bg-amber-50 border-amber-200 text-amber-800',
+  reject:       'bg-red-50 border-red-200 text-red-800',
+}
+
+const REC_LABEL: Record<string, string> = {
+  approve:      '✓ Recommend approve',
+  request_info: '⚠ Request more information',
+  manual:       '⚠ Needs manual check',
+  reject:       '✗ Likely reject',
+}
 
 export default function ApprovalActions({
   teacherId,
@@ -23,7 +45,12 @@ export default function ApprovalActions({
   const [done, setDone] = useState<'approved' | 'rejected' | null>(null)
   const [error, setError] = useState('')
 
-  // Ad-hoc "email the tutor" compose (e.g. ask for a certificate before approving).
+  // AI review panel
+  const [reviewLoading, setReviewLoading] = useState(false)
+  const [review, setReview] = useState<ReviewResult | null>(null)
+  const [reviewError, setReviewError] = useState('')
+
+  // Ad-hoc email compose
   const [emailing, setEmailing] = useState(false)
   const [emSubject, setEmSubject] = useState('Your fair-do application')
   const [emBody, setEmBody] = useState('')
@@ -32,7 +59,38 @@ export default function ApprovalActions({
 
   const allChecked = CHECKS.every(c => checks[c.key])
 
-  async function sendTherapistEmail() {
+  async function generateReview() {
+    setReviewLoading(true)
+    setReviewError('')
+    try {
+      const res = await fetch('/api/admin/teacher/credential-review', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ teacherId }),
+      })
+      if (res.ok) {
+        const data: ReviewResult = await res.json()
+        setReview(data)
+        // Auto-apply checklist from AI recommendation if confident
+        if (data.confidence >= 70) {
+          setChecks({
+            name:   data.checklistState.nameMatch,
+            number: data.checklistState.refVerified,
+            inDate: data.checklistState.inDate,
+          })
+        }
+      } else {
+        const d = await res.json().catch(() => ({}))
+        setReviewError((d as { error?: string }).error ?? 'AI review unavailable')
+      }
+    } catch {
+      setReviewError('Could not reach AI review service.')
+    } finally {
+      setReviewLoading(false)
+    }
+  }
+
+  async function sendEmail() {
     setEmError('')
     if (!emSubject.trim() || !emBody.trim()) { setEmError('Add a subject and a message.'); return }
     setEmStatus('sending')
@@ -47,19 +105,19 @@ export default function ApprovalActions({
     } else {
       setEmStatus(null)
       const d = await res.json().catch(() => ({}))
-      setEmError(d.error ?? 'Could not send.')
+      setEmError((d as { error?: string }).error ?? 'Could not send.')
     }
   }
 
   async function act(action: 'approve' | 'reject') {
     setError('')
-    // Approve needs the checklist; reject needs a written reason — both keep the audit log meaningful.
     if (action === 'approve' && !allChecked) { setError('Tick all three checks before approving.'); return }
     if (action === 'reject' && !notes.trim()) { setError('Add a reason before rejecting.'); return }
 
+    const aiSummary = review ? ` [AI: ${review.confidence}% confidence, ${review.recommendation}]` : ''
     const auditNotes = action === 'approve'
-      ? ['Qualification verified — name ✓ · ref ✓ · in-date ✓', notes.trim()].filter(Boolean).join(' — ')
-      : notes.trim()
+      ? ['Qualification verified — name ✓ · ref ✓ · in-date ✓', notes.trim(), aiSummary].filter(Boolean).join(' — ')
+      : [notes.trim(), aiSummary].filter(Boolean).join(' — ')
 
     setLoading(action)
     const res = await fetch('/api/admin/teacher/verify', {
@@ -83,7 +141,47 @@ export default function ApprovalActions({
   }
 
   return (
-    <div className="space-y-3">
+    <div className="space-y-4">
+
+      {/* AI Review Panel */}
+      {!review && (
+        <div className="flex items-center gap-3">
+          <button
+            onClick={generateReview}
+            disabled={reviewLoading}
+            className="px-4 py-2 text-sm bg-brand-50 border border-brand-200 text-brand-700 rounded-lg hover:bg-brand-100 transition disabled:opacity-50 font-medium"
+          >
+            {reviewLoading ? 'Generating AI review…' : '✦ Generate AI review'}
+          </button>
+          {reviewError && <p className="text-sm text-sand-500">{reviewError}</p>}
+        </div>
+      )}
+
+      {review && (
+        <div className={`rounded-xl border p-4 space-y-3 ${REC_STYLE[review.recommendation] ?? 'bg-sand-50 border-sand-200'}`}>
+          <div className="flex items-center justify-between">
+            <span className="text-sm font-semibold">{REC_LABEL[review.recommendation] ?? review.recommendation}</span>
+            <span className="text-xs font-medium px-2 py-0.5 rounded-full bg-white/60 border border-current">
+              {review.confidence}% confidence
+            </span>
+          </div>
+          <p className="text-sm leading-relaxed">{review.summary}</p>
+          {review.flags.length > 0 && (
+            <ul className="text-xs space-y-0.5 list-disc list-inside opacity-80">
+              {review.flags.map((f, i) => <li key={i}>{f}</li>)}
+            </ul>
+          )}
+          <button
+            onClick={generateReview}
+            disabled={reviewLoading}
+            className="text-xs underline opacity-60 hover:opacity-100"
+          >
+            {reviewLoading ? 'Refreshing…' : 'Refresh'}
+          </button>
+        </div>
+      )}
+
+      {/* Manual checklist */}
       <div className="grid grid-cols-1 sm:grid-cols-2 gap-x-5 gap-y-1.5">
         {CHECKS.map(c => (
           <label key={c.key} className="flex items-start gap-2 cursor-pointer text-sm text-sand-700">
@@ -101,7 +199,7 @@ export default function ApprovalActions({
       <textarea
         value={notes}
         onChange={e => setNotes(e.target.value)}
-        placeholder="Notes (optional for approve, required reason for reject) — e.g. register status, anything unusual"
+        placeholder="Notes (optional for approve, required reason for reject)"
         rows={2}
         className="w-full text-sm border border-sand-300 rounded-lg px-3 py-2 focus:outline-none focus:ring-2 focus:ring-brand-400 focus:border-transparent"
       />
@@ -122,13 +220,13 @@ export default function ApprovalActions({
             onChange={e => setEmBody(e.target.value)}
             rows={4}
             maxLength={5000}
-            placeholder={`Message to ${teacherName} — e.g. "Please upload your qualification certificate so we can finish your verification."`}
+            placeholder={`Message to ${teacherName}`}
             className="w-full text-sm border border-sand-300 rounded-lg px-3 py-2 focus:outline-none focus:ring-2 focus:ring-brand-400"
           />
           {emError && <p className="text-sm text-red-600">{emError}</p>}
           <div className="flex items-center gap-2">
             <button
-              onClick={sendTherapistEmail}
+              onClick={sendEmail}
               disabled={emStatus === 'sending'}
               className="px-4 py-1.5 text-sm bg-brand-600 text-white rounded-lg hover:bg-brand-700 disabled:opacity-50"
             >

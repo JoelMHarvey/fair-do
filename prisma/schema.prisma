@@ -162,6 +162,11 @@ model Teacher {
   qualificationExpiry DateTime?
   dbsNumber           String? // DBS certificate number
   dbsDate             DateTime? // issue date (DBS certs don't expire but go stale)
+  // DBS Update Service — employer re-check with tutor consent
+  dbsUpdateConsent    Boolean   @default(false)
+  dbsUpdateConsentAt  DateTime?
+  dbsCheckStatus      String? // pending | clear | updated | not_found | error
+  dbsLastCheckedAt    DateTime?
   languages           String[]      @default(["English"])
   websiteUrl          String?
   linkedinUrl         String?
@@ -185,7 +190,8 @@ model Teacher {
   sessions           Session[]
   messageThreads     MessageThread[]
   complaints         Complaint[]
-  credentialChecks   CredentialCheck[]
+  credentialChecks    CredentialCheck[]
+  credentialDocuments CredentialDocument[]
   reviews            Review[]
   referralsMade      TeacherReferral[]  @relation("tReferrer")
   referralReceived   TeacherReferral?   @relation("tReferee")
@@ -342,6 +348,27 @@ model CredentialCheck {
   result            String // verified | rejected
   notes             String?
   createdAt         DateTime @default(now())
+
+  @@index([teacherId])
+}
+
+// Uploaded credential certificate/document with Claude-extracted details.
+// Created when a teacher uploads a certificate during onboarding or profile edit.
+model CredentialDocument {
+  id              String    @id @default(cuid())
+  teacherId       String
+  teacher         Teacher   @relation(fields: [teacherId], references: [id])
+  url             String    @db.Text // Cloudinary URL (image or raw/PDF)
+  fileName        String?
+  uploadedAt      DateTime  @default(now())
+  // Claude Vision extraction results
+  extractedAt     DateTime?
+  extractedName   String?   // name found on document
+  extractedBody   String?   // qualification body on document
+  extractedRef    String?   // reference/TRN on document
+  extractedExpiry DateTime?
+  confidenceScore Float?    // 0.0–1.0; aggregated match confidence
+  flags           String[]  @default([]) // name_mismatch | ref_mismatch | expired | unreadable | body_mismatch
 
   @@index([teacherId])
 }

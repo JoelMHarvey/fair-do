@@ -6,6 +6,7 @@ import Link from 'next/link'
 import { Logo } from '@/components/Logo'
 import { activeUsStates } from '@/lib/locale'
 import PhotoUpload from '@/app/teacher/profile/PhotoUpload'
+import CredentialDocUpload, { type ExtractionPreview } from '@/components/CredentialDocUpload'
 import { SUBJECTS, LEVELS, AGE_GROUPS, TEACHING_STYLES } from '@/lib/taxonomy'
 import type { Messages } from '@/lib/locale-config'
 
@@ -48,6 +49,9 @@ type Form = {
   qualificationExpiry: string
   dbsNumber: string
   dbsDate: string
+  dbsUpdateConsent: boolean
+  credentialDocUrl: string
+  credentialExtraction: ExtractionPreview | null
   subjects: string[]
   levels: string[]
   ageGroups: string[]
@@ -87,6 +91,9 @@ function TeacherOnboardingInner({ t }: { t: Messages['onboarding_teacher'] }) {
     qualificationExpiry: '',
     dbsNumber: '',
     dbsDate: '',
+    dbsUpdateConsent: false,
+    credentialDocUrl: '',
+    credentialExtraction: null,
     subjects: [],
     levels: [],
     ageGroups: [],
@@ -145,6 +152,9 @@ function TeacherOnboardingInner({ t }: { t: Messages['onboarding_teacher'] }) {
         qualificationExpiry: form.qualificationExpiry,
         dbsNumber: form.dbsNumber || undefined,
         dbsDate: form.dbsDate || undefined,
+        dbsUpdateConsent: form.dbsUpdateConsent || undefined,
+        credentialDocUrl: form.credentialDocUrl || undefined,
+        credentialExtraction: form.credentialExtraction || undefined,
         licenseState: isUS ? licenseState : undefined,
         subjects: form.subjects,
         levels: form.levels,
@@ -311,17 +321,48 @@ function TeacherOnboardingInner({ t }: { t: Messages['onboarding_teacher'] }) {
                 </div>
               </div>
               {!isUS && (
-                <div className="grid grid-cols-2 gap-3">
-                  <div>
-                    <label className="block text-sm font-medium text-sand-700 mb-1">{t.dbs_number_label} <span className="text-sand-400 font-normal">{t.dbs_number_hint}</span></label>
-                    <input className={input} value={form.dbsNumber} onChange={e => update('dbsNumber', e.target.value)} placeholder={t.dbs_number_placeholder} />
+                <>
+                  <div className="grid grid-cols-2 gap-3">
+                    <div>
+                      <label className="block text-sm font-medium text-sand-700 mb-1">{t.dbs_number_label} <span className="text-sand-400 font-normal">{t.dbs_number_hint}</span></label>
+                      <input className={input} value={form.dbsNumber} onChange={e => update('dbsNumber', e.target.value)} placeholder={t.dbs_number_placeholder} />
+                    </div>
+                    <div>
+                      <label className="block text-sm font-medium text-sand-700 mb-1">{t.dbs_date_label}</label>
+                      <input type="date" className={input} value={form.dbsDate} onChange={e => update('dbsDate', e.target.value)} />
+                    </div>
                   </div>
-                  <div>
-                    <label className="block text-sm font-medium text-sand-700 mb-1">{t.dbs_date_label}</label>
-                    <input type="date" className={input} value={form.dbsDate} onChange={e => update('dbsDate', e.target.value)} />
-                  </div>
-                </div>
+                  {form.dbsNumber && (
+                    <label className="flex items-start gap-3 cursor-pointer rounded-xl border border-sand-200 bg-sand-50/50 p-3">
+                      <input
+                        type="checkbox"
+                        checked={form.dbsUpdateConsent}
+                        onChange={e => update('dbsUpdateConsent', e.target.checked)}
+                        className="w-4 h-4 mt-0.5 accent-brand-600 shrink-0"
+                      />
+                      <span className="text-xs text-sand-600">
+                        I consent to fair-do checking my DBS certificate status via the DBS Update Service at any time while I am an active tutor. I understand this requires my certificate number and date of birth.
+                      </span>
+                    </label>
+                  )}
+                </>
               )}
+
+              {/* Certificate document upload */}
+              <div>
+                <label className="block text-sm font-medium text-sand-700 mb-1">
+                  Certificate document <span className="text-sand-400 font-normal">(optional but speeds up verification)</span>
+                </label>
+                <p className="text-xs text-sand-400 mb-2">Upload a photo or scan of your qualification certificate. We&apos;ll read it automatically to help verify your details.</p>
+                <CredentialDocUpload
+                  name={`${form.firstName} ${form.lastName}`.trim()}
+                  body={form.qualificationBody}
+                  ref={form.qualificationRef}
+                  onUploaded={(url, extraction) => {
+                    setForm(prev => ({ ...prev, credentialDocUrl: url, credentialExtraction: extraction }))
+                  }}
+                />
+              </div>
               <div>
                 <label className="block text-sm font-medium text-sand-700 mb-2">{t.subjects_label}</label>
                 <div className="flex flex-wrap gap-2">
