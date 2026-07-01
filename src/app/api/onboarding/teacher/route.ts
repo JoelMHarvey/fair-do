@@ -39,6 +39,8 @@ const schema = z.object({
   photoStyle: z.string().max(20).optional(),
   agreementAccepted: z.literal(true), // Teacher Agreement + DPA — required, recorded
   agreementVersion: z.string().max(40).optional(),
+  safeguardingAccepted: z.literal(true), // Safeguarding Policy — required, recorded
+  safeguardingPolicyVersion: z.string().max(40).optional(),
 })
 
 export async function POST(req: Request) {
@@ -99,6 +101,8 @@ export async function POST(req: Request) {
         agreementAcceptedAt: now,
         agreementVersion: data.agreementVersion ?? null,
         dpaAcceptedAt: now,
+        safeguardingAcceptedAt: now,
+        safeguardingPolicyVersion: data.safeguardingPolicyVersion ?? null,
         availability: {
           create: data.availability.map(a => ({
             dayOfWeek: a.dayOfWeek,

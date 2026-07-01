@@ -1046,7 +1046,10 @@
     "terms_link": "Términos para Tutores",
     "agreement_mid": " y el",
     "dpa_link": "Acuerdo de Tratamiento de Datos",
-    "agreement_post": ". Entiendo que soy el responsable del tratamiento de los datos de mis estudiantes y que fair-do es mi encargado del tratamiento.",
+    "agreement_post": "I understand I am the data controller for my students's records and fair-do is my processor.",
+    "safeguarding_pre": "I have read and will comply with the",
+    "safeguarding_link": "fair-do Safeguarding Policy",
+    "safeguarding_post": "I understand my duty to report concerns about children's welfare without delay.",
     "redirecting": "Redirigiendo a Stripe…",
     "connect_button": "Conectar cuenta bancaria →"
   },
