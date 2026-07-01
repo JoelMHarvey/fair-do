@@ -26,6 +26,7 @@ export function ParentNav({ signOutLabel = 'Sign out' }: { signOutLabel?: string
       <Logo />
       <div className="flex items-center gap-4 sm:gap-5 text-sm">
         <a href="#lessons" className="hidden sm:inline text-sand-600 hover:text-brand-700">Lessons</a>
+        <a href="#packages" className="hidden sm:inline text-sand-600 hover:text-brand-700">Packages</a>
         <a href="#invoices" className="hidden sm:inline text-sand-600 hover:text-brand-700">Invoices</a>
         <a href="#messages" className="hidden sm:inline text-sand-600 hover:text-brand-700">Messages</a>
         <button onClick={openBilling} disabled={busy} className="text-sand-600 hover:text-brand-700 disabled:opacity-50">

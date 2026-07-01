@@ -8,6 +8,7 @@ export default function CreatePackageForm({ matchId, standardRatePence }: { matc
   const [name, setName] = useState('')
   const [sessions, setSessions] = useState('6')
   const [price, setPrice] = useState('')
+  const [buyable, setBuyable] = useState(false)
   const [loading, setLoading] = useState(false)
   const [error, setError] = useState<string | null>(null)
   const [done, setDone] = useState<string | null>(null)
@@ -30,7 +31,7 @@ export default function CreatePackageForm({ matchId, standardRatePence }: { matc
       const res = await fetch('/api/practice/packages', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ matchId, name: name.trim(), sessionsTotal: n, pricePence }),
+        body: JSON.stringify({ matchId, name: name.trim(), sessionsTotal: n, pricePence, buyableByParent: buyable }),
       })
       const data = await res.json().catch(() => ({}))
       if (!res.ok) {
@@ -39,9 +40,11 @@ export default function CreatePackageForm({ matchId, standardRatePence }: { matc
         return
       }
       setDone(
-        data.mode === 'payment'
-          ? 'Package created — we’ve emailed your client a link to buy it.'
-          : 'Package created and marked active.',
+        data.buyable
+          ? 'Package created — the parent can now buy it from their portal.'
+          : data.mode === 'payment'
+            ? 'Package created — we’ve emailed your client a link to buy it.'
+            : 'Package created and marked active.',
       )
       setName('')
       setPrice('')
@@ -88,6 +91,10 @@ export default function CreatePackageForm({ matchId, standardRatePence }: { matc
           </div>
         </div>
       </div>
+      <label className="flex items-center gap-2 text-sm text-sand-600">
+        <input type="checkbox" checked={buyable} onChange={e => setBuyable(e.target.checked)} className="rounded border-sand-300" />
+        Offer for the parent to buy from their portal (instead of charging the student)
+      </label>
       {error && <p className="text-sm text-red-600">{error}</p>}
       {done && <p className="text-sm text-brand-700">{done}</p>}
       <button

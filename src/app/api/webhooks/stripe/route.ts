@@ -196,6 +196,41 @@ export async function POST(req: Request) {
       return new Response('OK', { status: 200 })
     }
 
+    // Parent bought a lesson package the teacher offered — mark it paid + record the
+    // teacher's payment. Idempotent via paidAt.
+    if (meta.type === 'parent_package') {
+      const packageId = meta.packageId
+      if (packageId) {
+        try {
+          const pkg = await prisma.package.findUnique({ where: { id: packageId } })
+          if (pkg && !pkg.paidAt && pkg.studentId) {
+            const paymentIntentId = typeof checkout.payment_intent === 'string'
+              ? checkout.payment_intent
+              : checkout.payment_intent?.id ?? `pkg_${packageId}`
+            const amount = checkout.amount_total ?? pkg.pricePence
+            await prisma.$transaction([
+              prisma.package.update({ where: { id: packageId }, data: { paidAt: new Date(), status: 'active' } }),
+              prisma.payment.create({
+                data: {
+                  studentId: pkg.studentId,
+                  stripePaymentIntentId: paymentIntentId,
+                  amountTotalPence: amount,
+                  platformFeePence: 0,
+                  teacherPayoutPence: amount,
+                  currency: checkout.currency ?? 'gbp',
+                  status: 'paid',
+                  transferred: true,
+                },
+              }),
+            ])
+          }
+        } catch (e) {
+          return rollbackAndRetry(event.id, 'parent package purchase', e)
+        }
+      }
+      return new Response('OK', { status: 200 })
+    }
+
     // Recurring-booking card saved (Checkout setup mode) — store the payment method
     // on the student's recurring bookings so the cron can charge off-session.
     if (meta.type === 'recurring_card') {

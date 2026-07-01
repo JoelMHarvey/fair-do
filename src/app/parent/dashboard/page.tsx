@@ -4,6 +4,7 @@ import { auth } from '@clerk/nextjs/server'
 import { prisma } from '@/lib/prisma'
 import { ParentNav } from '@/components/ParentNav'
 import { ParentMessages } from '@/components/ParentMessages'
+import { BuyPackageButton } from '@/components/BuyPackageButton'
 import { PARENT_PORTAL_ENABLED, groupLinksByChild } from '@/lib/parent'
 import { getDictionary, getLocaleFromHeaders } from '@/lib/dictionaries'
 
@@ -84,6 +85,13 @@ export default async function ParentDashboard({
   const goal = await prisma.match.findFirst({
     where: { teacherId: selected.links[0].teacherId, studentId: student.id },
     select: { targetGrade: true, examBoard: true, examDate: true },
+  })
+
+  // Lesson packages the child's tutors have offered for parent purchase.
+  const packages = await prisma.package.findMany({
+    where: { studentId: student.id, teacherId: { in: selected.links.map(l => l.teacherId) }, buyableByParent: true, status: 'active' },
+    include: { teacher: { select: { firstName: true, lastName: true } } },
+    orderBy: { createdAt: 'desc' },
   })
 
   const transcriptsOn = process.env.DAILY_TRANSCRIPTION_ENABLED === 'true'
@@ -203,6 +211,32 @@ export default async function ParentDashboard({
             </div>
           )}
         </section>
+
+        {/* Packages the tutor has offered */}
+        {packages.length > 0 && (
+          <section id="packages" className="mb-8 scroll-mt-20">
+            <h2 className="font-medium text-sand-900 mb-3">{parent_dashboard.packages_heading}</h2>
+            <div className="space-y-3">
+              {packages.map(p => {
+                const sym = student.country === 'US' ? '$' : '£'
+                return (
+                  <div key={p.id} className="bg-white rounded-2xl border border-sand-200 p-4 flex items-center justify-between gap-4">
+                    <div>
+                      <p className="text-sm font-medium text-sand-900">{p.name}</p>
+                      {p.description && <p className="text-xs text-sand-500 mt-0.5">{p.description}</p>}
+                      <p className="text-xs text-sand-400 mt-0.5">
+                        {p.sessionsTotal} {parent_dashboard.packages_sessions} · {p.teacher.firstName} {p.teacher.lastName} · {sym}{(p.pricePence / 100).toFixed(2)}
+                      </p>
+                    </div>
+                    {p.paidAt
+                      ? <span className="text-xs text-brand-700 font-medium shrink-0">{parent_dashboard.packages_purchased}</span>
+                      : <BuyPackageButton packageId={p.id} label={parent_dashboard.packages_buy} />}
+                  </div>
+                )
+              })}
+            </div>
+          </section>
+        )}
 
         {/* Invoices */}
         <section id="invoices" className="mb-8 scroll-mt-20">

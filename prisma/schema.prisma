@@ -513,6 +513,11 @@ model Package {
   sessionsUsed  Int      @default(0)
   pricePence    Int
   status        String   @default("active") // active | completed | cancelled
+  // Parent purchasing (P2 handoff item 2): teacher may offer a package for the
+  // linked parent to buy. paidAt is set by the parent_package webhook on purchase.
+  buyableByParent Boolean   @default(false)
+  description     String?   @db.Text
+  paidAt          DateTime?
   createdAt     DateTime @default(now())
   updatedAt     DateTime @updatedAt
 

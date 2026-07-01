@@ -1128,7 +1128,11 @@
     "children_tablist": "Vos enfants",
     "goal_label": "Target:",
     "goal_exam": "exam",
-    "view_transcript": "View transcript"
+    "view_transcript": "View transcript",
+    "packages_heading": "Lesson packages",
+    "packages_sessions": "lessons",
+    "packages_purchased": "Purchased ✓",
+    "packages_buy": "Buy"
   },
   "teacher_nav": {
     "dashboard": "Dashboard",

@@ -24,6 +24,7 @@ const m = vi.hoisted(() => ({
   linkCount: vi.fn(),
   linkUpdateMany: vi.fn(),
   psubFind: vi.fn(),
+  pkgFind: vi.fn(),
   psubUpsert: vi.fn(),
   hasActive: vi.fn(),
   syncFamily: vi.fn(),
@@ -54,6 +55,7 @@ vi.mock('@/lib/prisma', () => ({
     match: { findFirst: m.matchFind },
     parentLink: { findFirst: m.linkFindFirst, findUnique: m.linkFindUnique, create: m.linkCreate, update: m.linkUpdate, count: m.linkCount, updateMany: m.linkUpdateMany },
     parentSubscription: { findUnique: m.psubFind, upsert: m.psubUpsert },
+    package: { findUnique: m.pkgFind },
     parentMessageThread: { upsert: m.threadUpsert, create: m.threadCreate, update: m.threadUpdate },
     parentMessage: { create: m.msgCreate },
     $transaction: m.transaction,
@@ -79,6 +81,7 @@ import { POST as subscribe } from '@/app/api/parent/subscribe/route'
 import { POST as sendMsg } from '@/app/api/parent/messages/send/route'
 import { POST as revoke } from '@/app/api/teacher/parent/revoke/route'
 import { POST as billingPortal } from '@/app/api/parent/billing-portal/route'
+import { POST as buyPackage } from '@/app/api/parent/packages/checkout/route'
 
 function req(body: object) {
   return new Request('http://localhost/x', { method: 'POST', body: JSON.stringify(body) })
@@ -293,6 +296,45 @@ describe('shared message thread', () => {
     const res = await sendMsg(req({ parentLinkId: 'pl1', body: 'yo' }))
     expect(res.status).toBe(201)
     expect(m.msgCreate).toHaveBeenCalled()
+  })
+})
+
+describe('parent package purchase', () => {
+  const buyable = { id: 'pk1', buyableByParent: true, status: 'active', paidAt: null, studentId: 's1', pricePence: 12000, name: '6 lessons', description: null, sessionsTotal: 6, teacher: { country: 'GB', stripeAccountId: 'acct_1', firstName: 'A', lastName: 'B' } }
+
+  it('403 when the caller is not a parent', async () => {
+    m.userFind.mockResolvedValue({ id: 'u1', role: 'STUDENT' })
+    const res = await buyPackage(req({ packageId: 'pk1' }))
+    expect(res.status).toBe(403)
+  })
+
+  it('409 when the package is not buyable / already paid', async () => {
+    m.userFind.mockResolvedValue({ id: 'u1', role: 'PARENT' })
+    m.pkgFind.mockResolvedValue({ ...buyable, paidAt: new Date() })
+    const res = await buyPackage(req({ packageId: 'pk1' }))
+    expect(res.status).toBe(409)
+  })
+
+  it('403 when the parent is not linked+paid to the package student', async () => {
+    m.userFind.mockResolvedValue({ id: 'u1', role: 'PARENT' })
+    m.pkgFind.mockResolvedValue(buyable)
+    m.linkFindFirst.mockResolvedValue(null) // no active portalActive link
+    const res = await buyPackage(req({ packageId: 'pk1' }))
+    expect(res.status).toBe(403)
+  })
+
+  it('201 + checkout url for a valid purchase', async () => {
+    m.userFind.mockResolvedValue({ id: 'u1', role: 'PARENT' })
+    m.pkgFind.mockResolvedValue(buyable)
+    m.linkFindFirst.mockResolvedValue({ id: 'pl1', parentUserId: 'u1', studentId: 's1', status: 'active', portalActive: true })
+    m.checkoutCreate.mockResolvedValue({ url: 'https://checkout.stripe/pkg' })
+    const res = await buyPackage(req({ packageId: 'pk1' }))
+    expect(res.status).toBe(201)
+    expect(await res.json()).toEqual({ checkoutUrl: 'https://checkout.stripe/pkg' })
+    expect(m.checkoutCreate).toHaveBeenCalledWith(expect.objectContaining({
+      mode: 'payment',
+      metadata: expect.objectContaining({ type: 'parent_package', packageId: 'pk1', studentId: 's1' }),
+    }))
   })
 })
 
