@@ -313,7 +313,7 @@ function TeacherOnboardingInner({ t }: { t: Messages['onboarding_teacher'] }) {
                 </div>
                 <div>
                   <label className="block text-sm font-medium text-sand-700 mb-1">{t.expiry_label}</label>
-                  <input type="date" className={input} value={form.qualificationExpiry} onChange={e => update('qualificationExpiry', e.target.value)} />
+                  <input type="date" max="2100-12-31" className={input} value={form.qualificationExpiry} onChange={e => update('qualificationExpiry', e.target.value)} />
                 </div>
               </div>
               {!isUS && (
@@ -324,7 +324,7 @@ function TeacherOnboardingInner({ t }: { t: Messages['onboarding_teacher'] }) {
                   </div>
                   <div>
                     <label className="block text-sm font-medium text-sand-700 mb-1">{t.dbs_date_label}</label>
-                    <input type="date" className={input} value={form.dbsDate} onChange={e => update('dbsDate', e.target.value)} />
+                    <input type="date" max="2100-12-31" className={input} value={form.dbsDate} onChange={e => update('dbsDate', e.target.value)} />
                   </div>
                 </div>
               )}

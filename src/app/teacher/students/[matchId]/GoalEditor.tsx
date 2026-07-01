@@ -51,6 +51,7 @@ export default function GoalEditor({ matchId, targetGrade, examBoard, examDate }
         </select>
         <input
           type="date"
+          max="2100-12-31"
           value={date}
           onChange={e => { setDate(e.target.value); setState('idle') }}
           className="rounded-lg border border-sand-200 px-3 py-2 text-sm focus:border-brand-400 focus:outline-none"
