@@ -85,7 +85,9 @@ export default async function EarningsPage() {
   // Most active students (by completed lessons).
   const byStudent = new Map<string, { name: string; count: number }>()
   for (const s of completed) {
-    const name = `${s.student.firstName} ${s.student.lastName}`.trim()
+    // student may be absent at runtime if the record was deleted after the session completed
+    const student = s.student as typeof s.student | null
+    const name = student ? `${student.firstName} ${student.lastName}`.trim() : ''
     byStudent.set(s.studentId, { name, count: (byStudent.get(s.studentId)?.count ?? 0) + 1 })
   }
   const topStudents = [...byStudent.values()].sort((a, b) => b.count - a.count).slice(0, 5)

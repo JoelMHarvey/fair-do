@@ -15,7 +15,7 @@ const securityHeaders = [
       "style-src 'self' 'unsafe-inline'",
       "img-src 'self' data: https:",
       "font-src 'self' https://upload-widget.cloudinary.com",
-      "connect-src 'self' https://clerk.fair-do.com https://*.clerk.accounts.dev https://*.daily.co wss://*.daily.co https://api.stripe.com https://plausible.io https://challenges.cloudflare.com https://api.cloudinary.com https://res.cloudinary.com https://upload-widget.cloudinary.com",
+      "connect-src 'self' https://clerk.fair-do.com https://*.clerk.accounts.dev https://clerk-telemetry.com https://*.daily.co wss://*.daily.co https://api.stripe.com https://plausible.io https://challenges.cloudflare.com https://api.cloudinary.com https://res.cloudinary.com https://upload-widget.cloudinary.com",
       "frame-src 'self' https://*.daily.co https://js.stripe.com https://hooks.stripe.com https://challenges.cloudflare.com https://upload-widget.cloudinary.com",
       "worker-src 'self' blob:",
       "media-src 'self' blob:",
