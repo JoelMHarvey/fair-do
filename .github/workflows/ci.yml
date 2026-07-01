@@ -125,3 +125,42 @@ jobs:
       # Vercel deploy. No secrets needed — pages that hit auth/DB fall back at build.
       - name: Build
         run: npm run build
+
+  db-tests:
+    name: Real-DB integration
+    runs-on: ubuntu-latest
+    services:
+      postgres:
+        image: postgres:16
+        env:
+          POSTGRES_USER: postgres
+          POSTGRES_PASSWORD: postgres
+          POSTGRES_DB: fairdo_test
+        ports:
+          - 5432:5432
+        options: >-
+          --health-cmd pg_isready
+          --health-interval 10s
+          --health-timeout 5s
+          --health-retries 5
+    env:
+      DATABASE_URL: postgresql://postgres:postgres@localhost:5432/fairdo_test
+      DIRECT_URL: postgresql://postgres:postgres@localhost:5432/fairdo_test
+    steps:
+      - uses: actions/checkout@v5
+
+      - uses: actions/setup-node@v5
+        with:
+          node-version: 22
+          cache: npm
+
+      - run: npm ci
+
+      - name: Generate Prisma client
+        run: npx prisma generate
+
+      # Runs the REAL Prisma client against the disposable Postgres above.
+      # global-setup pushes the schema; tests exercise constraints + the erasure
+      # transaction that the mock-based suite can't verify.
+      - name: Run real-DB tests
+        run: npm run test:db

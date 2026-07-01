@@ -13,6 +13,7 @@
     "test:watch": "vitest",
     "test:coverage": "vitest run --coverage",
     "test:integration": "vitest run --project integration",
+    "test:db": "vitest run --config vitest.config.db.ts",
     "test:e2e": "playwright test",
     "test:native": "npm test --prefix native",
     "video:preview": "remotion preview src/remotion/index.ts",
