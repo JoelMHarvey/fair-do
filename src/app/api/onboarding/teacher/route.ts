@@ -24,6 +24,17 @@ const schema = z.object({
   qualificationExpiry: z.string(),
   dbsNumber: z.string().max(60).optional(),
   dbsDate: z.string().optional(),
+  dbsUpdateConsent: z.boolean().optional(),
+  credentialDocUrl: z.string().url().optional(),
+  credentialExtraction: z.object({
+    extractedName:    z.string().nullable().optional(),
+    extractedBody:    z.string().nullable().optional(),
+    extractedRef:     z.string().nullable().optional(),
+    extractedExpiry:  z.string().nullable().optional(),
+    confidenceScore:  z.number().optional(),
+    flags:            z.array(z.string()).optional(),
+    rawText:          z.string().optional(),
+  }).optional(),
   licenseState: z.string().max(4).optional(),
   subjects: z.array(z.string()).min(1),
   levels: z.array(z.string()).optional(),
@@ -89,6 +100,7 @@ export async function POST(req: Request) {
         qualificationExpiry: new Date(data.qualificationExpiry),
         dbsNumber: data.dbsNumber ?? null,
         dbsDate: data.dbsDate ? new Date(data.dbsDate) : null,
+        credentialDocUrl: data.credentialDocUrl ?? null,
         subjects: data.subjects,
         levels: data.levels ?? [],
         ageGroups: data.ageGroups ?? [],
@@ -111,6 +123,44 @@ export async function POST(req: Request) {
 
     // Peer referral — give them a code + link to whoever referred them.
     await ensureTeacherReferralCode(existing.id, data.firstName).catch(() => {})
+
+    // Persist DBS Update Service consent (new field — silently skip on pre-migration DB).
+    if (data.dbsUpdateConsent) {
+      await prisma.teacher.update({
+        where: { id: existing.id },
+        data: {
+          // New fields — no-op if column doesn't exist yet
+          ...(data.dbsUpdateConsent ? {} : {}), // placeholder until generate runs
+        },
+      }).catch(() => {})
+      // Raw update for new columns (safe: ignored if columns absent pre-migration).
+      await prisma.$executeRaw`
+        UPDATE "Teacher"
+        SET "dbsUpdateConsent" = true, "dbsUpdateConsentAt" = NOW()
+        WHERE id = ${existing.id}
+      `.catch(() => {})
+    }
+
+    // Persist credential document + extraction results (new table, safe pre-migration).
+    if (data.credentialDocUrl && data.credentialExtraction) {
+      await prisma.$executeRaw`
+        INSERT INTO "CredentialDocument"
+          ("id", "teacherId", "url", "uploadedAt",
+           "extractedAt", "extractedName", "extractedBody", "extractedRef",
+           "extractedExpiry", "confidenceScore", "flags")
+        VALUES (
+          gen_random_uuid()::text, ${existing.id}, ${data.credentialDocUrl}, NOW(),
+          NOW(),
+          ${data.credentialExtraction.extractedName ?? null},
+          ${data.credentialExtraction.extractedBody ?? null},
+          ${data.credentialExtraction.extractedRef ?? null},
+          ${data.credentialExtraction.extractedExpiry ? new Date(data.credentialExtraction.extractedExpiry) : null},
+          ${data.credentialExtraction.confidenceScore ?? 0},
+          ${data.credentialExtraction.flags ?? []}
+        )
+        ON CONFLICT DO NOTHING
+      `.catch((e: unknown) => console.warn('[onboarding/teacher] CredentialDocument insert skipped:', e instanceof Error ? e.message : e))
+    }
     const jar = await cookies()
     const refCode = (data.referralCode || jar.get('fair-do_ref')?.value)?.toUpperCase()
     if (refCode) {

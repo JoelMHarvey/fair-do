@@ -1,9 +1,12 @@
 import { prisma } from '@/lib/prisma'
 import { sendCredentialExpiryReminder, sendCredentialSuspended } from '@/lib/email'
 import { daysUntil, currentBucket, GRACE_DAYS } from '@/lib/credentials-expiry'
+import { checkDbsCertificate, dbsUpdateServiceConfigured } from '@/lib/dbs-update-service'
 import { recordCronRun } from '@/lib/cron-run'
 import { bearerOk } from '@/lib/bearer'
-import type { Prisma } from '@prisma/client'
+
+// DBS re-check cadence: monthly (30 days since last check).
+const DBS_RECHECK_DAYS = 30
 
 // Daily. Monitors teacher qualification expiry:
 //  - nudges the teacher at 60/30/14/7/1 days before, and on expiry
@@ -45,6 +48,61 @@ export async function GET(req: Request) {
     take: 500,
   })
 
+  // DBS Update Service re-checks — monthly for consenting active teachers.
+  // Uses raw SQL for new fields until prisma generate runs.
+  let dbsChecked = 0, dbsUpdated = 0
+  if (dbsUpdateServiceConfigured()) {
+    try {
+      const dbsCandidates = await prisma.$queryRaw<Array<{
+        id: string; firstName: string; lastName: string
+        dbsNumber: string | null; dateOfBirth: string | null
+        dbsLastCheckedAt: Date | null; dbsCheckStatus: string | null
+      }>>`
+        SELECT t.id, t."firstName", t."lastName", t."dbsNumber",
+               t."dbsLastCheckedAt", t."dbsCheckStatus"
+        FROM "Teacher" t
+        WHERE t.status = 'ACTIVE'
+          AND t."dbsUpdateConsent" = true
+          AND t."dbsNumber" IS NOT NULL
+          AND (
+            t."dbsLastCheckedAt" IS NULL
+            OR t."dbsLastCheckedAt" < NOW() - INTERVAL '${DBS_RECHECK_DAYS} days'
+          )
+        LIMIT 50
+      `
+      for (const t of dbsCandidates) {
+        if (!t.dbsNumber) continue
+        const result = await checkDbsCertificate({
+          certificateNumber: t.dbsNumber,
+          dateOfBirth: t.dateOfBirth ?? '',
+          firstName: t.firstName,
+          lastName: t.lastName,
+        }).catch(() => null)
+
+        if (!result) continue
+        dbsChecked++
+
+        await prisma.$executeRaw`
+          UPDATE "Teacher"
+          SET "dbsCheckStatus" = ${result.status}, "dbsLastCheckedAt" = ${result.checkedAt}
+          WHERE id = ${t.id}
+        `.catch(() => {})
+
+        if (result.status === 'updated') {
+          // New information on the DBS certificate — alert admin via existing alert system.
+          dbsUpdated++
+          await prisma.alertState.upsert({
+            where: { key: `dbs_updated:${t.id}` },
+            create: { key: `dbs_updated:${t.id}`, firing: true, lastFiredAt: now, lastValue: t.dbsNumber },
+            update: { firing: true, lastFiredAt: now },
+          }).catch(() => {})
+        }
+      }
+    } catch (e) {
+      console.error('[cron/credentials] DBS check failed:', e instanceof Error ? e.message : e)
+    }
+  }
+
   let reminded = 0, suspended = 0, restored = 0
   for (const t of teachers) {
     // Skip admin-suspended teachers (manual SUSPENDED, not a credential auto-suspend).
@@ -52,7 +110,6 @@ export async function GET(req: Request) {
 
     const qualDays = daysUntil(t.qualificationExpiry, now)
     const email = t.user?.email
-    const data: Prisma.TeacherUpdateInput = {}
 
     // 1. Auto-restore: a credential-suspended teacher now has a valid (future) qualification date.
     const qualValid = qualDays != null && qualDays > 0
@@ -86,20 +143,19 @@ export async function GET(req: Request) {
     // 3. Reminders (only for live teachers) — qualification expiry only.
     if (t.status === 'ACTIVE') {
       const qual = evaluate(qualDays, t.qualReminderStage)
-      if (qual.stage !== t.qualReminderStage) data.qualReminderStage = qual.stage
       if (qual.email && email && t.qualificationExpiry) {
         try {
           await sendCredentialExpiryReminder({ email, firstName: t.firstName, kind: 'registration', body: t.qualificationBody ?? undefined, expiry: t.qualificationExpiry, daysUntil: qualDays! })
           reminded++
         } catch (e) { console.error('[cron/credentials] qual reminder failed', t.id, e) }
       }
-    }
-
-    if (Object.keys(data).length) {
-      await prisma.teacher.update({ where: { id: t.id }, data }).catch(e => console.error('[cron/credentials] stage update failed', t.id, e))
+      if (qual.stage !== t.qualReminderStage) {
+        await prisma.teacher.update({ where: { id: t.id }, data: { qualReminderStage: qual.stage } })
+          .catch((e: unknown) => console.error('[cron/credentials] stage update failed', t.id, e))
+      }
     }
   }
 
-  await recordCronRun('credentials', true, undefined, JSON.stringify({ checked: teachers.length, reminded, suspended, restored }))
-  return Response.json({ checked: teachers.length, reminded, suspended, restored })
+  await recordCronRun('credentials', true, undefined, JSON.stringify({ checked: teachers.length, reminded, suspended, restored, dbsChecked, dbsUpdated }))
+  return Response.json({ checked: teachers.length, reminded, suspended, restored, dbsChecked, dbsUpdated })
 }
