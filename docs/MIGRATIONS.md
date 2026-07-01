@@ -18,19 +18,18 @@ migrations.
 
 ---
 
-## ⚠ CURRENT STATE: `migrate deploy` is temporarily OFF the Vercel build
+## State: reconciled — `migrate deploy` is ON
 
-The Vercel `buildCommand` was reverted to `npx prisma generate && next build` (no
-`migrate deploy`). Reason: when the baseline first deployed, `migrate deploy` tried
-to run it against the already-populated prod DB, failed (`CREATE TABLE Teacher…`
-already exists), and left a **failed migration** — Prisma then refused all deploys
-with **`P3009`**. Dropping `migrate deploy` restores deployability; schema changes
-are applied manually via `db push` (the historical workflow) until reconciliation.
+Production was reconciled (2026-07-01) and the Vercel `buildCommand` runs
+`npx prisma generate && npx prisma migrate deploy && next build` again. `migrate
+deploy` is now a correct no-op on prod (both migrations recorded as applied) and
+builds the full schema on fresh environments. **Use `prisma migrate dev` for new
+schema changes — do not `db push` prod.**
 
-**To re-enable auto-migrations:** complete the reconciliation below, then restore
-the build command to `npx prisma generate && npx prisma migrate deploy && next build`.
+The P3009 recovery below is kept for reference (in case a future migration fails
+mid-apply against a drifted DB).
 
-### Recovering from P3009 (do this once, with DIRECT_URL)
+### Recovering from P3009 (failed migration on an existing DB)
 
 ```bash
 # 0. Backup / Neon branch snapshot first.
