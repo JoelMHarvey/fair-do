@@ -3,7 +3,7 @@ import { headers } from 'next/headers'
 import { z } from 'zod'
 import { prisma } from '@/lib/prisma'
 import { checkRateLimit, rateLimitResponse } from '@/lib/ratelimit'
-import { RESOURCES_ENABLED, MAX_RESOURCE_BYTES, RESOURCE_CATEGORIES } from '@/lib/resources'
+import { RESOURCES_ENABLED, MAX_RESOURCE_BYTES, RESOURCE_CATEGORIES, FREE_TIER_STORAGE_BYTES, STORAGE_UNLIMITED_TIERS } from '@/lib/resources'
 
 const createSchema = z.object({
   matchId: z.string().min(1),
@@ -21,8 +21,8 @@ async function resolveAccess(clerkId: string, matchId: string) {
   if (!user) return null
   const match = await prisma.match.findUnique({ where: { id: matchId }, select: { teacherId: true, studentId: true } })
   if (!match) return null
-  if (user.teacher && user.teacher.id === match.teacherId) return { role: 'teacher' as const }
-  if (user.student && user.student.id === match.studentId) return { role: 'student' as const }
+  if (user.teacher && user.teacher.id === match.teacherId) return { role: 'teacher' as const, teacherId: match.teacherId }
+  if (user.student && user.student.id === match.studentId) return { role: 'student' as const, teacherId: match.teacherId }
   return null
 }
 
@@ -40,6 +40,20 @@ export async function POST(req: Request) {
 
   const access = await resolveAccess(userId, parsed.data.matchId)
   if (!access) return new Response('Forbidden', { status: 403 })
+
+  // Per-tier storage quota — free-tier teachers are capped; paid tiers unlimited.
+  const newBytes = parsed.data.fileSizeBytes ?? 0
+  if (newBytes > 0) {
+    const sub = await prisma.subscription.findUnique({ where: { teacherId: access.teacherId }, select: { tier: true, status: true } })
+    const unlimited = !!sub && sub.status === 'active' && STORAGE_UNLIMITED_TIERS.has(sub.tier)
+    if (!unlimited) {
+      const agg = await prisma.studentDocument.aggregate({ _sum: { fileSizeBytes: true }, where: { match: { teacherId: access.teacherId } } })
+      const used = agg._sum.fileSizeBytes ?? 0
+      if (used + newBytes > FREE_TIER_STORAGE_BYTES) {
+        return Response.json({ error: 'Storage limit reached (100 MB on Free). Upgrade to Pro for unlimited storage.' }, { status: 413 })
+      }
+    }
+  }
 
   // Student uploads are always visible to the teacher and tagged as theirs.
   const doc = await prisma.studentDocument.create({

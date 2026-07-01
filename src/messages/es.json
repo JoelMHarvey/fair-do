@@ -1134,7 +1134,10 @@
     "packages_purchased": "Comprado ✓",
     "packages_buy": "Comprar",
     "progress_heading": "Progreso",
-    "progress_empty": "Aún no hay clases completadas."
+    "progress_empty": "Aún no hay clases completadas.",
+    "transcript_search": "Buscar en la transcripción…",
+    "transcript_download": "Descargar",
+    "receipt": "Recibo"
   },
   "teacher_nav": {
     "dashboard": "Panel",

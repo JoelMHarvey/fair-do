@@ -3,6 +3,7 @@ import { createHmac, timingSafeEqual } from 'crypto'
 import { prisma } from '@/lib/prisma'
 import { fetchDailyTranscript } from '@/lib/daily'
 import { AI_NOTES_ENABLED, teacherCanGetAiNotes, generateLessonNote } from '@/lib/lesson-notes'
+import { sendPushToClerkId } from '@/lib/push'
 
 // Store the finished transcript and (if enabled + the teacher is eligible) draft AI
 // lesson notes. Best-effort: any failure is logged, never fails the webhook.
@@ -20,7 +21,11 @@ async function ingestTranscript(sessionId: string, transcriptId: string | undefi
   if (!AI_NOTES_ENABLED) return
   const session = await prisma.session.findUnique({
     where: { id: sessionId },
-    select: { teacherId: true, studentId: true, lessonNote: { select: { id: true } } },
+    select: {
+      teacherId: true, studentId: true, matchId: true,
+      lessonNote: { select: { id: true } },
+      teacher: { select: { user: { select: { clerkId: true } } } },
+    },
   })
   if (!session || session.lessonNote) return // already have a note
   if (!(await teacherCanGetAiNotes(session.teacherId))) return
@@ -38,6 +43,15 @@ async function ingestTranscript(sessionId: string, transcriptId: string | undefi
       status: 'draft',
     },
   })
+
+  // Tell the teacher a draft is waiting to review (P2-4 step 5). Best-effort.
+  if (session.teacher?.user?.clerkId) {
+    sendPushToClerkId(session.teacher.user.clerkId, {
+      title: 'Lesson notes ready',
+      body: 'Your AI lesson notes are ready to review.',
+      url: `/teacher/students/${session.matchId}`,
+    }).catch(() => {})
+  }
 }
 
 // Daily.co webhook → call observability. Tracks when a session went live, who joined

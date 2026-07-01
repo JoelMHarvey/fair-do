@@ -207,6 +207,7 @@ export async function POST(req: Request) {
         sessionId: session.id,
         scheduledAt: session.scheduledAt,
         ratePence,
+        cancellationWindowHours: teacher.cancellationWindowHours,
       }).catch(e => console.error('[booking/create] settlement email failed:', e))
     } catch (e) {
       console.error('[booking/create] internal settlement failed:', e)

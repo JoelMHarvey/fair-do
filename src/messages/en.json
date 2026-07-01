@@ -1134,7 +1134,10 @@
     "packages_purchased": "Purchased ✓",
     "packages_buy": "Buy",
     "progress_heading": "Progress",
-    "progress_empty": "No completed lessons yet."
+    "progress_empty": "No completed lessons yet.",
+    "transcript_search": "Search transcript…",
+    "transcript_download": "Download",
+    "receipt": "Receipt"
   },
   "teacher_nav": {
     "dashboard": "Dashboard",

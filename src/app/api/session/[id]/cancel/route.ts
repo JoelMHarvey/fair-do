@@ -65,6 +65,7 @@ export async function POST(_req: Request, { params }: { params: Promise<{ id: st
     scheduledAt: session.scheduledAt,
     cancelledBy,
     refunded,
+    cancellationWindowHours: session.teacher.cancellationWindowHours,
   }).catch(e => console.error('[cancel] email failed:', e))
 
   return Response.json({ status: 'CANCELLED', refunded })

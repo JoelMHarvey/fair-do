@@ -58,6 +58,7 @@ export default async function TeacherProfilePage() {
             profileImageUrl: t.profileImageUrl ?? '',
             photoBaseUrl: t.photoBaseUrl ?? '',
             photoStyle: t.photoStyle ?? 'original',
+            timezone: t.timezone ?? 'Europe/London',
           }}
         />
 
