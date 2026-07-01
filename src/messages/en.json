@@ -57,7 +57,7 @@
       }
     ],
     "savings_heading": "Keep what you earn.",
-    "savings_body": "Tutoring platforms take 10–25% of every lesson. On a typical £35/hr practice with 15 students doing one lesson a week, that's over £500 a month leaving your pocket. fair-do charges a flat £29/month — and nothing from your lessons.",
+    "savings_body": "Tutoring platforms take 10–25% of every lesson. Fifteen students, £35/hr, one lesson a week: a platform at 25% takes £525 a month from your earnings. fair-do charges £29/month — and nothing from your lessons.",
     "savings_note": "Example: 15 students · £35/hr · 1 lesson/week · 4 weeks",
     "savings_before_label": "Marketplace at 25% commission",
     "savings_after_label": "fair-do Pro at £29/month",
@@ -93,7 +93,7 @@
     "faq": "FAQ",
     "sign_in": "Sign in",
     "cta_practice": "Start free",
-    "cta_marketplace": "Get started",
+    "cta_marketplace": "Find a tutor",
     "dashboard": "Dashboard"
   },
   "footer": {
@@ -117,6 +117,7 @@
     "link_privacy": "Privacy",
     "link_terms": "Terms",
     "link_complaints": "Complaints",
+    "link_safeguarding": "Safeguarding",
     "emergency": "Help & FAQs →",
     "link_values": "Our values"
   },
@@ -158,7 +159,7 @@
   },
   "about": {
     "eyebrow": "Our story",
-    "h1": "Technologists with a heart",
+    "h1": "We built fair-do because tutoring should be fairer",
     "lead": "We build software. But we built fair-do because something in this industry felt broken — and we couldn't look away.",
     "p1": "Good tuition works. The evidence is overwhelming, and most of us have felt it ourselves or watched it change someone we love. We wanted to make it a little easier to reach — and a lot fairer for the people who provide it.",
     "p2": "Tutors train for years and put real care into the work. We think they should be paid well enough to focus on it — not lose a slice of every lesson to a platform. So we built fair-do as fair, simple software tutors can afford: a flat monthly subscription, never a cut of your teaching fee.",
@@ -187,7 +188,7 @@
     "data_body_post": ".",
     "hello_heading": "Say hello",
     "hello_body": "We're a small team and we read everything. ",
-    "cta": "Find a tutor"
+    "cta": "Start free as a tutor"
   },
   "pricing": {
     "h1": "Simple, fair pricing",
@@ -584,7 +585,7 @@
   "for_tutors": {
     "hero_badge": "How fair-do works",
     "hero_title_line1": "Run your whole tutoring business,",
-    "hero_title_line2": "the gentle way.",
+    "hero_title_line2": "without the admin headache.",
     "hero_lead": "fair-do is the calm, private software you use to run your own tutoring — your students, scheduling, secure video, payments and reminders, together in one place. On your computer and on your phone. Built for you, not for shareholders.",
     "hero_cta_primary": "Start free",
     "hero_cta_secondary": "See pricing",

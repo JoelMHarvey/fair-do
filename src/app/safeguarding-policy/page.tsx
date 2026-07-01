@@ -11,7 +11,7 @@ export default function SafeguardingPolicyPage() {
   return (
     <>
       <SiteNav />
-      <main className="min-h-screen bg-gradient-to-b from-brand-50 via-sand-50 to-sand-50">
+      <main id="main-content" className="min-h-screen bg-gradient-to-b from-brand-50 via-sand-50 to-sand-50">
         <div className="max-w-2xl mx-auto px-5 sm:px-8 py-16">
           <h1 className="font-display text-4xl font-semibold text-brand-900 mb-2">Safeguarding Policy</h1>
           <p className="text-sand-500 text-sm mb-6">Version 1.0 · July 2026</p>
@@ -83,7 +83,7 @@ export default function SafeguardingPolicyPage() {
             <section>
               <h2 className="font-display text-lg font-semibold text-brand-900 mb-3">4. How to report a concern</h2>
 
-              <h3 className="font-medium text-brand-800 mb-2 mt-4">As a tutor</h3>
+              <h3 className="font-semibold text-brand-900 mb-2 mt-4">As a tutor</h3>
               <ol className="list-decimal pl-5 space-y-2 mb-4">
                 <li><strong>If a child is in immediate danger</strong> — call 999 first, then notify fair-do.</li>
                 <li>
@@ -100,7 +100,7 @@ export default function SafeguardingPolicyPage() {
                 Do not attempt to investigate the concern yourself or alert the person the concern is about.
               </p>
 
-              <h3 className="font-medium text-brand-800 mb-2 mt-4">As a parent or student</h3>
+              <h3 className="font-semibold text-brand-900 mb-2 mt-4">As a parent or student</h3>
               <p>
                 Email{' '}
                 <a href="mailto:support@fair-do.com?subject=SAFEGUARDING" className="text-brand-700 underline">
@@ -114,7 +114,7 @@ export default function SafeguardingPolicyPage() {
             <section>
               <h2 className="font-display text-lg font-semibold text-brand-900 mb-3">5. External contacts</h2>
               <div className="overflow-x-auto">
-                <table className="w-full text-xs border-collapse">
+                <table className="w-full text-xs border-collapse" aria-label="External safeguarding contacts">
                   <thead>
                     <tr className="border-b border-sand-200">
                       <th className="text-left py-2 pr-4 font-medium text-sand-600">Organisation</th>

@@ -95,6 +95,7 @@ body {
    (:focus-visible), so it never flashes on mouse/touch. */
 a:focus-visible,
 button:focus-visible,
+summary:focus-visible,
 input:focus-visible,
 select:focus-visible,
 textarea:focus-visible,

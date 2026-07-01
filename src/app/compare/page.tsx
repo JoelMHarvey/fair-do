@@ -46,9 +46,9 @@ const ROW_CELLS: Cell[][] = [
 ]
 
 function Mark({ c, titles }: { c: Cell; titles: { yes: string; partial: string; no: string } }) {
-  if (c === 'y') return <span className="text-brand-600 font-semibold" title={titles.yes}>✓</span>
-  if (c === 'p') return <span className="text-amber-500" title={titles.partial}>~</span>
-  return <span className="text-sand-300" title={titles.no}>✗</span>
+  if (c === 'y') return <span className="text-brand-600 font-semibold" aria-label={titles.yes}>✓</span>
+  if (c === 'p') return <span className="text-amber-500" aria-label={titles.partial}>~</span>
+  return <span className="text-sand-600" aria-label={titles.no}>✗</span>
 }
 
 export default async function ComparePage() {
@@ -58,7 +58,7 @@ export default async function ComparePage() {
   return (
     <>
       <SiteNav />
-      <main className="bg-gradient-to-b from-brand-50 via-sand-50 to-sand-50">
+      <main id="main-content" className="bg-gradient-to-b from-brand-50 via-sand-50 to-sand-50">
         <div className="max-w-4xl mx-auto px-5 sm:px-8 py-16 sm:py-20">
           <div className="max-w-2xl">
             <h1 className="font-display text-4xl sm:text-5xl font-semibold text-brand-900 leading-tight">
@@ -71,7 +71,7 @@ export default async function ComparePage() {
           <div className="grid sm:grid-cols-2 gap-4 mt-10">
             {compare.edges.map(e => (
               <div key={e.title} className="bg-white rounded-2xl border border-sand-200 p-5">
-                <div className="text-2xl mb-2">{e.icon}</div>
+                <div className="text-2xl mb-2" aria-hidden="true">{e.icon}</div>
                 <p className="font-medium text-brand-900">{e.title}</p>
                 <p className="text-sm text-sand-600 mt-1 leading-relaxed">{e.body}</p>
               </div>
@@ -85,9 +85,9 @@ export default async function ComparePage() {
             </p>
             <div className="grid grid-cols-2 sm:grid-cols-4 gap-4 text-center">
               {[
-                { name: 'Tutorful', pct: '25%' },
-                { name: 'MyTutor', pct: '~20%' },
-                { name: 'Tutor Hunt', pct: '10–12.5%' },
+                { name: 'Tutorful', pct: '35%*' },
+                { name: 'MyTutor', pct: '~40%' },
+                { name: 'Tutor Hunt', pct: '25–33%' },
                 { name: 'fair-do', pct: '0%' },
               ].map(({ name, pct }) => (
                 <div key={name} className={`rounded-xl p-4 ${name === 'fair-do' ? 'bg-coral-500/20 border border-coral-400/30' : 'bg-white/10'}`}>
@@ -96,6 +96,7 @@ export default async function ComparePage() {
                 </div>
               ))}
             </div>
+            <p className="text-brand-300 text-xs mt-4">* Tutorful&apos;s 35% is charged to students as a service fee; tutors keep their posted rate. Either way, families pay significantly more.</p>
           </div>
 
           {/* Feature matrix */}
@@ -103,12 +104,13 @@ export default async function ComparePage() {
             {compare.matrix_heading}
           </h2>
           <p className="text-sm text-sand-500 mb-4">
-            <span className="text-brand-600 font-semibold">✓</span> {compare.legend_included} ·{' '}
-            <span className="text-amber-500">~</span> {compare.legend_partial} ·{' '}
-            <span className="text-sand-300">✗</span> {compare.legend_no}
+            <span className="text-brand-600 font-semibold" aria-hidden="true">✓</span> {compare.legend_included} ·{' '}
+            <span className="text-amber-500" aria-hidden="true">~</span> {compare.legend_partial} ·{' '}
+            <span className="text-sand-600" aria-hidden="true">✗</span> {compare.legend_no}
           </p>
           <div className="bg-white rounded-2xl border border-sand-200 overflow-x-auto">
             <table className="w-full text-sm min-w-[560px]">
+              <caption className="sr-only">{compare.matrix_heading}</caption>
               <thead>
                 <tr className="border-b border-sand-200">
                   <th className="text-left px-4 py-3 font-medium text-sand-600 sticky left-0 bg-white">
@@ -167,7 +169,7 @@ export default async function ComparePage() {
             </ul>
           </div>
 
-          <p className="text-xs text-sand-400 mt-6">{compare.disclaimer}</p>
+          <p className="text-xs text-sand-600 mt-6">{compare.disclaimer}</p>
 
           <div className="mt-10 text-center">
             <Link

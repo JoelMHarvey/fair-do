@@ -53,7 +53,10 @@ export async function SiteNav() {
 
   return (
     <>
-    <nav className="sticky top-0 z-50 border-b border-sand-200/70 bg-sand-50/80 backdrop-blur-md">
+    <nav aria-label="Main" className="sticky top-0 z-50 border-b border-sand-200/70 bg-sand-50/80 backdrop-blur-md">
+      <a href="#main-content" className="sr-only focus:not-sr-only focus:absolute focus:top-2 focus:left-2 focus:z-[100] focus:bg-white focus:text-brand-700 focus:px-4 focus:py-2 focus:rounded-lg focus:shadow-lg focus:text-sm focus:font-medium">
+        Skip to main content
+      </a>
       <div className="max-w-6xl mx-auto px-5 sm:px-8 h-16 flex items-center justify-between">
         <Logo />
         <div className="hidden sm:flex items-center gap-7 text-sm text-sand-700">
