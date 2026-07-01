@@ -14,7 +14,7 @@ export default function PrivacyPage() {
       <main className="min-h-screen bg-gradient-to-b from-brand-50 via-sand-50 to-sand-50">
         <div className="max-w-2xl mx-auto px-5 sm:px-8 py-16">
           <h1 className="font-display text-4xl font-semibold text-brand-900 mb-2">Privacy Policy</h1>
-          <p className="text-sand-500 text-sm mb-6">Last updated: June 2026 · Version 2.0</p>
+          <p className="text-sand-500 text-sm mb-6">Last updated: July 2026 · Version 2.1</p>
 
           <div className="rounded-2xl border border-brand-100 bg-white/60 px-5 py-4 mb-10 text-sand-600 text-sm leading-relaxed">
             <p>
@@ -115,13 +115,24 @@ export default function PrivacyPage() {
                 and (under the DPA) act as sub-processors for student data:
               </p>
               <ul className="list-disc list-inside space-y-1 ml-2 mt-2">
-                <li>Clerk — authentication / identity (US, SCCs / IDTA in place)</li>
+                <li>Vercel — application hosting (US/EU edge, SCCs / IDTA in place)</li>
                 <li>Neon — application database (UK/EU regions selected where available)</li>
-                <li>Stripe — payment processing, subscription billing and commission (US/EU, SCCs in place)</li>
-                <li>Daily — video lesson delivery (US, SCCs / IDTA in place)</li>
+                <li>Clerk — authentication / identity (US, SCCs / IDTA in place)</li>
+                <li>Stripe — payment processing, subscription billing and payouts (US/EU, SCCs in place)</li>
+                <li>Daily — video lesson delivery and transcription (US, SCCs / IDTA in place)</li>
+                <li>Anthropic — AI lesson notes and support triage; may process lesson transcripts, including of minors (US, SCCs / IDTA in place). See Section 11.</li>
+                <li>Cloudinary — image and document hosting, including uploaded student documents (US/EU, SCCs / IDTA in place)</li>
                 <li>Resend — transactional and account email (US, SCCs / IDTA in place)</li>
+                <li>Twilio — SMS lesson reminders (US, SCCs / IDTA in place)</li>
+                <li>Onfido — tutor credential / DBS verification (UK/EU)</li>
+                <li>Upstash — rate-limiting (transient IP / account identifiers)</li>
+                <li>Sentry — error monitoring (US/EU; configured not to capture personal data by default)</li>
+                <li>Support mailbox provider (IMAP) — inbound support email</li>
                 <li>Plausible — cookieless, privacy-focused website analytics (EU)</li>
               </ul>
+              <p className="mt-3 text-sand-600">
+                We keep a current sub-processor list and update it before adding any new provider that processes personal data.
+              </p>
               <p className="mt-3">We do not sell your personal information.</p>
             </section>
 
@@ -129,7 +140,8 @@ export default function PrivacyPage() {
               <h2 className="font-display text-lg font-semibold text-brand-900 mb-3">6. International data transfers</h2>
               <p>
                 Our preferred residency for personal data is UK or EU regions. Some sub-processors are US-based (notably
-                Clerk, Stripe, Daily and Resend). Where personal data is transferred outside the UK, we put in place an
+                Vercel, Clerk, Stripe, Daily, Anthropic, Cloudinary, Resend and Twilio). Where personal data is
+                transferred outside the UK, we put in place an
                 appropriate safeguard — typically the UK International Data Transfer Agreement (IDTA) or the EU Standard
                 Contractual Clauses (SCCs) with the UK Addendum — supported where required by a transfer risk assessment.
               </p>
@@ -171,6 +183,61 @@ export default function PrivacyPage() {
                 We use strictly necessary session cookies only (e.g. authentication and security) — no advertising
                 trackers. For website analytics we use Plausible, which is cookieless and does not collect personal data
                 or track you across sites.
+              </p>
+            </section>
+
+            <section>
+              <h2 className="font-display text-lg font-semibold text-brand-900 mb-3">10. Children&apos;s data</h2>
+              <p>
+                fair-do is a tool for tutors, and tutors often teach children. fair-do does <strong>not</strong> offer
+                accounts to children and does not market to them. A tutor&apos;s students may be minors, but that
+                student data is processed by fair-do only as a <strong>processor</strong> on the tutor&apos;s
+                instructions (see Section 2) — the tutor is the controller and is responsible for the lawful basis
+                (including any parental consent) for teaching and recording that child.
+              </p>
+              <p className="mt-2">
+                Consistent with the UK Age Appropriate Design Code (Children&apos;s Code), the portal is built to
+                minimise data about minors: we collect only what a tutor enters, we do <strong>not profile children</strong>,
+                do not use their data for advertising, and do not build behavioural profiles. Where a child&apos;s data is
+                processed by AI features, see Section 11.
+              </p>
+              <p className="mt-2 text-sand-600">
+                If you are a parent or guardian and want to exercise a child&apos;s data rights, contact the child&apos;s
+                tutor (the controller). fair-do will support the tutor in responding.
+              </p>
+            </section>
+
+            <section>
+              <h2 className="font-display text-lg font-semibold text-brand-900 mb-3">11. AI features</h2>
+              <p>
+                fair-do offers optional AI features. Where a tutor enables lesson notes, a lesson transcript (which may
+                include a minor&apos;s voice and words) is sent to our AI sub-processor, <strong>Anthropic</strong>, to
+                generate a written summary for the tutor. We also use Anthropic to triage inbound support email.
+              </p>
+              <ul className="list-disc list-inside space-y-1 ml-2 mt-2">
+                <li>AI notes are generated on the <strong>tutor&apos;s instruction</strong> and are only visible to the tutor unless the tutor chooses to share them.</li>
+                <li>Transcript and note content is <strong>not used to train third-party AI models</strong>; it is processed under Article 28 sub-processor terms.</li>
+                <li>AI output is a draft aid for the tutor, not an automated decision about a student — there is no profiling and no automated decision-making with legal or similar effect.</li>
+                <li>A tutor can operate fair-do without AI notes; the feature can be disabled.</li>
+              </ul>
+              <p className="mt-2 text-sand-600">
+                Because this can involve minors&apos; data, tutors are responsible for having the appropriate lawful
+                basis and consent before enabling AI notes for a child.
+              </p>
+            </section>
+
+            <section>
+              <h2 className="font-display text-lg font-semibold text-brand-900 mb-3">12. Data breaches</h2>
+              <p>
+                We maintain security measures to protect personal data and have an incident-response process. Where
+                fair-do is the <strong>controller</strong> and a personal data breach is likely to result in a risk to
+                individuals, we will notify the ICO without undue delay and within 72 hours where required, and affected
+                individuals where the risk is high.
+              </p>
+              <p className="mt-2 text-sand-600">
+                Where fair-do is a <strong>processor</strong> (for a tutor&apos;s students&apos; data), we will notify
+                the affected tutor (the controller) without undue delay after becoming aware of a breach, so the tutor
+                can meet their own notification duties.
               </p>
             </section>
           </div>
