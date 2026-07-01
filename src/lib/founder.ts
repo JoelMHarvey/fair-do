@@ -30,6 +30,7 @@ export const DOC_GROUPS: DocGroup[] = [
     docs: [
       { slug: 'project', title: '★ Project Roadmap' },
       { slug: 'teacher-app-plan', title: '★ Teacher App — Dev Plan (Phase 1 + Phase 2)' },
+      { slug: 'parent-portal-engineering-handoff', title: '★ Parent Portal — Engineering Handoff' },
       { slug: 'technical-spec', title: 'Technical Specification' },
       { slug: 'future-plans', title: 'Future Plans Review' },
       { slug: 'scale', title: 'Scale & Expansion' },
@@ -55,6 +56,7 @@ export const DOC_GROUPS: DocGroup[] = [
     category: 'current',
     docs: [
       { slug: 'marketing', title: 'Marketing Kit' },
+      { slug: 'outbound-sales-motion', title: '★ Outbound Sales Motion — 5,000 Users' },
       { slug: 'competitive', title: 'Competitive Analysis' },
       { slug: 'recruitment', title: 'Recruitment' },
       { slug: 'referral', title: 'Referral — Free Month Plan' },
@@ -88,6 +90,7 @@ export const DOC_GROUPS: DocGroup[] = [
 const FILE_BY_SLUG: Record<string, string> = {
   project: 'PROJECT.md',
   'teacher-app-plan': 'docs/teacher-app-plan.md',
+  'parent-portal-engineering-handoff': 'docs/PARENT-PORTAL-ENGINEERING-HANDOFF.md',
   'technical-spec': 'docs/TECHNICAL-SPEC.md',
   'future-plans': 'docs/FUTURE-PLANS-REVIEW.md',
   scale: 'docs/SCALE-AND-EXPANSION.md',
@@ -101,6 +104,7 @@ const FILE_BY_SLUG: Record<string, string> = {
   observability: 'docs/OBSERVABILITY.md',
   security: 'docs/SECURITY.md',
   marketing: 'docs/MARKETING.md',
+  'outbound-sales-motion': 'docs/OUTBOUND-SALES-MOTION.md',
   competitive: 'docs/COMPETITIVE-ANALYSIS.md',
   recruitment: 'docs/RECRUITMENT.md',
   referral: 'docs/REFERRAL-FREE-MONTH-PLAN.md',
