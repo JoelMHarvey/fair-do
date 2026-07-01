@@ -1047,6 +1047,9 @@
     "agreement_mid": " and the",
     "dpa_link": "Data Processing Agreement",
     "agreement_post": ". I understand I am the data controller for my students' records and fair-do is my processor.",
+    "safeguarding_pre": "I have read and will comply with the",
+    "safeguarding_link": "fair-do Safeguarding Policy",
+    "safeguarding_post": ". I understand my duty to report concerns about children's welfare without delay.",
     "redirecting": "Redirecting to Stripe…",
     "connect_button": "Connect bank account →"
   },

@@ -56,10 +56,13 @@ type Form = {
   photoBaseUrl: string
   photoStyle: string
   agreementAccepted: boolean
+  safeguardingAccepted: boolean
 }
 
 // Bump when the Tutor Agreement / DPA materially change — stored per acceptance.
 const AGREEMENT_VERSION = '2026-06-25'
+// Bump when the Safeguarding Policy materially changes — stored per acceptance.
+const SAFEGUARDING_VERSION = '2026-07-01'
 
 export function TeacherOnboarding({ t }: { t: Messages['onboarding_teacher'] }) {
   return <Suspense><TeacherOnboardingInner t={t} /></Suspense>
@@ -95,6 +98,7 @@ function TeacherOnboardingInner({ t }: { t: Messages['onboarding_teacher'] }) {
     photoBaseUrl: '',
     photoStyle: 'original',
     agreementAccepted: false,
+    safeguardingAccepted: false,
   })
 
   function update<K extends keyof Form>(field: K, value: Form[K]) {
@@ -155,6 +159,8 @@ function TeacherOnboardingInner({ t }: { t: Messages['onboarding_teacher'] }) {
         photoStyle: form.photoStyle || undefined,
         agreementAccepted: form.agreementAccepted,
         agreementVersion: AGREEMENT_VERSION,
+        safeguardingAccepted: form.safeguardingAccepted,
+        safeguardingPolicyVersion: SAFEGUARDING_VERSION,
       }),
     })
 
@@ -440,7 +446,7 @@ function TeacherOnboardingInner({ t }: { t: Messages['onboarding_teacher'] }) {
             </div>
 
             {/* Agreement + DPA acceptance — recorded with a timestamp + version (UK GDPR Art 28 evidence). */}
-            <label className="flex items-start gap-3 cursor-pointer mb-5 rounded-xl border border-sand-200 p-4">
+            <label className="flex items-start gap-3 cursor-pointer mb-3 rounded-xl border border-sand-200 p-4">
               <input
                 type="checkbox"
                 checked={form.agreementAccepted}
@@ -454,10 +460,24 @@ function TeacherOnboardingInner({ t }: { t: Messages['onboarding_teacher'] }) {
               </span>
             </label>
 
+            {/* Safeguarding Policy acceptance — timestamped separately so version changes are auditable. */}
+            <label className="flex items-start gap-3 cursor-pointer mb-5 rounded-xl border border-sand-200 p-4">
+              <input
+                type="checkbox"
+                checked={form.safeguardingAccepted}
+                onChange={e => update('safeguardingAccepted', e.target.checked)}
+                className="w-5 h-5 mt-0.5 accent-brand-600 shrink-0"
+              />
+              <span className="text-sm text-sand-700">
+                {t.safeguarding_pre}{' '}
+                <Link href="/safeguarding-policy" target="_blank" className="text-brand-700 underline">{t.safeguarding_link}</Link>{'. '}{t.safeguarding_post}
+              </span>
+            </label>
+
             {error && <p className="text-red-600 text-sm mb-4">{error}</p>}
             <div className="flex gap-3">
               <button onClick={() => setStep(3)} className={back} disabled={submitting}>{t.back}</button>
-              <button className={next} disabled={submitting || !form.agreementAccepted} onClick={handleStripeConnect}>
+              <button className={next} disabled={submitting || !form.agreementAccepted || !form.safeguardingAccepted} onClick={handleStripeConnect}>
                 {submitting ? t.redirecting : t.connect_button}
               </button>
             </div>
