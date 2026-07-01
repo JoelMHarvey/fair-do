@@ -84,8 +84,8 @@ export default function BillingClient({
             >
               <p className="font-display text-lg font-semibold text-brand-900">{t.name}</p>
               <p className="text-2xl font-semibold text-sand-900 mt-1">
-                {t.pricePence === 0 ? 'Free' : `£${(t.pricePence / 100).toFixed(0)}`}
-                {t.pricePence > 0 && <span className="text-sm font-normal text-sand-400">/mo</span>}
+                {t.id === 'enterprise' ? 'Custom' : t.pricePence === 0 ? 'Free' : `£${(t.pricePence / 100).toFixed(0)}`}
+                {t.id !== 'enterprise' && t.pricePence > 0 && <span className="text-sm font-normal text-sand-400">/mo</span>}
               </p>
               <p className="text-xs text-sand-500 mt-1 mb-3">{t.blurb}</p>
               <ul className="text-sm text-sand-600 space-y-1.5 mb-5 flex-1">
@@ -96,17 +96,26 @@ export default function BillingClient({
                   </li>
                 ))}
               </ul>
-              <button
-                onClick={() => choose(t.id)}
-                disabled={isCurrent || busy !== null}
-                className={`w-full rounded-full py-2.5 text-sm font-medium transition ${
-                  isCurrent
-                    ? 'bg-sand-100 text-sand-500 cursor-default'
-                    : 'bg-brand-600 hover:bg-brand-700 text-white disabled:opacity-50'
-                }`}
-              >
-                {isCurrent ? 'Current plan' : busy === t.id ? 'Starting…' : t.pricePence === 0 ? 'Choose Free' : `Choose ${t.name} (${pct}%)`}
-              </button>
+              {t.id === 'enterprise' ? (
+                <a
+                  href="mailto:support@fair-do.com?subject=Enterprise plan"
+                  className="w-full text-center rounded-full py-2.5 text-sm font-medium transition border border-brand-200 text-brand-700 hover:bg-brand-50"
+                >
+                  Contact sales
+                </a>
+              ) : (
+                <button
+                  onClick={() => choose(t.id)}
+                  disabled={isCurrent || busy !== null}
+                  className={`w-full rounded-full py-2.5 text-sm font-medium transition ${
+                    isCurrent
+                      ? 'bg-sand-100 text-sand-500 cursor-default'
+                      : 'bg-brand-600 hover:bg-brand-700 text-white disabled:opacity-50'
+                  }`}
+                >
+                  {isCurrent ? 'Current plan' : busy === t.id ? 'Starting…' : t.pricePence === 0 ? 'Choose Free' : `Choose ${t.name} (${pct}%)`}
+                </button>
+              )}
             </div>
           )
         })}
