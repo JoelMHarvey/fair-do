@@ -513,6 +513,11 @@ model Package {
   sessionsUsed  Int      @default(0)
   pricePence    Int
   status        String   @default("active") // active | completed | cancelled
+  // Parent purchasing (P2 handoff item 2): teacher may offer a package for the
+  // linked parent to buy. paidAt is set by the parent_package webhook on purchase.
+  buyableByParent Boolean   @default(false)
+  description     String?   @db.Text
+  paidAt          DateTime?
   createdAt     DateTime @default(now())
   updatedAt     DateTime @updatedAt
 
@@ -545,6 +550,10 @@ model Match {
   customRatePence Int? // per-student rate override; falls back to teacher.sessionRatePence
   invitedAt       DateTime? // when the teacher sent the invite (source=invite)
   notes           String?  @db.Text // teacher's private working notes about this student
+  // Goal setting (shown on the parent dashboard when set).
+  targetGrade     String? // e.g. "A*", "Grade 5", "Pass"
+  examBoard       String? // e.g. "AQA", "Edexcel", "OCR", "WJEC", "Pearson", "Other"
+  examDate        DateTime?
   startedAt       DateTime @default(now())
   endedAt         DateTime?
 

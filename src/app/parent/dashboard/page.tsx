@@ -2,8 +2,10 @@ import { redirect } from 'next/navigation'
 import Link from 'next/link'
 import { auth } from '@clerk/nextjs/server'
 import { prisma } from '@/lib/prisma'
-import { Logo } from '@/components/Logo'
+import { ParentNav } from '@/components/ParentNav'
 import { ParentMessages } from '@/components/ParentMessages'
+import { BuyPackageButton } from '@/components/BuyPackageButton'
+import { ParentProgressChart } from '@/components/ParentProgressChart'
 import { PARENT_PORTAL_ENABLED, groupLinksByChild } from '@/lib/parent'
 import { getDictionary, getLocaleFromHeaders } from '@/lib/dictionaries'
 
@@ -61,7 +63,7 @@ export default async function ParentDashboard({
     }),
     prisma.session.findMany({
       where: { studentId: student.id, OR: [{ scheduledAt: { lt: now } }, { status: { in: ['COMPLETED', 'CANCELLED', 'NO_SHOW'] } }] },
-      include: { teacher: true, lessonNote: true },
+      include: { teacher: true, lessonNote: true, transcript: true },
       orderBy: { scheduledAt: 'desc' },
       take: 20,
     }),
@@ -80,14 +82,40 @@ export default async function ParentDashboard({
 
   const visibleTutors = tutors.filter(t => t.showCredentialToParents && !!t.qualificationBody)
 
+  // Goal (target grade / exam board / date) — from the child's first linked tutor.
+  const goal = await prisma.match.findFirst({
+    where: { teacherId: selected.links[0].teacherId, studentId: student.id },
+    select: { targetGrade: true, examBoard: true, examDate: true },
+  })
+
+  // Lesson packages the child's tutors have offered for parent purchase.
+  const packages = await prisma.package.findMany({
+    where: { studentId: student.id, teacherId: { in: selected.links.map(l => l.teacherId) }, buyableByParent: true, status: 'active' },
+    include: { teacher: { select: { firstName: true, lastName: true } } },
+    orderBy: { createdAt: 'desc' },
+  })
+
+  const transcriptsOn = process.env.DAILY_TRANSCRIPTION_ENABLED === 'true'
+
+  // Monthly completed-session rollup (last 6 months) for the progress chart.
+  const progressMonths: { key: string; month: string; sessions: number }[] = []
+  for (let i = 5; i >= 0; i--) {
+    const d = new Date(now.getFullYear(), now.getMonth() - i, 1)
+    progressMonths.push({ key: d.toISOString().slice(0, 7), month: d.toLocaleDateString('en-GB', { month: 'short' }), sessions: 0 })
+  }
+  for (const s of past) {
+    if (s.status === 'COMPLETED' || s.callStartedAt) {
+      const bucket = progressMonths.find(mo => mo.key === new Date(s.scheduledAt).toISOString().slice(0, 7))
+      if (bucket) bucket.sessions++
+    }
+  }
+  const progressData = progressMonths.map(({ month, sessions }) => ({ month, sessions }))
+
   const { parent_dashboard } = await getDictionary(await getLocaleFromHeaders())
 
   return (
     <main className="min-h-screen bg-sand-50">
-      <nav className="border-b border-sand-200 bg-white/80 backdrop-blur px-5 sm:px-8 h-16 flex items-center justify-between sticky top-0 z-40">
-        <Logo />
-        <Link href="/sign-out" className="text-sm text-sand-500 hover:text-brand-700">{parent_dashboard.sign_out}</Link>
-      </nav>
+      <ParentNav signOutLabel={parent_dashboard.sign_out} />
 
       <div className="max-w-3xl mx-auto px-4 sm:px-6 py-8 sm:py-12">
         {/* Child tabs — only when the parent has more than one child linked. */}
@@ -137,8 +165,24 @@ export default async function ParentDashboard({
           </section>
         )}
 
+        {goal?.targetGrade && (
+          <div className="bg-brand-50 rounded-xl border border-brand-100 px-4 py-3 mb-8 text-sm">
+            <span className="font-medium text-brand-800">{parent_dashboard.goal_label}</span>{' '}
+            {goal.examBoard && `${goal.examBoard} `}{goal.targetGrade}
+            {goal.examDate && ` · ${parent_dashboard.goal_exam} ${fmtDate(goal.examDate)}`}
+          </div>
+        )}
+
+        {/* Progress */}
+        <section id="progress" className="mb-8 scroll-mt-20">
+          <h2 className="font-medium text-sand-900 mb-3">{parent_dashboard.progress_heading}</h2>
+          <div className="bg-white rounded-2xl border border-sand-200 p-5">
+            <ParentProgressChart data={progressData} emptyLabel={parent_dashboard.progress_empty} />
+          </div>
+        </section>
+
         {/* Upcoming */}
-        <section className="mb-8">
+        <section id="lessons" className="mb-8 scroll-mt-20">
           <h2 className="font-medium text-sand-900 mb-3">{parent_dashboard.upcoming_heading}</h2>
           {upcoming.length === 0 ? (
             <div className="bg-white rounded-2xl border border-sand-200 p-6 text-center text-sand-400 text-sm">{parent_dashboard.upcoming_empty}</div>
@@ -177,6 +221,12 @@ export default async function ParentDashboard({
                       <p>{s.lessonNote.topicsCovered}</p>
                       {s.lessonNote.difficulty && <p className="mt-1"><span className="text-sand-500">{parent_dashboard.found_tricky}</span> {s.lessonNote.difficulty}</p>}
                       {s.lessonNote.homework && <p className="mt-1"><span className="text-sand-500">{parent_dashboard.homework}</span> {s.lessonNote.homework}</p>}
+                      {transcriptsOn && s.transcript && (
+                        <details className="mt-2">
+                          <summary className="text-xs text-brand-700 cursor-pointer">{parent_dashboard.view_transcript}</summary>
+                          <pre className="text-xs text-sand-600 mt-1 whitespace-pre-wrap font-sans">{s.transcript.plainText}</pre>
+                        </details>
+                      )}
                     </div>
                   )}
                 </div>
@@ -185,8 +235,34 @@ export default async function ParentDashboard({
           )}
         </section>
 
+        {/* Packages the tutor has offered */}
+        {packages.length > 0 && (
+          <section id="packages" className="mb-8 scroll-mt-20">
+            <h2 className="font-medium text-sand-900 mb-3">{parent_dashboard.packages_heading}</h2>
+            <div className="space-y-3">
+              {packages.map(p => {
+                const sym = student.country === 'US' ? '$' : '£'
+                return (
+                  <div key={p.id} className="bg-white rounded-2xl border border-sand-200 p-4 flex items-center justify-between gap-4">
+                    <div>
+                      <p className="text-sm font-medium text-sand-900">{p.name}</p>
+                      {p.description && <p className="text-xs text-sand-500 mt-0.5">{p.description}</p>}
+                      <p className="text-xs text-sand-400 mt-0.5">
+                        {p.sessionsTotal} {parent_dashboard.packages_sessions} · {p.teacher.firstName} {p.teacher.lastName} · {sym}{(p.pricePence / 100).toFixed(2)}
+                      </p>
+                    </div>
+                    {p.paidAt
+                      ? <span className="text-xs text-brand-700 font-medium shrink-0">{parent_dashboard.packages_purchased}</span>
+                      : <BuyPackageButton packageId={p.id} label={parent_dashboard.packages_buy} />}
+                  </div>
+                )
+              })}
+            </div>
+          </section>
+        )}
+
         {/* Invoices */}
-        <section className="mb-8">
+        <section id="invoices" className="mb-8 scroll-mt-20">
           <h2 className="font-medium text-sand-900 mb-3">{parent_dashboard.invoices_heading}</h2>
           {payments.length === 0 ? (
             <div className="bg-white rounded-2xl border border-sand-200 p-6 text-center text-sand-400 text-sm">{parent_dashboard.invoices_empty}</div>
@@ -215,7 +291,7 @@ export default async function ParentDashboard({
         </section>
 
         {/* Messages — one thread per tutor linked to this child. */}
-        <section>
+        <section id="messages" className="scroll-mt-20">
           <h2 className="font-medium text-sand-900 mb-3">{parent_dashboard.message_heading}</h2>
           <div className="space-y-4">
             {selected.links.map(l => {

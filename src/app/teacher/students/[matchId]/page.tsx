@@ -10,10 +10,12 @@ import RateEditor from './RateEditor'
 import ScheduleForm from './ScheduleForm'
 import CreatePackageForm from './CreatePackageForm'
 import NotesEditor from './NotesEditor'
+import GoalEditor from './GoalEditor'
 import PhoneEditor from './PhoneEditor'
 import StudentDocuments from './ClientDocuments'
 import StudentForms from './ClientForms'
 import InviteParentForm from './InviteParentForm'
+import RevokeParentButton from './RevokeParentButton'
 import { ParentMessages } from '@/components/ParentMessages'
 import { LessonNoteEditor } from '@/components/LessonNoteEditor'
 import { PARENT_PORTAL_ENABLED, teacherCanOfferParentPortal } from '@/lib/parent'
@@ -174,6 +176,17 @@ export default async function StudentDetailPage({ params }: { params: Promise<{ 
           <NotesEditor matchId={match.id} initial={match.notes} />
         </section>
 
+        <section className="mb-8">
+          <h2 className="font-medium text-sand-900 mb-3">Goal</h2>
+          <p className="text-sm text-sand-500 mb-3">Target grade, exam board and date. Shown to the parent on their dashboard.</p>
+          <GoalEditor
+            matchId={match.id}
+            targetGrade={match.targetGrade}
+            examBoard={match.examBoard}
+            examDate={match.examDate ? match.examDate.toISOString().slice(0, 10) : null}
+          />
+        </section>
+
         {/* Parent portal (P2-3) */}
         {showParentPortal && (
           <section className="mb-8">
@@ -193,6 +206,7 @@ export default async function StudentDetailPage({ params }: { params: Promise<{ 
                     <span className={`text-xs px-2 py-0.5 rounded-full ${p.portalActive ? 'bg-brand-50 text-brand-700 border border-brand-200' : 'bg-sand-100 text-sand-500'}`}>
                       {p.portalActive ? 'Active' : p.status === 'active' ? 'Linked · not subscribed' : 'Invited'}
                     </span>
+                    <RevokeParentButton parentLinkId={p.id} />
                   </li>
                 ))}
               </ul>

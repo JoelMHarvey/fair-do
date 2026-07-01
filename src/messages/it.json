@@ -1125,7 +1125,16 @@
     "invoices_empty": "No payments yet.",
     "lesson_package": "Lesson package",
     "message_heading": "Message the tutor",
-    "children_tablist": "I tuoi figli"
+    "children_tablist": "I tuoi figli",
+    "goal_label": "Target:",
+    "goal_exam": "exam",
+    "view_transcript": "View transcript",
+    "packages_heading": "Lesson packages",
+    "packages_sessions": "lessons",
+    "packages_purchased": "Purchased ✓",
+    "packages_buy": "Buy",
+    "progress_heading": "Progress",
+    "progress_empty": "No completed lessons yet."
   },
   "teacher_nav": {
     "dashboard": "Dashboard",

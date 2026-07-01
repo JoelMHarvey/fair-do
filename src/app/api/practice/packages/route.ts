@@ -13,6 +13,10 @@ const schema = z.object({
   name: z.string().min(1).max(120),
   sessionsTotal: z.number().int().min(2).max(100),
   pricePence: z.number().int().min(100).max(2_000_000),
+  // When true, create the package as an offer the linked PARENT can buy from their
+  // dashboard (no immediate student charge). Otherwise the existing student-checkout flow runs.
+  buyableByParent: z.boolean().optional(),
+  description: z.string().max(2000).optional(),
 })
 
 export async function POST(req: Request) {
@@ -40,6 +44,18 @@ export async function POST(req: Request) {
     include: { student: { include: { user: true } } },
   })
   if (!match || match.teacherId !== teacher.id) return new Response('Student not found', { status: 404 })
+
+  // Parent-buyable offer: create the package + return; the parent pays later from
+  // their dashboard (no student checkout).
+  if (parsed.data.buyableByParent) {
+    await prisma.package.create({
+      data: {
+        teacherId: teacher.id, studentId: match.studentId, name, sessionsTotal, pricePence,
+        status: 'active', buyableByParent: true, description: parsed.data.description ?? null,
+      },
+    })
+    return Response.json({ ok: true, buyable: true }, { status: 201 })
+  }
 
   const pkg = await prisma.package.create({
     data: { teacherId: teacher.id, studentId: match.studentId, name, sessionsTotal, pricePence, status: 'unpaid' },
