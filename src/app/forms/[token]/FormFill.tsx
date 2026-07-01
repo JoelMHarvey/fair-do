@@ -54,6 +54,8 @@ export default function FormFill({ token, title, fields }: { token: string; titl
               <label className="block text-sm font-medium text-sand-700 mb-1.5">{f.label}{f.required && <span className="text-coral-500"> *</span>}</label>
               {f.type === 'textarea' ? (
                 <textarea rows={3} value={(values[f.id] as string) ?? ''} onChange={e => set(f.id, e.target.value)} className="w-full border border-sand-300 rounded-xl px-3 py-2.5 text-sm focus:outline-none focus:ring-2 focus:ring-brand-100 focus:border-brand-400" />
+              ) : f.id === 'dob' || f.id === 'date' ? (
+                <input type="date" max="2100-12-31" value={(values[f.id] as string) ?? ''} onChange={e => set(f.id, e.target.value)} className="w-full border border-sand-300 rounded-xl px-3 py-2.5 text-sm focus:outline-none focus:ring-2 focus:ring-brand-100 focus:border-brand-400" />
               ) : (
                 <input type="text" value={(values[f.id] as string) ?? ''} onChange={e => set(f.id, e.target.value)} className="w-full border border-sand-300 rounded-xl px-3 py-2.5 text-sm focus:outline-none focus:ring-2 focus:ring-brand-100 focus:border-brand-400" />
               )}
