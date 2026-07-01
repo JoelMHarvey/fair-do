@@ -61,7 +61,7 @@ export default async function ParentDashboard({
     }),
     prisma.session.findMany({
       where: { studentId: student.id, OR: [{ scheduledAt: { lt: now } }, { status: { in: ['COMPLETED', 'CANCELLED', 'NO_SHOW'] } }] },
-      include: { teacher: true, lessonNote: true },
+      include: { teacher: true, lessonNote: true, transcript: true },
       orderBy: { scheduledAt: 'desc' },
       take: 20,
     }),
@@ -85,6 +85,8 @@ export default async function ParentDashboard({
     where: { teacherId: selected.links[0].teacherId, studentId: student.id },
     select: { targetGrade: true, examBoard: true, examDate: true },
   })
+
+  const transcriptsOn = process.env.DAILY_TRANSCRIPTION_ENABLED === 'true'
 
   const { parent_dashboard } = await getDictionary(await getLocaleFromHeaders())
 
@@ -188,6 +190,12 @@ export default async function ParentDashboard({
                       <p>{s.lessonNote.topicsCovered}</p>
                       {s.lessonNote.difficulty && <p className="mt-1"><span className="text-sand-500">{parent_dashboard.found_tricky}</span> {s.lessonNote.difficulty}</p>}
                       {s.lessonNote.homework && <p className="mt-1"><span className="text-sand-500">{parent_dashboard.homework}</span> {s.lessonNote.homework}</p>}
+                      {transcriptsOn && s.transcript && (
+                        <details className="mt-2">
+                          <summary className="text-xs text-brand-700 cursor-pointer">{parent_dashboard.view_transcript}</summary>
+                          <pre className="text-xs text-sand-600 mt-1 whitespace-pre-wrap font-sans">{s.transcript.plainText}</pre>
+                        </details>
+                      )}
                     </div>
                   )}
                 </div>

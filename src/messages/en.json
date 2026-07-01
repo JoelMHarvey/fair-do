@@ -1127,7 +1127,8 @@
     "message_heading": "Message the tutor",
     "children_tablist": "Your children",
     "goal_label": "Target:",
-    "goal_exam": "exam"
+    "goal_exam": "exam",
+    "view_transcript": "View transcript"
   },
   "teacher_nav": {
     "dashboard": "Dashboard",

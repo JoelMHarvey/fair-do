@@ -1127,7 +1127,8 @@
     "message_heading": "Enviar mensaje al profesor",
     "children_tablist": "Tus hijos",
     "goal_label": "Objetivo:",
-    "goal_exam": "examen"
+    "goal_exam": "examen",
+    "view_transcript": "Ver transcripción"
   },
   "teacher_nav": {
     "dashboard": "Panel",

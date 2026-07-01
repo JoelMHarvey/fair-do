@@ -26,6 +26,11 @@ export async function createRoom(sessionId: string, scheduledAt: Date, maxPartic
         enable_knocking: false,
         max_participants: maxParticipants,
         lang: 'en',
+        // Transcription (P2-4) — off unless explicitly enabled on the Daily account.
+        // Stored transcript is fetched by the meeting-ended webhook (ingestTranscript).
+        ...(process.env.DAILY_TRANSCRIPTION_ENABLED === 'true'
+          ? { enable_transcription_storage: true, auto_start_transcription: true }
+          : {}),
       },
     }),
   })
