@@ -42,6 +42,12 @@ export default function ProfileForm({ initial }: { initial: Initial }) {
   const [languages, setLanguages] = useState<string[]>(initial.languages.length ? initial.languages : ['English'])
   const [timezone, setTimezone] = useState(initial.timezone || 'Europe/London')
   const toggleLang = (l: string) => setLanguages(prev => prev.includes(l) ? prev.filter(x => x !== l) : [...prev, l])
+  const [customLang, setCustomLang] = useState('')
+  const addCustomLang = () => {
+    const v = customLang.trim()
+    if (v && !languages.some(x => x.toLowerCase() === v.toLowerCase())) setLanguages(prev => [...prev, v])
+    setCustomLang('')
+  }
   const [websiteUrl, setWebsiteUrl] = useState(initial.websiteUrl)
   const [linkedinUrl, setLinkedinUrl] = useState(initial.linkedinUrl)
   const [videoUrl, setVideoUrl] = useState(initial.introVideoUrl)
@@ -133,6 +139,27 @@ export default function ProfileForm({ initial }: { initial: Initial }) {
                   {l}
                 </button>
               ))}
+              {/* Custom languages not in the preset list — removable */}
+              {languages.filter(l => !LANGUAGES.includes(l)).map(l => (
+                <button
+                  key={l}
+                  type="button"
+                  onClick={() => toggleLang(l)}
+                  className="text-sm px-3 py-1.5 rounded-full border border-brand-500 bg-brand-50 text-brand-700"
+                >
+                  {l} ✕
+                </button>
+              ))}
+            </div>
+            <div className="flex gap-2 mt-2">
+              <input
+                value={customLang}
+                onChange={e => setCustomLang(e.target.value)}
+                onKeyDown={e => { if (e.key === 'Enter') { e.preventDefault(); addCustomLang() } }}
+                placeholder="Other language…"
+                className="flex-1 rounded-xl border border-sand-300 px-3 py-2 text-sm focus:border-brand-400 focus:outline-none"
+              />
+              <button type="button" onClick={addCustomLang} className="text-sm px-4 py-2 rounded-xl border border-brand-200 text-brand-700 hover:bg-brand-50">Add</button>
             </div>
           </div>
 

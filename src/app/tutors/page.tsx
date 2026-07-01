@@ -145,7 +145,7 @@ export default async function TutorsPage() {
       <nav className="border-b border-sand-200 bg-white/80 backdrop-blur px-5 sm:px-8 h-16 flex items-center justify-between sticky top-0 z-40">
         <Logo />
         <div className="flex items-center gap-4 text-sm">
-          <Link href="/availability" className="text-sand-500 hover:text-brand-700">Calendar view</Link>
+          {DIRECTORY_ENABLED && <Link href="/availability" className="text-sand-500 hover:text-brand-700">Calendar view</Link>}
           <Link href="/dashboard" className="text-sand-500 hover:text-brand-700">← Dashboard</Link>
         </div>
       </nav>

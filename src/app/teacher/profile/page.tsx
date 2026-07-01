@@ -7,6 +7,7 @@ import ProfileForm from './ProfileForm'
 import BrandingCard from './BrandingCard'
 import { CancellationPolicyCard } from '@/components/CancellationPolicyCard'
 import { CredentialVisibilityCard } from '@/components/CredentialVisibilityCard'
+import CredentialUpload from './CredentialUpload'
 
 const PAID_TIERS = new Set(['pro', 'school', 'practice', 'clinic'])
 const ACTIVE_STATUSES = new Set(['active', 'trialing'])
@@ -66,7 +67,12 @@ export default async function TeacherProfilePage() {
           <CancellationPolicyCard windowHours={t.cancellationWindowHours} lateRefundPercent={t.lateCancelRefundPercent} />
         </div>
 
-        <div className="mt-5">
+        <div className="mt-5 rounded-2xl border border-sand-200 bg-white p-5 space-y-4">
+          <div>
+            <h3 className="font-medium text-sand-900 mb-1">Credential certificate</h3>
+            <p className="text-sm text-sand-500 mb-3">Upload your qualification certificate (PDF or image). Optional — you choose below whether parents can see it.</p>
+            <CredentialUpload initialUrl={t.credentialDocUrl} />
+          </div>
           <CredentialVisibilityCard
             initial={t.showCredentialToParents}
             qualificationBody={t.qualificationBody}
