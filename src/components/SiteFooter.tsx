@@ -20,7 +20,7 @@ export async function SiteFooter() {
             <p className="text-xs font-semibold text-sand-900 uppercase tracking-wide mb-3">{footer.col_clients}</p>
             <ul className="space-y-2 text-sm text-sand-600">
               {DIRECTORY_ENABLED && <li><Link href="/tutors" className="hover:text-brand-700">{footer.link_find_tutor}</Link></li>}
-              <li><Link href="/subjects" className="hover:text-brand-700">{footer.link_subjects}</Link></li>
+              <li><Link href="/styles" className="hover:text-brand-700">{footer.link_subjects}</Link></li>
               <li><Link href="/blog" className="hover:text-brand-700">{footer.link_blog}</Link></li>
               <li><Link href="/#how" className="hover:text-brand-700">{footer.link_how_it_works}</Link></li>
               <li><Link href="/gift" className="hover:text-brand-700">{footer.link_gift}</Link></li>

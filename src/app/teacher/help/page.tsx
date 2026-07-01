@@ -16,7 +16,7 @@ const SECTIONS: Section[] = [
     guides: [
       { id: 'what-is-fair-do', q: 'What is fair-do, in one line?', a: <>Your whole tutoring in one place — your own students, your own prices, scheduling, secure video, reminders and payments. You keep your students; fair-do is just your tools.</> },
       { id: 'first-steps', q: 'I just signed up — what do I do first?', a: <>Follow the <strong>Getting started</strong> checklist on your <Link href="/teacher/dashboard" className="text-brand-700 underline">dashboard</Link>. It walks you through it: complete your profile, connect payments, add your first student, and book your first lesson. Each step links straight to the right place.</> },
-      { id: 'is-it-secure', q: 'Is my students&rsquo; information safe?', a: <>Yes. Everything is encrypted and stored securely in the UK/EU. Personal information is protected and never sold or shared.</> },
+      { id: 'is-it-secure', q: 'Is my students’ information safe?', a: <>Yes. Everything is encrypted and stored securely in the UK/EU. Personal information is protected and never sold or shared.</> },
     ],
   },
   {
@@ -47,7 +47,7 @@ const SECTIONS: Section[] = [
   {
     title: 'Stuck?',
     guides: [
-      { id: 'contact', q: 'Something&rsquo;s not working — who do I ask?', a: <>Email <a href="mailto:support@fair-do.com" className="text-brand-700 underline">support@fair-do.com</a> any time. Tell us what you were trying to do and what happened — we&rsquo;ll help. There are no silly questions.</> },
+      { id: 'contact', q: 'Something’s not working — who do I ask?', a: <>Email <a href="mailto:support@fair-do.com" className="text-brand-700 underline">support@fair-do.com</a> any time. Tell us what you were trying to do and what happened — we&rsquo;ll help. There are no silly questions.</> },
     ],
   },
 ]

@@ -35,23 +35,33 @@ export default function AddClientForm({ defaultRatePence }: { defaultRatePence: 
           body: JSON.stringify({ firstName: firstName.trim(), lastName: lastName.trim(), contactEmail: email.trim(), customRatePence }),
         })
       } else {
-        const payload: Record<string, unknown> = { email: email.trim() }
-        if (firstName.trim()) payload.firstName = firstName.trim()
-        if (note.trim()) payload.note = note.trim()
-        if (customRatePence != null) payload.customRatePence = customRatePence
-        res = await fetch('/api/practice/students', {
-          method: 'POST',
-          headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify(payload),
-        })
+        // Invite one or many — split on commas / newlines.
+        const emails = [...new Set(email.split(/[,\n]/).map(s => s.trim().toLowerCase()).filter(Boolean))]
+        if (emails.length === 0) { setError('Enter at least one email.'); setLoading(false); return }
+        const results = await Promise.all(emails.map(async addr => {
+          const payload: Record<string, unknown> = { email: addr }
+          if (emails.length === 1 && firstName.trim()) payload.firstName = firstName.trim()
+          if (note.trim()) payload.note = note.trim()
+          if (customRatePence != null) payload.customRatePence = customRatePence
+          const r = await fetch('/api/practice/students', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify(payload) })
+          return { addr, ok: r.ok }
+        }))
+        const failed = results.filter(r => !r.ok).map(r => r.addr)
+        const sent = results.filter(r => r.ok).map(r => r.addr)
+        if (failed.length) setError(`Couldn’t invite: ${failed.join(', ')}`)
+        if (sent.length) setOkMsg(`Invite${sent.length > 1 ? 's' : ''} sent to ${sent.join(', ')}.`)
+        resetFields()
+        setLoading(false)
+        router.refresh()
+        return
       }
       const data = await res.json().catch(() => ({}))
       if (!res.ok) {
-        setError(data.error ?? (managed ? 'Couldn’t add the client.' : 'Couldn’t send the invite.'))
+        setError(data.error ?? 'Couldn’t add the client.')
         setLoading(false)
         return
       }
-      setOkMsg(managed ? `Added ${firstName.trim()} ${lastName.trim()}.` : `Invite sent to ${email.trim()}.`)
+      setOkMsg(`Added ${firstName.trim()} ${lastName.trim()}.`)
       resetFields()
       setLoading(false)
       router.refresh()
@@ -68,10 +78,11 @@ export default function AddClientForm({ defaultRatePence }: { defaultRatePence: 
       <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
         <input
           type="email"
+          multiple={!managed}
           required={!managed}
           value={email}
           onChange={e => setEmail(e.target.value)}
-          placeholder={managed ? 'Email (optional)' : 'Client email'}
+          placeholder={managed ? 'Email (optional)' : 'Email — one or more, comma-separated'}
           className="rounded-xl border border-sand-300 px-3 py-2.5 text-sm focus:border-brand-400 focus:outline-none"
         />
         <input
