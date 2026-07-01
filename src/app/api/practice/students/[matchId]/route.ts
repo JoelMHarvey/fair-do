@@ -11,6 +11,10 @@ const schema = z.object({
   notes: z.string().max(20000).nullable().optional(),
   // '' or null clears the stored mobile; any value is normalised to E.164.
   phone: z.string().max(30).nullable().optional(),
+  // Goal setting (shown on the parent dashboard). null clears.
+  targetGrade: z.string().max(20).nullable().optional(),
+  examBoard: z.string().max(40).nullable().optional(),
+  examDate: z.string().max(40).nullable().optional(), // ISO/date string, parsed below
 })
 
 export async function PATCH(req: Request, { params }: { params: Promise<{ matchId: string }> }) {
@@ -33,6 +37,9 @@ export async function PATCH(req: Request, { params }: { params: Promise<{ matchI
   const data: Prisma.MatchUpdateInput = {}
   if (parsed.data.customRatePence !== undefined) data.customRatePence = parsed.data.customRatePence
   if (parsed.data.notes !== undefined) data.notes = parsed.data.notes
+  if (parsed.data.targetGrade !== undefined) data.targetGrade = parsed.data.targetGrade
+  if (parsed.data.examBoard !== undefined) data.examBoard = parsed.data.examBoard
+  if (parsed.data.examDate !== undefined) data.examDate = parsed.data.examDate ? new Date(parsed.data.examDate) : null
   if (Object.keys(data).length) await prisma.match.update({ where: { id: matchId }, data })
 
   // Phone lives on the Student, not the Match. Empty string clears it.

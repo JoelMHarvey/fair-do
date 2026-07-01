@@ -10,6 +10,7 @@ import RateEditor from './RateEditor'
 import ScheduleForm from './ScheduleForm'
 import CreatePackageForm from './CreatePackageForm'
 import NotesEditor from './NotesEditor'
+import GoalEditor from './GoalEditor'
 import PhoneEditor from './PhoneEditor'
 import StudentDocuments from './ClientDocuments'
 import StudentForms from './ClientForms'
@@ -173,6 +174,17 @@ export default async function StudentDetailPage({ params }: { params: Promise<{ 
             </HelpTip>
           </h2>
           <NotesEditor matchId={match.id} initial={match.notes} />
+        </section>
+
+        <section className="mb-8">
+          <h2 className="font-medium text-sand-900 mb-3">Goal</h2>
+          <p className="text-sm text-sand-500 mb-3">Target grade, exam board and date. Shown to the parent on their dashboard.</p>
+          <GoalEditor
+            matchId={match.id}
+            targetGrade={match.targetGrade}
+            examBoard={match.examBoard}
+            examDate={match.examDate ? match.examDate.toISOString().slice(0, 10) : null}
+          />
         </section>
 
         {/* Parent portal (P2-3) */}

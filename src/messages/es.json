@@ -1125,7 +1125,9 @@
     "invoices_empty": "Aún no hay pagos.",
     "lesson_package": "Paquete de clases",
     "message_heading": "Enviar mensaje al profesor",
-    "children_tablist": "Tus hijos"
+    "children_tablist": "Tus hijos",
+    "goal_label": "Objetivo:",
+    "goal_exam": "examen"
   },
   "teacher_nav": {
     "dashboard": "Panel",

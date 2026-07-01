@@ -545,6 +545,10 @@ model Match {
   customRatePence Int? // per-student rate override; falls back to teacher.sessionRatePence
   invitedAt       DateTime? // when the teacher sent the invite (source=invite)
   notes           String?  @db.Text // teacher's private working notes about this student
+  // Goal setting (shown on the parent dashboard when set).
+  targetGrade     String? // e.g. "A*", "Grade 5", "Pass"
+  examBoard       String? // e.g. "AQA", "Edexcel", "OCR", "WJEC", "Pearson", "Other"
+  examDate        DateTime?
   startedAt       DateTime @default(now())
   endedAt         DateTime?
 

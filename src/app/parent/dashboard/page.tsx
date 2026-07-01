@@ -80,6 +80,12 @@ export default async function ParentDashboard({
 
   const visibleTutors = tutors.filter(t => t.showCredentialToParents && !!t.qualificationBody)
 
+  // Goal (target grade / exam board / date) — from the child's first linked tutor.
+  const goal = await prisma.match.findFirst({
+    where: { teacherId: selected.links[0].teacherId, studentId: student.id },
+    select: { targetGrade: true, examBoard: true, examDate: true },
+  })
+
   const { parent_dashboard } = await getDictionary(await getLocaleFromHeaders())
 
   return (
@@ -132,6 +138,14 @@ export default async function ParentDashboard({
               </div>
             ))}
           </section>
+        )}
+
+        {goal?.targetGrade && (
+          <div className="bg-brand-50 rounded-xl border border-brand-100 px-4 py-3 mb-8 text-sm">
+            <span className="font-medium text-brand-800">{parent_dashboard.goal_label}</span>{' '}
+            {goal.examBoard && `${goal.examBoard} `}{goal.targetGrade}
+            {goal.examDate && ` · ${parent_dashboard.goal_exam} ${fmtDate(goal.examDate)}`}
+          </div>
         )}
 
         {/* Upcoming */}
