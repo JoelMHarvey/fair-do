@@ -216,6 +216,9 @@ white card, footer, optional pill-shaped CTA button in `#4f46e5` or the teacher'
   priority than the booking/reminder path since most affected flows are teacher-initiated
   (teacher writes the content) or platform-to-teacher, but student-facing ones (#9, #10,
   #12, #13, #16, #17) are candidates for i18n if non-English student volume grows.
+  Translations for all 16 (es/fr/de/it/pt), ready to merge, live in
+  [Email Templates — Translations](/founder/email-templates-i18n) — not yet wired into
+  `email.ts`.
 - **Parent portal emails (#18, #19) are never brandable** — by design, since the parent
   pays fair-do directly rather than the teacher, this is consistent, not a gap.
 - **No template preview/testing tool.** Templates are only visible by reading `email.ts` or

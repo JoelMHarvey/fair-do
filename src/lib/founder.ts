@@ -50,6 +50,7 @@ export const DOC_GROUPS: DocGroup[] = [
       { slug: 'observability', title: 'Observability' },
       { slug: 'security', title: 'Security' },
       { slug: 'email-flows', title: '✉ Email Flows & Templates' },
+      { slug: 'email-templates-i18n', title: '✉ Email Templates — Translations (es/fr/de/it/pt)' },
     ],
   },
   {
@@ -105,6 +106,7 @@ const FILE_BY_SLUG: Record<string, string> = {
   observability: 'docs/OBSERVABILITY.md',
   security: 'docs/SECURITY.md',
   'email-flows': 'docs/EMAIL-FLOWS.md',
+  'email-templates-i18n': 'docs/EMAIL-TEMPLATES-I18N.md',
   marketing: 'docs/MARKETING.md',
   'outbound-sales-motion': 'docs/OUTBOUND-SALES-MOTION.md',
   competitive: 'docs/COMPETITIVE-ANALYSIS.md',
