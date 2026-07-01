@@ -30,7 +30,7 @@ export default async function PricingPage() {
   return (
     <>
       <SiteNav />
-      <main className="bg-gradient-to-b from-brand-50 via-sand-50 to-sand-50">
+      <main id="main-content" className="bg-gradient-to-b from-brand-50 via-sand-50 to-sand-50">
         <div className="max-w-5xl mx-auto px-5 sm:px-8 py-16 sm:py-20">
           <div className="text-center max-w-2xl mx-auto mb-4">
             <h1 className="font-display text-4xl sm:text-5xl font-semibold text-brand-900">{pricing.h1}</h1>
@@ -55,7 +55,7 @@ export default async function PricingPage() {
                   <p className="text-sm text-sand-600 mt-1 mb-4">{c.tagline}</p>
                   <div className="mb-5">
                     <span className="font-display text-4xl font-semibold text-brand-900">
-                      {'pricePence' in t && t.pricePence ? <LocalPrice minor={t.pricePence} base="GBP" whole approxClassName="text-lg font-normal text-sand-400" /> : c.price}
+                      {'pricePence' in t && t.pricePence ? <LocalPrice minor={t.pricePence} base="GBP" whole approxClassName="text-lg font-normal text-sand-500" /> : c.price}
                     </span>
                     <span className="text-sand-500">{c.cadence}</span>
                   </div>
@@ -76,7 +76,7 @@ export default async function PricingPage() {
             })}
           </div>
 
-          <p className="text-center text-xs text-sand-400 mt-6">{pricing.prices_note}</p>
+          <p className="text-center text-xs text-sand-600 mt-6">{pricing.prices_note}</p>
 
           <div className="text-center mt-8 flex flex-col sm:flex-row gap-x-8 gap-y-2 justify-center">
             <Link href="/pricing/explained" className="inline-flex items-center gap-2 text-brand-700 font-medium hover:text-brand-800 underline underline-offset-4">

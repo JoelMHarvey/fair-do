@@ -12,6 +12,7 @@ export function TeacherHome({ t }: { t: HomeT }) {
     <>
       <SiteNav />
 
+      <main id="main-content">
       {/* Hero */}
       <section className="relative overflow-hidden">
         <div className="absolute inset-0 -z-10 bg-gradient-to-b from-brand-50 via-sand-50 to-sand-50" />
@@ -21,7 +22,7 @@ export function TeacherHome({ t }: { t: HomeT }) {
         <div className="max-w-3xl mx-auto px-5 sm:px-8 pt-16 sm:pt-20 pb-16 text-center">
           <HeroMark className="mb-6" />
           <span className="inline-flex items-center gap-2 rounded-full border border-brand-200 bg-white/60 px-4 py-1.5 text-sm font-medium text-brand-700">
-            <span className="h-1.5 w-1.5 rounded-full bg-brand-500" />
+            <span className="h-1.5 w-1.5 rounded-full bg-brand-500" aria-hidden="true" />
             {t.hero_badge}
           </span>
           <h1 className="font-display text-5xl sm:text-6xl font-semibold leading-[1.05] text-brand-900 mt-6">
@@ -146,6 +147,8 @@ export function TeacherHome({ t }: { t: HomeT }) {
           )}
         </div>
       </section>
+
+      </main>
 
       <SiteFooter />
     </>

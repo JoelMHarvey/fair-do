@@ -1,6 +1,6 @@
 'use client'
 
-import { useState } from 'react'
+import { useState, useEffect, useRef } from 'react'
 import Link from 'next/link'
 import { Show } from '@clerk/nextjs'
 
@@ -26,10 +26,26 @@ export function MobileMenu({
 }) {
   const [open, setOpen] = useState(false)
   const close = () => setOpen(false)
+  const btnRef = useRef<HTMLButtonElement>(null)
+  const menuRef = useRef<HTMLDivElement>(null)
+
+  useEffect(() => {
+    if (open) {
+      menuRef.current?.querySelector('a')?.focus()
+    }
+  }, [open])
+
+  function handleKeyDown(e: React.KeyboardEvent) {
+    if (e.key === 'Escape') {
+      close()
+      btnRef.current?.focus()
+    }
+  }
 
   return (
     <div className="sm:hidden">
       <button
+        ref={btnRef}
         onClick={() => setOpen((v) => !v)}
         aria-label={open ? 'Close menu' : 'Open menu'}
         aria-expanded={open}
@@ -43,8 +59,8 @@ export function MobileMenu({
       {open && (
         <>
           <button className="fixed inset-0 z-40 bg-brand-900/20" aria-hidden onClick={close} tabIndex={-1} />
-          <div className="absolute left-0 right-0 top-16 z-50 border-b border-sand-200 bg-sand-50 shadow-lg">
-            <nav className="max-w-6xl mx-auto px-5 py-4 flex flex-col gap-1">
+          <div ref={menuRef} className="absolute left-0 right-0 top-16 z-50 border-b border-sand-200 bg-sand-50 shadow-lg" onKeyDown={handleKeyDown}>
+            <nav aria-label="Mobile menu" className="max-w-6xl mx-auto px-5 py-4 flex flex-col gap-1">
               {links.map((l) => (
                 <Link
                   key={l.href}

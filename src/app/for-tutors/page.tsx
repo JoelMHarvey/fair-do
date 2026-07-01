@@ -16,6 +16,7 @@ export default async function ForTutorsPage() {
     <>
       <SiteNav />
 
+      <main id="main-content">
       {/* Hero */}
       <section className="relative overflow-hidden">
         <div className="absolute inset-0 -z-10 bg-gradient-to-b from-brand-50 via-sand-50 to-sand-50" />
@@ -24,7 +25,7 @@ export default async function ForTutorsPage() {
 
         <div className="max-w-3xl mx-auto px-5 sm:px-8 pt-20 sm:pt-28 pb-16 text-center">
           <span className="inline-flex items-center gap-2 rounded-full border border-brand-200 bg-white/60 px-4 py-1.5 text-sm font-medium text-brand-700">
-            <span className="h-1.5 w-1.5 rounded-full bg-brand-500" />
+            <span className="h-1.5 w-1.5 rounded-full bg-brand-500" aria-hidden="true" />
             {for_tutors.hero_badge}
           </span>
           <h1 className="font-display text-4xl sm:text-5xl font-semibold leading-[1.08] text-brand-900 mt-6">
@@ -69,7 +70,7 @@ export default async function ForTutorsPage() {
               key={f.title}
               className="bg-white rounded-3xl border border-sand-200 p-7 shadow-sm"
             >
-              <div className="text-3xl mb-3" aria-hidden>
+              <div className="text-3xl mb-3" aria-hidden="true">
                 {f.icon}
               </div>
               <h3 className="font-display text-xl font-semibold text-brand-900 mb-2">
@@ -162,6 +163,8 @@ export default async function ForTutorsPage() {
           </p>
         </div>
       </section>
+
+      </main>
 
       <SiteFooter />
     </>
