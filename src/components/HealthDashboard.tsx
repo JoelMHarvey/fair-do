@@ -132,7 +132,10 @@ export function HealthDashboard({ m, backHref, backLabel }: { m: Metrics; backHr
           </div>
         </div>
         <div>
-          <h2 className="font-medium text-sand-900 mb-3">Support inbox</h2>
+          <div className="flex items-center justify-between mb-3">
+            <h2 className="font-medium text-sand-900">Support inbox</h2>
+            <a href="/admin/inbox" className="text-sm text-brand-600 hover:text-brand-700">View inbox →</a>
+          </div>
           <div className="bg-white rounded-xl border border-sand-200 p-4 text-sm">
             {!m.mailbox.configured ? (
               <p className="text-sand-500">Not configured — set <code className="text-xs bg-sand-100 px-1 rounded">IMAP_HOST</code> / <code className="text-xs bg-sand-100 px-1 rounded">IMAP_USER</code> / <code className="text-xs bg-sand-100 px-1 rounded">IMAP_PASSWORD</code>.</p>
