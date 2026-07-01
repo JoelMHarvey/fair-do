@@ -58,6 +58,20 @@ model AlertState {
   updatedAt   DateTime  @updatedAt
 }
 
+// Observability: lightweight, self-hosted error counter. Fed by logError() and the
+// instrumentation onRequestError hook (route/RSC 500s). The alerts cron thresholds
+// on recent volume so route-level errors page ops even without Sentry alerting.
+// No PII — message is a truncated error string only. Pruned to ~24h by the cron.
+model ErrorEvent {
+  id        String   @id @default(cuid())
+  scope     String // e.g. "request", "stripe webhook", "booking/create"
+  message   String // truncated error message, no PII
+  digest    String? // Next.js error digest, when available
+  createdAt DateTime @default(now())
+
+  @@index([createdAt])
+}
+
 enum UserRole {
   STUDENT
   TEACHER
