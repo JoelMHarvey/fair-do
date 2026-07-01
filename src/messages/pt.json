@@ -1132,7 +1132,9 @@
     "packages_heading": "Lesson packages",
     "packages_sessions": "lessons",
     "packages_purchased": "Purchased ✓",
-    "packages_buy": "Buy"
+    "packages_buy": "Buy",
+    "progress_heading": "Progress",
+    "progress_empty": "No completed lessons yet."
   },
   "teacher_nav": {
     "dashboard": "Dashboard",

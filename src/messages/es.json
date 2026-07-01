@@ -1132,7 +1132,9 @@
     "packages_heading": "Paquetes de clases",
     "packages_sessions": "clases",
     "packages_purchased": "Comprado ✓",
-    "packages_buy": "Comprar"
+    "packages_buy": "Comprar",
+    "progress_heading": "Progreso",
+    "progress_empty": "Aún no hay clases completadas."
   },
   "teacher_nav": {
     "dashboard": "Panel",

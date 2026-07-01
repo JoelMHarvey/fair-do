@@ -5,6 +5,7 @@ import { prisma } from '@/lib/prisma'
 import { ParentNav } from '@/components/ParentNav'
 import { ParentMessages } from '@/components/ParentMessages'
 import { BuyPackageButton } from '@/components/BuyPackageButton'
+import { ParentProgressChart } from '@/components/ParentProgressChart'
 import { PARENT_PORTAL_ENABLED, groupLinksByChild } from '@/lib/parent'
 import { getDictionary, getLocaleFromHeaders } from '@/lib/dictionaries'
 
@@ -96,6 +97,20 @@ export default async function ParentDashboard({
 
   const transcriptsOn = process.env.DAILY_TRANSCRIPTION_ENABLED === 'true'
 
+  // Monthly completed-session rollup (last 6 months) for the progress chart.
+  const progressMonths: { key: string; month: string; sessions: number }[] = []
+  for (let i = 5; i >= 0; i--) {
+    const d = new Date(now.getFullYear(), now.getMonth() - i, 1)
+    progressMonths.push({ key: d.toISOString().slice(0, 7), month: d.toLocaleDateString('en-GB', { month: 'short' }), sessions: 0 })
+  }
+  for (const s of past) {
+    if (s.status === 'COMPLETED' || s.callStartedAt) {
+      const bucket = progressMonths.find(mo => mo.key === new Date(s.scheduledAt).toISOString().slice(0, 7))
+      if (bucket) bucket.sessions++
+    }
+  }
+  const progressData = progressMonths.map(({ month, sessions }) => ({ month, sessions }))
+
   const { parent_dashboard } = await getDictionary(await getLocaleFromHeaders())
 
   return (
@@ -157,6 +172,14 @@ export default async function ParentDashboard({
             {goal.examDate && ` · ${parent_dashboard.goal_exam} ${fmtDate(goal.examDate)}`}
           </div>
         )}
+
+        {/* Progress */}
+        <section id="progress" className="mb-8 scroll-mt-20">
+          <h2 className="font-medium text-sand-900 mb-3">{parent_dashboard.progress_heading}</h2>
+          <div className="bg-white rounded-2xl border border-sand-200 p-5">
+            <ParentProgressChart data={progressData} emptyLabel={parent_dashboard.progress_empty} />
+          </div>
+        </section>
 
         {/* Upcoming */}
         <section id="lessons" className="mb-8 scroll-mt-20">
