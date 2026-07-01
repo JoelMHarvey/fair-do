@@ -58,7 +58,7 @@ function layout(
           : `<span style="font-family:Georgia,'Times New Roman',serif;font-size:20px;font-weight:bold;color:${color}">${escapeHtml(brand.practiceName)}</span>`}
       </div>`
     : `<div style="padding:6px 6px 16px">
-        <span style="display:inline-block;width:16px;height:16px;border-radius:5px;background:#4f46e5;vertical-align:middle;margin-right:8px"></span>
+        <img src="${APP()}/icons/icon-192.png" alt="" width="22" height="22" style="display:inline-block;vertical-align:middle;margin-right:8px;border-radius:50%" />
         <span style="font-family:Georgia,'Times New Roman',serif;font-size:20px;font-weight:bold;color:#4338ca;vertical-align:middle">fair-do</span>
       </div>`
 
