@@ -22,7 +22,7 @@ type Props = {
   // Current declared values — sent alongside the URL for comparison.
   name: string
   body: string
-  ref:  string
+  qualRef: string
   // Callbacks
   onUploaded: (url: string, extraction: ExtractionPreview) => void
 }
@@ -35,7 +35,7 @@ const FLAG_LABELS: Record<string, string> = {
   unreadable:     'Couldn\'t read the document clearly',
 }
 
-export default function CredentialDocUpload({ name, body, ref, onUploaded }: Props) {
+export default function CredentialDocUpload({ name, body, qualRef, onUploaded }: Props) {
   const [loading, setLoading] = useState(false)
   const [extraction, setExtraction] = useState<ExtractionPreview | null>(null)
   const [docUrl, setDocUrl] = useState('')
@@ -71,7 +71,7 @@ export default function CredentialDocUpload({ name, body, ref, onUploaded }: Pro
           const res = await fetch('/api/onboarding/teacher/credential-doc', {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify({ url, fileName, name, body, ref }),
+            body: JSON.stringify({ url, fileName, name, body, ref: qualRef }),
           })
           if (res.ok) {
             const data = await res.json() as { url: string; extraction: ExtractionPreview }

@@ -7,8 +7,6 @@ import { bearerOk } from '@/lib/bearer'
 
 // DBS re-check cadence: monthly (30 days since last check).
 const DBS_RECHECK_DAYS = 30
-// DBS certificate staleness threshold: 3 years without an Update Service check.
-const DBS_STALE_YEARS = 3
 
 // Daily. Monitors teacher qualification expiry:
 //  - nudges the teacher at 60/30/14/7/1 days before, and on expiry
@@ -112,7 +110,6 @@ export async function GET(req: Request) {
 
     const qualDays = daysUntil(t.qualificationExpiry, now)
     const email = t.user?.email
-    const data: Record<string, unknown> = {}
 
     // 1. Auto-restore: a credential-suspended teacher now has a valid (future) qualification date.
     const qualValid = qualDays != null && qualDays > 0
@@ -146,17 +143,16 @@ export async function GET(req: Request) {
     // 3. Reminders (only for live teachers) — qualification expiry only.
     if (t.status === 'ACTIVE') {
       const qual = evaluate(qualDays, t.qualReminderStage)
-      if (qual.stage !== t.qualReminderStage) data.qualReminderStage = qual.stage
       if (qual.email && email && t.qualificationExpiry) {
         try {
           await sendCredentialExpiryReminder({ email, firstName: t.firstName, kind: 'registration', body: t.qualificationBody ?? undefined, expiry: t.qualificationExpiry, daysUntil: qualDays! })
           reminded++
         } catch (e) { console.error('[cron/credentials] qual reminder failed', t.id, e) }
       }
-    }
-
-    if (Object.keys(data).length) {
-      await prisma.teacher.update({ where: { id: t.id }, data }).catch((e: unknown) => console.error('[cron/credentials] stage update failed', t.id, e))
+      if (qual.stage !== t.qualReminderStage) {
+        await prisma.teacher.update({ where: { id: t.id }, data: { qualReminderStage: qual.stage } })
+          .catch((e: unknown) => console.error('[cron/credentials] stage update failed', t.id, e))
+      }
     }
   }
 

@@ -357,7 +357,7 @@ function TeacherOnboardingInner({ t }: { t: Messages['onboarding_teacher'] }) {
                 <CredentialDocUpload
                   name={`${form.firstName} ${form.lastName}`.trim()}
                   body={form.qualificationBody}
-                  ref={form.qualificationRef}
+                  qualRef={form.qualificationRef}
                   onUploaded={(url, extraction) => {
                     setForm(prev => ({ ...prev, credentialDocUrl: url, credentialExtraction: extraction }))
                   }}
