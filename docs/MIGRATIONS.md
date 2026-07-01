@@ -18,6 +18,36 @@ migrations.
 
 ---
 
+## ⚠ CURRENT STATE: `migrate deploy` is temporarily OFF the Vercel build
+
+The Vercel `buildCommand` was reverted to `npx prisma generate && next build` (no
+`migrate deploy`). Reason: when the baseline first deployed, `migrate deploy` tried
+to run it against the already-populated prod DB, failed (`CREATE TABLE Teacher…`
+already exists), and left a **failed migration** — Prisma then refused all deploys
+with **`P3009`**. Dropping `migrate deploy` restores deployability; schema changes
+are applied manually via `db push` (the historical workflow) until reconciliation.
+
+**To re-enable auto-migrations:** complete the reconciliation below, then restore
+the build command to `npx prisma generate && npx prisma migrate deploy && next build`.
+
+### Recovering from P3009 (do this once, with DIRECT_URL)
+
+```bash
+# 0. Backup / Neon branch snapshot first.
+# 1. Clear the failed baseline record so Prisma stops refusing.
+DATABASE_URL="$DIRECT_URL" npx prisma migrate resolve --rolled-back 20260701000000_baseline
+# 2. Bring the DB fully to the current schema (idempotent).
+DATABASE_URL="$DIRECT_URL" npx prisma db push
+# 3. Mark BOTH migrations as applied (they match the live schema; don't re-run).
+DATABASE_URL="$DIRECT_URL" npx prisma migrate resolve --applied 20260701000000_baseline
+DATABASE_URL="$DIRECT_URL" npx prisma migrate resolve --applied 20260701010000_error_event
+# 4. Confirm clean.
+DATABASE_URL="$DIRECT_URL" npx prisma migrate status   # → "No pending migrations"
+# 5. Restore `migrate deploy` in vercel.json (see above).
+```
+
+---
+
 ## One-time reconciliation of EXISTING databases (production, staging/UAT)
 
 These databases already contain the current tables (built via `db push`), so the
