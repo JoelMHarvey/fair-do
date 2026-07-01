@@ -26,6 +26,18 @@ describe('nextOccurrence', () => {
     const next = nextOccurrence(1 /* Mon */, '17:00', from)
     expect(next.toISOString()).toBe('2026-01-12T17:00:00.000Z')
   })
+
+  it('honours BST — 17:00 Europe/London in summer is 16:00 UTC (no 1h drift)', () => {
+    const from = new Date('2026-07-06T09:00:00Z') // Monday, during BST
+    const next = nextOccurrence(1 /* Mon */, '17:00', from, 'Europe/London')
+    expect(next.toISOString()).toBe('2026-07-06T16:00:00.000Z')
+  })
+
+  it('respects a non-UK timezone — 17:00 America/New_York (EDT) is 21:00 UTC', () => {
+    const from = new Date('2026-07-06T00:00:00Z') // Monday
+    const next = nextOccurrence(1 /* Mon */, '17:00', from, 'America/New_York')
+    expect(next.toISOString()).toBe('2026-07-06T21:00:00.000Z')
+  })
 })
 
 describe('isValidStartTime', () => {

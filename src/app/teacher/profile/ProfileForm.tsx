@@ -22,7 +22,13 @@ type Initial = {
   profileImageUrl: string
   photoBaseUrl: string
   photoStyle: string
+  timezone: string
 }
+
+const TIMEZONES = [
+  'Europe/London', 'Europe/Dublin', 'Europe/Paris', 'Europe/Madrid', 'Europe/Berlin',
+  'America/New_York', 'America/Chicago', 'America/Denver', 'America/Los_Angeles',
+]
 
 export default function ProfileForm({ initial }: { initial: Initial }) {
   const [tagline, setTagline] = useState(initial.tagline)
@@ -34,6 +40,7 @@ export default function ProfileForm({ initial }: { initial: Initial }) {
   const [groupMax, setGroupMax] = useState(initial.groupMaxSize)
   const [availableForNew, setAvailableForNew] = useState(initial.availableForNew)
   const [languages, setLanguages] = useState<string[]>(initial.languages.length ? initial.languages : ['English'])
+  const [timezone, setTimezone] = useState(initial.timezone || 'Europe/London')
   const toggleLang = (l: string) => setLanguages(prev => prev.includes(l) ? prev.filter(x => x !== l) : [...prev, l])
   const [websiteUrl, setWebsiteUrl] = useState(initial.websiteUrl)
   const [linkedinUrl, setLinkedinUrl] = useState(initial.linkedinUrl)
@@ -71,6 +78,7 @@ export default function ProfileForm({ initial }: { initial: Initial }) {
         groupMaxSize: groupMax,
         availableForNew,
         languages,
+        timezone,
         websiteUrl,
         linkedinUrl,
         introVideoUrl: videoUrl,
@@ -126,6 +134,17 @@ export default function ProfileForm({ initial }: { initial: Initial }) {
                 </button>
               ))}
             </div>
+          </div>
+
+          <div>
+            <label className={label}>Timezone <span className="text-sand-400 font-normal">— used for recurring lesson times</span></label>
+            <select
+              value={timezone}
+              onChange={e => setTimezone(e.target.value)}
+              className="w-full rounded-xl border border-sand-300 px-3 py-2.5 text-sm focus:border-brand-400 focus:outline-none"
+            >
+              {TIMEZONES.map(tz => <option key={tz} value={tz}>{tz.replace('_', ' ')}</option>)}
+            </select>
           </div>
         </div>
       </div>

@@ -44,7 +44,7 @@ export async function GET(req: Request) {
     const student = rb.match.student
     const advance = () => prisma.recurringBooking.update({
       where: { id: rb.id },
-      data: { nextScheduledAt: nextOccurrence(rb.dayOfWeek, rb.startTime, when) },
+      data: { nextScheduledAt: nextOccurrence(rb.dayOfWeek, rb.startTime, when, teacher.timezone) },
     }).catch(() => {})
 
     // Past-due (cron lag) or teacher can't take payment → skip this slot, roll forward.

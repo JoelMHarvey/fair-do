@@ -20,7 +20,13 @@ const schema = z.object({
   profileImageUrl: urlOrEmpty,
   photoBaseUrl: urlOrEmpty,
   photoStyle: z.enum(['original', 'blurred', 'illustrated']).optional(),
+  timezone: z.string().max(64).optional(),
 })
+
+// True if `tz` is a valid IANA timezone the runtime recognises.
+function isValidTz(tz: string): boolean {
+  try { new Intl.DateTimeFormat('en', { timeZone: tz }); return true } catch { return false }
+}
 
 export async function POST(req: Request) {
   const { userId } = await auth()
@@ -57,6 +63,7 @@ export async function POST(req: Request) {
       ...(d.groupMaxSize !== undefined && { groupMaxSize: d.groupMaxSize }),
       ...(d.availableForNew !== undefined && { availableForNew: d.availableForNew }),
       ...(d.languages !== undefined && { languages: d.languages.length ? d.languages : ['English'] }),
+      ...(d.timezone !== undefined && isValidTz(d.timezone) && { timezone: d.timezone }),
       ...(d.websiteUrl !== undefined && { websiteUrl: clean(d.websiteUrl) }),
       ...(d.linkedinUrl !== undefined && { linkedinUrl: clean(d.linkedinUrl) }),
       ...(d.introVideoUrl !== undefined && { introVideoUrl: clean(d.introVideoUrl) }),

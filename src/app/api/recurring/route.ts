@@ -37,7 +37,7 @@ export async function POST(req: Request) {
   }
 
   const ratePence = effectiveRatePence(ctx.match, ctx.teacher)
-  const nextScheduledAt = nextOccurrence(parsed.data.dayOfWeek, parsed.data.startTime, new Date())
+  const nextScheduledAt = nextOccurrence(parsed.data.dayOfWeek, parsed.data.startTime, new Date(), ctx.teacher.timezone)
 
   const booking = await prisma.recurringBooking.create({
     data: {
@@ -74,7 +74,7 @@ export async function PATCH(req: Request) {
     where: { id: parsed.data.id },
     data: {
       active: parsed.data.active,
-      ...(parsed.data.active ? { nextScheduledAt: nextOccurrence(existing.dayOfWeek, existing.startTime, new Date()) } : {}),
+      ...(parsed.data.active ? { nextScheduledAt: nextOccurrence(existing.dayOfWeek, existing.startTime, new Date(), ctx.teacher.timezone) } : {}),
     },
   })
   return Response.json({ ok: true }, { status: 200 })

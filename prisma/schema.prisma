@@ -179,6 +179,7 @@ model Teacher {
   dbsNumber           String? // DBS certificate number
   dbsDate             DateTime? // issue date (DBS certs don't expire but go stale)
   languages           String[]      @default(["English"])
+  timezone            String        @default("Europe/London") // IANA tz for recurring-booking slot times
   websiteUrl          String?
   linkedinUrl         String?
   introVideoUrl       String?
