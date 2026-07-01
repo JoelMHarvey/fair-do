@@ -3,6 +3,7 @@ import { auth } from '@clerk/nextjs/server'
 import { prisma } from '@/lib/prisma'
 import Link from 'next/link'
 import { Logo } from '@/components/Logo'
+import { DIRECTORY_ENABLED } from '@/lib/practice'
 import AvailabilityGrid from './AvailabilityGrid'
 
 const START_HOUR = 8
@@ -14,6 +15,10 @@ function hm(t: string) {
 }
 
 export default async function AvailabilityPage() {
+  // Hidden until the public directory ships — teachers book their own lessons and
+  // the calendar covers scheduling for now.
+  if (!DIRECTORY_ENABLED) redirect('/dashboard')
+
   const { userId } = await auth()
   if (!userId) redirect('/sign-in')
 

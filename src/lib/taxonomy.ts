@@ -3,19 +3,20 @@
 // profile form, the matching algorithm and the directory filters.
 
 export const SUBJECTS = [
-  'Maths', 'Further Maths',
-  'English Language', 'English Literature',
-  'Biology', 'Chemistry', 'Physics', 'Combined Science',
-  'History', 'Geography', 'Religious Studies',
-  'French', 'Spanish', 'German', 'Mandarin', 'Latin',
-  'Art & Design', 'Music', 'Drama',
-  'Computer Science', 'ICT',
-  'Economics', 'Business Studies', 'Psychology', 'Sociology',
-  'Physical Education',
-  'UCAS / University Applications',
+  'Maths', 'Further Maths', 'Statistics',
+  'English Language', 'English Literature', 'Creative Writing', 'Study Skills',
+  'Biology', 'Chemistry', 'Physics', 'Combined Science', 'Environmental Science', 'Astronomy',
+  'History', 'Geography', 'Religious Studies', 'Politics', 'Philosophy', 'Classics', 'Law',
+  'French', 'Spanish', 'German', 'Mandarin', 'Latin', 'Italian', 'Arabic', 'Japanese', 'Russian', 'Portuguese', 'Welsh',
+  'Art & Design', 'Design & Technology', 'Media Studies', 'Music', 'Music Theory', 'Drama',
+  'Computer Science', 'ICT', 'Coding / Programming', 'Electronics',
+  'Economics', 'Accounting', 'Business Studies', 'Psychology', 'Sociology',
+  'Physical Education', 'Health & Social Care', 'Food Technology',
+  '11+ / Entrance Exams', '7+ / 8+', '13+ Common Entrance', 'Verbal & Non-verbal Reasoning',
+  'UCAS / University Applications', 'Personal Statements',
   'English as a Second Language (ESL/EFL)',
-  'Coding / Programming',
-  'Piano', 'Guitar', 'Violin', 'Drums', 'Singing',
+  'SEN / Learning Support', 'Public Speaking',
+  'Piano', 'Guitar', 'Bass Guitar', 'Violin', 'Cello', 'Flute', 'Saxophone', 'Drums', 'Ukulele', 'Singing',
 ] as const
 
 export const LEVELS = [
