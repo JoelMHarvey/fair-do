@@ -6,6 +6,7 @@ import { ParentNav } from '@/components/ParentNav'
 import { ParentMessages } from '@/components/ParentMessages'
 import { BuyPackageButton } from '@/components/BuyPackageButton'
 import { ParentProgressChart } from '@/components/ParentProgressChart'
+import { TranscriptViewer } from '@/components/TranscriptViewer'
 import { PARENT_PORTAL_ENABLED, groupLinksByChild } from '@/lib/parent'
 import { getDictionary, getLocaleFromHeaders } from '@/lib/dictionaries'
 
@@ -221,13 +222,17 @@ export default async function ParentDashboard({
                       <p>{s.lessonNote.topicsCovered}</p>
                       {s.lessonNote.difficulty && <p className="mt-1"><span className="text-sand-500">{parent_dashboard.found_tricky}</span> {s.lessonNote.difficulty}</p>}
                       {s.lessonNote.homework && <p className="mt-1"><span className="text-sand-500">{parent_dashboard.homework}</span> {s.lessonNote.homework}</p>}
-                      {transcriptsOn && s.transcript && (
-                        <details className="mt-2">
-                          <summary className="text-xs text-brand-700 cursor-pointer">{parent_dashboard.view_transcript}</summary>
-                          <pre className="text-xs text-sand-600 mt-1 whitespace-pre-wrap font-sans">{s.transcript.plainText}</pre>
-                        </details>
-                      )}
                     </div>
+                  )}
+                  {/* Transcript is gated by portal ACCESS (having the portal), not by
+                      whether a note was shared — per spec "gates access, not existence". */}
+                  {transcriptsOn && s.transcript && (
+                    <TranscriptViewer
+                      text={s.transcript.plainText}
+                      summaryLabel={parent_dashboard.view_transcript}
+                      searchPlaceholder={parent_dashboard.transcript_search}
+                      downloadLabel={parent_dashboard.transcript_download}
+                    />
                   )}
                 </div>
               ))}
@@ -282,7 +287,10 @@ export default async function ParentDashboard({
                         {refunded && <span className="text-red-500"> · refunded</span>}
                       </p>
                     </div>
-                    <span className="text-sm font-medium text-sand-700">{sym}{(p.amountTotalPence / 100).toFixed(2)}</span>
+                    <div className="flex items-center gap-3 shrink-0">
+                      <span className="text-sm font-medium text-sand-700">{sym}{(p.amountTotalPence / 100).toFixed(2)}</span>
+                      <Link href={`/parent/receipt/${p.id}`} className="text-xs text-brand-600 hover:text-brand-700 underline">{parent_dashboard.receipt}</Link>
+                    </div>
                   </div>
                 )
               })}

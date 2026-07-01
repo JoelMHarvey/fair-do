@@ -609,3 +609,21 @@ export async function sendParentInvite(opts: {
     }),
   })
 }
+
+// Parent's own invoicing email (P2-3), independent of the student account.
+export async function sendParentReceipt(opts: {
+  to: string; studentFirstName: string; description: string; amountLabel: string; receiptUrl: string
+}) {
+  await sendEmail({
+    from: FROM,
+    to: opts.to,
+    subject: `Receipt — ${opts.amountLabel} for ${opts.studentFirstName}'s tutoring`,
+    html: layout({
+      heading: 'Payment received',
+      preheader: `Receipt for ${escapeHtml(opts.studentFirstName)}'s tutoring — ${escapeHtml(opts.amountLabel)}`,
+      body: `<p style="margin:0 0 12px">Thanks — we've received ${strong(escapeHtml(opts.amountLabel))} for ${escapeHtml(opts.description)} (${escapeHtml(opts.studentFirstName)}).</p>
+        <p style="margin:0">Your itemised receipt is available to view and download below.</p>`,
+      cta: { label: 'View receipt', url: opts.receiptUrl },
+    }),
+  })
+}

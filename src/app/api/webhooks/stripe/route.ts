@@ -2,7 +2,7 @@ import { headers } from 'next/headers'
 import { getStripe } from '@/lib/stripe'
 import { prisma } from '@/lib/prisma'
 import { createRoom } from '@/lib/daily'
-import { sendBookingConfirmed, sendGiftVoucher } from '@/lib/email'
+import { sendBookingConfirmed, sendGiftVoucher, sendParentReceipt } from '@/lib/email'
 import { generateVoucherCode } from '@/lib/voucher'
 import { rewardReferralOnBooking } from '@/lib/referral'
 import { rewardTeacherReferralOnFirstSession } from '@/lib/teacher-referral'
@@ -202,13 +202,13 @@ export async function POST(req: Request) {
       const packageId = meta.packageId
       if (packageId) {
         try {
-          const pkg = await prisma.package.findUnique({ where: { id: packageId } })
+          const pkg = await prisma.package.findUnique({ where: { id: packageId }, include: { student: { select: { firstName: true } } } })
           if (pkg && !pkg.paidAt && pkg.studentId) {
             const paymentIntentId = typeof checkout.payment_intent === 'string'
               ? checkout.payment_intent
               : checkout.payment_intent?.id ?? `pkg_${packageId}`
             const amount = checkout.amount_total ?? pkg.pricePence
-            await prisma.$transaction([
+            const [, payment] = await prisma.$transaction([
               prisma.package.update({ where: { id: packageId }, data: { paidAt: new Date(), status: 'active' } }),
               prisma.payment.create({
                 data: {
@@ -223,6 +223,22 @@ export async function POST(req: Request) {
                 },
               }),
             ])
+            // The parent's own invoicing email (best-effort — must not roll back the payment).
+            const link = await prisma.parentLink.findFirst({
+              where: { studentId: pkg.studentId, status: 'active', portalActive: true, parentUserId: { not: null } },
+              include: { parentUser: { select: { email: true } } },
+            })
+            if (link?.parentUser?.email) {
+              const appUrl = process.env.NEXT_PUBLIC_APP_URL ?? 'https://fair-do.com'
+              const sym = (checkout.currency ?? 'gbp') === 'usd' ? '$' : '£'
+              sendParentReceipt({
+                to: link.parentUser.email,
+                studentFirstName: pkg.student?.firstName ?? 'your child',
+                description: pkg.name,
+                amountLabel: `${sym}${(amount / 100).toFixed(2)}`,
+                receiptUrl: `${appUrl}/parent/receipt/${payment.id}`,
+              }).catch(e => console.error('[stripe webhook] parent receipt email failed:', e))
+            }
           }
         } catch (e) {
           return rollbackAndRetry(event.id, 'parent package purchase', e)
