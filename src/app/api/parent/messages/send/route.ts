@@ -1,5 +1,4 @@
 import { auth } from '@clerk/nextjs/server'
-import { headers } from 'next/headers'
 import { z } from 'zod'
 import { prisma } from '@/lib/prisma'
 import { checkRateLimit, rateLimitResponse } from '@/lib/ratelimit'
@@ -15,8 +14,8 @@ export async function POST(req: Request) {
   const { userId } = await auth()
   if (!userId) return new Response('Unauthorized', { status: 401 })
 
-  const ip = (await headers()).get('x-forwarded-for')?.split(',')[0].trim() ?? 'unknown'
-  const rl = await checkRateLimit(`parent-msg:${userId}:${ip}`, { limit: 30, windowMs: 60_000 })
+  // Key on the authenticated userId only — never a client-spoofable X-Forwarded-For.
+  const rl = await checkRateLimit(`parent-msg:${userId}`, { limit: 30, windowMs: 60_000 })
   if (!rl.allowed) return rateLimitResponse(rl.retryAfterMs)
 
   const parsed = schema.safeParse(await req.json().catch(() => null))
@@ -31,7 +30,8 @@ export async function POST(req: Request) {
   })
   if (!link) return new Response('Not found', { status: 404 })
 
-  const isParent = link.parentUserId === user.id
+  // Parents must have an active portal (paid) to post — mirrors the read paywall.
+  const isParent = link.parentUserId === user.id && link.portalActive
   const isTeacher = !!user.teacher && user.teacher.id === link.teacherId
   if (!isParent && !isTeacher) return new Response('Forbidden', { status: 403 })
 

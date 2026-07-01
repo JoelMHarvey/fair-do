@@ -129,9 +129,12 @@ export async function eraseUserByClerkId(clerkId: string): Promise<EraseResult |
     )
   }
 
-  // ── Parent links / threads the user owns: scrub identity, keep thread for teacher
+  // ── Parent links the user owns: revoke access + scrub identity, keep thread for teacher
   tx.push(
-    prisma.parentLink.updateMany({ where: { parentUserId: user.id }, data: { inviteEmail: anonEmail(user.id) } }),
+    prisma.parentLink.updateMany({
+      where: { parentUserId: user.id },
+      data: { inviteEmail: anonEmail(user.id), status: 'revoked', portalActive: false },
+    }),
   )
 
   // ── The identity row itself. clerkId is @unique; free it without collisions.

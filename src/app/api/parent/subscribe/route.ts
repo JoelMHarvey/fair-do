@@ -1,5 +1,4 @@
 import { auth } from '@clerk/nextjs/server'
-import { headers } from 'next/headers'
 import { z } from 'zod'
 import { prisma } from '@/lib/prisma'
 import { getStripe } from '@/lib/stripe'
@@ -16,8 +15,7 @@ export async function POST(req: Request) {
   const { userId } = await auth()
   if (!userId) return new Response('Unauthorized', { status: 401 })
 
-  const ip = (await headers()).get('x-forwarded-for')?.split(',')[0].trim() ?? 'unknown'
-  const rl = await checkRateLimit(`parent-subscribe:${userId}:${ip}`, { limit: 10, windowMs: 60_000 })
+  const rl = await checkRateLimit(`parent-subscribe:${userId}`, { limit: 10, windowMs: 60_000 })
   if (!rl.allowed) return rateLimitResponse(rl.retryAfterMs)
 
   // Body is optional — nothing in it is required for a family subscription.

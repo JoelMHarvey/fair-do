@@ -14,6 +14,7 @@ import PhoneEditor from './PhoneEditor'
 import StudentDocuments from './ClientDocuments'
 import StudentForms from './ClientForms'
 import InviteParentForm from './InviteParentForm'
+import RevokeParentButton from './RevokeParentButton'
 import { ParentMessages } from '@/components/ParentMessages'
 import { LessonNoteEditor } from '@/components/LessonNoteEditor'
 import { PARENT_PORTAL_ENABLED, teacherCanOfferParentPortal } from '@/lib/parent'
@@ -193,6 +194,7 @@ export default async function StudentDetailPage({ params }: { params: Promise<{ 
                     <span className={`text-xs px-2 py-0.5 rounded-full ${p.portalActive ? 'bg-brand-50 text-brand-700 border border-brand-200' : 'bg-sand-100 text-sand-500'}`}>
                       {p.portalActive ? 'Active' : p.status === 'active' ? 'Linked · not subscribed' : 'Invited'}
                     </span>
+                    <RevokeParentButton parentLinkId={p.id} />
                   </li>
                 ))}
               </ul>

@@ -1,6 +1,7 @@
 import { auth, currentUser } from '@clerk/nextjs/server'
 import { z } from 'zod'
 import { prisma } from '@/lib/prisma'
+import { checkRateLimit, rateLimitResponse } from '@/lib/ratelimit'
 import { PARENT_PORTAL_ENABLED, parentHasActivePortal, syncFamilyPortalAccess } from '@/lib/parent'
 
 const schema = z.object({ token: z.string().min(1) })
@@ -13,6 +14,11 @@ export async function POST(req: Request) {
 
   const { userId } = await auth()
   if (!userId) return new Response('Unauthorized', { status: 401 })
+
+  // Defense-in-depth: throttle token submission (tokens are 192-bit, but don't
+  // offer an unmetered validity oracle). Keyed on the authenticated user.
+  const rl = await checkRateLimit(`parent-accept:${userId}`, { limit: 20, windowMs: 60_000 })
+  if (!rl.allowed) return rateLimitResponse(rl.retryAfterMs)
 
   const parsed = schema.safeParse(await req.json().catch(() => null))
   if (!parsed.success) return new Response('Bad request', { status: 400 })

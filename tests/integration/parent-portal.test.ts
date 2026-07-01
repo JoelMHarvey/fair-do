@@ -75,6 +75,7 @@ import { POST as invite } from '@/app/api/teacher/parent/invite/route'
 import { POST as accept } from '@/app/api/parent/accept/route'
 import { POST as subscribe } from '@/app/api/parent/subscribe/route'
 import { POST as sendMsg } from '@/app/api/parent/messages/send/route'
+import { POST as revoke } from '@/app/api/teacher/parent/revoke/route'
 
 function req(body: object) {
   return new Request('http://localhost/x', { method: 'POST', body: JSON.stringify(body) })
@@ -253,11 +254,19 @@ describe('parent subscribe', () => {
 })
 
 describe('shared message thread', () => {
-  const link = { id: 'pl1', parentUserId: 'u_parent', teacherId: 't1', status: 'active', parentThread: { id: 'th1' } }
+  const link = { id: 'pl1', parentUserId: 'u_parent', teacherId: 't1', status: 'active', portalActive: true, parentThread: { id: 'th1' } }
 
   it('403 for someone who is neither the parent nor the inviting teacher', async () => {
     m.userFind.mockResolvedValue({ id: 'u_other', teacher: null })
     m.linkFindFirst.mockResolvedValue(link)
+    const res = await sendMsg(req({ parentLinkId: 'pl1', body: 'hi' }))
+    expect(res.status).toBe(403)
+    expect(m.msgCreate).not.toHaveBeenCalled()
+  })
+
+  it('403 when the parent is linked but not subscribed (paywall — M1)', async () => {
+    m.userFind.mockResolvedValue({ id: 'u_parent', teacher: null })
+    m.linkFindFirst.mockResolvedValue({ ...link, portalActive: false })
     const res = await sendMsg(req({ parentLinkId: 'pl1', body: 'hi' }))
     expect(res.status).toBe(403)
     expect(m.msgCreate).not.toHaveBeenCalled()
@@ -281,5 +290,34 @@ describe('shared message thread', () => {
     const res = await sendMsg(req({ parentLinkId: 'pl1', body: 'yo' }))
     expect(res.status).toBe(201)
     expect(m.msgCreate).toHaveBeenCalled()
+  })
+})
+
+describe('teacher revoke', () => {
+  it('403 when the caller is not a teacher', async () => {
+    m.userFind.mockResolvedValue({ id: 'u1', teacher: null })
+    const res = await revoke(req({ parentLinkId: 'pl1' }))
+    expect(res.status).toBe(403)
+    expect(m.linkUpdate).not.toHaveBeenCalled()
+  })
+
+  it('404 when the link is not owned by the caller', async () => {
+    m.userFind.mockResolvedValue({ id: 'u1', teacher: { id: 't1' } })
+    m.linkFindFirst.mockResolvedValue(null) // scoped query found nothing
+    const res = await revoke(req({ parentLinkId: 'pl_other' }))
+    expect(res.status).toBe(404)
+    expect(m.linkUpdate).not.toHaveBeenCalled()
+  })
+
+  it('revokes: status revoked, portalActive false, parentUserId cleared', async () => {
+    m.userFind.mockResolvedValue({ id: 'u1', teacher: { id: 't1' } })
+    m.linkFindFirst.mockResolvedValue({ id: 'pl1', teacherId: 't1' })
+    m.linkUpdate.mockResolvedValue({})
+    const res = await revoke(req({ parentLinkId: 'pl1' }))
+    expect(res.status).toBe(200)
+    expect(m.linkUpdate).toHaveBeenCalledWith({
+      where: { id: 'pl1' },
+      data: { status: 'revoked', portalActive: false, parentUserId: null },
+    })
   })
 })
