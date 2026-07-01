@@ -56,6 +56,7 @@ export const DOC_GROUPS: DocGroup[] = [
     category: 'current',
     docs: [
       { slug: 'marketing', title: 'Marketing Kit' },
+      { slug: 'outbound-sales-motion', title: '★ Outbound Sales Motion — 5,000 Users' },
       { slug: 'competitive', title: 'Competitive Analysis' },
       { slug: 'recruitment', title: 'Recruitment' },
       { slug: 'referral', title: 'Referral — Free Month Plan' },
@@ -103,6 +104,7 @@ const FILE_BY_SLUG: Record<string, string> = {
   observability: 'docs/OBSERVABILITY.md',
   security: 'docs/SECURITY.md',
   marketing: 'docs/MARKETING.md',
+  'outbound-sales-motion': 'docs/OUTBOUND-SALES-MOTION.md',
   competitive: 'docs/COMPETITIVE-ANALYSIS.md',
   recruitment: 'docs/RECRUITMENT.md',
   referral: 'docs/REFERRAL-FREE-MONTH-PLAN.md',
