@@ -164,3 +164,45 @@ jobs:
       # transaction that the mock-based suite can't verify.
       - name: Run real-DB tests
         run: npm run test:db
+
+  schema-drift:
+    name: Schema drift guard
+    runs-on: ubuntu-latest
+    services:
+      postgres:
+        image: postgres:16
+        env:
+          POSTGRES_USER: postgres
+          POSTGRES_PASSWORD: postgres
+          POSTGRES_DB: fairdo_shadow
+        ports:
+          - 5432:5432
+        options: >-
+          --health-cmd pg_isready
+          --health-interval 10s
+          --health-timeout 5s
+          --health-retries 5
+    steps:
+      - uses: actions/checkout@v5
+
+      - uses: actions/setup-node@v5
+        with:
+          node-version: 22
+          cache: npm
+
+      - run: npm ci
+
+      # Fail the build if schema.prisma has changes that are NOT captured in a
+      # migration (the drift that broke prod: a schema edit without `migrate dev`).
+      # Replays prisma/migrations into the shadow DB and diffs against schema.prisma;
+      # --exit-code returns 2 when they differ.
+      - name: Migrations must match schema.prisma
+        run: |
+          if ! npx prisma migrate diff \
+              --from-migrations prisma/migrations \
+              --to-schema-datamodel prisma/schema.prisma \
+              --shadow-database-url "postgresql://postgres:postgres@localhost:5432/fairdo_shadow" \
+              --exit-code; then
+            echo "::error::prisma/schema.prisma differs from prisma/migrations. Run 'npx prisma migrate dev --name <change>' and commit the generated migration."
+            exit 1
+          fi
