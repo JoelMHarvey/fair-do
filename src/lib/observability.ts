@@ -1,4 +1,5 @@
 import * as Sentry from '@sentry/nextjs'
+import { recordError } from './error-log'
 
 /**
  * Thin error-reporting wrapper. Logs to console (captured by Vercel) and,
@@ -11,6 +12,8 @@ export function logError(scope: string, err: unknown, context?: Record<string, u
   const message = err instanceof Error ? err.message : String(err)
   // Never log PHI/special-category data — pass only safe identifiers in `context`.
   console.error(`[${scope}] ${message}`, context ? JSON.stringify(context) : '')
+  // Self-hosted counter for ops alerting (best-effort, never throws).
+  recordError(scope, message)
   if (process.env.SENTRY_DSN) {
     Sentry.captureException(err, { tags: { scope }, extra: context })
   }

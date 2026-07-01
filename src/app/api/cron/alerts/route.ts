@@ -3,6 +3,7 @@ import { collectMetrics } from '@/lib/monitoring'
 import { recordCronRun } from '@/lib/cron-run'
 import { sendOpsAlert } from '@/lib/email'
 import { bearerOk } from '@/lib/bearer'
+import { recentErrorCount } from '@/lib/error-log'
 
 // Every 15 min: threshold check → emails the founder on state change. Dedup via
 // AlertState so a sustained breach emails once (re-pings after ALERT_REPEAT_HOURS)
@@ -29,6 +30,7 @@ function resolvedLabel(key: string): string {
   if (key === 'open_complaints') return 'Open complaints back under threshold'
   if (key.startsWith('endpoint_down:')) return `Endpoint "${key.slice('endpoint_down:'.length)}" recovered`
   if (key.startsWith('cron_stale:')) return `Cron "${key.slice('cron_stale:'.length)}" running again`
+  if (key === 'app_errors') return 'Application error rate back to normal'
   return `${key} resolved`
 }
 
@@ -65,6 +67,14 @@ export async function GET(req: Request) {
   const complaintLimit = num('ALERT_OPEN_COMPLAINTS', 3)
   if ((m.counts.openComplaints ?? 0) >= complaintLimit)
     breaches.push({ key: 'open_complaints', message: `${m.counts.openComplaints} open complaints (>= ${complaintLimit})`, value: `${m.counts.openComplaints}` })
+
+  // App error rate — self-hosted route/500 alerting. Counts recent ErrorEvents (from
+  // logError + the onRequestError hook) and prunes old ones. Fires so route-level
+  // errors page ops by email even when Sentry alerting isn't in use.
+  const errorLimit = num('ALERT_APP_ERRORS', 10)
+  const recentErrors = await recentErrorCount(20 * 60_000, 24 * 3600_000).catch(() => 0)
+  if (recentErrors > errorLimit)
+    breaches.push({ key: 'app_errors', message: `${recentErrors} app errors in the last 20 min (> ${errorLimit})`, value: `${recentErrors}` })
 
   const now = new Date()
   let toEmailFiring: string[] = []
