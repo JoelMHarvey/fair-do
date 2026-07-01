@@ -35,6 +35,7 @@ const m = vi.hoisted(() => ({
   sendInvite: vi.fn(),
   customerCreate: vi.fn(),
   checkoutCreate: vi.fn(),
+  portalCreate: vi.fn(),
 }))
 
 vi.mock('@clerk/nextjs/server', () => ({ auth: m.auth, currentUser: m.currentUser }))
@@ -63,6 +64,7 @@ vi.mock('@/lib/stripe', () => ({
   getStripe: () => ({
     customers: { create: m.customerCreate },
     checkout: { sessions: { create: m.checkoutCreate } },
+    billingPortal: { sessions: { create: m.portalCreate } },
   }),
 }))
 vi.mock('@/lib/ratelimit', () => ({
@@ -76,6 +78,7 @@ import { POST as accept } from '@/app/api/parent/accept/route'
 import { POST as subscribe } from '@/app/api/parent/subscribe/route'
 import { POST as sendMsg } from '@/app/api/parent/messages/send/route'
 import { POST as revoke } from '@/app/api/teacher/parent/revoke/route'
+import { POST as billingPortal } from '@/app/api/parent/billing-portal/route'
 
 function req(body: object) {
   return new Request('http://localhost/x', { method: 'POST', body: JSON.stringify(body) })
@@ -290,6 +293,31 @@ describe('shared message thread', () => {
     const res = await sendMsg(req({ parentLinkId: 'pl1', body: 'yo' }))
     expect(res.status).toBe(201)
     expect(m.msgCreate).toHaveBeenCalled()
+  })
+})
+
+describe('parent billing portal', () => {
+  it('403 when the caller is not a parent', async () => {
+    m.userFind.mockResolvedValue({ id: 'u1', role: 'STUDENT' })
+    const res = await billingPortal()
+    expect(res.status).toBe(403)
+  })
+
+  it('409 when there is no Stripe customer yet', async () => {
+    m.userFind.mockResolvedValue({ id: 'u1', role: 'PARENT' })
+    m.psubFind.mockResolvedValue({ stripeCustomerId: null })
+    const res = await billingPortal()
+    expect(res.status).toBe(409)
+  })
+
+  it('returns the Stripe billing portal url', async () => {
+    m.userFind.mockResolvedValue({ id: 'u1', role: 'PARENT' })
+    m.psubFind.mockResolvedValue({ stripeCustomerId: 'cus_1' })
+    m.portalCreate.mockResolvedValue({ url: 'https://billing.stripe/x' })
+    const res = await billingPortal()
+    expect(res.status).toBe(200)
+    expect(await res.json()).toEqual({ url: 'https://billing.stripe/x' })
+    expect(m.portalCreate).toHaveBeenCalledWith(expect.objectContaining({ customer: 'cus_1' }))
   })
 })
 

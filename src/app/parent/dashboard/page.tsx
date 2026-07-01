@@ -2,7 +2,7 @@ import { redirect } from 'next/navigation'
 import Link from 'next/link'
 import { auth } from '@clerk/nextjs/server'
 import { prisma } from '@/lib/prisma'
-import { Logo } from '@/components/Logo'
+import { ParentNav } from '@/components/ParentNav'
 import { ParentMessages } from '@/components/ParentMessages'
 import { PARENT_PORTAL_ENABLED, groupLinksByChild } from '@/lib/parent'
 import { getDictionary, getLocaleFromHeaders } from '@/lib/dictionaries'
@@ -84,10 +84,7 @@ export default async function ParentDashboard({
 
   return (
     <main className="min-h-screen bg-sand-50">
-      <nav className="border-b border-sand-200 bg-white/80 backdrop-blur px-5 sm:px-8 h-16 flex items-center justify-between sticky top-0 z-40">
-        <Logo />
-        <Link href="/sign-out" className="text-sm text-sand-500 hover:text-brand-700">{parent_dashboard.sign_out}</Link>
-      </nav>
+      <ParentNav signOutLabel={parent_dashboard.sign_out} />
 
       <div className="max-w-3xl mx-auto px-4 sm:px-6 py-8 sm:py-12">
         {/* Child tabs — only when the parent has more than one child linked. */}
@@ -138,7 +135,7 @@ export default async function ParentDashboard({
         )}
 
         {/* Upcoming */}
-        <section className="mb-8">
+        <section id="lessons" className="mb-8 scroll-mt-20">
           <h2 className="font-medium text-sand-900 mb-3">{parent_dashboard.upcoming_heading}</h2>
           {upcoming.length === 0 ? (
             <div className="bg-white rounded-2xl border border-sand-200 p-6 text-center text-sand-400 text-sm">{parent_dashboard.upcoming_empty}</div>
@@ -186,7 +183,7 @@ export default async function ParentDashboard({
         </section>
 
         {/* Invoices */}
-        <section className="mb-8">
+        <section id="invoices" className="mb-8 scroll-mt-20">
           <h2 className="font-medium text-sand-900 mb-3">{parent_dashboard.invoices_heading}</h2>
           {payments.length === 0 ? (
             <div className="bg-white rounded-2xl border border-sand-200 p-6 text-center text-sand-400 text-sm">{parent_dashboard.invoices_empty}</div>
@@ -215,7 +212,7 @@ export default async function ParentDashboard({
         </section>
 
         {/* Messages — one thread per tutor linked to this child. */}
-        <section>
+        <section id="messages" className="scroll-mt-20">
           <h2 className="font-medium text-sand-900 mb-3">{parent_dashboard.message_heading}</h2>
           <div className="space-y-4">
             {selected.links.map(l => {
