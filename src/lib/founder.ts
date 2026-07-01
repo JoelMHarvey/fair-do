@@ -30,6 +30,7 @@ export const DOC_GROUPS: DocGroup[] = [
     docs: [
       { slug: 'project', title: '★ Project Roadmap' },
       { slug: 'teacher-app-plan', title: '★ Teacher App — Dev Plan (Phase 1 + Phase 2)' },
+      { slug: 'parent-portal-engineering-handoff', title: '★ Parent Portal — Engineering Handoff' },
       { slug: 'technical-spec', title: 'Technical Specification' },
       { slug: 'future-plans', title: 'Future Plans Review' },
       { slug: 'scale', title: 'Scale & Expansion' },
@@ -88,6 +89,7 @@ export const DOC_GROUPS: DocGroup[] = [
 const FILE_BY_SLUG: Record<string, string> = {
   project: 'PROJECT.md',
   'teacher-app-plan': 'docs/teacher-app-plan.md',
+  'parent-portal-engineering-handoff': 'docs/PARENT-PORTAL-ENGINEERING-HANDOFF.md',
   'technical-spec': 'docs/TECHNICAL-SPEC.md',
   'future-plans': 'docs/FUTURE-PLANS-REVIEW.md',
   scale: 'docs/SCALE-AND-EXPANSION.md',
