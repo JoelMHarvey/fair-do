@@ -49,6 +49,7 @@ export const DOC_GROUPS: DocGroup[] = [
       { slug: 'uat', title: 'UAT' },
       { slug: 'observability', title: 'Observability' },
       { slug: 'security', title: 'Security' },
+      { slug: 'email-flows', title: '✉ Email Flows & Templates' },
     ],
   },
   {
@@ -103,6 +104,7 @@ const FILE_BY_SLUG: Record<string, string> = {
   uat: 'docs/UAT.md',
   observability: 'docs/OBSERVABILITY.md',
   security: 'docs/SECURITY.md',
+  'email-flows': 'docs/EMAIL-FLOWS.md',
   marketing: 'docs/MARKETING.md',
   'outbound-sales-motion': 'docs/OUTBOUND-SALES-MOTION.md',
   competitive: 'docs/COMPETITIVE-ANALYSIS.md',
