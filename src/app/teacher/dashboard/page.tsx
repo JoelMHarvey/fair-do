@@ -166,9 +166,6 @@ export default async function TeacherDashboard() {
             <Link href="/teacher/broadcast" className="bg-white border border-sand-200 hover:border-brand-300 text-sand-700 text-sm font-medium rounded-full px-4 py-2 transition">
               {teacher_dashboard.action_message_students}
             </Link>
-            <Link href="/teacher/billing" className="bg-white border border-sand-200 hover:border-brand-300 text-sand-700 text-sm font-medium rounded-full px-4 py-2 transition">
-              {teacher_dashboard.action_plans_billing}
-            </Link>
           </div>
         )}
 
