@@ -84,3 +84,44 @@ jobs:
 
       - name: Typecheck native app
         run: npm run typecheck --prefix native
+
+  lint:
+    name: Lint
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v5
+
+      - uses: actions/setup-node@v5
+        with:
+          node-version: 22
+          cache: npm
+
+      - run: npm ci
+
+      # eslint-config-next resolves some rules against generated types.
+      - name: Generate Prisma client
+        run: npx prisma generate
+
+      - name: Lint
+        run: npm run lint
+
+  build:
+    name: Build
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v5
+
+      - uses: actions/setup-node@v5
+        with:
+          node-version: 22
+          cache: npm
+
+      - run: npm ci
+
+      - name: Generate Prisma client
+        run: npx prisma generate
+
+      # Catches build breaks (MDX/route-collection/Turbopack) before they reach a
+      # Vercel deploy. No secrets needed — pages that hit auth/DB fall back at build.
+      - name: Build
+        run: npm run build
