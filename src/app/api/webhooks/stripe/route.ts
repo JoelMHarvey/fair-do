@@ -413,6 +413,7 @@ export async function POST(req: Request) {
         sessionId,
         scheduledAt: dbSession.scheduledAt,
         ratePence: teacher.sessionRatePence,
+        cancellationWindowHours: teacher.cancellationWindowHours,
       }).catch(e => console.error('[stripe webhook] booking email failed:', e))
     }
   }

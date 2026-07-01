@@ -65,6 +65,12 @@ export default async function BookPage({ params }: { params: Promise<{ teacherId
               </span>
             )}
           </div>
+          <p className="text-xs text-sand-500 mt-3">
+            Cancellation: full refund if you cancel at least {teacher.cancellationWindowHours}h before the lesson
+            {teacher.lateCancelRefundPercent > 0
+              ? `; after that, a ${teacher.lateCancelRefundPercent}% refund.`
+              : '; after that, non-refundable.'}
+          </p>
         </div>
 
         <BookingForm

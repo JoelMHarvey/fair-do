@@ -263,6 +263,7 @@ export async function sendSelfBookingConfirm(opts: {
 export async function sendBookingConfirmed(opts: {
   clientEmail: string; clientFirstName: string; teacherEmail: string
   teacherFirstName: string; teacherLastName: string; sessionId: string; scheduledAt: Date; ratePence: number
+  cancellationWindowHours?: number
   brand?: EmailBrand | null
   locale?: string
 }) {
@@ -298,7 +299,7 @@ export async function sendBookingConfirmed(opts: {
           <p style="margin:0 0 4px">When: ${strong(dateStrClient)}</p>
           <p style="margin:0 0 14px">Paid: ${strong(rateStr)}</p>
           <p style="margin:0 0 6px;color:#645f54;font-size:14px">The calendar invite is attached, and the video room opens 10 minutes before your lesson.</p>
-          <p style="margin:0;color:#645f54;font-size:14px">Need to cancel? ${link('Manage your booking', sessionUrl)} — free up to 24 hours before.</p>`,
+          <p style="margin:0;color:#645f54;font-size:14px">Need to cancel? ${link('Manage your booking', sessionUrl)} — free up to ${opts.cancellationWindowHours ?? 24} hours before.</p>`,
         cta: { label: 'View lesson', url: sessionUrl },
       }, opts.brand),
     }),
@@ -550,6 +551,7 @@ export async function sendPackageOffered(opts: {
 export async function sendCancellationNotice(opts: {
   clientEmail: string; clientFirstName: string; teacherEmail: string
   teacherFirstName: string; teacherLastName: string; scheduledAt: Date; cancelledBy: 'student' | 'teacher'; refunded: boolean
+  cancellationWindowHours?: number
   brand?: EmailBrand | null
   locale?: string
 }) {
@@ -572,7 +574,7 @@ export async function sendCancellationNotice(opts: {
         body: `<p style="margin:0">Your lesson with ${strong(displayName)} on ${strong(dateStrClient)} has been cancelled.</p>
           ${opts.refunded
             ? `<p style="margin:14px 0 0;color:#4f46e5">A full refund has been issued — card refunds appear in 5–10 business days; credit/voucher funds are back in your balance now.</p>`
-            : `<p style="margin:14px 0 0;color:#645f54;font-size:14px">As this was cancelled within 24 hours, no refund is available.</p>`}`,
+            : `<p style="margin:14px 0 0;color:#645f54;font-size:14px">As this was cancelled inside the ${opts.cancellationWindowHours ?? 24}-hour cancellation window, no refund is available.</p>`}`,
         cta: { label: 'Find another time', url: `${APP()}/tutors` },
       }, opts.brand),
     }),
