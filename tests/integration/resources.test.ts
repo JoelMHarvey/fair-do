@@ -13,6 +13,8 @@ const m = vi.hoisted(() => ({
   docFind: vi.fn(),
   docUpdate: vi.fn(),
   docDelete: vi.fn(),
+  subFind: vi.fn(),
+  docAgg: vi.fn(),
 }))
 
 vi.mock('@clerk/nextjs/server', () => ({ auth: m.auth }))
@@ -20,12 +22,15 @@ vi.mock('@/lib/resources', () => ({
   RESOURCES_ENABLED: true,
   MAX_RESOURCE_BYTES: 25 * 1024 * 1024,
   RESOURCE_CATEGORIES: ['worksheet', 'homework', 'past-paper', 'notes', 'submission', 'other'],
+  FREE_TIER_STORAGE_BYTES: 100 * 1024 * 1024,
+  STORAGE_UNLIMITED_TIERS: new Set(['pro', 'school', 'enterprise', 'practice', 'clinic']),
 }))
 vi.mock('@/lib/prisma', () => ({
   prisma: {
     user: { findUnique: m.userFind },
     match: { findUnique: m.matchFind },
-    studentDocument: { create: m.docCreate, findUnique: m.docFind, update: m.docUpdate, delete: m.docDelete },
+    subscription: { findUnique: m.subFind },
+    studentDocument: { create: m.docCreate, findUnique: m.docFind, update: m.docUpdate, delete: m.docDelete, aggregate: m.docAgg },
   },
 }))
 vi.mock('@/lib/ratelimit', () => ({
@@ -43,6 +48,8 @@ beforeEach(() => {
   Object.values(m).forEach(fn => fn.mockReset())
   m.auth.mockResolvedValue({ userId: 'clerk_1' })
   m.matchFind.mockResolvedValue({ teacherId: 't1', studentId: 's1' })
+  m.subFind.mockResolvedValue({ tier: 'pro', status: 'active' }) // unlimited by default
+  m.docAgg.mockResolvedValue({ _sum: { fileSizeBytes: 0 } })
 })
 
 describe('POST /api/resources', () => {
@@ -66,6 +73,24 @@ describe('POST /api/resources', () => {
     const res = await POST(req({ ...create, category: 'submission' }))
     expect(res.status).toBe(201)
     expect(m.docCreate).toHaveBeenCalledWith(expect.objectContaining({ data: expect.objectContaining({ uploadedBy: 'student' }) }))
+  })
+
+  it('413 when a free-tier teacher is over the storage quota', async () => {
+    m.userFind.mockResolvedValue({ teacher: { id: 't1' }, student: null })
+    m.subFind.mockResolvedValue({ tier: 'free', status: 'active' }) // not unlimited
+    m.docAgg.mockResolvedValue({ _sum: { fileSizeBytes: 100 * 1024 * 1024 } }) // already at cap
+    const res = await POST(req({ ...create, fileSizeBytes: 1 }))
+    expect(res.status).toBe(413)
+    expect(m.docCreate).not.toHaveBeenCalled()
+  })
+
+  it('allows a paid (unlimited) teacher regardless of usage', async () => {
+    m.userFind.mockResolvedValue({ teacher: { id: 't1' }, student: null })
+    m.subFind.mockResolvedValue({ tier: 'pro', status: 'active' })
+    m.docAgg.mockResolvedValue({ _sum: { fileSizeBytes: 500 * 1024 * 1024 } })
+    m.docCreate.mockResolvedValue({ id: 'd9' })
+    const res = await POST(req(create))
+    expect(res.status).toBe(201)
   })
 })
 
