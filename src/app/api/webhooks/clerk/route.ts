@@ -1,6 +1,7 @@
 import { headers } from 'next/headers'
 import { Webhook } from 'svix'
 import { prisma } from '@/lib/prisma'
+import { eraseUserByClerkId } from '@/lib/erasure'
 
 type ClerkUserCreatedEvent = {
   type: 'user.created'
@@ -10,6 +11,13 @@ type ClerkUserCreatedEvent = {
     primary_email_address_id: string
   }
 }
+
+type ClerkUserDeletedEvent = {
+  type: 'user.deleted'
+  data: { id: string }
+}
+
+type ClerkEvent = ClerkUserCreatedEvent | ClerkUserDeletedEvent | { type: string; data: unknown }
 
 export async function POST(req: Request) {
   const secret = process.env.CLERK_WEBHOOK_SECRET
@@ -26,24 +34,32 @@ export async function POST(req: Request) {
 
   const payload = await req.text()
 
-  let event: ClerkUserCreatedEvent
+  let event: ClerkEvent
   try {
     const wh = new Webhook(secret)
     event = wh.verify(payload, {
       'svix-id': svixId,
       'svix-timestamp': svixTimestamp,
       'svix-signature': svixSignature,
-    }) as ClerkUserCreatedEvent
+    }) as ClerkEvent
   } catch {
     return new Response('Invalid signature', { status: 400 })
+  }
+
+  // Account deletion in Clerk → GDPR erasure of the local data (Art. 17).
+  if (event.type === 'user.deleted') {
+    const id = (event as ClerkUserDeletedEvent).data?.id
+    if (id) await eraseUserByClerkId(id).catch(e => console.error('[clerk webhook] erasure failed for', id, e))
+    return new Response('OK', { status: 200 })
   }
 
   if (event.type !== 'user.created') {
     return new Response('Ignored', { status: 200 })
   }
 
-  const primaryEmail = event.data.email_addresses.find(
-    (e) => e.id === event.data.primary_email_address_id
+  const createdEvent = event as ClerkUserCreatedEvent
+  const primaryEmail = createdEvent.data.email_addresses.find(
+    (e) => e.id === createdEvent.data.primary_email_address_id
   )
 
   if (!primaryEmail) {
@@ -55,9 +71,9 @@ export async function POST(req: Request) {
   // a unique-constraint error. A pre-existing row keeps its role; new ones default STUDENT.
   await prisma.user.upsert({
     where: { email: primaryEmail.email_address },
-    update: { clerkId: event.data.id },
+    update: { clerkId: createdEvent.data.id },
     create: {
-      clerkId: event.data.id,
+      clerkId: createdEvent.data.id,
       email: primaryEmail.email_address,
       role: 'STUDENT', // default — overwritten during onboarding
     },
