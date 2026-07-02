@@ -1,6 +1,7 @@
 import { clerkMiddleware, createRouteMatcher } from '@clerk/nextjs/server'
 import { NextResponse, NextRequest, type NextFetchEvent } from 'next/server'
 import { LOCALES, I18N_ENABLED, splitLocalePath, isValidLocale, type Locale } from '@/lib/locale-config'
+import { tenantFromHost } from '@/lib/tenant-host'
 
 // ── Locale helpers ───────────────────────────────────────────────────────────
 
@@ -65,9 +66,29 @@ const isPublicRoute = createRouteMatcher([
   '/session/(.+)',
   '/api/practice/self-book',
   '/api/practice/self-book/confirm',
+  // Enterprise portal — public tenant pages (staff contacts, school calendar ICS feed).
+  '/contacts',
+  '/school-calendar',
+  '/api/school-calendar/(.*)',
 ])
 
 // ── Middleware ───────────────────────────────────────────────────────────────
+
+// Enterprise portal: parse the tenant from the Host header and forward it via
+// request headers. The middleware never touches the DB (edge runtime) — the
+// server resolves + validates the org in lib/tenant.ts (getTenant()). Disabled
+// hosts degrade to the apex marketplace because getTenant() also checks the flag.
+const TENANT_ENABLED = process.env.ENTERPRISE_PORTAL_ENABLED === 'true'
+
+function withTenantHeaders(request: NextRequest, base?: Headers): Headers | undefined {
+  if (!TENANT_ENABLED) return base
+  const match = tenantFromHost(request.headers.get('host'))
+  if (!match) return base
+  const h = base ?? new Headers(request.headers)
+  if (match.kind === 'slug') h.set('x-tenant-slug', match.slug)
+  else h.set('x-tenant-domain', match.domain)
+  return h
+}
 
 const clerkAuth = clerkMiddleware(async (auth, request) => {
   // i18n OFF → behave exactly like the single-locale middleware: just gate auth.
@@ -75,6 +96,8 @@ const clerkAuth = clerkMiddleware(async (auth, request) => {
     if (!isPublicRoute(request)) {
       await auth.protect()
     }
+    const tenantHeaders = withTenantHeaders(request)
+    if (tenantHeaders) return NextResponse.next({ request: { headers: tenantHeaders } })
     return
   }
 
@@ -109,8 +132,9 @@ const clerkAuth = clerkMiddleware(async (auth, request) => {
 
   // Forward locale to server components via a request header.
   // Server components read this via: (await headers()).get('x-locale')
-  const requestHeaders = new Headers(request.headers)
+  let requestHeaders = new Headers(request.headers)
   requestHeaders.set('x-locale', locale)
+  requestHeaders = withTenantHeaders(request, requestHeaders) ?? requestHeaders
 
   // Prefixed locale paths (/es/pricing) are rewritten to the base route
   // (/pricing) so the existing root pages render in that locale — the browser

@@ -262,6 +262,7 @@ model Student {
   reviews          Review[]
   packages         Package[]
   parentLinks      ParentLink[]
+  orgProfile       StudentOrgProfile? // enterprise portal: year/house/class assignment
 }
 
 // A parent linked to a student, with a paid portal subscription (P2-3).
@@ -374,10 +375,207 @@ model Organisation {
   active          Boolean   @default(true)
   discountPercent Int       @default(0) // applied to member bookings while active
   discountExpiry  DateTime? // e.g. 10% off first month
+  // ── Enterprise portal (fair-do for Schools) — docs/ENTERPRISE-SCHOOLS-PLAN.md ──
+  // A school on the portal/portal_plus plan is a full tenant: branded subdomain,
+  // academic structure, staff directory, mail groups, calendars. All gated behind
+  // ENTERPRISE_PORTAL_ENABLED + plan.
+  slug           String? @unique // subdomain: {slug}.fair-do.com
+  plan           String  @default("school") // school | portal | portal_plus
+  brandLogoUrl   String? // Cloudinary URL — validated like Teacher.brandLogoUrl
+  brandColor     String? // #rrggbb — full 50–900 ramp derived at render (lib/theme.ts)
+  accentColor    String? // #rrggbb
+  welcomeMessage String? @db.Text // rendered as text, never HTML
+  footerLine     String?
+  customDomain   String? @unique // Portal+ (M4) — CNAME onto the tenant
+  settings       Json? // { bookingPolicy: "off"|"warn"|"block", marketplace: "approved"|"open" }
   createdAt       DateTime  @default(now())
   updatedAt       DateTime  @updatedAt
 
   members Student[]
+
+  memberships     OrgMembership[]
+  yearGroups      YearGroup[]
+  houses          House[]
+  schoolClasses   SchoolClass[]
+  subjects        OrgSubject[]
+  studentProfiles StudentOrgProfile[]
+  staffContacts   StaffContact[]
+  mailGroups      MailGroup[]
+  calendars       OrgCalendar[]
+  broadcasts      Broadcast[]
+}
+
+// ── Enterprise portal (fair-do for Schools) ──────────────────────────────────
+// Tenant-scoped configuration models. Every model carries organisationId + index;
+// server code resolves the tenant from the request host (src/lib/tenant.ts) and
+// must scope every query — see tests/db/tenant-isolation.dbtest.ts.
+
+// School-side roles, additive to the platform UserRole: a parent can also be the
+// school's tutoring coordinator. ADMIN = full tenant config; STAFF = read-only
+// reports + broadcasts to their own groups.
+model OrgMembership {
+  id             String       @id @default(cuid())
+  organisationId String
+  organisation   Organisation @relation(fields: [organisationId], references: [id])
+  userId         String
+  role           String       @default("ADMIN") // ADMIN | STAFF
+  invitedEmail   String? // email the invite went to (audit)
+  createdAt      DateTime     @default(now())
+
+  @@unique([organisationId, userId])
+  @@index([userId])
+}
+
+// Year groups ("Year 7" … or custom names). order drives display sorting.
+model YearGroup {
+  id             String       @id @default(cuid())
+  organisationId String
+  organisation   Organisation @relation(fields: [organisationId], references: [id])
+  name           String
+  order          Int          @default(0)
+
+  classes  SchoolClass[]
+  students StudentOrgProfile[]
+
+  @@unique([organisationId, name])
+  @@index([organisationId])
+}
+
+model House {
+  id             String       @id @default(cuid())
+  organisationId String
+  organisation   Organisation @relation(fields: [organisationId], references: [id])
+  name           String
+  color          String? // #rrggbb house colour, shown as a chip
+
+  students StudentOrgProfile[]
+
+  @@unique([organisationId, name])
+  @@index([organisationId])
+}
+
+// Form group ("10B") or teaching set ("Set 1 Maths").
+model SchoolClass {
+  id             String       @id @default(cuid())
+  organisationId String
+  organisation   Organisation @relation(fields: [organisationId], references: [id])
+  name           String
+  kind           String       @default("form") // form | set
+  yearGroupId    String?
+  yearGroup      YearGroup?   @relation(fields: [yearGroupId], references: [id])
+  subjectId      String?
+  subject        OrgSubject?  @relation(fields: [subjectId], references: [id])
+
+  @@unique([organisationId, name])
+  @@index([organisationId])
+}
+
+// The school's subject list, mapped to marketplace subjects so matching works.
+model OrgSubject {
+  id             String       @id @default(cuid())
+  organisationId String
+  organisation   Organisation @relation(fields: [organisationId], references: [id])
+  name           String // "Mathematics"
+  marketplaceKey String? // maps onto Teacher.subjects[] values
+  examBoard      String? // AQA | Edexcel | OCR | WJEC | Other
+
+  classes SchoolClass[]
+
+  @@unique([organisationId, name])
+  @@index([organisationId])
+}
+
+// Structure assignment for a member student — keeps Student itself untouched.
+model StudentOrgProfile {
+  id             String       @id @default(cuid())
+  organisationId String
+  organisation   Organisation @relation(fields: [organisationId], references: [id])
+  studentId      String       @unique
+  student        Student      @relation(fields: [studentId], references: [id])
+  yearGroupId    String?
+  yearGroup      YearGroup?   @relation(fields: [yearGroupId], references: [id])
+  houseId        String?
+  house          House?       @relation(fields: [houseId], references: [id])
+  classIds       String[]     @default([]) // SchoolClass ids (form + sets)
+
+  @@index([organisationId])
+  @@index([organisationId, yearGroupId])
+}
+
+// Staff directory entry — NOT a platform account. Shown on the tenant /contacts
+// page (visibility-filtered); the DSL is surfaced in safeguarding flows.
+model StaffContact {
+  id                    String       @id @default(cuid())
+  organisationId        String
+  organisation          Organisation @relation(fields: [organisationId], references: [id])
+  name                  String
+  title                 String // "Head of Year 10"
+  department            String?
+  email                 String
+  phone                 String?
+  photoUrl              String? // Cloudinary URL
+  isDSL                 Boolean      @default(false) // Designated Safeguarding Lead
+  isTutoringCoordinator Boolean      @default(false)
+  visibility            String       @default("parents") // students | parents | tutors | public
+  order                 Int          @default(0)
+
+  @@index([organisationId])
+}
+
+// Announcement audience. rule (JSON) = dynamic membership resolved at send time:
+// { audience: "students"|"parents"|"tutors", yearGroupId?, houseId?, classId? }.
+// rule=null → manual list (MailGroupMember rows).
+model MailGroup {
+  id             String       @id @default(cuid())
+  organisationId String
+  organisation   Organisation @relation(fields: [organisationId], references: [id])
+  name           String
+  rule           Json?
+
+  members MailGroupMember[]
+
+  @@unique([organisationId, name])
+  @@index([organisationId])
+}
+
+model MailGroupMember {
+  id          String    @id @default(cuid())
+  mailGroupId String
+  mailGroup   MailGroup @relation(fields: [mailGroupId], references: [id])
+  email       String
+  name        String?
+  createdAt   DateTime  @default(now())
+
+  @@unique([mailGroupId, email])
+}
+
+// Named school calendar ("Term dates", "Year 11 exams"). icsToken feeds the
+// read-only ICS subscribe URL — same pattern as Teacher.calendarToken.
+model OrgCalendar {
+  id             String       @id @default(cuid())
+  organisationId String
+  organisation   Organisation @relation(fields: [organisationId], references: [id])
+  name           String
+  color          String? // #rrggbb
+  icsToken       String       @unique @default(cuid())
+
+  events OrgCalendarEvent[]
+
+  @@unique([organisationId, name])
+  @@index([organisationId])
+}
+
+model OrgCalendarEvent {
+  id         String      @id @default(cuid())
+  calendarId String
+  calendar   OrgCalendar @relation(fields: [calendarId], references: [id])
+  title      String
+  startsAt   DateTime
+  endsAt     DateTime
+  allDay     Boolean     @default(true)
+  kind       String      @default("event") // term | holiday | inset | exam | event
+
+  @@index([calendarId, startsAt])
 }
 
 model GiftVoucher {
@@ -473,18 +671,26 @@ model Subscription {
   updatedAt            DateTime  @updatedAt
 }
 
-// A one-to-many update a teacher sends to their whole student list (logged for history).
+// A one-to-many update sent to a whole audience (logged for history).
+// Two senders share this pipeline: a teacher messaging their student list
+// (teacherId set), and a school admin messaging a mail group (organisationId set;
+// sentByClerkId records who pressed send).
 model Broadcast {
-  id             String   @id @default(cuid())
-  teacherId      String
-  teacher        Teacher  @relation(fields: [teacherId], references: [id])
+  id             String        @id @default(cuid())
+  teacherId      String?
+  teacher        Teacher?      @relation(fields: [teacherId], references: [id])
+  organisationId String?
+  organisation   Organisation? @relation(fields: [organisationId], references: [id])
+  mailGroupId    String? // school broadcasts: the audience it was sent to
+  sentByClerkId  String? // school broadcasts: the admin/staff sender (audit)
   subject        String
-  body           String   @db.Text
-  channel        String   @default("email") // "email" | "event" (calendar invite)
-  recipientCount Int      @default(0)
-  createdAt      DateTime @default(now())
+  body           String        @db.Text
+  channel        String        @default("email") // "email" | "event" (calendar invite)
+  recipientCount Int           @default(0)
+  createdAt      DateTime      @default(now())
 
   @@index([teacherId])
+  @@index([organisationId])
 }
 
 // Reusable message/invite templates (paid tier).
