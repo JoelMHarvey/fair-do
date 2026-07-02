@@ -1,10 +1,14 @@
 import { auth, clerkClient } from '@clerk/nextjs/server'
 import { promises as fs } from 'fs'
 import path from 'path'
+import { prisma } from '@/lib/prisma'
 import { isAdminEmail } from '@/lib/admin'
 
-// Founder/admin business documentation portal. Gated to the full-access allowlist
-// (see lib/admin.ts — joelmharvey@gmail.com, admin@fair-do.com, support@fair-do.com).
+// Founder/admin business documentation portal. Gated to the same "full admin"
+// population as /admin: the email allowlist (lib/admin.ts — joelmharvey@gmail.com,
+// admin@fair-do.com, support@fair-do.com) OR anyone holding the DB role ADMIN.
+// Without the role check, an account promoted to ADMIN in the app (not on the
+// allowlist) could reach /admin but would 404 on every /founder doc.
 export const FOUNDER_EMAIL = (process.env.FOUNDER_EMAIL ?? 'joelmharvey@gmail.com').toLowerCase()
 
 export async function isFounder(): Promise<boolean> {
@@ -13,7 +17,9 @@ export async function isFounder(): Promise<boolean> {
   try {
     const clerk = await clerkClient()
     const user = await clerk.users.getUser(userId)
-    return user.emailAddresses.some(e => isAdminEmail(e.emailAddress))
+    if (user.emailAddresses.some(e => isAdminEmail(e.emailAddress))) return true
+    const dbUser = await prisma.user.findUnique({ where: { clerkId: userId }, select: { role: true } })
+    return dbUser?.role === 'ADMIN'
   } catch {
     return false
   }
