@@ -10,6 +10,7 @@ import { I18N_ENABLED } from '@/lib/locale-config'
 import { isFounder } from '@/lib/founder'
 import { getDictionary, isValidLocale, type Locale } from '@/lib/dictionaries'
 import { PRACTICE_PORTAL_ENABLED, DIRECTORY_ENABLED } from '@/lib/practice'
+import { getTenant } from '@/lib/tenant'
 
 export async function SiteNav() {
   // Public pages must render even if auth/DB is briefly unavailable — degrade to a
@@ -35,6 +36,21 @@ export async function SiteNav() {
   const locale: Locale = isValidLocale(rawLocale) ? rawLocale : 'en'
   const { nav } = await getDictionary(locale)
 
+  // Tenant (school) hosts show the school's logo/name in place of the fair-do
+  // mark. Same degrade-to-default posture as the auth lookup above.
+  let tenantLogo: { name: string; logoUrl: string | null } | null = null
+  try {
+    const tenant = await getTenant()
+    if (tenant) {
+      tenantLogo = {
+        name: tenant.name,
+        logoUrl: tenant.brandLogoUrl?.startsWith('https://res.cloudinary.com/') ? tenant.brandLogoUrl : null,
+      }
+    }
+  } catch (e) {
+    console.error('[SiteNav] tenant lookup failed; rendering fair-do logo', e)
+  }
+
   const centerLinks = PRACTICE_PORTAL_ENABLED
     ? [
         { href: '/for-tutors', label: nav.features },
@@ -58,7 +74,7 @@ export async function SiteNav() {
         Skip to main content
       </a>
       <div className="max-w-6xl mx-auto px-5 sm:px-8 h-16 flex items-center justify-between">
-        <Logo />
+        <Logo tenant={tenantLogo} />
         <div className="hidden sm:flex items-center gap-7 text-sm text-sand-700">
           {centerLinks.map(l => (
             <Link key={l.href} href={l.href} className="hover:text-brand-700 transition">{l.label}</Link>

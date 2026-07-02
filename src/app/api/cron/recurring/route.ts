@@ -4,6 +4,7 @@ import { commissionForSource } from '@/lib/billing'
 import { activeSlotKey, isUniqueViolation } from '@/lib/slots'
 import { createRoom } from '@/lib/daily'
 import { sendBookingConfirmed } from '@/lib/email'
+import { resolveStudentEmailBrand } from '@/lib/email-brand'
 import { recordCronRun } from '@/lib/cron-run'
 import { bearerOk } from '@/lib/bearer'
 import { RECURRING_ENABLED, nextOccurrence } from '@/lib/recurring'
@@ -123,6 +124,7 @@ export async function GET(req: Request) {
         scheduledAt: when,
         ratePence: rb.ratePence,
         cancellationWindowHours: teacher.cancellationWindowHours,
+        brand: await resolveStudentEmailBrand(teacher.id, student.id).catch(() => null),
       }).catch(e => console.error('[cron/recurring] email failed:', e))
     } catch (e) {
       // Charge failed (declined, needs auth, etc.) — undo the unpaid session so the slot

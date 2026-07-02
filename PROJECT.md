@@ -360,6 +360,22 @@ NEXT_PUBLIC_APP_URL                   # https://fair-do.com (or localhost:3000)
 | 15.8 | US student onboarding (state capture) | ✅ | Required state dropdown when region=US; stored for in-state matching |
 | 15.9 | Student-data agreements (FERPA) + Stripe US + US entity | 🔴 | Legal/ops gated — see plan Phase B |
 
+## Phase 21 — Enterprise: fair-do for Schools (white-label portal)
+
+*Goal: schools get their own branded portal on the same backend — brand, year/house/class/subject structure, staff contacts, mail groups, calendars. Full plan: `docs/ENTERPRISE-SCHOOLS-PLAN.md`.*
+
+| # | Task | Status | Notes |
+|---|------|--------|-------|
+| 21.1 | M0 — Tenancy foundation | ✅ | `Organisation` extended (slug/plan/branding/settings), 10 tenant-scoped models + migration, subdomain→`x-tenant` headers in `src/proxy.ts`, `getTenant()`/school-role guards, tenant-isolation db suite, all behind `ENTERPRISE_PORTAL_ENABLED` |
+| 21.2 | M1 — Branding & school shell | ✅ | `lib/theme.ts` OKLCH one-hex→50–900 ramp (WCAG-AA floors) injected by tenant-aware root layout; tenant logo/name in nav + metadata; `/school/branding` editor with live preview; org-branded emails (teacher brand wins). Clerk sign-in theming deferred to M4 |
+| 21.3 | M2 — Structure, members & staff directory | ✅ | Structure CRUD + UK-secondary preset (subjects typed to `lib/taxonomy`), members + assignments, CSV import (dry-run, 500-row cap, auto-create structure), staff directory + public `/contacts`, DSL card on `/help`, approved-tutors directory scoping, reports v1 (by tutor + year group, CSV export) |
+| 21.4 | M3 — Mail groups, broadcasts & calendars | ✅ | Rule-based mail groups w/ live count + manual lists (consent affirmation), school broadcasts (org letterhead, 5/hr org limit, audit row), calendars w/ ICS import + public ICS feeds, `/school-calendar` portal page, booking block/warn on holiday+INSET via `Organisation.settings.bookingPolicy`. Follow-ups: broadcast unsubscribe, per-group STAFF ownership, booking-policy console UI |
+| 21.5 | M4 — Enterprise hardening (Portal+) | ⬜ | Custom domains, SSO (MS365/Google via Clerk), annual Stripe invoicing, onboarding wizard, per-tenant admin tools. Start only after a pilot school is live |
+| 21.6 | Legal track (parallel with M0) | ⬜ | School DPA template (school = controller), DPIA addendum for bulk under-18 CSV import — gate on first pilot import |
+| 21.7 | Pilot: 2 design-partner schools | ⬜ | Independents first, 50% off yr 1 for feedback + case study; pricing proposal Portal £2,400/yr · Portal+ £4,800/yr |
+
+---
+
 ### US — NY-first launch + full-coverage scaling
 
 | # | Task | Status | Notes |

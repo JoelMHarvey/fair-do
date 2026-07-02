@@ -4,6 +4,11 @@ function toICSDate(d: Date): string {
   return d.toISOString().replace(/[-:]/g, '').replace(/\.\d{3}/, '')
 }
 
+// Date-only form ("20261026") for all-day VALUE=DATE properties.
+function toICSDateOnly(d: Date): string {
+  return d.toISOString().slice(0, 10).replace(/-/g, '')
+}
+
 function esc(s: string): string {
   return s
     .replace(/([,;\\])/g, '\\$1')
@@ -15,6 +20,10 @@ export type FeedEvent = {
   sessionId: string
   start: Date
   durationMins?: number
+  // School-calendar feeds (additive): an explicit end wins over durationMins;
+  // allDay emits DTSTART/DTEND;VALUE=DATE with `end` EXCLUSIVE per RFC 5545.
+  end?: Date
+  allDay?: boolean
   summary: string
   description?: string
   url?: string
@@ -36,13 +45,14 @@ export function buildCalendarFeed(events: FeedEvent[], opts?: { name?: string })
     'X-PUBLISHED-TTL:PT1H',
   ]
   for (const e of events) {
-    const end = new Date(e.start.getTime() + (e.durationMins ?? 50) * 60_000)
+    const end = e.end ?? new Date(e.start.getTime() + (e.durationMins ?? 50) * 60_000)
     lines.push(
       'BEGIN:VEVENT',
       `UID:session-${e.sessionId}@fair-do.com`,
       `DTSTAMP:${toICSDate(new Date(e.start))}`,
-      `DTSTART:${toICSDate(e.start)}`,
-      `DTEND:${toICSDate(end)}`,
+      ...(e.allDay
+        ? [`DTSTART;VALUE=DATE:${toICSDateOnly(e.start)}`, `DTEND;VALUE=DATE:${toICSDateOnly(end)}`]
+        : [`DTSTART:${toICSDate(e.start)}`, `DTEND:${toICSDate(end)}`]),
       `SUMMARY:${esc(e.summary)}`,
       `STATUS:${e.status ?? 'CONFIRMED'}`,
     )

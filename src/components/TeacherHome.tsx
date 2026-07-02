@@ -7,12 +7,22 @@ import type en from '@/messages/en.json'
 
 type HomeT = typeof en['home']
 
-export function TeacherHome({ t }: { t: HomeT }) {
+// `welcome` — enterprise portal only: the tenant school's welcome message,
+// rendered as plain text (never HTML) above the hero. null/undefined on the apex.
+export function TeacherHome({ t, welcome }: { t: HomeT; welcome?: { schoolName: string; message: string } | null }) {
   return (
     <>
       <SiteNav />
 
       <main id="main-content">
+      {welcome && (
+        <section className="border-b border-brand-100 bg-brand-50">
+          <div className="max-w-3xl mx-auto px-5 sm:px-8 py-6 text-center">
+            <p className="text-sm font-semibold text-brand-700">{welcome.schoolName}</p>
+            <p className="text-sand-700 mt-1 whitespace-pre-line">{welcome.message}</p>
+          </div>
+        </section>
+      )}
       {/* Hero */}
       <section className="relative overflow-hidden">
         <div className="absolute inset-0 -z-10 bg-gradient-to-b from-brand-50 via-sand-50 to-sand-50" />

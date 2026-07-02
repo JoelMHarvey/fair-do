@@ -7,6 +7,9 @@ import { activeSlotKey, isUniqueViolation } from '@/lib/slots'
 import { checkRateLimit, rateLimitResponse } from '@/lib/ratelimit'
 import { createRoom } from '@/lib/daily'
 import { sendBookingConfirmed } from '@/lib/email'
+import { resolveStudentEmailBrand } from '@/lib/email-brand'
+import { enterprisePortalEnabled, isPortalPlan, tenantSettings } from '@/lib/tenant'
+import { getHolidayConflict } from '@/lib/school-calendar'
 import { rewardReferralOnBooking } from '@/lib/referral'
 import { rewardTeacherReferralOnFirstSession } from '@/lib/teacher-referral'
 import { z } from 'zod'
@@ -96,6 +99,28 @@ export async function POST(req: Request) {
       if (domainOrg) {
         org = domainOrg
         await prisma.student.update({ where: { id: student.id }, data: { organisationId: domainOrg.id } })
+      }
+    }
+  }
+
+  // ── School term-date enforcement (enterprise portal, plan §3.7) ────────────
+  // Zero-cost for everyone else: the flag + plan check short-circuits before any
+  // query, so only students of a portal-plan school ever hit the calendar.
+  // Comparison is on the stored UTC instant vs the school's all-day UTC spans —
+  // fine for UK lesson times (a 00:xx BST edge case is acceptable).
+  let schoolCalendarWarning: string | null = null
+  if (org && enterprisePortalEnabled() && isPortalPlan(org.plan)) {
+    const policy = tenantSettings(org).bookingPolicy
+    if (policy !== 'off') {
+      const conflict = await getHolidayConflict(org.id, scheduledDate)
+      if (conflict) {
+        if (policy === 'block') {
+          return Response.json(
+            { error: `That date falls on "${conflict.title}" in ${org.name}'s school calendar — the school doesn't allow lessons then. Please pick another date.` },
+            { status: 422 },
+          )
+        }
+        schoolCalendarWarning = `Heads up: that date falls on "${conflict.title}" in ${org.name}'s school calendar.`
       }
     }
   }
@@ -208,6 +233,7 @@ export async function POST(req: Request) {
         scheduledAt: session.scheduledAt,
         ratePence,
         cancellationWindowHours: teacher.cancellationWindowHours,
+        brand: await resolveStudentEmailBrand(teacherId, student.id).catch(() => null),
       }).catch(e => console.error('[booking/create] settlement email failed:', e))
     } catch (e) {
       console.error('[booking/create] internal settlement failed:', e)
@@ -221,7 +247,13 @@ export async function POST(req: Request) {
       rewardReferralOnBooking(student.id).catch(e => console.error('[booking/create] referral reward failed:', e))
       rewardTeacherReferralOnFirstSession(teacherId).catch(e => console.error('[booking/create] teacher referral reward failed:', e))
     }
-    return Response.json({ paidWithCredit: true, fundedBy, sessionId: session.id }, { status: 201 })
+    // schoolCalendarWarning ('warn' policy): the web UI redirects straight to the
+    // session page on success, so the warning stays a response field for API/mobile
+    // consumers rather than being surfaced in BookingForm.
+    return Response.json(
+      { paidWithCredit: true, fundedBy, sessionId: session.id, ...(schoolCalendarWarning ? { schoolCalendarWarning } : {}) },
+      { status: 201 },
+    )
   }
 
   const stripe = getStripe()
@@ -293,5 +325,11 @@ export async function POST(req: Request) {
     return Response.json({ error: msg }, { status: 502 })
   }
 
-  return Response.json({ checkoutUrl: checkout.url }, { status: 201 })
+  // schoolCalendarWarning ('warn' policy): the web UI hands off to Stripe Checkout
+  // immediately, so the warning stays server-side here (comment per plan §3.7);
+  // API/mobile consumers can surface it.
+  return Response.json(
+    { checkoutUrl: checkout.url, ...(schoolCalendarWarning ? { schoolCalendarWarning } : {}) },
+    { status: 201 },
+  )
 }
