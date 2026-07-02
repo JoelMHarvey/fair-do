@@ -460,6 +460,31 @@ export async function sendClientBroadcast(opts: {
   })
 }
 
+// School announcement (fair-do for Schools broadcasts). Same mechanics as
+// sendClientBroadcast, but the audience may be students, parents or tutors —
+// so the footer names the school community rather than "a student of".
+export async function sendSchoolBroadcast(opts: {
+  to: string; recipientFirstName: string; schoolName: string; subject: string; body: string
+  brand?: EmailBrand | null
+}) {
+  const htmlBody = escapeHtml(opts.body).replace(/\r?\n/g, '<br>')
+  const school = escapeHtml(opts.brand?.practiceName ?? opts.schoolName)
+  await sendEmail({
+    from: senderFrom(opts.brand),
+    to: opts.to,
+    replyTo: opts.brand?.replyTo,
+    subject: opts.subject,
+    html: layout({
+      heading: opts.subject,
+      preheader: opts.body.slice(0, 110),
+      body: `
+        <p style="margin:0 0 14px">Hi ${escapeHtml(opts.recipientFirstName)},</p>
+        <div style="color:#4b4740;font-size:15px;line-height:1.6">${htmlBody}</div>
+        <p style="margin:18px 0 0;color:#a9a59a;font-size:12px">You're receiving this because you're part of the ${school} community on fair-do.</p>`,
+    }, opts.brand),
+  })
+}
+
 // A personalised calendar invite to one student (named, on the studio letterhead, with
 // the .ics attached). `ics` is built per-student by the caller so the ATTENDEE is this person.
 export async function sendClientEventInvite(opts: {

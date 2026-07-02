@@ -10,7 +10,23 @@ import { LocalPrice } from '@/components/LocalPrice'
 import { getVisitorCurrency } from '@/lib/visitor-currency'
 import { DIRECTORY_ENABLED } from '@/lib/practice'
 import { getRates } from '@/lib/fx-rates'
+import { getTenant, tenantSettings } from '@/lib/tenant'
 import TeacherResults from './TeacherResults'
+
+// Enterprise portal (plan §7 ticket 2.6): on a school subdomain with the
+// default marketplace:'approved' setting, the directory only lists tutors who
+// already work with that school (an active Match with one of its students) —
+// schools control vetting. marketplace:'open' shows the full directory.
+async function approvedTeacherIdsForTenant(): Promise<Set<string> | null> {
+  const tenant = await getTenant()
+  if (!tenant || tenantSettings(tenant).marketplace !== 'approved') return null
+  const rows = await prisma.match.findMany({
+    where: { active: true, student: { organisationId: tenant.id } },
+    select: { teacherId: true },
+    distinct: ['teacherId'],
+  })
+  return new Set(rows.map(r => r.teacherId))
+}
 
 export const metadata = {
   title: 'Find a tutor — fair-do',
@@ -20,10 +36,13 @@ export const metadata = {
 }
 
 // Public directory shown to logged-out visitors — browse before signing up.
-async function PublicDirectory() {
+async function PublicDirectory({ approvedIds }: { approvedIds: Set<string> | null }) {
   const raw = await prisma.teacher.findMany({
     // Only list teachers who can actually take a booking + payment (Stripe KYC done).
-    where: { status: 'ACTIVE', availableForNew: true, country: 'UK', stripeOnboarded: true },
+    where: {
+      status: 'ACTIVE', availableForNew: true, country: 'UK', stripeOnboarded: true,
+      ...(approvedIds ? { id: { in: [...approvedIds] } } : {}),
+    },
     select: {
       id: true, firstName: true, lastName: true, tagline: true,
       profileImageUrl: true, qualificationBody: true, credentialVerified: true, isFoundingMember: true,
@@ -124,8 +143,9 @@ async function PublicDirectory() {
 }
 
 export default async function TutorsPage() {
+  const approvedIds = await approvedTeacherIdsForTenant()
   const { userId } = await auth()
-  if (!userId) return <PublicDirectory />
+  if (!userId) return <PublicDirectory approvedIds={approvedIds} />
 
   const user = await prisma.user.findUnique({
     where: { clerkId: userId },
@@ -135,7 +155,8 @@ export default async function TutorsPage() {
   if (!user) redirect('/onboarding')
   if (user.role !== 'STUDENT' || !user.student) redirect('/dashboard')
 
-  const matches = await getMatchesForClient(user.student.id)
+  const allMatches = await getMatchesForClient(user.student.id)
+  const matches = approvedIds ? allMatches.filter(m => approvedIds.has(m.id)) : allMatches
   const [ccy, rates] = await Promise.all([getVisitorCurrency(), getRates()])
   const q = user.student.questionnaire as { reason?: string; reasons?: string[] } | null
   const reasonText = q?.reasons?.length ? q.reasons.join(', ') : q?.reason

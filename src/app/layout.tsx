@@ -5,6 +5,8 @@ import Script from "next/script";
 import { PWARegister } from "@/components/PWARegister";
 import { DictProvider } from "@/components/DictProvider";
 import { getDictionary, getLocaleFromHeaders } from "@/lib/dictionaries";
+import { getTenant } from "@/lib/tenant";
+import { tenantThemeCss, HEX_RE } from "@/lib/theme";
 import "./globals.css";
 
 const inter = Inter({
@@ -19,7 +21,7 @@ const bricolage = Bricolage_Grotesque({
   display: "swap",
 });
 
-export const metadata: Metadata = {
+const defaultMetadata: Metadata = {
   metadataBase: new URL("https://fair-do.com"),
   title: "fair-do — tutoring that's fair",
   description:
@@ -50,9 +52,29 @@ export const metadata: Metadata = {
   },
 };
 
-export const viewport: Viewport = {
-  themeColor: "#4f46e5",
-};
+// Tenant (school) hosts carry the school's name and colour; the apex
+// marketplace returns exactly the defaults above. getTenant() is null when the
+// enterprise portal flag is off, so the apex path is unchanged.
+export async function generateMetadata(): Promise<Metadata> {
+  const tenant = await getTenant();
+  if (!tenant) return defaultMetadata;
+  const title = `${tenant.name} — tutoring portal`;
+  const description = `${tenant.name}'s tutoring portal — book lessons, join video sessions and track progress. Powered by fair-do.`;
+  return {
+    ...defaultMetadata,
+    title,
+    description,
+    openGraph: { ...defaultMetadata.openGraph, title, description, siteName: tenant.name },
+    twitter: { ...defaultMetadata.twitter, title, description },
+    appleWebApp: { capable: true, title: tenant.name, statusBarStyle: "default" },
+  };
+}
+
+export async function generateViewport(): Promise<Viewport> {
+  const tenant = await getTenant();
+  const brand = tenant?.brandColor;
+  return { themeColor: brand && HEX_RE.test(brand) ? brand : "#4f46e5" };
+}
 
 export default async function RootLayout({
   children,
@@ -61,12 +83,17 @@ export default async function RootLayout({
 }>) {
   const locale = await getLocaleFromHeaders();
   const dict = await getDictionary(locale);
+  // One inline <style> overriding the @theme CSS variables — no per-tenant CSS
+  // build. null on the apex (or invalid colours) → not rendered at all.
+  const tenant = await getTenant();
+  const themeCss = tenant ? tenantThemeCss(tenant) : null;
   return (
     <html
       lang={locale}
       className={`${inter.variable} ${bricolage.variable} h-full antialiased`}
     >
       <body className="min-h-full flex flex-col">
+        {themeCss && <style dangerouslySetInnerHTML={{ __html: themeCss }} />}
         {process.env.NEXT_PUBLIC_DEMO_MODE === "true" && (
           <div className="bg-coral-600 text-white text-center text-xs py-1.5 px-4 font-medium">
             UAT / demo environment — sample data, not a live service. Don&apos;t enter real personal information.

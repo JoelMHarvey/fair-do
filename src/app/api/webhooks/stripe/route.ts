@@ -3,6 +3,7 @@ import { getStripe } from '@/lib/stripe'
 import { prisma } from '@/lib/prisma'
 import { createRoom } from '@/lib/daily'
 import { sendBookingConfirmed, sendGiftVoucher, sendParentReceipt } from '@/lib/email'
+import { resolveStudentEmailBrand } from '@/lib/email-brand'
 import { generateVoucherCode } from '@/lib/voucher'
 import { rewardReferralOnBooking } from '@/lib/referral'
 import { rewardTeacherReferralOnFirstSession } from '@/lib/teacher-referral'
@@ -430,6 +431,7 @@ export async function POST(req: Request) {
         scheduledAt: dbSession.scheduledAt,
         ratePence: teacher.sessionRatePence,
         cancellationWindowHours: teacher.cancellationWindowHours,
+        brand: await resolveStudentEmailBrand(teacherId, studentId).catch(() => null),
       }).catch(e => console.error('[stripe webhook] booking email failed:', e))
     }
   }
