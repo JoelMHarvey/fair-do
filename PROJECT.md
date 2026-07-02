@@ -366,7 +366,7 @@ NEXT_PUBLIC_APP_URL                   # https://fair-do.com (or localhost:3000)
 
 | # | Task | Status | Notes |
 |---|------|--------|-------|
-| 21.1 | M0 — Tenancy foundation | ⬜ | Extend `Organisation` (slug/plan/branding), `OrgMembership` + school-admin role, subdomain resolution in `src/proxy.ts`, tenant-isolation db test, `ENTERPRISE_PORTAL_ENABLED` flag |
+| 21.1 | M0 — Tenancy foundation | ✅ | `Organisation` extended (slug/plan/branding/settings), 10 tenant-scoped models + migration, subdomain→`x-tenant` headers in `src/proxy.ts`, `getTenant()`/school-role guards, tenant-isolation db suite, all behind `ENTERPRISE_PORTAL_ENABLED` |
 | 21.2 | M1 — Branding & school shell | ⬜ | One-hex → full token ramp over Tailwind v4 CSS vars, tenant layout (logo/name/theme), `/school` admin console + branding editor, branded emails + Clerk sign-in |
 | 21.3 | M2 — Structure, members & staff directory | ⬜ | YearGroup/House/SchoolClass/OrgSubject models, UK-preset setup, CSV student import, staff contacts (+DSL flag in safeguarding flows), subject→marketplace mapping, reports v1 |
 | 21.4 | M3 — Mail groups, broadcasts & calendars | ⬜ | Rule-based mail groups ("all Year 10 parents"), school broadcasts via existing pipeline, term/event calendars with ICS import/export, booking warn/block on holidays |

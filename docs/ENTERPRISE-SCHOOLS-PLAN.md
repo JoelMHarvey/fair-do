@@ -1,8 +1,50 @@
 # fair-do for Schools (Enterprise) — Product & Engineering Plan
 
-**Status: PROPOSED (2026-07-02).** Product definition + phased engineering hand-off.
+**Status: IN BUILD (2026-07-02).** M0–M3 are being implemented on this branch —
+see §0 for build status and the M4 items that need dashboard configuration.
 Same backend, per-school front-end customisation: branding, academic structure
 (years / houses / classes / subjects), staff contact list, mail groups, and calendars.
+
+---
+
+## 0. Build status & go-live configuration
+
+Everything ships **dark** behind `ENTERPRISE_PORTAL_ENABLED` (env) and per-org
+`Organisation.plan` (`portal` | `portal_plus`). Code map:
+
+| Piece | Where |
+|---|---|
+| Tenant resolution | `src/proxy.ts` (host → `x-tenant-slug`/`x-tenant-domain`) → `src/lib/tenant.ts` `getTenant()` |
+| School roles | `src/lib/org.ts` (`getMySchool`/`requireSchoolAdmin`/`requireSchoolMember`), `src/lib/school.ts` (page/API context) |
+| Theming | `src/lib/theme.ts` (one hex → OKLCH 50–900 ramp, WCAG-AA floors) injected by `src/app/layout.tsx` |
+| School console | `src/app/school/*` + `src/app/api/school/*` |
+| Public tenant pages | `/contacts`, `/school-calendar` (+ ICS feed `/api/school-calendar/[token]`) |
+| Isolation guarantee | `tests/db/tenant-isolation.dbtest.ts` (CI real-DB job) |
+
+### To take a pilot school live (ops checklist — the M4 external pieces)
+
+1. **Vercel**: add wildcard domain `*.fair-do.com` to the project (Domains →
+   add `*.fair-do.com`, Cloudflare DNS: `CNAME * cname.vercel-dns.com`,
+   proxy OFF for the wildcard record so Vercel can issue certs).
+2. **Env**: set `ENTERPRISE_PORTAL_ENABLED=true` (Production).
+3. **Create the org** in `/admin/orgs` (or SQL): set `slug`, `plan='portal'`,
+   `contactEmail` = the school admin who signs in first.
+4. **Clerk**: no per-tenant config needed for subdomain sign-in on satellite
+   domains? — verify session behaviour on `{slug}.fair-do.com`; if cookies don't
+   span subdomains, set the Clerk cookie domain to `.fair-do.com` in the Clerk
+   dashboard (single instance covers all subdomains).
+5. **Custom domain (Portal+, later)**: Vercel Domains API + set
+   `Organisation.customDomain`; requires the school's IT to CNAME onto Vercel.
+6. **SSO (Portal+, later)**: Clerk enterprise connection (SAML/OIDC) per school
+   — Microsoft 365 / Google Workspace.
+7. **Stripe (annual invoicing, later)**: create `portal`/`portal_plus` Prices;
+   invoice via Stripe Invoicing — no code dependency for the pilot (plan is set
+   on the org row by the platform admin).
+
+Not built yet (deliberately deferred): custom-domain automation, per-school SSO,
+Stripe invoicing lifecycle, onboarding wizard, admin impersonation-view, MIS
+roster sync (Wonde/Arbor), native-app tenant theming, Clerk sign-in appearance
+theming per tenant.
 
 ---
 
