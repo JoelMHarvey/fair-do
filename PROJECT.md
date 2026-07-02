@@ -360,6 +360,22 @@ NEXT_PUBLIC_APP_URL                   # https://fair-do.com (or localhost:3000)
 | 15.8 | US student onboarding (state capture) | ✅ | Required state dropdown when region=US; stored for in-state matching |
 | 15.9 | Student-data agreements (FERPA) + Stripe US + US entity | 🔴 | Legal/ops gated — see plan Phase B |
 
+## Phase 21 — Enterprise: fair-do for Schools (white-label portal)
+
+*Goal: schools get their own branded portal on the same backend — brand, year/house/class/subject structure, staff contacts, mail groups, calendars. Full plan: `docs/ENTERPRISE-SCHOOLS-PLAN.md`.*
+
+| # | Task | Status | Notes |
+|---|------|--------|-------|
+| 21.1 | M0 — Tenancy foundation | ⬜ | Extend `Organisation` (slug/plan/branding), `OrgMembership` + school-admin role, subdomain resolution in `src/proxy.ts`, tenant-isolation db test, `ENTERPRISE_PORTAL_ENABLED` flag |
+| 21.2 | M1 — Branding & school shell | ⬜ | One-hex → full token ramp over Tailwind v4 CSS vars, tenant layout (logo/name/theme), `/school` admin console + branding editor, branded emails + Clerk sign-in |
+| 21.3 | M2 — Structure, members & staff directory | ⬜ | YearGroup/House/SchoolClass/OrgSubject models, UK-preset setup, CSV student import, staff contacts (+DSL flag in safeguarding flows), subject→marketplace mapping, reports v1 |
+| 21.4 | M3 — Mail groups, broadcasts & calendars | ⬜ | Rule-based mail groups ("all Year 10 parents"), school broadcasts via existing pipeline, term/event calendars with ICS import/export, booking warn/block on holidays |
+| 21.5 | M4 — Enterprise hardening (Portal+) | ⬜ | Custom domains, SSO (MS365/Google via Clerk), annual Stripe invoicing, onboarding wizard, per-tenant admin tools. Start only after a pilot school is live |
+| 21.6 | Legal track (parallel with M0) | ⬜ | School DPA template (school = controller), DPIA addendum for bulk under-18 CSV import — gate on first pilot import |
+| 21.7 | Pilot: 2 design-partner schools | ⬜ | Independents first, 50% off yr 1 for feedback + case study; pricing proposal Portal £2,400/yr · Portal+ £4,800/yr |
+
+---
+
 ### US — NY-first launch + full-coverage scaling
 
 | # | Task | Status | Notes |
